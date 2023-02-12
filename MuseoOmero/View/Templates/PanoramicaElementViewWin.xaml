@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:viewmodels="clr-namespace:MuseoOmero.ViewModel.TemplatesWin"
+			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+			 x:Class="MuseoOmero.View.TemplatesWin.PanoramicaElementViewWin"
+			 x:DataType="viewmodels:PanoramicaElementViewModelWin">
+
+	<Frame Style="{StaticResource FrameRoundedWin}"
+		   BackgroundColor="{Binding BackgroundColor}">
+		<Grid RowDefinitions="60,*,26">
+			<Grid ColumnDefinitions="62,*,30"
+				  ColumnSpacing="14">
+				<Frame Grid.Column="0"
+					   BorderColor="Transparent"
+					   Padding="0"
+					   Margin="0"
+					   CornerRadius="16"
+					   BackgroundColor="{Binding FrameColor}">
+					<Label FontFamily="MaterialDesignIcons"
+						   Text="{Binding Icon}"
+						   FontSize="30"
+						   VerticalOptions="Center"
+						   TextColor="{Binding ForegroundColor}"
+						   HorizontalOptions="Center"></Label>
+				</Frame>
+
+				<Grid Grid.Column="1"
+					  RowDefinitions="2*,2*">
+					<Label Grid.Row="0"
+						   Text="{Binding Title}"
+						   FontFamily="Lato"
+						   FontAttributes="Bold"
+						   TextColor="{Binding ForegroundColor}"
+						   FontSize="19">
+					</Label>
+					<Label Grid.Row="1"
+						   Text="{Binding Subtitle}"
+						   FontFamily="LatoLight"
+						   TextColor="{StaticResource Color6}"
+						   FontSize="16">
+					</Label>
+				</Grid>
+
+				<Label Grid.Column="2"
+					   FontFamily="MaterialDesignIcons"
+					   Text="{Static material:IconFont.ArrowRight}"
+					   FontSize="24"
+					   TextColor="{Binding ForegroundColor}"
+					   VerticalOptions="Center"
+					   HorizontalOptions="Center"></Label>
+			</Grid>
+
+			<Label Grid.Row="1"
+				   HeightRequest="80"
+				   VerticalTextAlignment="Center"
+				   FontFamily="LatoBold"
+				   TextColor="{Binding ForegroundColor}"
+				   Text="{Binding Content}"
+				   FontSize="26"></Label>
+
+			<Grid Grid.Row="2"
+				  ColumnDefinitions="24,auto"
+				  ColumnSpacing="10">
+				<Label Grid.Column="0"
+					   FontFamily="MaterialDesignIcons"
+					   TextColor="{Binding ForegroundColor}"
+					   Text="{Binding TrendingIcon}"
+					   FontSize="24"
+					   VerticalOptions="Center"
+					   HorizontalOptions="Center"></Label>
+
+				<Label Grid.Column="1"
+					   TextColor="{Binding ForegroundColor}"
+					   FontAttributes="Bold"
+					   Text="{Binding UnderContent}"
+					   FontSize="16"></Label>
+			</Grid>
+		</Grid>
+	</Frame>
+
+</ContentView>

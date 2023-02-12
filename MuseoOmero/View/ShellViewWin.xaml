@@ -1,0 +1,143 @@
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+	   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	   xmlns:views="clr-namespace:MuseoOmero.ViewWin"
+	   xmlns:viewModels="clr-namespace:MuseoOmero.ViewModelWin"
+	   xmlns:dataTemplateSelector="clr-namespace:MuseoOmero.DataTemplateSelectors"
+	   FlyoutHeaderBehavior="CollapseOnScroll"
+	   x:Class="MuseoOmero.ViewWin.ShellViewWin"
+	   FlyoutBehavior="Locked"
+	   FlyoutBackgroundColor="{StaticResource Color1}"
+	   x:DataType="viewModels:ShellViewModelWin"
+	   ItemTemplate="{StaticResource FlyoutItem}"
+	   MenuItemTemplate="{StaticResource FlyoutMenuItem}"
+	   Shell.TabBarIsVisible="False"
+	   Shell.NavBarIsVisible="False"
+	   Shell.FlyoutWidth="246">
+	<!--ItemTemplate="{x:StaticResource templateSelector}"-->
+	<!--MenuItemTemplate="{x:StaticResource templateSelector}">-->
+
+	<Shell.Resources>
+
+		<Style TargetType="ShellContent"
+			   x:Key="HomeStyle">
+			<Style.Triggers>
+				<Trigger TargetType="ShellContent"
+						 Property="IsChecked"
+						 Value="False">
+					<Setter Property="Icon"
+							Value="home_empty.png" />
+				</Trigger>
+				<Trigger TargetType="ShellContent"
+						 Property="IsChecked"
+						 Value="True">
+					<Setter Property="Icon"
+							Value="home_fill.png" />
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+
+		<Style TargetType="ShellContent"
+			   x:Key="IMieiTitoliStyle">
+			<Style.Triggers>
+				<Trigger TargetType="ShellContent"
+						 Property="IsChecked"
+						 Value="False">
+					<Setter Property="Icon"
+							Value="ticket_empty.png" />
+				</Trigger>
+				<Trigger TargetType="ShellContent"
+						 Property="IsChecked"
+						 Value="True">
+					<Setter Property="Icon"
+							Value="ticket_fill.png" />
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+
+		<Style TargetType="ShellContent"
+			   x:Key="NegozioStyle">
+			<Style.Triggers>
+				<Trigger TargetType="ShellContent"
+						 Property="IsChecked"
+						 Value="False">
+					<Setter Property="Icon"
+							Value="cart_empty.png" />
+				</Trigger>
+				<Trigger TargetType="ShellContent"
+						 Property="IsChecked"
+						 Value="True">
+					<Setter Property="Icon"
+							Value="cart_fill.png" />
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+
+		<Style TargetType="ShellContent"
+			   x:Key="OpereStyle">
+			<Style.Triggers>
+				<Trigger TargetType="ShellContent"
+						 Property="IsChecked"
+						 Value="False">
+					<Setter Property="Icon"
+							Value="photo_empty.png" />
+				</Trigger>
+				<Trigger TargetType="ShellContent"
+						 Property="IsChecked"
+						 Value="True">
+					<Setter Property="Icon"
+							Value="photo_fill.png" />
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+
+		<Style TargetType="ShellContent"
+			   x:Key="AppuntamentiStyle">
+			<Style.Triggers>
+				<Trigger TargetType="ShellContent"
+						 Property="IsChecked"
+						 Value="False">
+					<Setter Property="Icon"
+							Value="calendar_empty.png" />
+				</Trigger>
+				<Trigger TargetType="ShellContent"
+						 Property="IsChecked"
+						 Value="True">
+					<Setter Property="Icon"
+							Value="calendar_fill.png" />
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+
+	</Shell.Resources>
+
+	<FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+
+		<ShellContent Title="Dashboard"
+					  Icon="home_empty.png"
+					  Style="{StaticResource HomeStyle}"
+					  ContentTemplate="{DataTemplate views:MainViewWin}">
+		</ShellContent>
+
+		<ShellContent Title="I miei Titoli"
+					  Style="{StaticResource IMieiTitoliStyle}"
+					  ContentTemplate="{DataTemplate views:IMieiTitoliViewWin}" />
+
+		<ShellContent Title="Negozio"
+					  Style="{StaticResource NegozioStyle}"
+					  ContentTemplate="{DataTemplate views:NegozioViewWin}" />
+
+		<ShellContent Title="Opere"
+					  Style="{StaticResource OpereStyle}"
+					  ContentTemplate="{DataTemplate views:OpereViewWin}" />
+
+		<ShellContent Title="Appuntamenti"
+					  Style="{StaticResource AppuntamentiStyle}"
+					  ContentTemplate="{DataTemplate views:AppuntamentiViewWin}" />
+
+	</FlyoutItem>
+
+	<MenuItem Text="Help"
+			  IconImageSource="shield.png" />
+	<MenuItem Text="Logout"
+			  IconImageSource="shield.png" />
+</Shell>

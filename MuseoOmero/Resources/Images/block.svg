@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1440"
+   height="366.07999"
+   version="1.1"
+   id="svg38"
+   sodipodi:docname="block.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview40"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="0.43333333"
+     inkscape:cx="632.3077"
+     inkscape:cy="392.3077"
+     inkscape:window-width="2560"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g36" />
+  <defs
+     id="defs26">
+    <clipPath
+       id="clip1">
+      <path
+         id="svg_1"
+         d="M -6,-9 H 1434 V 666.75 H -6 Z m 0,0" />
+    </clipPath>
+    <clipPath
+       id="clip2">
+      <path
+         id="svg_2"
+         d="M 0,28 H 1428 V 314.25 H 0 Z m 0,0" />
+    </clipPath>
+  </defs>
+  <g
+     id="g36">
+    <title
+       id="title28">Layer 1</title>
+    <path
+       id="svg_7"
+       d="M 2.4615593,-15.453197 1345.1926,-14.217551 1416.823,-199.85353 c 5.3986,-6.95059 28.6996,-16.0719 15.2221,-11.12267 30.4649,197.460948 9.474,454.3095 7.9549,687.05619 l -1457.153836,-1.45481 4.615385,-490.078377 z"
+       opacity="undefined"
+       fill="#137040"
+       sodipodi:nodetypes="cccccccc"
+       style="stroke-width:1.12287" />
+  </g>
+</svg>

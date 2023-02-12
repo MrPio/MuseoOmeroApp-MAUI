@@ -1,0 +1,69 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:local="clr-namespace:MuseoOmero"
+			 xmlns:dataTemplateSelectors="clr-namespace:MuseoOmero.DataTemplateSelectors"
+			 x:Class="MuseoOmero.App">
+	<Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+				<ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+
+			<DataTemplate x:Key="FlyoutItem"
+						  x:DataType="BaseShellItem">
+				<Grid ColumnDefinitions="50,*">
+					<Image Grid.Column="0"
+						   Source="{Binding Icon}"
+						   Margin="12">
+					</Image>
+
+					<Label Grid.Column="1"
+						   Text="{Binding Title}"
+						   FontFamily="Lato"
+						   FontSize="18"
+						   TextColor="{StaticResource Color5}"
+						   HeightRequest="46"
+						   VerticalTextAlignment="Center" />
+				</Grid>
+			</DataTemplate>
+
+			<DataTemplate x:Key="FlyoutMenuItem"
+						  x:DataType="MenuItem">
+				<Grid ColumnDefinitions="10,*">
+					<Image Grid.Column="0"
+						   Source="{Binding IconImageSource}"
+						   Margin="12">
+					</Image>
+					<Frame Grid.Column="1"
+						   Padding="13"
+						   Margin="10"
+						   BackgroundColor="#59000000"
+						   Opacity="0.8"
+						   BorderColor="Transparent"
+						   HorizontalOptions="Start"
+						   HeightRequest="46">
+						<Label Text="{Binding Text}"
+							   FontFamily="Lato"
+							   FontSize="18"
+							   VerticalTextAlignment="Center"
+							   TextColor="{StaticResource Color5}" />
+					</Frame>
+
+				</Grid>
+			</DataTemplate>
+
+			<Style x:Key="FrameRoundedWin"
+				   TargetType="Frame">
+				<Setter Property="Padding"
+						Value="26" />
+				<Setter Property="BorderColor"
+						Value="Transparent" />
+				<Setter Property="CornerRadius"
+						Value="32" />
+			</Style>
+
+		</ResourceDictionary>
+	</Application.Resources>
+</Application>

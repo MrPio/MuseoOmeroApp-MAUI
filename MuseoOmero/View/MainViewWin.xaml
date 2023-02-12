@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:viewModels="clr-namespace:MuseoOmero.ViewModelWin"
+			 xmlns:sync="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+			 xmlns:template="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 x:Class="MuseoOmero.ViewWin.MainViewWin"
+			 x:DataType="viewModels:MainViewModelWin">
+
+	<Grid RowDefinitions="120,*">
+		<Grid ColumnDefinitions="*,*"
+			  Margin="60,0,60,0"
+			  BackgroundColor="{StaticResource Color5}">
+			<Grid RowDefinitions="1.8*,*"
+				  Margin="0,36,0,28">
+				<Label Grid.Row="0"
+					   Text="Bentornato, NAME"
+					   FontFamily="LatoBold"
+					   FontSize="24">
+				</Label>
+				<Label Grid.Row="1"
+					   Text="Questa è la tua panoramica:"
+					   FontFamily="LatoLight"
+					   FontSize="16"
+					   TextColor="{StaticResource Color6}">
+				</Label>
+			</Grid>
+
+			<Grid Grid.Column="1"
+				  ColumnDefinitions="46,auto"
+				  ColumnSpacing="10"
+				  HorizontalOptions="End"
+				  Margin="0,0,30,0">
+				<sync:SfAvatarView Grid.Column="0"
+								   ContentType="Custom"
+								   ImageSource="dotnet_bot.png"
+								   VerticalOptions="Center"
+								   StrokeThickness="0"
+								   HorizontalOptions="Center"
+								   HeightRequest="50"
+								   WidthRequest="50"
+								   CornerRadius="40">
+				</sync:SfAvatarView>
+
+				<Frame Grid.Column="1"
+					   Padding="10"
+					   HeightRequest="40"
+					   BorderColor="Transparent"
+					   BackgroundColor="{StaticResource Color5}"
+					   CornerRadius="12">
+					<Label Text="Nome Cognome"
+						   VerticalOptions="Center"
+						   FontAttributes="Bold"
+						   FontSize="16">
+					</Label>
+				</Frame>
+
+			</Grid>
+		</Grid>
+
+		<Grid Grid.Row="1"
+			  RowDefinitions="auto,*"
+			  Padding="60,40,60,0"
+			  BackgroundColor="{StaticResource Color4}">
+
+			<Grid Grid.Row="0"
+				  ColumnDefinitions="1*,1*,0.75*"
+				  ColumnSpacing="26">
+
+				<template:PanoramicaElementViewWin Grid.Column="0"
+												   BindingContext="{Binding IMieiTitoliPanoramica }" />
+				<template:PanoramicaElementViewWin Grid.Column="1"
+												   BindingContext="{Binding QuestionariPanoramica}" />
+				<template:PanoramicaElementViewWin Grid.Column="2"
+												   BindingContext="{Binding ChatPanoramica}" />
+			</Grid>
+		</Grid>
+	</Grid>
+
+</ContentPage>
