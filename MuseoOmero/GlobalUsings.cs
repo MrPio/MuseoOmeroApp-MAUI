@@ -1,0 +1,12 @@
+﻿global using System.Collections.ObjectModel;
+global using System.Diagnostics;
+global using CommunityToolkit.Mvvm;
+global using CommunityToolkit.Mvvm.ComponentModel;
+global using CommunityToolkit.Mvvm.Input;
+global using MuseoOmero.Models;
+global using MuseoOmero.Managers;
+global using MuseoOmero.ViewModel;
+global using MuseoOmero.ViewModelWin;
+global using MuseoOmero.View;
+global using MuseoOmero.ViewWin;
+global using CommunityToolkit.Mvvm.Messaging;

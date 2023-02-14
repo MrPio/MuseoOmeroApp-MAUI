@@ -6,8 +6,8 @@
 			 xmlns:sync="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
 			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
 			 xmlns:template="clr-namespace:MuseoOmero.View.TemplatesWin"
-			 x:Class="MuseoOmero.ViewWin.MainViewWin"
-			 x:DataType="viewModels:MainViewModelWin">
+			 x:Class="MuseoOmero.ViewWin.HomeViewWin"
+			 x:DataType="viewModels:HomeViewModelWin">
 
 	<Grid RowDefinitions="120,*">
 		<Grid ColumnDefinitions="*,*"

@@ -98,6 +98,9 @@
 		<Compile Update="View\MainView.xaml.cs">
 			<DependentUpon>MainView.xaml</DependentUpon>
 		</Compile>
+		<Compile Update="View\HomeViewWin.xaml.cs">
+		  <DependentUpon>HomeViewWin.xaml</DependentUpon>
+		</Compile>
 		<Compile Update="View\Templates\MyEntryView.xaml.cs">
 			<DependentUpon>MyEntryView.xaml</DependentUpon>
 		</Compile>
@@ -110,25 +113,37 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<MauiXaml Update="View\AppuntamentiViewWin.xaml">
+		<MauiXaml Update="Resources\Styles\ControlTemplates.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Resources\Styles\Converters.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="View\AccountViewWin.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="View\BiglietteriaViewWin.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="View\ChatViewWin.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="View\IMieiTitoliView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="View\IMieiTitoliViewWin.xaml">
+		<MauiXaml Update="View\HomeViewWin.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="View\MainViewWin.xaml">
-		  <Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="View\NegozioViewWin.xaml">
+		<MauiXaml Update="View\ImpostazioniViewWin.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="View\OpereViewWin.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="View\ShellViewWin.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="View\StatisticheViewWin.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="View\Templates\BigliettoView.xaml">

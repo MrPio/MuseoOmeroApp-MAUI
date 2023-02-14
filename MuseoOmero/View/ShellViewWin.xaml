@@ -3,6 +3,8 @@
 	   xmlns:views="clr-namespace:MuseoOmero.ViewWin"
 	   xmlns:viewModels="clr-namespace:MuseoOmero.ViewModelWin"
 	   xmlns:dataTemplateSelector="clr-namespace:MuseoOmero.DataTemplateSelectors"
+	   xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+	   xmlns:converters="clr-namespace:MuseoOmero.Converters"
 	   FlyoutHeaderBehavior="CollapseOnScroll"
 	   x:Class="MuseoOmero.ViewWin.ShellViewWin"
 	   FlyoutBehavior="Locked"
@@ -13,27 +15,78 @@
 	   Shell.TabBarIsVisible="False"
 	   Shell.NavBarIsVisible="False"
 	   Shell.FlyoutWidth="246">
-	<!--ItemTemplate="{x:StaticResource templateSelector}"-->
-	<!--MenuItemTemplate="{x:StaticResource templateSelector}">-->
 
+	<!--Styles-->
 	<Shell.Resources>
-
-		<Style TargetType="ShellContent"
-			   x:Key="HomeStyle">
-			<Style.Triggers>
-				<Trigger TargetType="ShellContent"
-						 Property="IsChecked"
-						 Value="False">
-					<Setter Property="Icon"
-							Value="home_empty.png" />
-				</Trigger>
-				<Trigger TargetType="ShellContent"
-						 Property="IsChecked"
-						 Value="True">
-					<Setter Property="Icon"
-							Value="home_fill.png" />
-				</Trigger>
-			</Style.Triggers>
+		<Style TargetType="Label"
+			   x:Key="FlyoutItemText">
+			<Setter Property="Grid.Column"
+					Value="1" />
+			<Setter Property="FontFamily"
+					Value="Lato" />
+			<Setter Property="VerticalOptions"
+					Value="Center" />
+			<Setter Property="FontSize"
+					Value="19" />
+			<Setter Property="TextColor">
+				<Setter.Value>
+					<Binding Source="{RelativeSource AncestorType={x:Type RadioButton}, AncestorLevel=1}"
+							 Path="IsChecked">
+						<Binding.Converter>
+							<converters:BoolToObjectConverter x:TypeArguments="Color"
+															  FalseObject="{StaticResource Color6}"
+															  TrueObject="{StaticResource Color5}" />
+						</Binding.Converter>
+					</Binding>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<Style TargetType="Label"
+			   x:Key="FlyoutItemIcon">
+			<Setter Property="FontSize"
+					Value="30" />
+			<Setter Property="VerticalOptions"
+					Value="Center" />
+			<Setter Property="TextColor">
+				<Setter.Value>
+					<Binding Source="{RelativeSource AncestorType={x:Type RadioButton}, AncestorLevel=1}"
+							 Path="IsChecked">
+						<Binding.Converter>
+							<converters:BoolToObjectConverter x:TypeArguments="Color"
+															  FalseObject="{StaticResource Color6}"
+															  TrueObject="{StaticResource Color5}" />
+						</Binding.Converter>
+					</Binding>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="FontFamily">
+				<Setter.Value>
+					<Binding Source="{RelativeSource AncestorType={x:Type RadioButton}, AncestorLevel=1}"
+							 Path="IsChecked">
+						<Binding.Converter>
+							<converters:BoolToObjectConverter x:TypeArguments="x:String"
+															  FalseObject="MaterialDesignIconsLight"
+															  TrueObject="MaterialDesignIcons" />
+						</Binding.Converter>
+					</Binding>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<Style TargetType="Grid"
+			   x:Key="FlyoutItemGrid">
+			<Setter Property="ColumnDefinitions"
+					Value="40,*" />
+			<Setter Property="ColumnSpacing"
+					Value="10" />
+			<Setter Property="Margin"
+					Value="30,0,30,0" />
+		</Style>
+		<Style TargetType="RadioButton"
+			   x:Key="FlyoutItemRadioButton">
+			<Setter Property="ControlTemplate"
+					Value="{StaticResource MenuItemTemplate}" />
+			<Setter Property="HeightRequest"
+					Value="50" />
 		</Style>
 
 		<Style TargetType="ShellContent"
@@ -53,7 +106,6 @@
 				</Trigger>
 			</Style.Triggers>
 		</Style>
-
 		<Style TargetType="ShellContent"
 			   x:Key="NegozioStyle">
 			<Style.Triggers>
@@ -71,7 +123,6 @@
 				</Trigger>
 			</Style.Triggers>
 		</Style>
-
 		<Style TargetType="ShellContent"
 			   x:Key="OpereStyle">
 			<Style.Triggers>
@@ -89,7 +140,6 @@
 				</Trigger>
 			</Style.Triggers>
 		</Style>
-
 		<Style TargetType="ShellContent"
 			   x:Key="AppuntamentiStyle">
 			<Style.Triggers>
@@ -107,10 +157,248 @@
 				</Trigger>
 			</Style.Triggers>
 		</Style>
-
 	</Shell.Resources>
 
-	<FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+	<!--Flyout appearence-->
+	<Shell.FlyoutContentTemplate>
+		<DataTemplate>
+			<Grid Background="{StaticResource Color1}"
+				  RowDefinitions="136,50,50,50,50,50,50,*,auto"
+				  RowSpacing="10"
+				  RadioButtonGroup.GroupName="Menu"
+				  RadioButtonGroup.SelectedValue="{Binding SelectedRoute }">
+
+				<!--@ Museo Omero-->
+				<Grid Style="{StaticResource FlyoutItemGrid}"
+					  ColumnSpacing="3">
+					<Label Style="{StaticResource FontIconLabel}"
+						   Text="{Static material:IconFont.At}"
+						   FontSize="32"
+						   VerticalOptions="Center"
+						   TextColor="{StaticResource Color5}" />
+					<Label Grid.Column="1"
+						   Style="{StaticResource LabelBold}"
+						   TextColor="{StaticResource Color5}"
+						   Text="Museo Omero"
+						   VerticalOptions="Center"
+						   FontSize="21" />
+				</Grid>
+
+				<!--Home-->
+				<RadioButton Value="home"
+							 IsChecked="True"
+							 Grid.Row="1"
+							 CheckedChanged="OnMenuItemChanged"
+							 Style="{StaticResource FlyoutItemRadioButton}">
+					<RadioButton.Content>
+						<Grid Style="{StaticResource FlyoutItemGrid}">
+							<Label Style="{StaticResource FlyoutItemIcon}">
+								<Label.Text>
+									<Binding Source="{RelativeSource AncestorType={x:Type RadioButton}, AncestorLevel=1}"
+											 Path="IsChecked">
+										<Binding.Converter>
+											<converters:BoolToObjectConverter x:TypeArguments="x:String"
+																			  FalseObject="{Static material:IconFont.HomeVariantOutline}"
+																			  TrueObject="{Static material:IconFont.HomeVariant}" />
+										</Binding.Converter>
+									</Binding>
+								</Label.Text>
+							</Label>
+							<Label Style="{StaticResource FlyoutItemText}"
+								   Text="Home" />
+						</Grid>
+					</RadioButton.Content>
+				</RadioButton>
+
+				<!--Statistiche-->
+				<RadioButton Value="statistiche"
+							 IsChecked="False"
+							 Grid.Row="2"
+							 CheckedChanged="OnMenuItemChanged"
+							 Style="{StaticResource FlyoutItemRadioButton}">
+					<RadioButton.Content>
+						<Grid Style="{StaticResource FlyoutItemGrid}">
+							<Label Style="{StaticResource FlyoutItemIcon}">
+								<Label.Text>
+									<Binding Source="{RelativeSource AncestorType={x:Type RadioButton}, AncestorLevel=1}"
+											 Path="IsChecked">
+										<Binding.Converter>
+											<converters:BoolToObjectConverter x:TypeArguments="x:String"
+																			  FalseObject="{Static material:IconFont.ChartBoxOutline}"
+																			  TrueObject="{Static material:IconFont.ChartBox}" />
+										</Binding.Converter>
+									</Binding>
+								</Label.Text>
+							</Label>
+							<Label Style="{StaticResource FlyoutItemText}"
+								   Text="Statistiche" />
+						</Grid>
+					</RadioButton.Content>
+				</RadioButton>
+
+				<!--Biglietteria-->
+				<RadioButton Value="biglietteria"
+							 IsChecked="False"
+							 Grid.Row="3"
+							 CheckedChanged="OnMenuItemChanged"
+							 Style="{StaticResource FlyoutItemRadioButton}">
+					<RadioButton.Content>
+						<Grid Style="{StaticResource FlyoutItemGrid}">
+							<Label Style="{StaticResource FlyoutItemIcon}">
+								<Label.Text>
+									<Binding Source="{RelativeSource AncestorType={x:Type RadioButton}, AncestorLevel=1}"
+											 Path="IsChecked">
+										<Binding.Converter>
+											<converters:BoolToObjectConverter x:TypeArguments="x:String"
+																			  FalseObject="{Static material:IconFont.TicketOutline}"
+																			  TrueObject="{Static material:IconFont.Ticket}" />
+										</Binding.Converter>
+									</Binding>
+								</Label.Text>
+							</Label>
+							<Label Style="{StaticResource FlyoutItemText}"
+								   Text="Biglietteria" />
+						</Grid>
+					</RadioButton.Content>
+				</RadioButton>
+
+				<!--Opere-->
+				<RadioButton Value="opere"
+							 IsChecked="False"
+							 Grid.Row="4"
+							 CheckedChanged="OnMenuItemChanged"
+							 Style="{StaticResource FlyoutItemRadioButton}">
+					<RadioButton.Content>
+						<Grid Style="{StaticResource FlyoutItemGrid}">
+							<Label Style="{StaticResource FlyoutItemIcon}">
+								<Label.Text>
+									<Binding Source="{RelativeSource AncestorType={x:Type RadioButton}, AncestorLevel=1}"
+											 Path="IsChecked">
+										<Binding.Converter>
+											<converters:BoolToObjectConverter x:TypeArguments="x:String"
+																			  FalseObject="{Static material:IconFont.ImageOutline}"
+																			  TrueObject="{Static material:IconFont.Image}" />
+										</Binding.Converter>
+									</Binding>
+								</Label.Text>
+							</Label>
+							<Label Style="{StaticResource FlyoutItemText}"
+								   Text="Opere" />
+						</Grid>
+					</RadioButton.Content>
+				</RadioButton>
+
+				<!--Chat-->
+				<RadioButton Value="opere"
+							 IsChecked="False"
+							 Grid.Row="5"
+							 CheckedChanged="OnMenuItemChanged"
+							 Style="{StaticResource FlyoutItemRadioButton}">
+					<RadioButton.Content>
+						<Grid Style="{StaticResource FlyoutItemGrid}">
+							<Label Style="{StaticResource FlyoutItemIcon}">
+								<Label.Text>
+									<Binding Source="{RelativeSource AncestorType={x:Type RadioButton}, AncestorLevel=1}"
+											 Path="IsChecked">
+										<Binding.Converter>
+											<converters:BoolToObjectConverter x:TypeArguments="x:String"
+																			  FalseObject="{Static material:IconFont.ChatOutline}"
+																			  TrueObject="{Static material:IconFont.Chat}" />
+										</Binding.Converter>
+									</Binding>
+								</Label.Text>
+							</Label>
+							<Label Style="{StaticResource FlyoutItemText}"
+								   Text="Chat" />
+						</Grid>
+					</RadioButton.Content>
+				</RadioButton>
+
+				<!--Account-->
+				<RadioButton Value="account"
+							 IsChecked="False"
+							 Grid.Row="6"
+							 CheckedChanged="OnMenuItemChanged"
+							 Style="{StaticResource FlyoutItemRadioButton}">
+					<RadioButton.Content>
+						<Grid Style="{StaticResource FlyoutItemGrid}">
+							<Label Style="{StaticResource FlyoutItemIcon}">
+								<Label.Text>
+									<Binding Source="{RelativeSource AncestorType={x:Type RadioButton}, AncestorLevel=1}"
+											 Path="IsChecked">
+										<Binding.Converter>
+											<converters:BoolToObjectConverter x:TypeArguments="x:String"
+																			  FalseObject="{Static material:IconFont.AccountOutline}"
+																			  TrueObject="{Static material:IconFont.Account}" />
+										</Binding.Converter>
+									</Binding>
+								</Label.Text>
+							</Label>
+							<Label Style="{StaticResource FlyoutItemText}"
+								   Text="Account" />
+						</Grid>
+					</RadioButton.Content>
+				</RadioButton>
+
+				<!--Impostazioni-->
+				<RadioButton Value="impostazioni"
+							 IsChecked="False"
+							 Grid.Row="8"
+							 CheckedChanged="OnMenuItemChanged"
+							 Style="{StaticResource FlyoutItemRadioButton}">
+					<RadioButton.Content>
+						<Grid Style="{StaticResource FlyoutItemGrid}">
+							<Label Style="{StaticResource FlyoutItemIcon}">
+								<Label.Text>
+									<Binding Source="{RelativeSource AncestorType={x:Type RadioButton}, AncestorLevel=1}"
+											 Path="IsChecked">
+										<Binding.Converter>
+											<converters:BoolToObjectConverter x:TypeArguments="x:String"
+																			  FalseObject="{Static material:IconFont.ApplicationSettingsOutline}"
+																			  TrueObject="{Static material:IconFont.ApplicationSettings}" />
+										</Binding.Converter>
+									</Binding>
+								</Label.Text>
+							</Label>
+							<Label Style="{StaticResource FlyoutItemText}"
+								   Text="Impostazioni" />
+						</Grid>
+					</RadioButton.Content>
+				</RadioButton>
+			</Grid>
+		</DataTemplate>
+	</Shell.FlyoutContentTemplate>
+
+	<!--Routes-->
+	<FlyoutItem Route="home">
+		<ShellContent ContentTemplate="{DataTemplate views:HomeViewWin}" />
+	</FlyoutItem>
+
+	<FlyoutItem Route="statistiche">
+		<ShellContent ContentTemplate="{DataTemplate views:StatisticheViewWin}" />
+	</FlyoutItem>
+
+	<FlyoutItem Route="biglietteria">
+		<ShellContent ContentTemplate="{DataTemplate views:BiglietteriaViewWin}" />
+	</FlyoutItem>
+
+	<FlyoutItem Route="opere">
+		<ShellContent ContentTemplate="{DataTemplate views:OpereViewWin}" />
+	</FlyoutItem>
+
+	<FlyoutItem Route="chat">
+		<ShellContent ContentTemplate="{DataTemplate views:ChatViewWin}" />
+	</FlyoutItem>
+
+	<FlyoutItem Route="account">
+		<ShellContent ContentTemplate="{DataTemplate views:AccountViewWin}" />
+	</FlyoutItem>
+
+	<FlyoutItem Route="impostazioni">
+		<ShellContent ContentTemplate="{DataTemplate views:ImpostazioniViewWin}" />
+	</FlyoutItem>
+
+	<!--<FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
 
 		<ShellContent Title="Dashboard"
 					  Icon="home_empty.png"
@@ -134,10 +422,10 @@
 					  Style="{StaticResource AppuntamentiStyle}"
 					  ContentTemplate="{DataTemplate views:AppuntamentiViewWin}" />
 
-	</FlyoutItem>
+	</FlyoutItem>-->
 
-	<MenuItem Text="Help"
+	<!--<MenuItem Text="Help"
 			  IconImageSource="shield.png" />
 	<MenuItem Text="Logout"
-			  IconImageSource="shield.png" />
+			  IconImageSource="shield.png" />-->
 </Shell>

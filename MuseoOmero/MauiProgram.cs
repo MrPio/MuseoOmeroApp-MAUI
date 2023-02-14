@@ -22,8 +22,10 @@ public static class MauiProgram
                 fonts.AddFont("Lato-LightItalic.ttf", "LatoLightItalic");
                 fonts.AddFont("Lato-Bold.ttf", "LatoBold");
                 fonts.AddFont("Lato-Black.ttf", "LatoBlack");
-                fonts.AddFont(filename: "materialdesignicons-webfont.ttf", alias: "MaterialDesignIcons");
-            })
+				fonts.AddFont(filename: "materialdesignicons-webfont.ttf", alias: "MaterialDesignIcons");
+				fonts.AddFont(filename: "materialdesignicons-webfont_light.ttf", alias: "MaterialDesignIconsLight");
+				fonts.AddFont(filename: "materialdesignicons-webfont_thin.ttf", alias: "MaterialDesignIconsThin");
+			})
             .UseSharpnadoTabs(loggerEnable: false)
             .ConfigureLifecycleEvents(events =>
             {

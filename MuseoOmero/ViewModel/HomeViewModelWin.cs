@@ -5,7 +5,7 @@ using MuseoOmero.ViewModel.TemplatesWin;
 
 namespace MuseoOmero.ViewModelWin;
 
-public partial class MainViewModelWin : ObservableObject
+public partial class HomeViewModelWin : ObservableObject
 {
     [ObservableProperty]
     PanoramicaElementViewModelWin iMieiTitoliPanoramica = new(

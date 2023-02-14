@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+	<ControlTemplate x:Key="MenuItemTemplate">
+		<Grid RowDefinitions="Auto">
+			<VisualStateManager.VisualStateGroups>
+				<VisualStateGroupList>
+					<VisualStateGroup x:Name="CheckedStates">
+						<VisualState x:Name="Checked">
+							<VisualState.Setters>
+								<!--<Setter TargetName="OuterBorder"
+										Property="Background"
+										Value="{StaticResource Color7}" />
+								<Setter TargetName="OuterBorder"
+										Property="Border.StrokeThickness"
+										Value="0" />
+								<Setter TargetName="InnerBorder"
+										Property="Background"
+										Value="Transparent" />
+								<Setter TargetName="InnerBorder"
+										Property="Border.StrokeThickness"
+										Value="1" />-->
+								<Setter TargetName="SelectedLine"
+										Property="IsVisible"
+										Value="True" />
+							</VisualState.Setters>
+						</VisualState>
+
+						<VisualState x:Name="Unchecked">
+							<VisualState.Setters>
+								<!--<Setter TargetName="OuterBorder"
+										Property="Background"
+										Value="Transparent" />
+								<Setter TargetName="OuterBorder"
+										Property="Border.StrokeThickness"
+										Value="0" />
+								<Setter TargetName="InnerBorder"
+										Property="Background"
+										Value="Transparent" />
+								<Setter TargetName="InnerBorder"
+										Property="Border.StrokeThickness"
+										Value="0" />-->
+								<Setter TargetName="SelectedLine"
+										Property="IsVisible"
+										Value="False" />
+							</VisualState.Setters>
+						</VisualState>
+
+					</VisualStateGroup>
+				</VisualStateGroupList>
+			</VisualStateManager.VisualStateGroups>
+
+			<Image x:Name="SelectedLine"
+				   IsVisible="False"
+				   HorizontalOptions="Start"
+				   Source="flyout_selected.png"
+				   HeightRequest="36" />
+
+			<!--<Border x:Name="OuterBorder"
+					Background="Transparent"
+					Stroke="{StaticResource Color2}"
+					StrokeThickness="0"
+					HorizontalOptions="Fill"
+					HeightRequest="70"
+					Margin="15,0,0,0">
+				<Border.StrokeShape>
+					<RoundRectangle CornerRadius="12,0,12,0" />
+				</Border.StrokeShape>
+			</Border>
+
+			<Border x:Name="InnerBorder"
+					Background="Transparent"
+					Margin="20"
+					HorizontalOptions="Center"
+					VerticalOptions="Center"
+					Stroke="{StaticResource Color2}"
+					StrokeThickness="0">
+				<Border.StrokeShape>
+					<RoundRectangle CornerRadius="8" />
+				</Border.StrokeShape>
+			</Border>-->
+
+			<ContentPresenter x:Name="CP" />
+		</Grid>
+	</ControlTemplate>
+
+</ResourceDictionary>
