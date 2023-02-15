@@ -188,6 +188,8 @@
 	</Style>
 
 	<Style TargetType="Label">
+		<Setter Property="LineBreakMode"
+				Value="TailTruncation" />
 		<Setter Property="TextColor"
 				Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}" />
 		<Setter Property="FontFamily"

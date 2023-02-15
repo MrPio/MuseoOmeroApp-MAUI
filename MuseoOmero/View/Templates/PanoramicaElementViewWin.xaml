@@ -9,14 +9,17 @@
 	<Frame Style="{StaticResource FrameRoundedWin}"
 		   BackgroundColor="{Binding BackgroundColor}">
 		<Grid RowDefinitions="60,*,26">
+			
+			<!--Prima riga-->
 			<Grid ColumnDefinitions="62,*,30"
 				  ColumnSpacing="14">
+				
+				<!--Icona-->
 				<Frame Grid.Column="0"
 					   BorderColor="Transparent"
+					   BackgroundColor="{Binding FrameColor}"
 					   Padding="0"
-					   Margin="0"
-					   CornerRadius="16"
-					   BackgroundColor="{Binding FrameColor}">
+					   CornerRadius="16">
 					<Label FontFamily="MaterialDesignIcons"
 						   Text="{Binding Icon}"
 						   FontSize="30"
@@ -25,6 +28,7 @@
 						   HorizontalOptions="Center"></Label>
 				</Frame>
 
+				<!--Title & Subtitle-->
 				<Grid Grid.Column="1"
 					  RowDefinitions="2*,2*">
 					<Label Grid.Row="0"
@@ -42,6 +46,7 @@
 					</Label>
 				</Grid>
 
+				<!--Right arrow-->
 				<Label Grid.Column="2"
 					   FontFamily="MaterialDesignIcons"
 					   Text="{Static material:IconFont.ArrowRight}"
@@ -51,6 +56,7 @@
 					   HorizontalOptions="Center"></Label>
 			</Grid>
 
+			<!--Center content-->
 			<Label Grid.Row="1"
 				   HeightRequest="80"
 				   VerticalTextAlignment="Center"
@@ -59,6 +65,7 @@
 				   Text="{Binding Content}"
 				   FontSize="26"></Label>
 
+			<!--Footer-->
 			<Grid Grid.Row="2"
 				  ColumnDefinitions="24,auto"
 				  ColumnSpacing="10">

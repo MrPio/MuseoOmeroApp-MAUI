@@ -1,4 +1,7 @@
 ﻿
+using MuseoOmero.Model;
+using Newtonsoft.Json;
+
 namespace MuseoOmero.Managers;
 
 class AccountManager
@@ -14,12 +17,5 @@ class AccountManager
 		}
 	}
 
-	public string Username = "MrPio";
-
-	public bool Login()
-	{
-		return false;
-
-	}
-
+	[JsonProperty("account")] public Utente Account;
 }

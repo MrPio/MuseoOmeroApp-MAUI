@@ -14,7 +14,8 @@
 	   MenuItemTemplate="{StaticResource FlyoutMenuItem}"
 	   Shell.TabBarIsVisible="False"
 	   Shell.NavBarIsVisible="False"
-	   Shell.FlyoutWidth="246">
+	   x:Name="Shell"
+	   Shell.FlyoutWidth="84">
 
 	<!--Styles-->
 	<Shell.Resources>
@@ -40,6 +41,8 @@
 					</Binding>
 				</Setter.Value>
 			</Setter>
+			<Setter Property="LineBreakMode"
+					Value="TailTruncation" />
 		</Style>
 		<Style TargetType="Label"
 			   x:Key="FlyoutItemIcon">
@@ -59,18 +62,8 @@
 					</Binding>
 				</Setter.Value>
 			</Setter>
-			<Setter Property="FontFamily">
-				<Setter.Value>
-					<Binding Source="{RelativeSource AncestorType={x:Type RadioButton}, AncestorLevel=1}"
-							 Path="IsChecked">
-						<Binding.Converter>
-							<converters:BoolToObjectConverter x:TypeArguments="x:String"
-															  FalseObject="MaterialDesignIconsLight"
-															  TrueObject="MaterialDesignIcons" />
-						</Binding.Converter>
-					</Binding>
-				</Setter.Value>
-			</Setter>
+			<Setter Property="FontFamily"
+					Value="MaterialDesignIcons" />
 		</Style>
 		<Style TargetType="Grid"
 			   x:Key="FlyoutItemGrid">
@@ -163,14 +156,39 @@
 	<Shell.FlyoutContentTemplate>
 		<DataTemplate>
 			<Grid Background="{StaticResource Color1}"
-				  RowDefinitions="136,50,50,50,50,50,50,*,auto"
+				  RowDefinitions="144,50,50,50,50,50,50,*,auto,5"
 				  RowSpacing="10"
 				  RadioButtonGroup.GroupName="Menu"
 				  RadioButtonGroup.SelectedValue="{Binding SelectedRoute }">
 
+				<!--Espandi/Riduci-->
+				<Border StrokeThickness="0"
+						Padding="10,7,10,7"
+						Margin="-1,0,0,0"
+						VerticalOptions="Start"
+						HorizontalOptions="Start"
+						BackgroundColor="{StaticResource Color8}">
+					<Border.StrokeShape>
+						<RoundRectangle CornerRadius="0,0,0,8" />
+					</Border.StrokeShape>
+					<Label FontFamily="MaterialDesignIcons"
+						   x:Name="EspandiRiduciFlyoutLabel"
+						   Text="{Static material:IconFont.Menu}"
+						   Grid.Row="0"
+						   FontSize="30"
+						   TextColor="{StaticResource Color5}"
+						   VerticalOptions="CenterAndExpand"
+						   HorizontalOptions="Center">
+						<Label.GestureRecognizers>
+							<TapGestureRecognizer Tapped="EspandiRiduciFlyoutLabel_Tapped"/>
+						</Label.GestureRecognizers>
+					</Label>
+				</Border>
+
 				<!--@ Museo Omero-->
 				<Grid Style="{StaticResource FlyoutItemGrid}"
-					  ColumnSpacing="3">
+					  ColumnSpacing="3"
+					  Padding="0,24,0,0">
 					<Label Style="{StaticResource FontIconLabel}"
 						   Text="{Static material:IconFont.At}"
 						   FontSize="32"
@@ -181,6 +199,7 @@
 						   TextColor="{StaticResource Color5}"
 						   Text="Museo Omero"
 						   VerticalOptions="Center"
+						   LineBreakMode="TailTruncation"
 						   FontSize="21" />
 				</Grid>
 
@@ -354,8 +373,8 @@
 											 Path="IsChecked">
 										<Binding.Converter>
 											<converters:BoolToObjectConverter x:TypeArguments="x:String"
-																			  FalseObject="{Static material:IconFont.ApplicationSettingsOutline}"
-																			  TrueObject="{Static material:IconFont.ApplicationSettings}" />
+																			  FalseObject="{Static material:IconFont.CogOutline}"
+																			  TrueObject="{Static material:IconFont.Cog}" />
 										</Binding.Converter>
 									</Binding>
 								</Label.Text>

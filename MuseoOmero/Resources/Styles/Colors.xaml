@@ -14,6 +14,7 @@
 	<Color x:Key="Color5">White</Color>
 	<Color x:Key="Color6">#8c8c8c</Color>
 	<Color x:Key="Color7">#181818</Color>
+	<Color x:Key="Color8">#40ffffff</Color>
 
 	
 	<Color x:Key="White">White</Color>

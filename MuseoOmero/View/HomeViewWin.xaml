@@ -10,9 +10,13 @@
 			 x:DataType="viewModels:HomeViewModelWin">
 
 	<Grid RowDefinitions="120,*">
+		
+		<!--TopMenu-->
 		<Grid ColumnDefinitions="*,*"
 			  Margin="60,0,60,0"
 			  BackgroundColor="{StaticResource Color5}">
+
+			<!--BentornatoLabel-->
 			<Grid RowDefinitions="1.8*,*"
 				  Margin="0,36,0,28">
 				<Label Grid.Row="0"
@@ -28,6 +32,7 @@
 				</Label>
 			</Grid>
 
+			<!--Account Avatar-->
 			<Grid Grid.Column="1"
 				  ColumnDefinitions="46,auto"
 				  ColumnSpacing="10"
@@ -60,17 +65,19 @@
 			</Grid>
 		</Grid>
 
+		<!--Center of screen-->
 		<Grid Grid.Row="1"
 			  RowDefinitions="auto,*"
 			  Padding="60,40,60,0"
 			  BackgroundColor="{StaticResource Color4}">
 
+			<!--3 elementi di Panoramica-->
 			<Grid Grid.Row="0"
 				  ColumnDefinitions="1*,1*,0.75*"
 				  ColumnSpacing="26">
 
 				<template:PanoramicaElementViewWin Grid.Column="0"
-												   BindingContext="{Binding IMieiTitoliPanoramica }" />
+												   BindingContext="{Binding BigliettiPanoramica }" />
 				<template:PanoramicaElementViewWin Grid.Column="1"
 												   BindingContext="{Binding QuestionariPanoramica}" />
 				<template:PanoramicaElementViewWin Grid.Column="2"

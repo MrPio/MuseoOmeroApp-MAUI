@@ -4,7 +4,8 @@ using Firebase.Database.Streaming;
 using MuseoOmero.Model.Enums;
 using MuseoOmero.Models;
 using MuseoOmero.ViewModel.Templates;
-
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace MuseoOmero.Managers;
 public class DatabaseManager
@@ -23,64 +24,48 @@ public class DatabaseManager
 	public FirebaseClient FirebaseClient = new FirebaseClient("https://museoomero-ca8aa-default-rtdb.europe-west1.firebasedatabase.app/");
 
 	// PERFETTAMENTE FUNZIONANTE!
-	public async void Save(string resource, object obj)
+	private ChildQuery GetChild(string resource)
 	{
-		await FirebaseClient.Child("users").Child(AccountManager.Instance.Username)
-			.Child(resource).PostAsync(obj);
+		ChildQuery fc = null;
+		foreach (var child in resource.Split('/', StringSplitOptions.RemoveEmptyEntries))
+			fc = fc is null ? FirebaseClient.Child(child) : fc.Child(child);
+		return fc;
 	}
 
-	public async Task<IEnumerable<T>> Load<T>(string resource)
+	public async Task Put(string resource, object obj)
 	{
-		var collection = await FirebaseClient.Child("users").Child(AccountManager.Instance.Username)
-			.Child(resource).OnceAsync<T>();
-		return from t in collection select (t.Object);
+		await GetChild(resource).PutAsync(obj);
+	}
+	public async Task Post(string resource, object obj)
+	{
+		await GetChild(resource).PostAsync(obj);
+	}
+
+	public async Task<List<T>> LoadJsonArray<T>(string resource)
+	{
+		var collection = await GetChild(resource).OnceAsJsonAsync();
+		var dict = JsonConvert.DeserializeObject<Dictionary<string, T>>(collection);
+		if (dict is null)
+			return null;
+		if (typeof(T) == typeof(Utente))
+			foreach (var entry in dict)
+				(entry.Value as Utente).Id = entry.Key;
+
+		return (from entry in dict select entry.Value).ToList();
+	}
+	public async Task<T> LoadJsonObject<T>(string resource)
+	{
+		var collection = await GetChild(resource).OnceAsJsonAsync();
+		return JsonConvert.DeserializeObject<T>(collection);
 	}
 
 	public void Observe<T>(string resource, Action<FirebaseEvent<T>> callback)
 	{
-		FirebaseClient.Child("users").Child(AccountManager.Instance.Username).Child(resource).AsObservable<T>().Subscribe(callback);
+		GetChild(resource).AsObservable<T>().Subscribe(callback);
 	}
 
-
-	//public async Task<IEnumerable<BigliettoViewModel>> LoadBiglietti(DateTime data = default)
-	//{
-	//	var dataScelta = data == default ? DateTime.Today : data;
-	//	//TODO
-	//	await Task.Delay(1000);
-	//	var biglietti = new List<Biglietto>()
-	//		{
-	//			new Biglietto(
-	//				dataAcquisto:DateTime.ParseExact("10/10/2010","dd/MM/yyyy",CultureInfo.InvariantCulture),
-	//				dataValidita:DateTime.Today,
-	//				tipologia:TipoBiglietto.MuseoAperto,
-	//				dataGuida:null
-	//				),
-	//			new Biglietto(
-	//				dataAcquisto:DateTime.ParseExact("10/10/2010","dd/MM/yyyy",CultureInfo.InvariantCulture),
-	//				dataValidita:DateTime.ParseExact("10/12/2022","dd/MM/yyyy",CultureInfo.InvariantCulture),
-	//				tipologia:TipoBiglietto.Mostra,
-	//				dataGuida:DateTime.Now
-	//				),
-	//			new Biglietto(
-	//				dataAcquisto:DateTime.ParseExact("10/10/2010","dd/MM/yyyy",CultureInfo.InvariantCulture),
-	//				dataValidita:DateTime.ParseExact("10/12/2022","dd/MM/yyyy",CultureInfo.InvariantCulture),
-	//				tipologia:TipoBiglietto.Laboratorio,
-	//				dataGuida:null
-	//				),
-	//			new Biglietto(
-	//				dataAcquisto:DateTime.ParseExact("10/10/2010","dd/MM/yyyy",CultureInfo.InvariantCulture),
-	//				dataValidita:DateTime.ParseExact("10/12/2022","dd/MM/yyyy",CultureInfo.InvariantCulture),
-	//				tipologia:TipoBiglietto.Mostra,
-	//				dataGuida:null
-	//				),
-	//			new Biglietto(
-	//				dataAcquisto:DateTime.ParseExact("10/10/2010","dd/MM/yyyy",CultureInfo.InvariantCulture),
-	//				dataValidita:DateTime.ParseExact("10/12/2022","dd/MM/yyyy",CultureInfo.InvariantCulture),
-	//				tipologia:TipoBiglietto.Mostra,
-	//				dataGuida:DateTime.Now
-	//				),
-	//		};
-	//	return from biglietto in biglietti select new BigliettoViewModel(biglietto);
-
-	//}
+	public async Task SaveAccount(Utente account)
+	{
+		await Put($"utenti/{account.Id}/", account);
+	}
 }

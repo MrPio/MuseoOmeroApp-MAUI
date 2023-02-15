@@ -6,5 +6,6 @@ public partial class HomeViewWin : ContentPage
 	{
 		BindingContext = new HomeViewModelWin();
 		InitializeComponent();
+		((HomeViewModelWin)BindingContext).Initialize();
 	}
 }

@@ -23,12 +23,12 @@ public partial class App : Application
             IntPtr windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(nativeWindow);
             WindowId windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(windowHandle);
             AppWindow appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
-            appWindow.Resize(new SizeInt32(1330, 850));
+            var display=DeviceDisplay.Current.MainDisplayInfo;
+            appWindow.MoveAndResize(new RectInt32((int)(display.Width/2-1330/2),(int)(display.Height/2-850/2),1330,850));
             appWindow.TitleBar.ExtendsContentIntoTitleBar=true;
 #endif
-        });
-
-        var loggedIn = true;
+		});
+		var loggedIn = true;
         if (loggedIn)
         {
             if (DeviceInfo.Platform == DevicePlatform.Android || DeviceInfo.Platform == DevicePlatform.iOS)
