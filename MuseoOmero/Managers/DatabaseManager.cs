@@ -50,6 +50,9 @@ public class DatabaseManager
 		if (typeof(T) == typeof(Utente))
 			foreach (var entry in dict)
 				(entry.Value as Utente).Id = entry.Key;
+		if (typeof(T) == typeof(Opera))
+			foreach (var entry in dict)
+				(entry.Value as Opera).Id = entry.Key;
 
 		return (from entry in dict select entry.Value).ToList();
 	}

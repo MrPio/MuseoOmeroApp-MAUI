@@ -22,9 +22,29 @@ public partial class HomeViewModelWin : ObservableObject
 		dark: false
 	);
 
+	[ObservableProperty]
+	List<string> sale = new() { "Ingresso", "Greco e Romano", "Mimica del volto umano", "Ancona", "Medievale e '400", "Rinascimentale", "Dipinti", "'900 e Contemporaneo", "Movimento scolpito", "Deposito" };
+
+	[ObservableProperty]
+	List<string> mostre = new();
+
+	public List<Opera> Opere = new();
+
+	[ObservableProperty]
+	List<Opera> opereFiltrate = new();
+
 	public async void Initialize()
 	{
 		var db = DatabaseManager.Instance;
+
+		Opere = await db.LoadJsonArray<Opera>("opere");//TODO filtrare e mostrare + NIENTE DA MOSTRARE
+
+		var mostre = await db.LoadJsonArray<Mostra>("mostre");
+		if(mostre is { })
+		{
+			this.Mostre = (from m in mostre select m.Titolo).ToList();
+		}
+
 		var users = await db.LoadJsonArray<Utente>("utenti");
 		var bigliettiOggi = new List<Biglietto>();
 		var bigliettiVendutiOggi = new List<Biglietto>();
@@ -81,29 +101,5 @@ public partial class HomeViewModelWin : ObservableObject
 		ChatPanoramica.Content = $"Messaggi: {messaggiNonLetti.Count}";
 		ChatPanoramica.UnderContent = $"Chat non lette: {chatNonLetteTotali}";
 		ChatPanoramica.TrendingIcon = chatNonLetteTotali < 2 ? IconFont.TrendingDown : IconFont.TrendingUp;
-	}
-	async Task populteBigliettiDb()
-	{
-		var db = DatabaseManager.Instance;
-		var users = await db.LoadJsonArray<Utente>("utenti");
-		var b = new Biglietto(
-			dataAcquisto: DateTime.Now,
-			dataValidita: DateTime.Today.AddDays(1),
-			tipologia: TipoBiglietto.MuseoAperto,
-			dataGuida: null
-		);
-		users[0].Biglietti.Add(b);
-		await db.SaveAccount(users[0]);
-		users[1].Biglietti.AddRange(new List<Biglietto>() { b, b });
-		await db.SaveAccount(users[1]);
-	}
-	async Task populteUtentiDb()
-	{
-		var db = DatabaseManager.Instance;
-		var user = new Utente("MrPio", "a", "a", "a", "a", "a", new List<Biglietto>(), new List<Questionario>(), null);
-		var user2 = new Utente("MrPio2", "a", "a", "a", "a", "a", new List<Biglietto>(), new List<Questionario>(), null);
-
-		await db.Post($"utenti/", user);
-		await db.Post($"utenti/", user2);
 	}
 }

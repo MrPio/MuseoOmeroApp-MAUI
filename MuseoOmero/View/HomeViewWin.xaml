@@ -10,7 +10,7 @@
 			 x:DataType="viewModels:HomeViewModelWin">
 
 	<Grid RowDefinitions="120,*">
-		
+
 		<!--TopMenu-->
 		<Grid ColumnDefinitions="*,*"
 			  Margin="60,0,60,0"
@@ -67,6 +67,7 @@
 
 		<!--Center of screen-->
 		<Grid Grid.Row="1"
+			  RowSpacing="30"
 			  RowDefinitions="auto,*"
 			  Padding="60,40,60,0"
 			  BackgroundColor="{StaticResource Color4}">
@@ -82,6 +83,63 @@
 												   BindingContext="{Binding QuestionariPanoramica}" />
 				<template:PanoramicaElementViewWin Grid.Column="2"
 												   BindingContext="{Binding ChatPanoramica}" />
+			</Grid>
+
+			<!--2 elementi di Panoramica-->
+			<Grid Grid.Row="1"
+				  ColumnDefinitions="1*,1*,0.75*"
+				  ColumnSpacing="26">
+				<Frame Grid.ColumnSpan="2"
+					   Style="{StaticResource FrameRoundedWin}"
+					   BackgroundColor="{StaticResource Color5}">
+					<Grid RowDefinitions="40,*">
+
+						<!--Prima riga-->
+						<Grid ColumnDefinitions="auto,*,auto,auto,auto"
+							  Margin="10,0,10,0"
+							  ColumnSpacing="14">
+
+							<!--Title-->
+							<Label Grid.Column="0"
+								   Text="Opere del museo"
+								   FontFamily="Lato"
+								   FontAttributes="Bold"
+								   TextColor="{StaticResource Color7}"
+								   FontSize="19">
+							</Label>
+
+							<Picker Grid.Column="2"
+									x:Name="RepartoPicker"
+									WidthRequest="100"
+									SelectedIndexChanged="Picker_SelectedIndexChanged">
+								<Picker.ItemsSource>
+									<x:Array Type="{x:Type x:String}">
+										<x:String>Museo</x:String>
+										<x:String>Mostra</x:String>
+									</x:Array>
+								</Picker.ItemsSource>
+								<Picker.SelectedIndex>0</Picker.SelectedIndex>
+
+							</Picker>
+
+							<Picker Grid.Column="3"
+									x:Name="SalaMostraPicker"
+									WidthRequest="180"
+									SelectedIndexChanged="Picker_SelectedIndexChanged">
+							</Picker>
+
+							<!--Right arrow-->
+							<Label Grid.Column="4"
+								   Padding="10,0,0,0"
+								   FontFamily="MaterialDesignIcons"
+								   Text="{Static material:IconFont.ArrowRight}"
+								   FontSize="24"
+								   TextColor="{StaticResource Color7}"
+								   VerticalOptions="Center"
+								   HorizontalOptions="Center"></Label>
+						</Grid>
+					</Grid>
+				</Frame>
 			</Grid>
 		</Grid>
 	</Grid>
