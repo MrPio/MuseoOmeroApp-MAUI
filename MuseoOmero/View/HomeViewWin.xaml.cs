@@ -8,7 +8,7 @@ public partial class HomeViewWin : ContentPage
 		BindingContext = _viewModel;
 		_viewModel.Initialize();
 		InitializeComponent();
-		Picker_SelectedIndexChanged(RepartoPicker,null);
+		Picker_SelectedIndexChanged(RepartoPicker, null);
 	}
 
 	private void Picker_SelectedIndexChanged(object sender, EventArgs e)
@@ -21,5 +21,6 @@ public partial class HomeViewWin : ContentPage
 			if (elems.Count > 0)
 				SalaMostraPicker.SelectedIndex = 0;
 		}
+		_viewModel.FiltraOpere();
 	}
 }

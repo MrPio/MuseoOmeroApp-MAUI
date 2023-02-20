@@ -155,8 +155,8 @@
 										   WidthRequest="185"
 										   HeightRequest="260">
 										<Grid RowDefinitions="*,auto,auto">
-											<Image Source="https://github.com/MrPio/MuseoOmeroApp2/blob/master/MuseoOmero/Dump/opera-Mastroianni-Ingranaggio-2010-1502A-1024x1536-1.png"
-												   Aspect="AspectFill" />
+											<Image Source="{Binding Foto}"
+												   Aspect="AspectFit" BackgroundColor="{StaticResource Color4}" />
 											<Label Grid.Row="1"
 												   Margin="0,6,0,0"
 												   HorizontalOptions="Center"
