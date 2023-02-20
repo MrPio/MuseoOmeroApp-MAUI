@@ -516,7 +516,7 @@
 				Value="30" />
 	</Style>
 
-	<Style TargetType="Label"
+	<!--<Style TargetType="Label"
 		   x:Key="FontIconLabelLight">
 		<Setter Property="Text"
 				Value="{Static material:IconFont.Home}" />
@@ -534,7 +534,7 @@
 				Value="MaterialDesignIconsThin" />
 		<Setter Property="FontSize"
 				Value="30" />
-	</Style>
+	</Style>-->
 	
 	<Style TargetType="Label"
 		   x:Key="LabelThin">
@@ -542,6 +542,8 @@
 				Value="LatoLight" />
 		<Setter Property="FontSize"
 				Value="16" />
+		<Setter Property="LineBreakMode"
+				Value="TailTruncation" />
 	</Style>
 
 	<Style TargetType="Label"
@@ -550,6 +552,8 @@
 				Value="Lato" />
 		<Setter Property="FontSize"
 				Value="19" />
+		<Setter Property="LineBreakMode"
+				Value="TailTruncation" />
 	</Style>
 
 	<Style TargetType="Label"
@@ -558,6 +562,8 @@
 				Value="LatoBold" />
 		<Setter Property="FontSize"
 				Value="22" />
+		<Setter Property="LineBreakMode"
+				Value="TailTruncation" />
 	</Style>
 
 </ResourceDictionary>

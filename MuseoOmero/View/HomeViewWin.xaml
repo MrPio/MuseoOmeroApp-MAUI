@@ -2,12 +2,13 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 xmlns:viewModels="clr-namespace:MuseoOmero.ViewModelWin"
+			 xmlns:model="clr-namespace:MuseoOmero.Model"
+			 xmlns:viewModel="clr-namespace:MuseoOmero.ViewModelWin"
 			 xmlns:sync="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
 			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
 			 xmlns:template="clr-namespace:MuseoOmero.View.TemplatesWin"
 			 x:Class="MuseoOmero.ViewWin.HomeViewWin"
-			 x:DataType="viewModels:HomeViewModelWin">
+			 x:DataType="viewModel:HomeViewModelWin">
 
 	<Grid RowDefinitions="120,*">
 
@@ -89,12 +90,14 @@
 			<Grid Grid.Row="1"
 				  ColumnDefinitions="1*,1*,0.75*"
 				  ColumnSpacing="26">
+
+				<!--Opere-->
 				<Frame Grid.ColumnSpan="2"
 					   Style="{StaticResource FrameRoundedWin}"
 					   BackgroundColor="{StaticResource Color5}">
 					<Grid RowDefinitions="40,*">
 
-						<!--Prima riga-->
+						<!--Header-->
 						<Grid ColumnDefinitions="auto,*,auto,auto,auto"
 							  Margin="10,0,10,0"
 							  ColumnSpacing="14">
@@ -111,7 +114,8 @@
 							<Picker Grid.Column="2"
 									x:Name="RepartoPicker"
 									WidthRequest="100"
-									SelectedIndexChanged="Picker_SelectedIndexChanged">
+									SelectedIndexChanged="Picker_SelectedIndexChanged"
+									SelectedItem="{Binding RepartoPickerSelectedItem}">
 								<Picker.ItemsSource>
 									<x:Array Type="{x:Type x:String}">
 										<x:String>Museo</x:String>
@@ -119,13 +123,13 @@
 									</x:Array>
 								</Picker.ItemsSource>
 								<Picker.SelectedIndex>0</Picker.SelectedIndex>
-
 							</Picker>
 
 							<Picker Grid.Column="3"
 									x:Name="SalaMostraPicker"
 									WidthRequest="180"
-									SelectedIndexChanged="Picker_SelectedIndexChanged">
+									SelectedIndexChanged="Picker_SelectedIndexChanged"
+									SelectedItem="{Binding SalaMostraPickerSelectedItem}">
 							</Picker>
 
 							<!--Right arrow-->
@@ -137,7 +141,45 @@
 								   TextColor="{StaticResource Color7}"
 								   VerticalOptions="Center"
 								   HorizontalOptions="Center"></Label>
+
 						</Grid>
+						<!--Opere Grid-->
+						<CollectionView Grid.Row="1"
+										ItemsSource="{Binding OpereFiltrate}"
+										ItemsLayout="VerticalGrid, 3">
+							<CollectionView.ItemTemplate>
+								<DataTemplate x:DataType="model:Opera">
+									<Frame Style="{StaticResource FrameRoundedWin}"
+										   BackgroundColor="{StaticResource Color4}"
+										   Padding="0"
+										   WidthRequest="185"
+										   HeightRequest="260">
+										<Grid RowDefinitions="*,auto,auto">
+											<Image Source="https://www.ilmeteo.it/cartine3/0.MAR.png"
+												   Aspect="AspectFill" />
+											<Label Grid.Row="1"
+												   Margin="0,6,0,0"
+												   HorizontalOptions="Center"
+												   Style="{StaticResource LabelNormal}"
+												   Text="{Binding Nome}" />
+											<Grid Grid.Row="2"
+												  Margin="14,0,0,4"
+												  ColumnDefinitions="auto,*"
+												  ColumnSpacing="10">
+												<Label Style="{StaticResource FontIconLabel}"
+													   Text="{Static material:IconFont.TrendingNeutral}" />
+												<Label Grid.Column="1"
+													   Style="{StaticResource LabelThin}"
+													   VerticalTextAlignment="Center"
+													   Text="{Binding Visualizzazioni}" />
+											</Grid>
+										</Grid>
+
+									</Frame>
+								</DataTemplate>
+							</CollectionView.ItemTemplate>
+						</CollectionView>
+
 					</Grid>
 				</Frame>
 			</Grid>

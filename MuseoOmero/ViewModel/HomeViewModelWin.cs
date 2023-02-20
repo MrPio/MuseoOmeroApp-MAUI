@@ -1,4 +1,6 @@
-﻿namespace MuseoOmero.ViewModelWin;
+﻿using System.Linq;
+
+namespace MuseoOmero.ViewModelWin;
 public partial class HomeViewModelWin : ObservableObject
 {
 	[ObservableProperty]
@@ -26,24 +28,48 @@ public partial class HomeViewModelWin : ObservableObject
 	List<string> sale = new() { "Ingresso", "Greco e Romano", "Mimica del volto umano", "Ancona", "Medievale e '400", "Rinascimentale", "Dipinti", "'900 e Contemporaneo", "Movimento scolpito", "Deposito" };
 
 	[ObservableProperty]
-	List<string> mostre = new();
+	List<string> nomiMostre = new();
 
 	public List<Opera> Opere = new();
 
+	public List<Mostra> Mostre = new();
+
 	[ObservableProperty]
-	List<Opera> opereFiltrate = new();
+	ObservableCollection<Opera> opereFiltrate = new();
+
+	[ObservableProperty]
+	string repartoPickerSelectedItem = "Museo", salaMostraPickerSelectedItem = "Ingresso";
+
+	public void FiltraOpere()
+	{
+		OpereFiltrate = new();
+		if (RepartoPickerSelectedItem == "Museo")
+		{
+			foreach (var opera in Opere.Where(o => o.Sala.ToLower() == SalaMostraPickerSelectedItem.ToLower()))
+				OpereFiltrate.Add(opera);
+		}
+		else
+		{
+			var opereToAdd = Mostre.Where(mostra => mostra.Titolo == SalaMostraPickerSelectedItem);
+			foreach (var opera in opereToAdd)
+				if (Opere.Find(o => o.Id == opera.Id) is var o && o is { })
+					OpereFiltrate.Add(o);
+
+		}
+	}
 
 	public async void Initialize()
 	{
 		var db = DatabaseManager.Instance;
 
-		Opere = await db.LoadJsonArray<Opera>("opere");//TODO filtrare e mostrare + NIENTE DA MOSTRARE
+		Opere = await db.LoadJsonArray<Opera>("opere"); // TODO filtrare e mostrare + NIENTE DA MOSTRARE
 
-		var mostre = await db.LoadJsonArray<Mostra>("mostre");
-		if(mostre is { })
+		Mostre = await db.LoadJsonArray<Mostra>("mostre");
+		if (Mostre is { })
 		{
-			this.Mostre = (from m in mostre select m.Titolo).ToList();
+			this.NomiMostre = (from m in Mostre select m.Titolo).ToList();
 		}
+		FiltraOpere();
 
 		var users = await db.LoadJsonArray<Utente>("utenti");
 		var bigliettiOggi = new List<Biglietto>();

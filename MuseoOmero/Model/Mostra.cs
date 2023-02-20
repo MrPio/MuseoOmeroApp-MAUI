@@ -1,6 +1,7 @@
 ﻿namespace MuseoOmero.Model;
 public class Mostra
 {
+	public string Id { get; set; }
 	[JsonProperty("data_aggiunta")] public DateTime DataAggiunta { get; set; }
 	[JsonProperty("data_inizio")] public DateTime DataInizio { get; set; }
 	[JsonProperty("data_fine")] public DateTime DataFine { get; set; }
@@ -8,7 +9,9 @@ public class Mostra
 	[JsonProperty("foto")] public string Foto { get; set; }
 	[JsonProperty("descrizione")] public string Descrizione { get; set; }
 
-	public Mostra(DateTime dataAggiunta, DateTime dataInizio, DateTime dataFine, string titolo, string foto, string descrizione)
+	[JsonProperty("opere")] public List<string> Opere { get; set; }
+
+	public Mostra( DateTime dataAggiunta, DateTime dataInizio, DateTime dataFine, string titolo, string foto, string descrizione, List<string> opere)
 	{
 		DataAggiunta = dataAggiunta;
 		DataInizio = dataInizio;
@@ -16,5 +19,6 @@ public class Mostra
 		Titolo = titolo;
 		Foto = foto;
 		Descrizione = descrizione;
+		Opere = opere;
 	}
 }

@@ -1,4 +1,4 @@
-﻿namespace MuseoOmero.Models;
+﻿namespace MuseoOmero.Model;
 public class Biglietto
 {
 	[JsonProperty("data_acquisto")] public DateTime DataAcquisto { get; set; }

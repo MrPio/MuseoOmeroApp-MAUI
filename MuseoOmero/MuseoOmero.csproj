@@ -163,4 +163,8 @@
 		</MauiXaml>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Dump\" />
+	</ItemGroup>
+
 </Project>

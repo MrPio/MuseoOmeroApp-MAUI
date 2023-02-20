@@ -2,7 +2,7 @@
 using Firebase.Database.Query;
 using Firebase.Database.Streaming;
 using MuseoOmero.Model.Enums;
-using MuseoOmero.Models;
+using MuseoOmero.Model;
 using MuseoOmero.ViewModel.Templates;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;

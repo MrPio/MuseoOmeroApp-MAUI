@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MuseoOmero.Models;
+using MuseoOmero.Model;
 using MuseoOmero.View.Templates;
 
 namespace MuseoOmero.ViewModel.Templates

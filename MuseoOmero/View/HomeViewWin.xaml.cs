@@ -15,7 +15,7 @@ public partial class HomeViewWin : ContentPage
 	{
 		if (sender == RepartoPicker)
 		{
-			var elems = RepartoPicker.SelectedIndex == 0 ? _viewModel.Sale : _viewModel.Mostre;
+			var elems = RepartoPicker.SelectedIndex == 0 ? _viewModel.Sale : _viewModel.NomiMostre;
 			SalaMostraPicker.ItemsSource = elems;
 			SalaMostraPicker.ItemsSource = SalaMostraPicker.GetItemsAsArray(); //https://github.com/dotnet/maui/issues/9739
 			if (elems.Count > 0)

@@ -3,7 +3,7 @@ global using System.Diagnostics;
 global using CommunityToolkit.Mvvm;
 global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;
-global using MuseoOmero.Models;
+global using MuseoOmero.Model;
 global using MuseoOmero.Managers;
 global using MuseoOmero.ViewModel;
 global using MuseoOmero.ViewModelWin;
