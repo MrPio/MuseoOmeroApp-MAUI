@@ -48,12 +48,8 @@
 
 				<!--Right arrow-->
 				<Label Grid.Column="2"
-					   FontFamily="MaterialDesignIcons"
-					   Text="{Static material:IconFont.ArrowRight}"
-					   FontSize="24"
-					   TextColor="{Binding ForegroundColor}"
-					   VerticalOptions="Center"
-					   HorizontalOptions="Center"></Label>
+					   Style="{StaticResource RightArrowLabel}"
+					   TextColor="{Binding ForegroundColor}" />
 			</Grid>
 
 			<!--Center content-->

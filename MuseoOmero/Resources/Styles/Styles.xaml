@@ -210,6 +210,8 @@
 			</VisualStateGroupList>
 		</Setter>
 	</Style>
+	
+	
 
 	<Style TargetType="ListView">
 		<Setter Property="SeparatorColor"
@@ -542,8 +544,6 @@
 				Value="LatoLight" />
 		<Setter Property="FontSize"
 				Value="16" />
-		<Setter Property="LineBreakMode"
-				Value="TailTruncation" />
 	</Style>
 
 	<Style TargetType="Label"
@@ -552,8 +552,6 @@
 				Value="Lato" />
 		<Setter Property="FontSize"
 				Value="19" />
-		<Setter Property="LineBreakMode"
-				Value="TailTruncation" />
 	</Style>
 
 	<Style TargetType="Label"
@@ -562,8 +560,24 @@
 				Value="LatoBold" />
 		<Setter Property="FontSize"
 				Value="22" />
-		<Setter Property="LineBreakMode"
-				Value="TailTruncation" />
+	</Style>
+
+	<Style TargetType="Label"
+		   x:Key="RightArrowLabel">
+		<Setter Property="FontFamily"
+				Value="MaterialDesignIcons" />
+		<Setter Property="Text"
+				Value="{Static material:IconFont.ArrowRight}" />
+		<Setter Property="FontSize"
+				Value="24" />
+		<Setter Property="TextColor"
+				Value="{StaticResource Color7}" />
+		<Setter Property="VerticalOptions"
+				Value="Center" />
+		<Setter Property="HorizontalOptions"
+				Value="Center" />
+		<Setter Property="Padding"
+				Value="10,0,0,0" />
 	</Style>
 
 </ResourceDictionary>

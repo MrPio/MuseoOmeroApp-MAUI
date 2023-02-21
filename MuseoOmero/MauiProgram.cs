@@ -2,6 +2,7 @@
 using Microsoft.Maui.LifecycleEvents;
 using Sharpnado.Tabs;
 using Syncfusion.Maui.Core.Hosting;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace MuseoOmero;
 
@@ -27,7 +28,8 @@ public static class MauiProgram
 				fonts.AddFont(filename: "materialdesignicons-webfont_thin.ttf", alias: "MaterialDesignIconsThin");
 			})
             .UseSharpnadoTabs(loggerEnable: false)
-            .ConfigureLifecycleEvents(events =>
+			.UseSkiaSharp()
+			.ConfigureLifecycleEvents(events =>
             {
 #if ANDROID
                 events.AddAndroid(android => android.OnCreate((activity, bundle) => MakeStatusBarTranslucent(activity)));

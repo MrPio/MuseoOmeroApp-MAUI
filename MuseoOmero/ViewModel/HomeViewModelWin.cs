@@ -40,6 +40,9 @@ public partial class HomeViewModelWin : ObservableObject
 	[ObservableProperty]
 	string repartoPickerSelectedItem = "Museo", salaMostraPickerSelectedItem = "Ingresso";
 
+	[ObservableProperty]
+	public bool noOpere, siOpere;
+
 	public void FiltraOpere()
 	{
 		OpereFiltrate = new();
@@ -50,12 +53,17 @@ public partial class HomeViewModelWin : ObservableObject
 		}
 		else
 		{
-			var opereToAdd = Mostre.Where(mostra => mostra.Titolo == SalaMostraPickerSelectedItem);
-			foreach (var opera in opereToAdd)
-				if (Opere.Find(o => o.Id == opera.Id) is var o && o is { })
-					OpereFiltrate.Add(o);
+			if (Mostre.Count > 0)
+			{
+				var opereToAdd = Mostre.Where(mostra => mostra.Titolo == SalaMostraPickerSelectedItem);
+				foreach (var opera in opereToAdd)
+					if (Opere.Find(o => o.Id == opera.Id) is var o && o is { })
+						OpereFiltrate.Add(o);
+			}
 
 		}
+		SiOpere = OpereFiltrate.Count > 0;
+		NoOpere = !SiOpere;
 	}
 
 	public async void Initialize()
@@ -66,7 +74,7 @@ public partial class HomeViewModelWin : ObservableObject
 
 		Opere = await db.LoadJsonArray<Opera>("opere"); // TODO filtrare e mostrare + NIENTE DA MOSTRARE
 
-		Mostre = await db.LoadJsonArray<Mostra>("mostre");
+		Mostre = await db.LoadJsonArray<Mostra>("mostre")??new();
 		if (Mostre is { })
 		{
 			this.NomiMostre = (from m in Mostre select m.Titolo).ToList();

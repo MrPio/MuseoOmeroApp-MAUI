@@ -7,6 +7,7 @@
 			 xmlns:sync="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
 			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
 			 xmlns:template="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 xmlns:effectsView="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
 			 x:Class="MuseoOmero.ViewWin.HomeViewWin"
 			 x:DataType="viewModel:HomeViewModelWin">
 
@@ -67,123 +68,216 @@
 		</Grid>
 
 		<!--Center of screen-->
-		<Grid Grid.Row="1"
-			  RowSpacing="30"
-			  RowDefinitions="auto,*"
-			  Padding="60,40,60,0"
-			  BackgroundColor="{StaticResource Color4}">
+		<ScrollView Grid.Row="1">
+			<Grid RowSpacing="30"
+				  RowDefinitions="auto,auto"
+				  Padding="60,40,60,40"
+				  BackgroundColor="{StaticResource Color4}">
 
-			<!--3 elementi di Panoramica-->
-			<Grid Grid.Row="0"
-				  ColumnDefinitions="1*,1*,0.75*"
-				  ColumnSpacing="26">
+				<!--3 elementi di Panoramica-->
+				<Grid Grid.Row="0"
+					  ColumnDefinitions="1*,1*,0.75*"
+					  ColumnSpacing="26">
 
-				<template:PanoramicaElementViewWin Grid.Column="0"
-												   BindingContext="{Binding BigliettiPanoramica }" />
-				<template:PanoramicaElementViewWin Grid.Column="1"
-												   BindingContext="{Binding QuestionariPanoramica}" />
-				<template:PanoramicaElementViewWin Grid.Column="2"
-												   BindingContext="{Binding ChatPanoramica}" />
-			</Grid>
+					<template:PanoramicaElementViewWin Grid.Column="0"
+													   BindingContext="{Binding BigliettiPanoramica }" />
+					<template:PanoramicaElementViewWin Grid.Column="1"
+													   BindingContext="{Binding QuestionariPanoramica}" />
+					<template:PanoramicaElementViewWin Grid.Column="2"
+													   BindingContext="{Binding ChatPanoramica}" />
+				</Grid>
 
-			<!--2 elementi di Panoramica-->
-			<Grid Grid.Row="1"
-				  ColumnDefinitions="1*,1*,0.75*"
-				  ColumnSpacing="26">
+				<!--2 elementi di Panoramica-->
+				<Grid Grid.Row="1"
+					  ColumnDefinitions="1*,1*,0.75*"
+					  ColumnSpacing="26">
 
-				<!--Opere-->
-				<Frame Grid.ColumnSpan="2"
-					   Style="{StaticResource FrameRoundedWin}"
-					   BackgroundColor="{StaticResource Color5}">
-					<Grid RowDefinitions="40,*">
+					<!--Opere-->
+					<Frame Grid.ColumnSpan="2"
+						   Style="{StaticResource FrameRoundedWin}"
+						   BackgroundColor="{StaticResource Color5}"
+						   HeightRequest="360">
+						<Grid RowDefinitions="40,*">
+							<!--Header-->
+							<Grid ColumnDefinitions="auto,*,auto,auto,auto"
+								  Margin="10,0,0,0"
+								  ColumnSpacing="14">
 
-						<!--Header-->
-						<Grid ColumnDefinitions="auto,*,auto,auto,auto"
-							  Margin="10,0,10,0"
-							  ColumnSpacing="14">
+								<!--Title-->
+								<Label Grid.Column="0"
+									   Text="Opere del museo"
+									   FontFamily="Lato"
+									   FontAttributes="Bold"
+									   TextColor="{StaticResource Color7}"
+									   FontSize="19">
+								</Label>
 
-							<!--Title-->
-							<Label Grid.Column="0"
-								   Text="Opere del museo"
-								   FontFamily="Lato"
-								   FontAttributes="Bold"
-								   TextColor="{StaticResource Color7}"
-								   FontSize="19">
-							</Label>
+								<Picker Grid.Column="2"
+										x:Name="RepartoPicker"
+										FontFamily="Lato"
+										WidthRequest="100"
+										SelectedIndexChanged="Picker_SelectedIndexChanged"
+										SelectedItem="{Binding RepartoPickerSelectedItem}">
+									<Picker.ItemsSource>
+										<x:Array Type="{x:Type x:String}">
+											<x:String>Museo</x:String>
+											<x:String>Mostra</x:String>
+										</x:Array>
+									</Picker.ItemsSource>
+									<Picker.SelectedIndex>0</Picker.SelectedIndex>
+								</Picker>
 
-							<Picker Grid.Column="2"
-									x:Name="RepartoPicker"
-									WidthRequest="100"
-									SelectedIndexChanged="Picker_SelectedIndexChanged"
-									SelectedItem="{Binding RepartoPickerSelectedItem}">
-								<Picker.ItemsSource>
-									<x:Array Type="{x:Type x:String}">
-										<x:String>Museo</x:String>
-										<x:String>Mostra</x:String>
-									</x:Array>
-								</Picker.ItemsSource>
-								<Picker.SelectedIndex>0</Picker.SelectedIndex>
-							</Picker>
+								<Picker Grid.Column="3"
+										x:Name="SalaMostraPicker"
+										FontFamily="Lato"
+										WidthRequest="180"
+										SelectedIndexChanged="Picker_SelectedIndexChanged"
+										SelectedItem="{Binding SalaMostraPickerSelectedItem}">
+								</Picker>
 
-							<Picker Grid.Column="3"
-									x:Name="SalaMostraPicker"
-									WidthRequest="180"
-									SelectedIndexChanged="Picker_SelectedIndexChanged"
-									SelectedItem="{Binding SalaMostraPickerSelectedItem}">
-							</Picker>
+								<!--Right arrow-->
+								<Label Grid.Column="4"
+									   Style="{StaticResource RightArrowLabel}">
+								</Label>
+							</Grid>
 
-							<!--Right arrow-->
-							<Label Grid.Column="4"
-								   Padding="10,0,0,0"
-								   FontFamily="MaterialDesignIcons"
-								   Text="{Static material:IconFont.ArrowRight}"
-								   FontSize="24"
-								   TextColor="{StaticResource Color7}"
+							<!--Opere Grid-->
+							<CollectionView Grid.Row="1"
+											ItemsSource="{Binding OpereFiltrate}"
+											ItemsLayout="VerticalGrid, 3">
+								<CollectionView.ItemTemplate>
+									<DataTemplate x:DataType="model:Opera">
+										<Frame Style="{StaticResource FrameRoundedWin}"
+											   BackgroundColor="{StaticResource Color4}"
+											   Padding="0"
+											   WidthRequest="185"
+											   HeightRequest="260">
+											<effectsView:SfEffectsView TouchDownEffects="Highlight"
+																	   HighlightBackground="{StaticResource Color7}">
+												<Grid>
+													<Grid RowDefinitions="*,auto,auto">
+														<Image Source="{Binding Foto}"
+															   Aspect="AspectFill" />
+														<Label Grid.Row="1"
+															   Margin="0,6,0,0"
+															   HorizontalOptions="Center"
+															   Style="{StaticResource LabelNormal}"
+															   Text="{Binding Nome}" />
+														<Grid Grid.Row="2"
+															  Margin="14,0,0,4"
+															  ColumnDefinitions="auto,*"
+															  ColumnSpacing="10">
+															<Label Style="{StaticResource FontIconLabel}"
+																   Text="{Static material:IconFont.TrendingNeutral}" />
+															<Label Grid.Column="1"
+																   Style="{StaticResource LabelThin}"
+																   VerticalTextAlignment="Center"
+																   Text="{Binding Visualizzazioni}" />
+														</Grid>
+													</Grid>
+
+													<Label Style="{StaticResource RightArrowLabel}"
+														   Margin="13"
+														   HorizontalOptions="End"
+														   VerticalOptions="Start" />
+												</Grid>
+											</effectsView:SfEffectsView>
+										</Frame>
+									</DataTemplate>
+								</CollectionView.ItemTemplate>
+							</CollectionView>
+
+							<!--Niente da visualizzare-->
+							<Label Grid.Row="1"
+								   Text="Niente da visualizzare"
+								   TextColor="{StaticResource Color6}"
+								   Opacity="0.36"
+								   Style="{StaticResource LabelThin}"
 								   VerticalOptions="Center"
-								   HorizontalOptions="Center"></Label>
+								   HorizontalOptions="Center"
+								   IsVisible="{Binding NoOpere}"
+								   FontSize="26">
 
+							</Label>
 						</Grid>
-						<!--Opere Grid-->
-						<CollectionView Grid.Row="1"
-										ItemsSource="{Binding OpereFiltrate}"
-										ItemsLayout="VerticalGrid, 3">
-							<CollectionView.ItemTemplate>
-								<DataTemplate x:DataType="model:Opera">
-									<Frame Style="{StaticResource FrameRoundedWin}"
-										   BackgroundColor="{StaticResource Color4}"
-										   Padding="0"
-										   WidthRequest="185"
-										   HeightRequest="260">
-										<Grid RowDefinitions="*,auto,auto">
-											<Image Source="{Binding Foto}"
-												   Aspect="AspectFit" BackgroundColor="{StaticResource Color4}" />
-											<Label Grid.Row="1"
-												   Margin="0,6,0,0"
-												   HorizontalOptions="Center"
-												   Style="{StaticResource LabelNormal}"
-												   Text="{Binding Nome}" />
-											<Grid Grid.Row="2"
-												  Margin="14,0,0,4"
-												  ColumnDefinitions="auto,*"
-												  ColumnSpacing="10">
-												<Label Style="{StaticResource FontIconLabel}"
-													   Text="{Static material:IconFont.TrendingNeutral}" />
-												<Label Grid.Column="1"
-													   Style="{StaticResource LabelThin}"
-													   VerticalTextAlignment="Center"
-													   Text="{Binding Visualizzazioni}" />
-											</Grid>
-										</Grid>
+					</Frame>
 
-									</Frame>
-								</DataTemplate>
-							</CollectionView.ItemTemplate>
-						</CollectionView>
+					<!--Chart-->
+					<Frame Grid.Column="2"
+						   Style="{StaticResource FrameRoundedWin}"
+						   BackgroundColor="{StaticResource Color5}"
+						   HeightRequest="360">
+						<ScrollView>
+						<Grid RowDefinitions="40,auto,*">
+							<!--Header-->
+							<Grid ColumnDefinitions="auto,*,auto"
+								  Margin="10,0,0,0"
+								  ColumnSpacing="14">
 
-					</Grid>
-				</Frame>
+								<!--Title-->
+								<Label Text="Tipologie visite"
+									   FontFamily="Lato"
+									   FontAttributes="Bold"
+									   TextColor="{StaticResource Color7}"
+									   FontSize="19">
+								</Label>
+
+								<!--Right arrow-->
+								<Label Grid.Column="2"
+									   Style="{StaticResource RightArrowLabel}">
+								</Label>
+							</Grid>
+
+							<!--Content-->
+							<template:ChartView x:Name="TipologiaVisiteChart"
+												Grid.Row="1"
+												MinimumHeightRequest="294"
+												HorizontalOptions="Fill"
+												VerticalOptions="Fill" />
+	
+							<!--Legend-->
+							<Grid Grid.Row="2"
+								  RowDefinitions="auto,auto,auto"
+								  RowSpacing="6"
+								  ColumnDefinitions="auto,*"
+								  ColumnSpacing="10">
+								<RoundRectangle Fill="{StaticResource Color1}"
+												CornerRadius="4"
+												WidthRequest="18"
+												HeightRequest="18" />
+								<Label Grid.Column="1"
+									   Style="{StaticResource LabelBold}"
+									   FontSize="15"
+									   Text="Museo Aperto" />
+
+								<RoundRectangle Grid.Row="1"
+												Fill="{StaticResource Color3}"
+												CornerRadius="4"
+												WidthRequest="18"
+												HeightRequest="18" />
+								<Label Grid.Row="1"
+									   Grid.Column="1"
+									   Style="{StaticResource LabelBold}"
+									   FontSize="15"
+									   Text="Mostra" />
+
+								<RoundRectangle Grid.Row="2"
+												Fill="{StaticResource Color4}"
+												CornerRadius="4"
+												WidthRequest="18"
+												HeightRequest="18" />
+								<Label Grid.Row="2"
+									   Grid.Column="1"
+									   Style="{StaticResource LabelBold}"
+									   FontSize="15"
+									   Text="Laboratorio" />
+							</Grid>
+						</Grid>
+						</ScrollView>
+					</Frame>
+				</Grid>
 			</Grid>
-		</Grid>
+		</ScrollView>
 	</Grid>
 
 </ContentPage>
