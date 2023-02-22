@@ -2,8 +2,11 @@ namespace MuseoOmero.ViewWin;
 
 public partial class OpereViewWin : ContentPage
 {
-	public OpereViewWin()
+	private OpereViewModelWin _viewModel;
+	public OpereViewWin(OpereViewModelWin viewModel)
 	{
+		_viewModel = viewModel;
+		_viewModel.Initialize();
 		InitializeComponent();
 	}
 }

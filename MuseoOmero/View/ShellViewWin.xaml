@@ -159,7 +159,7 @@
 				  RowDefinitions="144,50,50,50,50,50,50,*,auto,5"
 				  RowSpacing="10"
 				  RadioButtonGroup.GroupName="Menu"
-				  RadioButtonGroup.SelectedValue="{Binding SelectedRoute }">
+				  RadioButtonGroup.SelectedValue="{Binding SelectedRoute}">
 
 				<!--Espandi/Riduci-->
 				<Border StrokeThickness="0"
@@ -308,7 +308,7 @@
 				</RadioButton>
 
 				<!--Chat-->
-				<RadioButton Value="opere"
+				<RadioButton Value="chat"
 							 IsChecked="False"
 							 Grid.Row="5"
 							 CheckedChanged="OnMenuItemChanged"

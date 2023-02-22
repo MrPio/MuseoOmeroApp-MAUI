@@ -2,84 +2,94 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:viewmodels="clr-namespace:MuseoOmero.ViewModel.TemplatesWin"
+			 xmlns:effectsView="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
 			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
 			 x:Class="MuseoOmero.View.TemplatesWin.PanoramicaElementViewWin"
 			 x:DataType="viewmodels:PanoramicaElementViewModelWin">
 
 	<Frame Style="{StaticResource FrameRoundedWin}"
-		   BackgroundColor="{Binding BackgroundColor}">
-		<Grid RowDefinitions="60,*,26">
-			
-			<!--Prima riga-->
-			<Grid ColumnDefinitions="62,*,30"
-				  ColumnSpacing="14">
-				
-				<!--Icona-->
-				<Frame Grid.Column="0"
-					   BorderColor="Transparent"
-					   BackgroundColor="{Binding FrameColor}"
-					   Padding="0"
-					   CornerRadius="16">
-					<Label FontFamily="MaterialDesignIcons"
-						   Text="{Binding Icon}"
-						   FontSize="30"
-						   VerticalOptions="Center"
-						   TextColor="{Binding ForegroundColor}"
-						   HorizontalOptions="Center"></Label>
-				</Frame>
+		   BackgroundColor="Transparent"
+		   Margin="0"
+		   Padding="0">
+		<effectsView:SfEffectsView TouchDownEffects="Highlight"
+								   BackgroundColor="{Binding BackgroundColor}"
+								   HighlightBackground="Black">
+			<effectsView:SfEffectsView.GestureRecognizers>
+				<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+			</effectsView:SfEffectsView.GestureRecognizers>
+			<Grid RowDefinitions="60,*,26"
+				  Padding="26">
 
-				<!--Title & Subtitle-->
-				<Grid Grid.Column="1"
-					  RowDefinitions="2*,2*">
-					<Label Grid.Row="0"
-						   Text="{Binding Title}"
-						   FontFamily="Lato"
-						   FontAttributes="Bold"
-						   TextColor="{Binding ForegroundColor}"
-						   FontSize="19">
-					</Label>
-					<Label Grid.Row="1"
-						   Text="{Binding Subtitle}"
-						   FontFamily="LatoLight"
-						   TextColor="{StaticResource Color6}"
-						   FontSize="16">
-					</Label>
+				<!--Prima riga-->
+				<Grid ColumnDefinitions="62,*,30"
+					  ColumnSpacing="14">
+
+					<!--Icona-->
+					<Frame Grid.Column="0"
+						   BorderColor="Transparent"
+						   BackgroundColor="{Binding FrameColor}"
+						   Padding="0"
+						   CornerRadius="16">
+						<Label FontFamily="MaterialDesignIcons"
+							   Text="{Binding Icon}"
+							   FontSize="30"
+							   VerticalOptions="Center"
+							   TextColor="{Binding ForegroundColor}"
+							   HorizontalOptions="Center"></Label>
+					</Frame>
+
+					<!--Title & Subtitle-->
+					<Grid Grid.Column="1"
+						  RowDefinitions="2*,2*">
+						<Label Grid.Row="0"
+							   Text="{Binding Title}"
+							   FontFamily="Lato"
+							   FontAttributes="Bold"
+							   TextColor="{Binding ForegroundColor}"
+							   FontSize="19">
+						</Label>
+						<Label Grid.Row="1"
+							   Text="{Binding Subtitle}"
+							   FontFamily="LatoLight"
+							   TextColor="{StaticResource Color6}"
+							   FontSize="16">
+						</Label>
+					</Grid>
+
+					<!--Right arrow-->
+					<Label Grid.Column="2"
+						   Style="{StaticResource RightArrowLabel}"
+						   TextColor="{Binding ForegroundColor}" />
 				</Grid>
 
-				<!--Right arrow-->
-				<Label Grid.Column="2"
-					   Style="{StaticResource RightArrowLabel}"
-					   TextColor="{Binding ForegroundColor}" />
-			</Grid>
-
-			<!--Center content-->
-			<Label Grid.Row="1"
-				   HeightRequest="80"
-				   VerticalTextAlignment="Center"
-				   FontFamily="LatoBold"
-				   TextColor="{Binding ForegroundColor}"
-				   Text="{Binding Content}"
-				   FontSize="26"></Label>
-
-			<!--Footer-->
-			<Grid Grid.Row="2"
-				  ColumnDefinitions="24,auto"
-				  ColumnSpacing="10">
-				<Label Grid.Column="0"
-					   FontFamily="MaterialDesignIcons"
+				<!--Center content-->
+				<Label Grid.Row="1"
+					   HeightRequest="80"
+					   VerticalTextAlignment="Center"
+					   FontFamily="LatoBold"
 					   TextColor="{Binding ForegroundColor}"
-					   Text="{Binding TrendingIcon}"
-					   FontSize="24"
-					   VerticalOptions="Center"
-					   HorizontalOptions="Center"></Label>
+					   Text="{Binding Content}"
+					   FontSize="26"></Label>
 
-				<Label Grid.Column="1"
-					   TextColor="{Binding ForegroundColor}"
-					   FontAttributes="Bold"
-					   Text="{Binding UnderContent}"
-					   FontSize="16"></Label>
+				<!--Footer-->
+				<Grid Grid.Row="2"
+					  ColumnDefinitions="24,auto"
+					  ColumnSpacing="10">
+					<Label Grid.Column="0"
+						   FontFamily="MaterialDesignIcons"
+						   TextColor="{Binding ForegroundColor}"
+						   Text="{Binding TrendingIcon}"
+						   FontSize="24"
+						   VerticalOptions="Center"
+						   HorizontalOptions="Center"></Label>
+
+					<Label Grid.Column="1"
+						   TextColor="{Binding ForegroundColor}"
+						   FontAttributes="Bold"
+						   Text="{Binding UnderContent}"
+						   FontSize="16"></Label>
+				</Grid>
 			</Grid>
-		</Grid>
+		</effectsView:SfEffectsView>
 	</Frame>
-
 </ContentView>

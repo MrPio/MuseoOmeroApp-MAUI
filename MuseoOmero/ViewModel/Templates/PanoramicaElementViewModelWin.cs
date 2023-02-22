@@ -13,16 +13,20 @@ public partial class PanoramicaElementViewModelWin : ObservableObject
     [ObservableProperty] 
     string icon, trendingIcon, title, subtitle, content, underContent;
 
-    public PanoramicaElementViewModelWin(string icon,
-        string title, bool dark)
-    {
-        if (!dark)
-        {
-            backgroundColor = DeviceManager.Instance.Colors[4];
+    public string Route;
+
+
+	public PanoramicaElementViewModelWin(string icon,
+        string title, bool dark, string route)
+	{
+		if (!dark)
+		{
+			backgroundColor = DeviceManager.Instance.Colors[4];
 			foregroundColor = DeviceManager.Instance.Colors[6];
-            frameColor = Color.FromArgb("#12000000");
+			frameColor = Color.FromArgb("#12000000");
 		}
-        Icon = icon;
-        Title = title;
-    }
+		Icon = icon;
+		Title = title;
+		Route = route;
+	}
 }

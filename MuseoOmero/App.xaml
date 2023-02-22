@@ -65,7 +65,6 @@
 				<Setter Property="CornerRadius"
 						Value="32" />
 			</Style>
-			
 
 		</ResourceDictionary>
 	</Application.Resources>

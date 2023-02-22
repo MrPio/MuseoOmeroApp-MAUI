@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:sync="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+			 xmlns:effectsView="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+			 x:Class="MuseoOmero.View.TemplatesWin.TopMenu">
+
+	<Grid ColumnDefinitions="*,*"
+		  HeightRequest="120"
+		  Margin="60,0,60,0"
+		  BackgroundColor="{StaticResource Color5}">
+
+		<!--BentornatoLabel-->
+		<Grid RowDefinitions="1.8*,*"
+			  Margin="0,36,0,28">
+			<Label Grid.Row="0"
+				   Text="Bentornato, NAME"
+				   FontFamily="LatoBold"
+				   FontSize="24">
+			</Label>
+			<Label Grid.Row="1"
+				   Text="Questa è la tua panoramica:"
+				   FontFamily="LatoLight"
+				   FontSize="16"
+				   TextColor="{StaticResource Color6}">
+			</Label>
+		</Grid>
+
+		<!--Account Avatar-->
+		<effectsView:SfEffectsView Grid.Column="1"
+								   HorizontalOptions="End"
+								   TouchDownEffects="Highlight"
+								   HighlightBackground="{StaticResource Color7}">
+
+			<effectsView:SfEffectsView.GestureRecognizers>
+				<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+			</effectsView:SfEffectsView.GestureRecognizers>
+
+			<Grid ColumnDefinitions="46,auto,auto"
+				  ColumnSpacing="10"
+				  HorizontalOptions="End"
+				  Margin="30,0,26,0">
+				<sync:SfAvatarView Grid.Column="0"
+								   ContentType="Custom"
+								   ImageSource="dotnet_bot.png"
+								   VerticalOptions="Center"
+								   StrokeThickness="0"
+								   HorizontalOptions="Center"
+								   HeightRequest="50"
+								   WidthRequest="50"
+								   CornerRadius="40">
+				</sync:SfAvatarView>
+
+				<Label Grid.Column="1"
+					   Text="Nome Cognome"
+					   VerticalOptions="Center"
+					   FontAttributes="Bold"
+					   Margin="10"
+					   FontSize="16">
+				</Label>
+
+				<Label Grid.Column="2"
+					   Style="{StaticResource RightArrowLabel}"
+					   Text="{Static material:IconFont.ChevronDown}" />
+			</Grid>
+		</effectsView:SfEffectsView>
+	</Grid>
+</ContentView>

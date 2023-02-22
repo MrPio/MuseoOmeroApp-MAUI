@@ -7,21 +7,24 @@ public partial class HomeViewModelWin : ObservableObject
 	PanoramicaElementViewModelWin bigliettiPanoramica = new(
 		icon: IconFont.Ticket,
 		title: "Biglietti",
-		dark: true
+		dark: true,
+		route: "biglietteria"
 	);
 
 	[ObservableProperty]
 	PanoramicaElementViewModelWin questionariPanoramica = new(
 		icon: IconFont.Account,
 		title: "Questionari",
-		dark: false
+		dark: false,
+		route:""
 	);
 
 	[ObservableProperty]
 	PanoramicaElementViewModelWin chatPanoramica = new(
 		icon: IconFont.Chat,
 		title: "Chat",
-		dark: false
+		dark: false, 
+		route: "chat"
 	);
 
 	[ObservableProperty]

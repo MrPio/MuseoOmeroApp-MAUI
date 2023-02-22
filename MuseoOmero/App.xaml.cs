@@ -10,7 +10,7 @@ namespace MuseoOmero;
 
 public partial class App : Application
 {
-    public App()
+    public App(ShellViewModelWin shellViewModelWin)
     {
         InitializeComponent();
 
@@ -34,7 +34,7 @@ public partial class App : Application
             if (DeviceInfo.Platform == DevicePlatform.Android || DeviceInfo.Platform == DevicePlatform.iOS)
                 MainPage = new MainView();
             else if (DeviceInfo.Platform == DevicePlatform.WinUI || DeviceInfo.Platform == DevicePlatform.MacCatalyst)
-                MainPage = new ShellViewWin();
+                MainPage = new ShellViewWin(shellViewModelWin);
         }
         else
         {

@@ -6,8 +6,9 @@ namespace MuseoOmero.ViewWin;
 public partial class HomeViewWin : ContentPage
 {
 	private readonly HomeViewModelWin _viewModel = new();
-	public HomeViewWin()
+	public HomeViewWin(HomeViewModelWin viewModel)
 	{
+		_viewModel = viewModel;
 		BindingContext = _viewModel;
 		_viewModel.Initialize();
 		InitializeComponent();
@@ -63,5 +64,17 @@ public partial class HomeViewWin : ContentPage
 				SalaMostraPicker.SelectedIndex = 0;
 		}
 		_viewModel.FiltraOpere();
+	}
+
+	private void OpereFrame_Tapped(object sender, EventArgs e)
+	{
+		var shellViewModel = this.Handler.MauiContext.Services.GetService<ShellViewModelWin>();
+		shellViewModel.SelectedRoute = "opere";
+    }
+
+	private void VisiteFrame_Tapped(object sender, EventArgs e)
+	{
+		var shellViewModel = this.Handler.MauiContext.Services.GetService<ShellViewModelWin>();
+		shellViewModel.SelectedRoute = "statistiche";
 	}
 }

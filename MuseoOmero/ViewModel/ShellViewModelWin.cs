@@ -2,5 +2,5 @@
 public partial class ShellViewModelWin : ObservableObject
 {
 	[ObservableProperty]
-	public string selectedRoute;
+	string selectedRoute="home";
 }

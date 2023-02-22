@@ -3,6 +3,9 @@ using Microsoft.Maui.LifecycleEvents;
 using Sharpnado.Tabs;
 using Syncfusion.Maui.Core.Hosting;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+using Microsoft.Maui.Hosting;
+using MuseoOmero.ViewModelWin;
+using MuseoOmero.ViewWin;
 
 namespace MuseoOmero;
 
@@ -45,7 +48,15 @@ public static class MauiProgram
             });
 
 
-        return builder.Build();
+#if WINDOWS
+		builder.Services.AddSingleton<ShellViewModelWin>();
+        builder.Services.AddSingleton<HomeViewWin>();
+		builder.Services.AddSingleton<HomeViewModelWin>();
+		builder.Services.AddSingleton<OpereViewModelWin>();
+		builder.Services.AddSingleton<OpereViewWin>();
+#endif
+
+		return builder.Build();
     }
 
 }

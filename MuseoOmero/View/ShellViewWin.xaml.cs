@@ -7,9 +7,9 @@ public partial class ShellViewWin : Shell
 	private bool _shellExpanded = false;
 	private float _shellMaxWidth = 246;
 	private float _shellMinWidth = 80;
-	public ShellViewWin()
+	public ShellViewWin(ShellViewModelWin viewModel)
 	{
-		BindingContext = new ShellViewModelWin();
+		BindingContext = viewModel;
 		InitializeComponent();
 		InitRoutes();
 		var t = Task.Run(async delegate

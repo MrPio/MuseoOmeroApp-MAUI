@@ -157,6 +157,9 @@
 		<MauiXaml Update="View\Templates\PanoramicaElementViewWin.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="View\Templates\TopMenu.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="View\Templates\WavesView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
