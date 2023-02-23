@@ -2,23 +2,19 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:viewmodels="clr-namespace:MuseoOmero.ViewModel.TemplatesWin"
-			 xmlns:effectsView="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
 			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
 			 x:Class="MuseoOmero.View.TemplatesWin.PanoramicaElementViewWin"
 			 x:DataType="viewmodels:PanoramicaElementViewModelWin">
 
 	<Frame Style="{StaticResource FrameRoundedWin}"
-		   BackgroundColor="Transparent"
+		   BackgroundColor="{Binding BackgroundColor}"
 		   Margin="0"
 		   Padding="0">
-		<effectsView:SfEffectsView TouchDownEffects="Highlight"
-								   BackgroundColor="{Binding BackgroundColor}"
-								   HighlightBackground="Black">
-			<effectsView:SfEffectsView.GestureRecognizers>
-				<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-			</effectsView:SfEffectsView.GestureRecognizers>
 			<Grid RowDefinitions="60,*,26"
 				  Padding="26">
+			<Grid.GestureRecognizers>
+				<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+		</Grid.GestureRecognizers>
 
 				<!--Prima riga-->
 				<Grid ColumnDefinitions="62,*,30"
@@ -90,6 +86,5 @@
 						   FontSize="16"></Label>
 				</Grid>
 			</Grid>
-		</effectsView:SfEffectsView>
 	</Frame>
 </ContentView>

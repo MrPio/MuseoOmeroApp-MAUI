@@ -9,23 +9,34 @@
 
 	<Grid ColumnDefinitions="*,1.6*">
 		<Image Aspect="AspectFill"
-			   Source="https://i.ibb.co/7x3mBZv/omero-homepage-copia.jpg" />
+			   Margin="0,-30,0,0"
+			   Source="https://i.ibb.co/C1Fb9VS/omero-homepage.jpg" />
 		<Grid Grid.Column="1"
-			  RowDefinitions="*,1.3*">
+			  RowDefinitions="*,1.2*">
 
 			<!--Accedi al portale-->
-			<Label Style="{StaticResource LabelBold}"
+			<VerticalStackLayout VerticalOptions="Center">
+				<Image Aspect="AspectFill"
+					   WidthRequest="240"
+					   Source="https://i.ibb.co/HtKjCsF/logo-museoomero.png" />
+
+				<BoxView HeightRequest="30" Color="Transparent"/>
+				<Line Style="{StaticResource HRule}" />
+				<BoxView HeightRequest="60"
+						 Color="Transparent" />
+				
+				<Label Style="{StaticResource LabelBold}"
 				   Text="Accedi al portale"
-				   VerticalOptions="Center"
 				   FontFamily="LatoBlack"
 				   HorizontalOptions="Center"
 				   TextColor="{StaticResource Color7}"
 				   FontSize="40" />
+			</VerticalStackLayout>
 
 			<!--<Bottom Grid-->
 			<Grid Grid.Row="1"
 				  RowDefinitions="auto,auto,auto, auto,auto"
-				  RowSpacing="8">
+				  RowSpacing="12">
 				<Label Text="Email:"
 					   HorizontalOptions="Center"
 					   Style="{StaticResource LabelNormal}" />

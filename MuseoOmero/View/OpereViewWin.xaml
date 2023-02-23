@@ -3,7 +3,6 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:viewmodels="clr-namespace:MuseoOmero.ViewModelWin"
 			 xmlns:model="clr-namespace:MuseoOmero.Model"
-			 xmlns:effectsView="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
 			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
 			 xmlns:template="clr-namespace:MuseoOmero.View.TemplatesWin"
 			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
@@ -75,18 +74,16 @@
 									</x:Array>
 								</Picker.ItemsSource>
 							</Picker>
-							<effectsView:SfEffectsView Grid.Column="4"
-													   TouchDownEffects="Highlight"
-													   HighlightBackground="Black">
-								<Label Style="{StaticResource FontIconLabel}"
-									   Margin="10,0,10,0"
-									   FontSize="28"
-									   Text="{Binding OpereSortAcending, Converter={StaticResource Key=SortingIconConverter}}"
-									   VerticalOptions="Center" />
-								<effectsView:SfEffectsView.GestureRecognizers>
+							<Label Grid.Column="4"
+								   Style="{StaticResource FontIconLabel}"
+								   Margin="10,0,10,0"
+								   FontSize="28"
+								   Text="{Binding OpereSortAcending, Converter={StaticResource Key=SortingIconConverter}}"
+								   VerticalOptions="Center">
+								<Label.GestureRecognizers>
 									<TapGestureRecognizer Command="{Binding InvertSortTapCommand}" />
-								</effectsView:SfEffectsView.GestureRecognizers>
-							</effectsView:SfEffectsView>
+								</Label.GestureRecognizers>
+							</Label>
 
 						</Grid>
 
@@ -116,16 +113,6 @@
 										<Setter Property="Margin"
 												Value="0,0,6,0" />
 									</Style>
-									<Style TargetType="effectsView:SfEffectsView">
-										<Setter Property="Grid.Column"
-												Value="1" />
-										<Setter Property="Margin"
-												Value="-20,-10,-20,-10" />
-										<Setter Property="TouchDownEffects"
-												Value="Highlight" />
-										<Setter Property="HighlightBackground"
-												Value="Black" />
-									</Style>
 									<converters:FilterToVisibleConverter x:Key="FilterToVisibleConverter" />
 									<ControlTemplate x:Key="HeaderElement"
 													 x:DataType="template:HeaderElement">
@@ -142,15 +129,15 @@
 													</MultiBinding>
 												</Label.IsVisible>
 											</Label>
-											<effectsView:SfEffectsView>
-												<Label Text="{Binding Titolo}"
-													   Margin="20,0,20,0" />
-												<effectsView:SfEffectsView.GestureRecognizers>
+											<Label Grid.Column="1"
+												   Text="{Binding Titolo}"
+												   Margin="0">
+											</Label>
+											<Grid.GestureRecognizers>
 													<TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType=
 														{x:Type viewmodels:OpereViewModelWin}}, Path=HeaderLabelTapCommand}"
 																		  CommandParameter="{Binding Titolo}" />
-												</effectsView:SfEffectsView.GestureRecognizers>
-											</effectsView:SfEffectsView>
+												</Grid.GestureRecognizers>
 										</Grid>
 									</ControlTemplate>
 								</Grid.Resources>
@@ -177,30 +164,26 @@
 							<CollectionView.ItemTemplate>
 								<DataTemplate x:DataType="model:Opera">
 									<VerticalStackLayout>
-										<effectsView:SfEffectsView TouchDownEffects="Highlight"
-																   HighlightBackground="Black">
-											<Grid ColumnDefinitions="*,*,*,*,0.5*"
-												  Margin="20,20,20,20">
-												<Grid.Resources>
-													<Style TargetType="Label"
-														   BasedOn="{StaticResource LabelNormal}">
-														<Setter Property="FontSize"
-																Value="15" />
-													</Style>
-												</Grid.Resources>
+										<Grid ColumnDefinitions="*,*,*,*,0.5*"
+											  Margin="20,20,20,20">
+											<Grid.Resources>
+												<Style TargetType="Label"
+													   BasedOn="{StaticResource LabelNormal}">
+													<Setter Property="FontSize"
+															Value="15" />
+												</Style>
+											</Grid.Resources>
 
-												<Label Text="{Binding Nome}" />
-												<Label Grid.Column="1"
-													   Text="{Binding Sala}" />
-												<Label Grid.Column="2"
-													   Text="{Binding DataAggiunta}" />
-												<Label Grid.Column="3"
-													   Text="{Binding Autore}" />
-												<Label Grid.Column="4"
-													   Text="{Binding Visualizzazioni}" />
-											</Grid>
-										</effectsView:SfEffectsView>
-
+											<Label Text="{Binding Nome}" />
+											<Label Grid.Column="1"
+												   Text="{Binding Sala}" />
+											<Label Grid.Column="2"
+												   Text="{Binding DataAggiunta}" />
+											<Label Grid.Column="3"
+												   Text="{Binding Autore}" />
+											<Label Grid.Column="4"
+												   Text="{Binding Visualizzazioni}" />
+										</Grid>
 										<Line Style="{StaticResource HRule}" />
 									</VerticalStackLayout>
 								</DataTemplate>

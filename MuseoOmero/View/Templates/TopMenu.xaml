@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 xmlns:sync="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
 			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
-			 xmlns:effectsView="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
 			 x:Class="MuseoOmero.View.TemplatesWin.TopMenu">
 
 	<Grid ColumnDefinitions="*,*"
@@ -28,20 +26,15 @@
 		</Grid>
 
 		<!--Account Avatar-->
-		<effectsView:SfEffectsView Grid.Column="1"
-								   HorizontalOptions="End"
-								   TouchDownEffects="Highlight"
-								   HighlightBackground="{StaticResource Color7}">
-
-			<effectsView:SfEffectsView.GestureRecognizers>
+		<Grid Grid.Column="1"
+			  ColumnDefinitions="46,auto,auto"
+			  ColumnSpacing="10"
+			  HorizontalOptions="End"
+			  Margin="30,0,26,0">
+			<Grid.GestureRecognizers>
 				<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-			</effectsView:SfEffectsView.GestureRecognizers>
-
-			<Grid ColumnDefinitions="46,auto,auto"
-				  ColumnSpacing="10"
-				  HorizontalOptions="End"
-				  Margin="30,0,26,0">
-				<sync:SfAvatarView Grid.Column="0"
+			</Grid.GestureRecognizers>
+			<!--<sync:SfAvatarView Grid.Column="0"
 								   ContentType="Custom"
 								   ImageSource="dotnet_bot.png"
 								   VerticalOptions="Center"
@@ -50,20 +43,19 @@
 								   HeightRequest="50"
 								   WidthRequest="50"
 								   CornerRadius="40">
-				</sync:SfAvatarView>
+				</sync:SfAvatarView>-->
 
-				<Label Grid.Column="1"
-					   Text="Nome Cognome"
-					   VerticalOptions="Center"
-					   FontAttributes="Bold"
-					   Margin="10"
-					   FontSize="16">
-				</Label>
+			<Label Grid.Column="1"
+				   Text="Nome Cognome"
+				   VerticalOptions="Center"
+				   FontAttributes="Bold"
+				   Margin="10"
+				   FontSize="16">
+			</Label>
 
-				<Label Grid.Column="2"
-					   Style="{StaticResource RightArrowLabel}"
-					   Text="{Static material:IconFont.ChevronDown}" />
-			</Grid>
-		</effectsView:SfEffectsView>
+			<Label Grid.Column="2"
+				   Style="{StaticResource RightArrowLabel}"
+				   Text="{Static material:IconFont.ChevronDown}" />
+		</Grid>
 	</Grid>
 </ContentView>

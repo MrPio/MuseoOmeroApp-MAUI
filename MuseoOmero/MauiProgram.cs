@@ -1,11 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Maui.LifecycleEvents;
 using Sharpnado.Tabs;
-using Syncfusion.Maui.Core.Hosting;
 using SkiaSharp.Views.Maui.Controls.Hosting;
-using Microsoft.Maui.Hosting;
-using MuseoOmero.ViewModelWin;
-using MuseoOmero.ViewWin;
 
 namespace MuseoOmero;
 
@@ -30,7 +26,6 @@ public static class MauiProgram
 				fonts.AddFont(filename: "materialdesignicons-webfont_thin.ttf", alias: "MaterialDesignIconsThin");
 			})
             .UseSharpnadoTabs(loggerEnable: false)
-            .ConfigureSyncfusionCore()
 			.UseSkiaSharp()
 			.ConfigureLifecycleEvents(events =>
             {
