@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:viewModel="clr-namespace:MuseoOmero.ViewModelWin"
+			 xmlns:template="clr-namespace:MuseoOmero.View.Templates"
+			 x:Class="MuseoOmero.ViewWin.SignInUpViewWin"
+			 Title="SignInUpViewWin"
+			 x:DataType="viewModel:SignInUpViewModelWin">
+
+	<Grid ColumnDefinitions="*,1.6*">
+		<Image Aspect="AspectFill"
+			   Source="https://i.ibb.co/7x3mBZv/omero-homepage-copia.jpg" />
+		<Grid Grid.Column="1"
+			  RowDefinitions="*,1.3*">
+
+			<!--Accedi al portale-->
+			<Label Style="{StaticResource LabelBold}"
+				   Text="Accedi al portale"
+				   VerticalOptions="Center"
+				   FontFamily="LatoBlack"
+				   HorizontalOptions="Center"
+				   TextColor="{StaticResource Color7}"
+				   FontSize="40" />
+
+			<!--<Bottom Grid-->
+			<Grid Grid.Row="1"
+				  RowDefinitions="auto,auto,auto, auto,auto"
+				  RowSpacing="8">
+				<Label Text="Email:"
+					   HorizontalOptions="Center"
+					   Style="{StaticResource LabelNormal}" />
+				<template:MyEntryView  Grid.Row="1"
+									   WidthRequest="340"
+									   HeightRequest="50"
+									   BindingContext="{Binding EmailEntryViewModel}" />
+				<Label Grid.Row="2"
+					   Text="Password:"
+					   Margin="0,10,0,0"	
+					   HorizontalOptions="Center"
+					   Style="{StaticResource LabelNormal}" />
+				<template:MyEntryView Grid.Row="3"
+									  WidthRequest="340"
+									  HeightRequest="50"
+									  BindingContext="{Binding PasswordEntryViewModel}" />
+				<template:RoundedButton Grid.Row="4"
+										BindingContext="{Binding SignInViewModel}" />
+			</Grid>
+		</Grid>
+	</Grid>
+</ContentPage>

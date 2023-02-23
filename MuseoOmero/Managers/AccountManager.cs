@@ -1,10 +1,10 @@
-﻿
-using MuseoOmero.Model;
-using Newtonsoft.Json;
+﻿using Firebase.Auth;
+using Firebase.Auth.Providers;
+using Firebase.Auth.Repository;
 
 namespace MuseoOmero.Managers;
 
-class AccountManager
+public class AccountManager
 {
 	private static AccountManager _instance;
 	private AccountManager() { }
@@ -17,5 +17,31 @@ class AccountManager
 		}
 	}
 
-	[JsonProperty("account")] public Utente Account;
+	public Utente Account;
+	public UserCredential? UserCredential;
+
+	public FirebaseAuthClient FirebaseAuthClient = new(
+		new FirebaseAuthConfig()
+		{
+			ApiKey = " AIzaSyDXVjf6156a6Nh5cPyg2kQMgke1o0ykaxM",
+			AuthDomain = "museoomero-ca8aa.firebaseapp.com",
+			Providers = new FirebaseAuthProvider[] { new EmailProvider() },
+			UserRepository = new FileUserRepository("MuseoOmero") // persist data into %AppData%\MuseoOmero
+		}
+	);
+
+	public async Task<UserCredential> SignIn(string email, string password)
+	{
+		try
+		{
+			UserCredential = await FirebaseAuthClient.SignInWithEmailAndPasswordAsync(email, password);
+		}
+		catch (FirebaseAuthException e){ return null; }
+		return UserCredential;
+	}
+
+	public async Task SignUp(string email, string password, string username)
+	{
+		UserCredential = await FirebaseAuthClient.CreateUserWithEmailAndPasswordAsync(email, password, username);
+	}
 }

@@ -20,9 +20,12 @@ public class DatabaseManager
 			return _instance;
 		}
 	}
-
 	public FirebaseClient FirebaseClient = new("https://museoomero-ca8aa-default-rtdb.europe-west1.firebasedatabase.app/");
 
+	/* • Append -> Put($"utenti/{utenti[0].Id}/biglietti/{utenti[0].Biglietti.Count}/", biglietto);
+	 */
+
+	// Low-Level
 	private ChildQuery GetChild(string resource)
 	{
 		ChildQuery fc = null;
@@ -30,7 +33,6 @@ public class DatabaseManager
 			fc = fc is null ? FirebaseClient.Child(child) : fc.Child(child);
 		return fc;
 	}
-
 	public async Task Put(string resource, object obj)
 	{
 		await GetChild(resource).PutAsync(obj);
@@ -39,7 +41,6 @@ public class DatabaseManager
 	{
 		await GetChild(resource).PostAsync(obj);
 	}
-
 	public async Task<List<T>> LoadJsonArray<T>(string resource)
 	{
 		var collection = await GetChild(resource).OnceAsJsonAsync();
@@ -60,12 +61,12 @@ public class DatabaseManager
 		var collection = await GetChild(resource).OnceAsJsonAsync();
 		return JsonConvert.DeserializeObject<T>(collection);
 	}
-
 	public void Observe<T>(string resource, Action<FirebaseEvent<T>> callback)
 	{
 		GetChild(resource).AsObservable<T>().Subscribe(callback);
 	}
 
+	// High-Level
 	public async Task SaveAccount(Utente account)
 	{
 		await Put($"utenti/{account.Id}/", account);

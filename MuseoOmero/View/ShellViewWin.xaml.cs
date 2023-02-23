@@ -9,6 +9,8 @@ public partial class ShellViewWin : Shell
 	private float _shellMinWidth = 80;
 	public ShellViewWin(ShellViewModelWin viewModel)
 	{
+		//DeviceManager.Instance.ResizeWin(1330, 850);
+
 		BindingContext = viewModel;
 		InitializeComponent();
 		InitRoutes();

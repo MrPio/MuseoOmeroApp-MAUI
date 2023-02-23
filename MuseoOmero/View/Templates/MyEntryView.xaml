@@ -1,73 +1,89 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                 xmlns:viewmodel="clr-namespace:MuseoOmero.ViewModel.Templates"
-             x:Class="MuseoOmero.View.Templates.MyEntryView"
-             x:DataType="viewmodel:MyEntryViewModel">
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:viewmodel="clr-namespace:MuseoOmero.ViewModel.Templates"
+			 x:Class="MuseoOmero.View.Templates.MyEntryView"
+			 x:DataType="viewmodel:MyEntryViewModel">
 
-    <ContentView.Resources>
-        <ResourceDictionary>
-            <Style x:Key="EntryBorderStyle" TargetType="Border">
-                <Setter Property="Padding" Value="0,0,0,0"></Setter>
-                <Setter Property="StrokeThickness" Value="{Binding BorderTicknessUnfocused}"></Setter>
-                <Setter Property="StrokeShape" Value="RoundRectangle 999"></Setter>
-                <Setter Property="Stroke" Value="{Binding EntryBorderColor}"></Setter>
-            </Style>
-            <Style x:Key="EntryStyle" TargetType="Entry">
-                <Setter Property="FontFamily" Value="LatoLight"></Setter>
-                <Setter Property="FontSize" Value="{Binding FontSize}"></Setter>
-                <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
-                <Setter Property="TextColor" Value="Black"></Setter>
-            </Style>
-            <Style x:Key="DatePickerStyle" TargetType="DatePicker">
-                <Setter Property="FontFamily" Value="LatoLight"></Setter>
-                <Setter Property="FontSize" Value="{Binding FontSize}"></Setter>
-                <Setter Property="TextColor" Value="Black"></Setter>
-            </Style>
-            <Style x:Key="IconStyle" TargetType="Label">
-                <Setter Property="FontFamily" Value="MaterialDesignIcons"></Setter>
-                <Setter Property="FontSize" Value="{Binding IconSize}"></Setter>
-                <Setter Property="TextColor" Value="#c8c8c8"></Setter>
-                <Setter Property="VerticalOptions" Value="Center"></Setter>
-                <Setter Property="HorizontalOptions" Value="Center"></Setter>
-            </Style>
-        </ResourceDictionary>
-    </ContentView.Resources>
+	<ContentView.Resources>
+		<ResourceDictionary>
+			<Style x:Key="EntryBorderStyle"
+				   TargetType="Border">
+				<Setter Property="Padding"
+						Value="0,0,0,0"></Setter>
+				<Setter Property="StrokeThickness"
+						Value="{Binding BorderTicknessUnfocused}"></Setter>
+				<Setter Property="StrokeShape"
+						Value="RoundRectangle 999"></Setter>
+				<Setter Property="Stroke"
+						Value="{Binding EntryBorderColor}"></Setter>
+			</Style>
+			<Style x:Key="EntryStyle"
+				   TargetType="Entry">
+				<Setter Property="FontFamily"
+						Value="LatoLight"></Setter>
+				<Setter Property="FontSize"
+						Value="{Binding FontSize}"></Setter>
+				<Setter Property="HorizontalTextAlignment"
+						Value="Center"></Setter>
+				<Setter Property="TextColor"
+						Value="Black"></Setter>
+			</Style>
+			<Style x:Key="DatePickerStyle"
+				   TargetType="DatePicker">
+				<Setter Property="FontFamily"
+						Value="LatoLight"></Setter>
+				<Setter Property="FontSize"
+						Value="{Binding FontSize}"></Setter>
+				<Setter Property="TextColor"
+						Value="Black"></Setter>
+			</Style>
+			<Style x:Key="IconStyle"
+				   TargetType="Label">
+				<Setter Property="FontFamily"
+						Value="MaterialDesignIcons"></Setter>
+				<Setter Property="FontSize"
+						Value="{Binding IconSize}"></Setter>
+				<Setter Property="TextColor"
+						Value="#c8c8c8"></Setter>
+				<Setter Property="VerticalOptions"
+						Value="Center"></Setter>
+				<Setter Property="HorizontalOptions"
+						Value="Center"></Setter>
+			</Style>
+		</ResourceDictionary>
+	</ContentView.Resources>
 
-    <ContentView.Content>
-        <Grid ColumnDefinitions="16,auto,*">
-            <Border 
-                x:Name="Border"
-                Grid.Column="0"
-                Grid.ColumnSpan="3"
-                Style="{StaticResource EntryBorderStyle}">
-                <Grid>
-                    <Entry
-                        IsVisible="{Binding IsText}"                        
-                        Placeholder="{Binding Placeholder}"
-                        Text="{Binding Text}"
-                        Style="{StaticResource EntryStyle}"
-                        Focused="Entry_Focused"
-                        Unfocused="Entry_Unfocused">
-                    </Entry>
+	<ContentView.Content>
+		<Grid ColumnDefinitions="16,auto,*">
+			<Border x:Name="Border"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					Style="{StaticResource EntryBorderStyle}">
+				<Grid>
+					<Entry IsVisible="{Binding IsText}"
+						   Placeholder="{Binding Placeholder}"
+						   Text="{Binding Text}"
+						   Style="{StaticResource EntryStyle}"
+						   Focused="Entry_Focused"
+						   IsPassword="{Binding IsPassword}"
+						   Unfocused="Entry_Unfocused">
+					</Entry>
 
-                    <DatePicker
-                        IsVisible="{Binding IsDate}"
-                        Date="{Binding Date}"
-                        DateSelected="DatePicker_DateSelected"
-                        Style="{StaticResource DatePickerStyle}"
-                        HorizontalOptions="Center"
-                        Focused="DatePicker_Focused"
-                        Unfocused="DatePicker_Unfocused">
-                    </DatePicker>
-                </Grid>
-            </Border>
-            <Label 
-                x:Name="Icon"
-                    Grid.Column="1"
-                    Text="{Binding Icon}"
-                    Style="{StaticResource IconStyle}">
-            </Label>
-        </Grid>
-        </ContentView.Content>
+					<DatePicker IsVisible="{Binding IsDate}"
+								Date="{Binding Date}"
+								Style="{StaticResource DatePickerStyle}"
+								HorizontalOptions="Center"
+								Focused="DatePicker_Focused"
+								Unfocused="DatePicker_Unfocused">
+					</DatePicker>
+				</Grid>
+			</Border>
+			<Label x:Name="Icon"
+				   Grid.Column="1"
+				   Text="{Binding Icon}"
+				   Style="{StaticResource IconStyle}">
+			</Label>
+		</Grid>
+	</ContentView.Content>
 </ContentView>

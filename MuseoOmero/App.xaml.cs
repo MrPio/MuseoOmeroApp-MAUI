@@ -10,14 +10,14 @@ namespace MuseoOmero;
 
 public partial class App : Application
 {
-    public App(ShellViewModelWin shellViewModelWin)
+    public App(SignInUpViewModelWin signInUpViewModelWin, ShellViewModelWin shellViewModelWin)
     {
         InitializeComponent();
 
-        Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping(nameof(IWindow), (handler, view) =>
-        {
+		Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping(nameof(IWindow), (handler, view) =>
+		{
 #if WINDOWS
-            var mauiWindow = handler.VirtualView;
+			var mauiWindow = handler.VirtualView;
             var nativeWindow = handler.PlatformView;
             nativeWindow.Activate();
             IntPtr windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(nativeWindow);
@@ -28,6 +28,7 @@ public partial class App : Application
             appWindow.TitleBar.ExtendsContentIntoTitleBar=true;
 #endif
 		});
+
 		var loggedIn = true;
         if (loggedIn)
         {
@@ -35,6 +36,7 @@ public partial class App : Application
                 MainPage = new MainView();
             else if (DeviceInfo.Platform == DevicePlatform.WinUI || DeviceInfo.Platform == DevicePlatform.MacCatalyst)
                 MainPage = new ShellViewWin(shellViewModelWin);
+            //MainPage = new SignInUpViewWin(signInUpViewModelWin);
         }
         else
         {

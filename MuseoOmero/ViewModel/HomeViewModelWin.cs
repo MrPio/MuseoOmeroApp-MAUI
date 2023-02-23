@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace MuseoOmero.ViewModelWin;
+﻿namespace MuseoOmero.ViewModelWin;
 public partial class HomeViewModelWin : ObservableObject
 {
 	[ObservableProperty]

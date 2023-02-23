@@ -416,6 +416,7 @@
 	<FlyoutItem Route="impostazioni">
 		<ShellContent ContentTemplate="{DataTemplate views:ImpostazioniViewWin}" />
 	</FlyoutItem>
+	
 
 	<!--<FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
 

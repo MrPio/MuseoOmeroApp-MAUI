@@ -13,11 +13,10 @@ public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
     {
-        var builder = MauiApp.CreateBuilder();
+		var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
-            .ConfigureSyncfusionCore()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("Lato-Regular.ttf", "Lato");
@@ -31,6 +30,7 @@ public static class MauiProgram
 				fonts.AddFont(filename: "materialdesignicons-webfont_thin.ttf", alias: "MaterialDesignIconsThin");
 			})
             .UseSharpnadoTabs(loggerEnable: false)
+            .ConfigureSyncfusionCore()
 			.UseSkiaSharp()
 			.ConfigureLifecycleEvents(events =>
             {
@@ -54,8 +54,9 @@ public static class MauiProgram
 		builder.Services.AddSingleton<HomeViewModelWin>();
 		builder.Services.AddSingleton<OpereViewModelWin>();
 		builder.Services.AddSingleton<OpereViewWin>();
-#endif
+		builder.Services.AddTransient<SignInUpViewModelWin>();
 
+#endif
 		return builder.Build();
     }
 

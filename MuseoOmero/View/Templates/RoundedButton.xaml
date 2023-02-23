@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:effectsView="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+			 xmlns:viewModel="clr-namespace:MuseoOmero.ViewModel.Templates"
+             x:Class="MuseoOmero.View.Templates.RoundedButton"
+			 x:DataType="viewModel:RoundedButtonViewModel">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="Margin" Value="0,40,0,12"></Setter>
+                <Setter Property="HeightRequest" Value="{Binding HeightRequest}"></Setter>
+                <Setter Property="WidthRequest" Value="240"></Setter>
+                <Setter Property="FontSize" Value="{Binding FontSize}"></Setter>
+                <Setter Property="BackgroundColor" Value="{StaticResource Primary}"></Setter>
+                <Setter Property="CornerRadius" Value="{Binding CornerRadius}"></Setter>
+                <Setter Property="BorderWidth" Value="0"></Setter>
+                <Setter Property="BorderColor" Value="{StaticResource Primary}"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        <effectsView:SfEffectsView 
+            TouchDownEffects="Ripple" 
+            FadeOutRipple="True" 
+            RippleBackground="#08703b">
+            <Button 
+                Text="{Binding Text}"
+                Clicked="RoundedButton_Clicked"
+                Pressed="RoundedButton_Pressed"
+                Released="RoundedButton_Released"
+                Style="{StaticResource ButtonStyle}">
+            </Button>
+        </effectsView:SfEffectsView>
+    </ContentView.Content>
+</ContentView>

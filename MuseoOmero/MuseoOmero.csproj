@@ -30,6 +30,14 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|AnyCPU'">
+	  <MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-ios|AnyCPU'">
+	  <MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" BackgroundColor="#512BD4" />
@@ -46,6 +54,15 @@
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AndroidResource Remove="Dump\**" />
+	  <Compile Remove="Dump\**" />
+	  <EmbeddedResource Remove="Dump\**" />
+	  <MauiCss Remove="Dump\**" />
+	  <MauiXaml Remove="Dump\**" />
+	  <None Remove="Dump\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -85,12 +102,14 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="2.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+		<PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />
 		<PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
 		<PackageReference Include="Microcharts" Version="0.9.5.9" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 		<PackageReference Include="Sharpnado.Tabs.Maui" Version="3.0.1" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />
-		<PackageReference Include="Syncfusion.Maui.Core" Version="20.4.49" />
+		<PackageReference Include="Syncfusion.Licensing" Version="20.4.0.51" />
+		<PackageReference Include="Syncfusion.Maui.Core" Version="20.4.51" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -142,6 +161,9 @@
 		<MauiXaml Update="View\ShellViewWin.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="View\SignInUpViewWin.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="View\StatisticheViewWin.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -154,6 +176,9 @@
 		<MauiXaml Update="View\Templates\PanoramicaElementViewWin.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="View\Templates\RoundedButton.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="View\Templates\TopMenu.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -163,10 +188,6 @@
 		<MauiXaml Update="View\Templates\TopBarView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Dump\" />
 	</ItemGroup>
 
 </Project>

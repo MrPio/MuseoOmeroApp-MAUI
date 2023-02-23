@@ -7,21 +7,24 @@ namespace MuseoOmero.ViewModel.Templates
     {
         public MyEntryViewModel(string placeholder, string text, string icon,
             double fontScale = 1, Color entryBorderColor = null, double borderTicknessFocused = 2.6,
-            double borderTicknessUnfocused = 1, DateTime date = default, bool isDate = false)
+            double borderTicknessUnfocused = 1, DateTime date = default, bool isDate = false,bool isPassword=false)
         {
             Placeholder = placeholder;
             Text = text;
             Icon = icon;
-            FontSize = DeviceManager.Instance.EntryFontSize * fontScale;
+            FontSize = 18 * fontScale;
             EntryBorderColor = entryBorderColor ?? Color.FromHex("#c8c8c8");
             BorderTicknessFocused = borderTicknessFocused;
             BorderTicknessUnfocused = borderTicknessUnfocused;
             Date = date == default ? DateTime.Today : date;
             IsDate = isDate;
             isText = !isDate;
+            IsPassword= isPassword;
         }
+        [ObservableProperty]
+        bool isPassword;
 
-        public string Placeholder { get; set; }
+		public string Placeholder { get; set; }
 
         private string _text;
         public string Text
@@ -34,8 +37,8 @@ namespace MuseoOmero.ViewModel.Templates
         }
         public string Icon { get; set; }
 
-        public double FontSize { get; set; } = DeviceManager.Instance.EntryFontSize;
-        public double IconSize { get; set; } = DeviceManager.Instance.DensityFactor * 32;
+        public double FontSize { get; set; } = 18;
+        public double IconSize { get; set; } =  32;
 
         [ObservableProperty]
         Color _entryBorderColor;
