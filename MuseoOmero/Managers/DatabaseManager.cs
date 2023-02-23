@@ -21,9 +21,8 @@ public class DatabaseManager
 		}
 	}
 
-	public FirebaseClient FirebaseClient = new FirebaseClient("https://museoomero-ca8aa-default-rtdb.europe-west1.firebasedatabase.app/");
+	public FirebaseClient FirebaseClient = new("https://museoomero-ca8aa-default-rtdb.europe-west1.firebasedatabase.app/");
 
-	// PERFETTAMENTE FUNZIONANTE!
 	private ChildQuery GetChild(string resource)
 	{
 		ChildQuery fc = null;

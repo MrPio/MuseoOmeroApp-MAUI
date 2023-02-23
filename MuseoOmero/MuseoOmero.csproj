@@ -118,9 +118,6 @@
 		<MauiXaml Update="Resources\Styles\ControlTemplates.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Resources\Styles\Converters.xaml">
-		  <Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
 		<MauiXaml Update="View\AccountViewWin.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

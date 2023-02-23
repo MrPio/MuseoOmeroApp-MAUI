@@ -2,12 +2,21 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:viewmodels="clr-namespace:MuseoOmero.ViewModelWin"
+			 xmlns:model="clr-namespace:MuseoOmero.Model"
 			 xmlns:effectsView="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
 			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
 			 xmlns:template="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
 			 x:Class="MuseoOmero.ViewWin.OpereViewWin"
 			 Title="OpereViewWin"
 			 x:DataType="viewmodels:OpereViewModelWin">
+
+	<ContentPage.Resources>
+		<converters:BoolToObjectConverter x:Key="SortingIconConverter"
+										  x:TypeArguments="x:String"
+										  TrueObject="{Static material:IconFont.SortAscending }"
+										  FalseObject="{Static material:IconFont.SortDescending }" />
+	</ContentPage.Resources>
 
 	<Grid RowDefinitions="120,*">
 
@@ -23,72 +32,181 @@
 
 				<!--Lista di Opere-->
 				<Frame Style="{StaticResource FrameRoundedWin}"
-					   BackgroundColor="Transparent"
+					   BackgroundColor="{StaticResource Color5}"
+					   HeightRequest="540"
 					   Padding="0">
-					<effectsView:SfEffectsView TouchDownEffects="Highlight"
-											   BackgroundColor="{StaticResource Color5}"
-											   HighlightBackground="Black">
-						<Grid RowDefinitions="60,*,26"
-							  Padding="26">
 
-							<!--Prima riga-->
-							<Grid ColumnDefinitions="62,*,auto"
-								  ColumnSpacing="14">
+					<Grid RowDefinitions="60,auto,*"
+						  Padding="26,26,26,0">
 
-								<!-- + Aggiungi Opera-->
-								<Button BackgroundColor="{StaticResource Color1}"
-										TextColor="{AppThemeBinding Light={StaticResource Color5}, Dark={StaticResource Color1}}"
-										CornerRadius="16"
-										Text="+ Aggiungi Opera" />
+						<!--Prima riga-->
+						<Grid ColumnDefinitions="160,*,auto,auto,auto"
+							  ColumnSpacing="14"
+							  Margin="10,0,30,0">
 
-								<!--Filtro-->
-								<Picker Grid.Column="2"
-										x:Name="FiltroPicker"
-										FontFamily="Lato"
-										WidthRequest="100"
-										SelectedIndexChanged="Picker_SelectedIndexChanged"
-										SelectedItem="{Binding FiltroPickerPickerSelectedItem}">
-									<Picker.ItemsSource>
-										<x:Array Type="{x:Type x:String}">
-											<x:String>Nome</x:String>
-											<x:String>DataReg</x:String>
-											<x:String>Sala</x:String>
-											<x:String>Autore</x:String>
-										</x:Array>
-									</Picker.ItemsSource>
-									<Picker.SelectedIndex>0</Picker.SelectedIndex>
-								</Picker>
-							</Grid>
+							<!-- + Aggiungi Opera-->
+							<Button BackgroundColor="{StaticResource Color1}"
+									TextColor="{AppThemeBinding Light={StaticResource Color5}, Dark={StaticResource Color1}}"
+									CornerRadius="25"
+									HeightRequest="46"
+									VerticalOptions="Center"
+									Text=" +  Aggiungi Opera" />
 
-							<!--Center content-->
-							<ScrollView Grid.Row="1">
-								<CollectionView ItemsSource="{Binding OpereFiltrate}">
-									
-									<!-- ****** TODO ****** -->
-									
-								</CollectionView>
-							</ScrollView>
+							<!--Filtro-->
+							<Label Grid.Column="2"
+								   Style="{StaticResource LabelNormal}"
+								   Text="Filtra per: "
+								   TextColor="{StaticResource Color6}"
+								   FontSize="16"
+								   VerticalOptions="Center" />
+							<Picker Grid.Column="3"
+									x:Name="FiltroPicker"
+									VerticalOptions="Center"
+									WidthRequest="140"
+									SelectedIndexChanged="FiltroPicker_SelectedIndexChanged"
+									SelectedItem="{Binding FiltroOpere}">
+								<Picker.ItemsSource>
+									<x:Array Type="{x:Type x:String}">
+										<x:String>Titolo</x:String>
+										<x:String>Sala</x:String>
+										<x:String>DataReg</x:String>
+										<x:String>Autore</x:String>
+										<x:String>Visuals</x:String>
+									</x:Array>
+								</Picker.ItemsSource>
+							</Picker>
+							<effectsView:SfEffectsView Grid.Column="4"
+													   TouchDownEffects="Highlight"
+													   HighlightBackground="Black">
+								<Label Style="{StaticResource FontIconLabel}"
+									   Margin="10,0,10,0"
+									   FontSize="28"
+									   Text="{Binding OpereSortAcending, Converter={StaticResource Key=SortingIconConverter}}"
+									   VerticalOptions="Center" />
+								<effectsView:SfEffectsView.GestureRecognizers>
+									<TapGestureRecognizer Command="{Binding InvertSortTapCommand}" />
+								</effectsView:SfEffectsView.GestureRecognizers>
+							</effectsView:SfEffectsView>
 
-							<!--Footer-->
-							<Grid Grid.Row="2"
-								  ColumnDefinitions="24,auto"
-								  ColumnSpacing="10">
-								<Label Grid.Column="0"
-									   FontFamily="MaterialDesignIcons"
-									   TextColor="{Binding ForegroundColor}"
-									   Text="{Binding TrendingIcon}"
-									   FontSize="24"
-									   VerticalOptions="Center"
-									   HorizontalOptions="Center"></Label>
-
-								<Label Grid.Column="1"
-									   TextColor="{Binding ForegroundColor}"
-									   FontAttributes="Bold"
-									   Text="{Binding UnderContent}"
-									   FontSize="16"></Label>
-							</Grid>
 						</Grid>
-					</effectsView:SfEffectsView>
+
+						<!--Center content-->
+						<VerticalStackLayout Grid.Row="1"
+											 Margin="0,20,0,0">
+							<Line Style="{StaticResource HRule}" />
+							<Grid ColumnDefinitions="*,*,*,*,0.5*"
+								  Margin="20,20,20,20">
+								<Grid.Resources>
+									<Style TargetType="Label"
+										   BasedOn="{StaticResource LabelBold}">
+										<Setter Property="FontSize"
+												Value="16" />
+										<Setter Property="VerticalOptions"
+												Value="Center" />
+										<Setter Property="HorizontalOptions"
+												Value="Center" />
+									</Style>
+									<Style TargetType="Label"
+										   x:Key="LabelSortIcon"
+										   BasedOn="{StaticResource FontIconLabel}">
+										<Setter Property="FontSize"
+												Value="22" />
+										<Setter Property="VerticalOptions"
+												Value="Center" />
+										<Setter Property="Margin"
+												Value="0,0,6,0" />
+									</Style>
+									<Style TargetType="effectsView:SfEffectsView">
+										<Setter Property="Grid.Column"
+												Value="1" />
+										<Setter Property="Margin"
+												Value="-20,-10,-20,-10" />
+										<Setter Property="TouchDownEffects"
+												Value="Highlight" />
+										<Setter Property="HighlightBackground"
+												Value="Black" />
+									</Style>
+									<converters:FilterToVisibleConverter x:Key="FilterToVisibleConverter" />
+									<ControlTemplate x:Key="HeaderElement"
+													 x:DataType="template:HeaderElement">
+										<Grid BindingContext="{Binding Source={RelativeSource TemplatedParent}}"
+											  ColumnDefinitions="auto,auto">
+											<Label Style="{StaticResource LabelSortIcon}"
+												   Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:OpereViewModelWin}},
+												Path=OpereSortAcending, Converter={StaticResource Key=SortingIconConverter}}">
+												<Label.IsVisible>
+													<MultiBinding Converter="{StaticResource FilterToVisibleConverter}">
+														<Binding Source="{RelativeSource AncestorType={x:Type viewmodels:OpereViewModelWin}}"
+																 Path="FiltroOpere" />
+														<Binding Path="Titolo" />
+													</MultiBinding>
+												</Label.IsVisible>
+											</Label>
+											<effectsView:SfEffectsView>
+												<Label Text="{Binding Titolo}"
+													   Margin="20,0,20,0" />
+												<effectsView:SfEffectsView.GestureRecognizers>
+													<TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType=
+														{x:Type viewmodels:OpereViewModelWin}}, Path=HeaderLabelTapCommand}"
+																		  CommandParameter="{Binding Titolo}" />
+												</effectsView:SfEffectsView.GestureRecognizers>
+											</effectsView:SfEffectsView>
+										</Grid>
+									</ControlTemplate>
+								</Grid.Resources>
+								<template:HeaderElement ControlTemplate="{StaticResource HeaderElement}"
+														Titolo="Titolo" />
+								<template:HeaderElement Grid.Column="1"
+														ControlTemplate="{StaticResource HeaderElement}"
+														Titolo="Sala" />
+								<template:HeaderElement Grid.Column="2"
+														ControlTemplate="{StaticResource HeaderElement}"
+														Titolo="DataReg" />
+								<template:HeaderElement Grid.Column="3"
+														ControlTemplate="{StaticResource HeaderElement}"
+														Titolo="Autore" />
+								<template:HeaderElement Grid.Column="4"
+														ControlTemplate="{StaticResource HeaderElement}"
+														Titolo="Visuals" />
+							</Grid>
+							<Line Style="{StaticResource HRule}" />
+						</VerticalStackLayout>
+
+						<CollectionView Grid.Row="2"
+										ItemsSource="{Binding OpereOrdinate}">
+							<CollectionView.ItemTemplate>
+								<DataTemplate x:DataType="model:Opera">
+									<VerticalStackLayout>
+										<effectsView:SfEffectsView TouchDownEffects="Highlight"
+																   HighlightBackground="Black">
+											<Grid ColumnDefinitions="*,*,*,*,0.5*"
+												  Margin="20,20,20,20">
+												<Grid.Resources>
+													<Style TargetType="Label"
+														   BasedOn="{StaticResource LabelNormal}">
+														<Setter Property="FontSize"
+																Value="15" />
+													</Style>
+												</Grid.Resources>
+
+												<Label Text="{Binding Nome}" />
+												<Label Grid.Column="1"
+													   Text="{Binding Sala}" />
+												<Label Grid.Column="2"
+													   Text="{Binding DataAggiunta}" />
+												<Label Grid.Column="3"
+													   Text="{Binding Autore}" />
+												<Label Grid.Column="4"
+													   Text="{Binding Visualizzazioni}" />
+											</Grid>
+										</effectsView:SfEffectsView>
+
+										<Line Style="{StaticResource HRule}" />
+									</VerticalStackLayout>
+								</DataTemplate>
+							</CollectionView.ItemTemplate>
+						</CollectionView>
+					</Grid>
 				</Frame>
 			</Grid>
 		</ScrollView>

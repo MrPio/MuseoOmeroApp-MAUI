@@ -38,130 +38,134 @@
 
 				<!--2 elementi di Panoramica-->
 				<Grid Grid.Row="1"
-					  ColumnDefinitions="1*,1*,0.75*"
+					  ColumnDefinitions="2*,0.75*"
 					  ColumnSpacing="26">
 
 					<!--Opere-->
-					<Frame Grid.ColumnSpan="2"
-						   Style="{StaticResource FrameRoundedWin}"
+					<Frame Style="{StaticResource FrameRoundedWin}"
 						   BackgroundColor="Transparent"
 						   HeightRequest="360"
 						   Padding="0">
-						<effectsView:SfEffectsView TouchDownEffects="Highlight"
-												   BackgroundColor="{StaticResource Color5}"
-												   HighlightBackground="Black">
-							<effectsView:SfEffectsView.GestureRecognizers>
-								<TapGestureRecognizer Tapped="OpereFrame_Tapped" />
-							</effectsView:SfEffectsView.GestureRecognizers>
-							<Grid RowDefinitions="40,*"
-								  Padding="26">
-								<!--Header-->
-								<Grid ColumnDefinitions="auto,*,auto,auto,auto"
-									  Margin="10,0,0,0"
-									  ColumnSpacing="14">
+						<Grid>
+							<effectsView:SfEffectsView TouchDownEffects="Highlight"
+													   BackgroundColor="{StaticResource Color5}"
+													   HighlightBackground="Black">
 
-									<!--Title-->
-									<Label Grid.Column="0"
-										   Text="Opere del museo"
-										   FontFamily="Lato"
-										   FontAttributes="Bold"
-										   TextColor="{StaticResource Color7}"
-										   FontSize="19">
-									</Label>
+								<effectsView:SfEffectsView.GestureRecognizers>
+									<TapGestureRecognizer Tapped="OpereFrame_Tapped" />
+								</effectsView:SfEffectsView.GestureRecognizers>
 
-									<Picker Grid.Column="2"
-											x:Name="RepartoPicker"
-											FontFamily="Lato"
-											WidthRequest="100"
-											SelectedIndexChanged="Picker_SelectedIndexChanged"
-											SelectedItem="{Binding RepartoPickerSelectedItem}">
-										<Picker.ItemsSource>
-											<x:Array Type="{x:Type x:String}">
-												<x:String>Museo</x:String>
-												<x:String>Mostra</x:String>
-											</x:Array>
-										</Picker.ItemsSource>
-										<Picker.SelectedIndex>0</Picker.SelectedIndex>
-									</Picker>
+								<Grid RowDefinitions="40,*"
+									  RowSpacing="6"
+									  Padding="26">
 
-									<Picker Grid.Column="3"
-											x:Name="SalaMostraPicker"
-											FontFamily="Lato"
-											WidthRequest="180"
-											SelectedIndexChanged="Picker_SelectedIndexChanged"
-											SelectedItem="{Binding SalaMostraPickerSelectedItem}">
-									</Picker>
+									<!--Header-->
+									<Grid ColumnDefinitions="auto,*,auto,auto,auto"
+										  Margin="10,0,0,0"
+										  ColumnSpacing="14">
 
-									<!--Right arrow-->
-									<Label Grid.Column="4"
-										   Style="{StaticResource RightArrowLabel}">
+										<!--Title-->
+										<Label Grid.Column="0"
+											   Text="Opere del museo"
+											   FontFamily="Lato"
+											   FontAttributes="Bold"
+											   TextColor="{StaticResource Color7}"
+											   FontSize="19">
+										</Label>
+
+										<Picker Grid.Column="2"
+												x:Name="RepartoPicker"
+												WidthRequest="100"
+												SelectedIndexChanged="Picker_SelectedIndexChanged"
+												SelectedItem="{Binding RepartoPickerSelectedItem}">
+											<Picker.ItemsSource>
+												<x:Array Type="{x:Type x:String}">
+													<x:String>Museo</x:String>
+													<x:String>Mostra</x:String>
+												</x:Array>
+											</Picker.ItemsSource>
+											<Picker.SelectedIndex>0</Picker.SelectedIndex>
+										</Picker>
+
+										<Picker Grid.Column="3"
+												x:Name="SalaMostraPicker"
+												WidthRequest="180"
+												SelectedIndexChanged="Picker_SelectedIndexChanged"
+												SelectedItem="{Binding SalaMostraPickerSelectedItem}">
+										</Picker>
+
+										<!--Right arrow-->
+										<Label Grid.Column="4"
+											   Style="{StaticResource RightArrowLabel}">
+										</Label>
+									</Grid>
+
+									<!--Opere Grid-->
+									<CollectionView Grid.Row="1"
+													ItemsSource="{Binding OpereFiltrate}"
+													ItemsLayout="VerticalGrid, 3">
+										<CollectionView.ItemTemplate>
+											<DataTemplate x:DataType="model:Opera">
+												<Frame Style="{StaticResource FrameRoundedWin}"
+													   BackgroundColor="{StaticResource Color4}"
+													   Padding="0"
+													   Margin="0,20,0,0"
+													   WidthRequest="185"
+													   HeightRequest="260">
+													<effectsView:SfEffectsView TouchDownEffects="Highlight"
+																			   HighlightBackground="{StaticResource Color7}">
+														<Grid>
+															<Grid RowDefinitions="*,auto,auto">
+																<Image Source="{Binding Foto}"
+																	   Aspect="AspectFill" />
+																<Label Grid.Row="1"
+																	   Margin="0,6,0,0"
+																	   HorizontalOptions="Center"
+																	   Style="{StaticResource LabelNormal}"
+																	   Text="{Binding Nome}" />
+																<Grid Grid.Row="2"
+																	  Margin="14,0,0,4"
+																	  ColumnDefinitions="auto,*"
+																	  ColumnSpacing="10">
+																	<Label Style="{StaticResource FontIconLabel}"
+																		   Text="{Static material:IconFont.TrendingNeutral}" />
+																	<Label Grid.Column="1"
+																		   Style="{StaticResource LabelThin}"
+																		   VerticalTextAlignment="Center"
+																		   Text="{Binding Visualizzazioni}" />
+																</Grid>
+															</Grid>
+
+															<Label Style="{StaticResource RightArrowLabel}"
+																   Margin="13"
+																   HorizontalOptions="End"
+																   VerticalOptions="Start" />
+														</Grid>
+													</effectsView:SfEffectsView>
+												</Frame>
+											</DataTemplate>
+										</CollectionView.ItemTemplate>
+									</CollectionView>
+
+									<!--Niente da visualizzare-->
+									<Label Grid.Row="1"
+										   Text="Niente da visualizzare"
+										   TextColor="{StaticResource Color6}"
+										   Opacity="0.36"
+										   Style="{StaticResource LabelThin}"
+										   VerticalOptions="Center"
+										   HorizontalOptions="Center"
+										   IsVisible="{Binding NoOpere}"
+										   FontSize="26">
+
 									</Label>
 								</Grid>
-
-								<!--Opere Grid-->
-								<CollectionView Grid.Row="1"
-												ItemsSource="{Binding OpereFiltrate}"
-												ItemsLayout="VerticalGrid, 3">
-									<CollectionView.ItemTemplate>
-										<DataTemplate x:DataType="model:Opera">
-											<Frame Style="{StaticResource FrameRoundedWin}"
-												   BackgroundColor="{StaticResource Color4}"
-												   Padding="0"
-												   WidthRequest="185"
-												   HeightRequest="260">
-												<effectsView:SfEffectsView TouchDownEffects="Highlight"
-																		   HighlightBackground="{StaticResource Color7}">
-													<Grid>
-														<Grid RowDefinitions="*,auto,auto">
-															<Image Source="{Binding Foto}"
-																   Aspect="AspectFill" />
-															<Label Grid.Row="1"
-																   Margin="0,6,0,0"
-																   HorizontalOptions="Center"
-																   Style="{StaticResource LabelNormal}"
-																   Text="{Binding Nome}" />
-															<Grid Grid.Row="2"
-																  Margin="14,0,0,4"
-																  ColumnDefinitions="auto,*"
-																  ColumnSpacing="10">
-																<Label Style="{StaticResource FontIconLabel}"
-																	   Text="{Static material:IconFont.TrendingNeutral}" />
-																<Label Grid.Column="1"
-																	   Style="{StaticResource LabelThin}"
-																	   VerticalTextAlignment="Center"
-																	   Text="{Binding Visualizzazioni}" />
-															</Grid>
-														</Grid>
-
-														<Label Style="{StaticResource RightArrowLabel}"
-															   Margin="13"
-															   HorizontalOptions="End"
-															   VerticalOptions="Start" />
-													</Grid>
-												</effectsView:SfEffectsView>
-											</Frame>
-										</DataTemplate>
-									</CollectionView.ItemTemplate>
-								</CollectionView>
-
-								<!--Niente da visualizzare-->
-								<Label Grid.Row="1"
-									   Text="Niente da visualizzare"
-									   TextColor="{StaticResource Color6}"
-									   Opacity="0.36"
-									   Style="{StaticResource LabelThin}"
-									   VerticalOptions="Center"
-									   HorizontalOptions="Center"
-									   IsVisible="{Binding NoOpere}"
-									   FontSize="26">
-
-								</Label>
-							</Grid>
-						</effectsView:SfEffectsView>
+							</effectsView:SfEffectsView>
+						</Grid>
 					</Frame>
 
 					<!--Chart-->
-					<Frame Grid.Column="2"
+					<Frame Grid.Column="1"
 						   Style="{StaticResource FrameRoundedWin}"
 						   BackgroundColor="Transparent"
 						   HeightRequest="360"

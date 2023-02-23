@@ -1,25 +1,67 @@
 ﻿namespace MuseoOmero.ViewModelWin;
 
-partial class OpereViewModelWin: ObservableObject
+public partial class OpereViewModelWin : ObservableObject
 {
 	private HomeViewModelWin _homeViewModel;
-	[ObservableProperty]
-	string filtroPickerPickerSelectedItem = "Nome";
 
 	[ObservableProperty]
-	ObservableCollection<Opera> opereFiltrate = new();
+	string filtroOpere = "Titolo", filtroMostre = "Titolo";
 
 	[ObservableProperty]
-	ObservableCollection<Mostra> mostreFiltrate = new();
+	ObservableCollection<Opera> opereOrdinate = new();
 
-	public void Initialize()
+	[ObservableProperty]
+	ObservableCollection<Mostra> mostreOrdinate = new();
+
+	[ObservableProperty]
+	bool opereSortAcending = true, mostreSortAcending = true;
+
+	[RelayCommand]
+	void HeaderLabelTap(string titolo)
 	{
-		OpereFiltrate = new ObservableCollection<Opera>(_homeViewModel.Opere.OrderBy(o => o.Nome));
-		MostreFiltrate = new ObservableCollection<Mostra>(_homeViewModel.Mostre.OrderBy(o => o.Titolo));
+		if (FiltroOpere == titolo)
+			OpereSortAcending = !OpereSortAcending;
+		else
+			OpereSortAcending = true;
+		FiltroOpere = titolo;
+		OrdinaOpere();
+	}
+	[RelayCommand]
+	void InvertSortTap()
+	{
+		OpereSortAcending = !OpereSortAcending;
+		OrdinaOpere();
+	}
+	public void OrdinaOpere()
+	{
+		Func<Opera, dynamic> opereFunc = FiltroOpere switch
+		{
+			"DataReg" => o => o.DataAggiunta,
+			"Sala" => o => o.Sala,
+			"Autore" => o => o.Autore,
+			"Visuals" => o => o.Visualizzazioni,
+			_ => o => o.Nome
+		};
+		Func<Mostra, dynamic> mostreFunc = FiltroMostre switch
+		{
+			_ => o => o.Titolo
+		};
+
+		var opereOrdinate = _homeViewModel.Opere.OrderBy(opereFunc).ToList();
+		if (!OpereSortAcending)
+			opereOrdinate.Reverse();
+		OpereOrdinate = new ObservableCollection<Opera>(opereOrdinate.ToList());
+
+
+		var mostreOrdinate = _homeViewModel.Mostre.OrderBy(mostreFunc).ToList();
+		if (!MostreSortAcending)
+			mostreOrdinate.Reverse();
+		MostreOrdinate = new ObservableCollection<Mostra>(mostreOrdinate.ToList());
+
 	}
 
 	public OpereViewModelWin(HomeViewModelWin homeViewModelWin)
 	{
-		_homeViewModel=homeViewModelWin;
+		_homeViewModel = homeViewModelWin;
 	}
 }

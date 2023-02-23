@@ -38,7 +38,7 @@
 		<Setter Property="FontFamily"
 				Value="Lato" />
 		<Setter Property="FontSize"
-				Value="14" />
+				Value="16" />
 		<Setter Property="CornerRadius"
 				Value="8" />
 		<Setter Property="Padding"
@@ -212,8 +212,6 @@
 			</VisualStateGroupList>
 		</Setter>
 	</Style>
-	
-	
 
 	<Style TargetType="ListView">
 		<Setter Property="SeparatorColor"
@@ -230,9 +228,9 @@
 		<Setter Property="BackgroundColor"
 				Value="Transparent" />
 		<Setter Property="FontFamily"
-				Value="LatoLight" />
+				Value="Lato" />
 		<Setter Property="FontSize"
-				Value="14" />
+				Value="16" />
 		<Setter Property="VisualStateManager.VisualStateGroups">
 			<VisualStateGroupList>
 				<VisualStateGroup x:Name="CommonStates">
@@ -509,7 +507,9 @@
 				Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
 	</Style>
 
-	<!--MY STYLES-->
+	<!-- *** MY STYLES ************************************************-->
+
+	<!--LABEL ICON-->
 	<Style TargetType="Label"
 		   x:Key="FontIconLabel">
 		<Setter Property="Text"
@@ -520,26 +520,7 @@
 				Value="30" />
 	</Style>
 
-	<!--<Style TargetType="Label"
-		   x:Key="FontIconLabelLight">
-		<Setter Property="Text"
-				Value="{Static material:IconFont.Home}" />
-		<Setter Property="FontFamily"
-				Value="MaterialDesignIconsLight" />
-		<Setter Property="FontSize"
-				Value="30" />
-	</Style>
-
-	<Style TargetType="Label"
-		   x:Key="FontIconLabelThin">
-		<Setter Property="Text"
-				Value="{Static material:IconFont.Home}" />
-		<Setter Property="FontFamily"
-				Value="MaterialDesignIconsThin" />
-		<Setter Property="FontSize"
-				Value="30" />
-	</Style>-->
-	
+	<!--LABEL TEXT-->
 	<Style TargetType="Label"
 		   x:Key="LabelThin">
 		<Setter Property="FontFamily"
@@ -547,7 +528,6 @@
 		<Setter Property="FontSize"
 				Value="16" />
 	</Style>
-
 	<Style TargetType="Label"
 		   x:Key="LabelNormal">
 		<Setter Property="FontFamily"
@@ -555,7 +535,6 @@
 		<Setter Property="FontSize"
 				Value="19" />
 	</Style>
-
 	<Style TargetType="Label"
 		   x:Key="LabelBold">
 		<Setter Property="FontFamily"
@@ -563,7 +542,6 @@
 		<Setter Property="FontSize"
 				Value="22" />
 	</Style>
-
 	<Style TargetType="Label"
 		   x:Key="RightArrowLabel">
 		<Setter Property="FontFamily"
@@ -582,12 +560,23 @@
 				Value="10,0,0,0" />
 	</Style>
 
-	<Style TargetType="Button"
-		   x:Key="LabelNormal">
-		<Setter Property="FontFamily"
-				Value="Lato" />
-		<Setter Property="FontSize"
-				Value="19" />
+	<!--LINE-->
+	<Style TargetType="Line"
+		   x:Key="HRule">
+		<Setter Property="Stroke"
+				Value="Black" />
+		<Setter Property="StrokeLineCap"
+				Value="Round" />
+		<Setter Property="Aspect"
+				Value="Fill" />
+		<Setter Property="X2"
+				Value="1" />
+		<Setter Property="Opacity"
+				Value="0.08" />
+		<Setter Property="StrokeThickness"
+				Value="1" />
+		<Setter Property="Margin"
+				Value="8,0,8,0" />
 	</Style>
 
 </ResourceDictionary>
