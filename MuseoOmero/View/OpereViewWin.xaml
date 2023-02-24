@@ -134,10 +134,10 @@
 												   Margin="0">
 											</Label>
 											<Grid.GestureRecognizers>
-													<TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType=
+												<TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType=
 														{x:Type viewmodels:OpereViewModelWin}}, Path=HeaderLabelTapCommand}"
-																		  CommandParameter="{Binding Titolo}" />
-												</Grid.GestureRecognizers>
+																	  CommandParameter="{Binding Titolo}" />
+											</Grid.GestureRecognizers>
 										</Grid>
 									</ControlTemplate>
 								</Grid.Resources>

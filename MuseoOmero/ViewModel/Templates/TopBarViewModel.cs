@@ -6,9 +6,9 @@ namespace MuseoOmero.ViewModel.Templates
 {
     public partial class TopBarViewModel : ObservableObject
     {
-        [ObservableProperty]
-        MyEntryViewModel _myEntryViewModel =
-            new("Ricerca", "", IconFont.Magnify, 0.9, DeviceManager.Instance.Colors[1], 1, 2.6, default, true);
+        //[ObservableProperty]
+        //RoundedEntryView _myEntryViewModel =
+        //    new("Ricerca", "", IconFont.Magnify, 0.9, DeviceManager.Instance.Colors[1], 1, 2.6, default, true);
 
         [ObservableProperty]
         string title = "Anagrafica";

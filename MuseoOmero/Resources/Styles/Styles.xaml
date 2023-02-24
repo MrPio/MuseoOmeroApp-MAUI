@@ -27,7 +27,7 @@
 
 	<Style TargetType="BoxView">
 		<Setter Property="Color"
-				Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
+				Value="Transparent" />
 	</Style>
 
 	<Style TargetType="Button">
@@ -38,7 +38,7 @@
 		<Setter Property="FontFamily"
 				Value="Lato" />
 		<Setter Property="FontSize"
-				Value="16" />
+				Value="18" />
 		<Setter Property="CornerRadius"
 				Value="8" />
 		<Setter Property="Padding"

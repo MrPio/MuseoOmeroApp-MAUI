@@ -1,7 +1,5 @@
 namespace MuseoOmero.ViewWin
 {
-
-
 	public partial class OpereViewWin : ContentPage
 	{
 		private readonly OpereViewModelWin _viewModel;

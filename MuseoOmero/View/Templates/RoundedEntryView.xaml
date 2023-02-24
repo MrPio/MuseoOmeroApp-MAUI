@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:view="clr-namespace:MuseoOmero.View.Templates"
+			 x:Class="MuseoOmero.View.Templates.RoundedEntryView"
+			 BindingContext="{Binding Source={RelativeSource Mode=Self}}"
+			 x:DataType="view:RoundedEntryView">
+
+	<ContentView.Content>
+		<Grid ColumnDefinitions="16,auto,*">
+			<Border x:Name="Border"
+					Padding="0"
+					StrokeShape="RoundRectangle 999"
+					Stroke="{Binding UnfocusedColor}"
+					StrokeThickness="1"
+					Grid.Column="0"
+					Grid.ColumnSpan="3">
+				<Grid>
+					<Entry x:Name="MyEntry"
+						   Placeholder="{Binding Placeholder}"
+						   Text="{Binding Text}"
+						   FontFamily="LatoLight"
+						   FontSize="18"
+						   Focused="Entry_Focused"
+						   HorizontalTextAlignment="Center"
+						   TextColor="{Binding UnfocusedColor}"
+						   IsPassword="{Binding IsPassword}"
+						   Unfocused="Entry_Unfocused">
+					</Entry>
+				</Grid>
+			</Border>
+			<Label x:Name="IconLabel"
+				   Style="{StaticResource FontIconLabel}"
+				   TextColor="{Binding UnfocusedColor}"
+				   Grid.Column="1"
+				   Text="{Binding Icon}"
+				   VerticalOptions="Center"
+				   HorizontalOptions="Center">
+			</Label>
+		</Grid>
+	</ContentView.Content>
+</ContentView>

@@ -13,7 +13,7 @@ public partial class HomeViewWin : ContentPage
 		_viewModel.Initialize();
 		InitializeComponent();
 		Picker_SelectedIndexChanged(RepartoPicker, null);
-		
+
 	}
 
 	protected override void OnAppearing()
@@ -31,8 +31,8 @@ public partial class HomeViewWin : ContentPage
 			BackgroundColor = Colors.Transparent.ToSKColor(),
 			IsAnimated = true,
 			LabelMode = LabelMode.LeftAndRight,
-			Margin=46,
-			HoleRadius= 1.4f,
+			Margin = 46,
+			HoleRadius = 1.4f,
 			Entries = new List<ChartEntry>
 			{
 				new ChartEntry(51)
@@ -70,7 +70,7 @@ public partial class HomeViewWin : ContentPage
 	{
 		var shellViewModel = this.Handler.MauiContext.Services.GetService<ShellViewModelWin>();
 		shellViewModel.SelectedRoute = "opere";
-    }
+	}
 
 	private void VisiteFrame_Tapped(object sender, EventArgs e)
 	{

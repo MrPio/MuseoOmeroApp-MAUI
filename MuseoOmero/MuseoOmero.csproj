@@ -120,8 +120,11 @@
 		<Compile Update="View\HomeViewWin.xaml.cs">
 		  <DependentUpon>HomeViewWin.xaml</DependentUpon>
 		</Compile>
-		<Compile Update="View\Templates\MyEntryView.xaml.cs">
-			<DependentUpon>MyEntryView.xaml</DependentUpon>
+		<Compile Update="View\Templates\RoundedEntryView.xaml.cs">
+			<DependentUpon>RoundedEntryView.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="View\Templates\RoundedButtonView.xaml.cs">
+		  <DependentUpon>RoundedButtonView.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="View\Templates\WavesView.xaml.cs">
 			<DependentUpon>WavesView.xaml</DependentUpon>
@@ -168,13 +171,13 @@
 		<MauiXaml Update="View\Templates\BigliettoView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="View\Templates\MyEntryView.xaml">
+		<MauiXaml Update="View\Templates\RoundedEntryView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="View\Templates\PanoramicaElementViewWin.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="View\Templates\RoundedButton.xaml">
+		<MauiXaml Update="View\Templates\RoundedButtonView.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="View\Templates\TopMenu.xaml">

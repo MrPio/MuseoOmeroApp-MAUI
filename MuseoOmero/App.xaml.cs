@@ -36,7 +36,7 @@ public partial class App : Application
                 MainPage = new MainView();
             else if (DeviceInfo.Platform == DevicePlatform.WinUI || DeviceInfo.Platform == DevicePlatform.MacCatalyst)
                 //MainPage = new ShellViewWin(shellViewModelWin);
-                MainPage = new SignInUpViewWin(signInUpViewModelWin);
+                MainPage = new SignInUpViewWin(signInUpViewModelWin, shellViewModelWin);
         }
         else
         {
