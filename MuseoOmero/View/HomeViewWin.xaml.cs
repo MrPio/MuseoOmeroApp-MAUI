@@ -20,6 +20,11 @@ public partial class HomeViewWin : ContentPage
 	{
 		base.OnAppearing();
 		DrawChart();
+		new Task(async delegate
+		{
+			await Task.Delay(1000);
+			Loading.IsVisible = false;
+		}).RunSynchronously();
 	}
 
 	private void DrawChart()

@@ -9,8 +9,7 @@
 			 x:Class="MuseoOmero.ViewWin.HomeViewWin"
 			 x:DataType="viewModel:HomeViewModelWin">
 
-	<Grid RowDefinitions="120,*"
-		  Margin="0,30,0,0">
+	<Grid RowDefinitions="120,*">
 
 		<!--TopMenu-->
 		<template:TopMenu />
@@ -45,15 +44,12 @@
 						   BackgroundColor="{StaticResource Color5}"
 						   HeightRequest="365"
 						   Padding="0">
-
 						<Grid>
-							
+							<template:HighlightView Clicked="OpereFrame_Tapped" />
+
 							<Grid RowDefinitions="40,*"
 								  RowSpacing="6"
 								  Padding="26">
-								<Grid.GestureRecognizers>
-									<TapGestureRecognizer Tapped="OpereFrame_Tapped" />
-								</Grid.GestureRecognizers>
 
 								<!--Header-->
 								<Grid ColumnDefinitions="auto,*,auto,auto,auto"
@@ -69,6 +65,7 @@
 										   FontSize="19">
 									</Label>
 
+									<!--RepartoPicker-->
 									<Picker Grid.Column="2"
 											x:Name="RepartoPicker"
 											WidthRequest="100"
@@ -83,6 +80,7 @@
 										<Picker.SelectedIndex>0</Picker.SelectedIndex>
 									</Picker>
 
+									<!--SalaMostraPicker-->
 									<Picker Grid.Column="3"
 											x:Name="SalaMostraPicker"
 											WidthRequest="180"
@@ -92,6 +90,7 @@
 
 									<!--Right arrow-->
 									<Label Grid.Column="4"
+										   InputTransparent="True"
 										   Style="{StaticResource RightArrowLabel}">
 									</Label>
 								</Grid>
@@ -162,79 +161,86 @@
 						   BackgroundColor="{StaticResource Color5}"
 						   HeightRequest="365"
 						   Padding="0">
-						<Grid RowDefinitions="40,auto,*"
-							  Padding="26">
-							<Grid.GestureRecognizers>
-								<TapGestureRecognizer Tapped="VisiteFrame_Tapped" />
-							</Grid.GestureRecognizers>
-							<!--Header-->
-							<Grid ColumnDefinitions="auto,*,auto"
-								  Margin="10,0,0,0"
-								  ColumnSpacing="14">
+						<Grid>
+							<template:HighlightView Clicked="VisiteFrame_Tapped" />
 
-								<!--Title-->
-								<Label Text="Tipologie visite"
-									   FontFamily="Lato"
-									   FontAttributes="Bold"
-									   TextColor="{StaticResource Color7}"
-									   FontSize="19">
-								</Label>
+							<Grid RowDefinitions="40,auto,*"
+								  Padding="26">
+								<!--Header-->
+								<Grid ColumnDefinitions="auto,*,auto"
+									  Margin="10,0,0,0"
+									  ColumnSpacing="14">
 
-								<!--Right arrow-->
-								<Label Grid.Column="2"
-									   Style="{StaticResource RightArrowLabel}">
-								</Label>
-							</Grid>
+									<!--Title-->
+									<Label Text="Tipologie visite"
+										   FontFamily="Lato"
+										   FontAttributes="Bold"
+										   TextColor="{StaticResource Color7}"
+										   FontSize="19">
+									</Label>
 
-							<!--Content-->
-							<template:ChartView x:Name="TipologiaVisiteChart"
-												Grid.Row="1"
-												MinimumHeightRequest="198"
-												HorizontalOptions="Fill"
-												VerticalOptions="Fill" />
+									<!--Right arrow-->
+									<Label Grid.Column="2"
+										   InputTransparent="True"
+										   Style="{StaticResource RightArrowLabel}">
+									</Label>
+								</Grid>
 
-							<!--Legend-->
-							<Grid Grid.Row="2"
-								  RowDefinitions="auto,auto,auto"
-								  RowSpacing="6"
-								  ColumnDefinitions="auto,*"
-								  ColumnSpacing="10">
-								<RoundRectangle Fill="{StaticResource Color1}"
-												CornerRadius="4"
-												WidthRequest="18"
-												HeightRequest="18" />
-								<Label Grid.Column="1"
-									   Style="{StaticResource LabelBold}"
-									   FontSize="15"
-									   Text="Museo Aperto" />
+								<!--Content-->
+								<template:ChartView x:Name="TipologiaVisiteChart"
+													Grid.Row="1"
+													MinimumHeightRequest="198"
+													HorizontalOptions="Fill"
+													VerticalOptions="Fill" />
 
-								<RoundRectangle Grid.Row="1"
-												Fill="{StaticResource Color3}"
-												CornerRadius="4"
-												WidthRequest="18"
-												HeightRequest="18" />
-								<Label Grid.Row="1"
-									   Grid.Column="1"
-									   Style="{StaticResource LabelBold}"
-									   FontSize="15"
-									   Text="Mostra" />
+								<!--Legend-->
+								<Grid Grid.Row="2"
+									  RowDefinitions="auto,auto,auto"
+									  RowSpacing="6"
+									  ColumnDefinitions="auto,*"
+									  ColumnSpacing="10">
+									<RoundRectangle Fill="{StaticResource Color1}"
+													CornerRadius="4"
+													WidthRequest="18"
+													HeightRequest="18" />
+									<Label Grid.Column="1"
+										   Style="{StaticResource LabelBold}"
+										   FontSize="15"
+										   Text="Museo Aperto" />
 
-								<RoundRectangle Grid.Row="2"
-												Fill="{StaticResource Color4}"
-												CornerRadius="4"
-												WidthRequest="18"
-												HeightRequest="18" />
-								<Label Grid.Row="2"
-									   Grid.Column="1"
-									   Style="{StaticResource LabelBold}"
-									   FontSize="15"
-									   Text="Laboratorio" />
+									<RoundRectangle Grid.Row="1"
+													Fill="{StaticResource Color3}"
+													CornerRadius="4"
+													WidthRequest="18"
+													HeightRequest="18" />
+									<Label Grid.Row="1"
+										   Grid.Column="1"
+										   Style="{StaticResource LabelBold}"
+										   FontSize="15"
+										   Text="Mostra" />
+
+									<RoundRectangle Grid.Row="2"
+													Fill="{StaticResource Color4}"
+													CornerRadius="4"
+													WidthRequest="18"
+													HeightRequest="18" />
+									<Label Grid.Row="2"
+										   Grid.Column="1"
+										   Style="{StaticResource LabelBold}"
+										   FontSize="15"
+										   Text="Laboratorio" />
+								</Grid>
 							</Grid>
 						</Grid>
 					</Frame>
 				</Grid>
 			</Grid>
 		</ScrollView>
+
+		<!-- Loading screen -->
+		<template:LoadingView Grid.RowSpan="2"
+							  x:Name="Loading"
+							  IsVisible="true" />
 	</Grid>
 
 </ContentPage>

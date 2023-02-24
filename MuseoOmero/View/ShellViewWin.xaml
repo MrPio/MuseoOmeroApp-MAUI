@@ -5,6 +5,7 @@
 	   xmlns:dataTemplateSelector="clr-namespace:MuseoOmero.DataTemplateSelectors"
 	   xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
 	   xmlns:converters="clr-namespace:MuseoOmero.Converters"
+	   xmlns:template="clr-namespace:MuseoOmero.View.TemplatesWin"
 	   FlyoutHeaderBehavior="CollapseOnScroll"
 	   x:Class="MuseoOmero.ViewWin.ShellViewWin"
 	   FlyoutBehavior="Locked"
@@ -167,7 +168,7 @@
 						Margin="-1,0,0,0"
 						VerticalOptions="Start"
 						HorizontalOptions="Start"
-						BackgroundColor="{StaticResource Color8}">
+						BackgroundColor="#30000000">
 					<Border.StrokeShape>
 						<RoundRectangle CornerRadius="0,0,0,8" />
 					</Border.StrokeShape>

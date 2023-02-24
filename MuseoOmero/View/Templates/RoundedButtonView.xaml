@@ -6,11 +6,12 @@
 			 BindingContext="{Binding Source={RelativeSource Mode=Self}}"
 			 x:DataType="templates:RoundedButtonView">
 
+				<!--Margin="0,40,0,12"-->
     <ContentView.Content>
-            <Button Text="{Binding Text}"
-				Margin="0,40,0,12"
-				HeightRequest="52"
-				FontSize="18"
+            <Button x:Name="Button"
+				Text="{Binding Text}"
+				HeightRequest="{Binding NewHeight}"
+				FontSize="{Binding NewFontSize}"
 				BackgroundColor="{Binding Color}"
 				BorderColor="{Binding Color}"
 				BorderWidth="0"

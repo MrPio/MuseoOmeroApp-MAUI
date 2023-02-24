@@ -15,11 +15,8 @@ public class DbPopulatorManager
 
 	public async Task populateUtenti()
 	{
-		var user = new Utente("MrPio", "a", "a", "a", "a", "a", new List<Biglietto>(), new List<Questionario>(), null);
-		var user2 = new Utente("MrPio2", "a", "a", "a", "a", "a", new List<Biglietto>(), new List<Questionario>(), null);
-
-		await db.Post($"utenti/", user);
-		await db.Post($"utenti/", user2);
+		var user = new Utente("MrPio", "Valerio", "Morelli", "+39 3318162818", new List<Biglietto>(), new List<Questionario>(), null);
+		await db.Put($"utenti/JTOjcHsfYIY1SqmDQbw7kLalnYw2", user);
 
 		var b = new Biglietto(
 			dataAcquisto: DateTime.Now,
@@ -28,9 +25,7 @@ public class DbPopulatorManager
 			dataGuida: null
 		);
 		user.Biglietti.AddRange(new List<Biglietto>() { b, b });
-		await db.SaveAccount(user);
-		user2.Biglietti.AddRange(new List<Biglietto>() { b, b, b, b });
-		await db.SaveAccount(user2);
+		await db.Put($"utenti/JTOjcHsfYIY1SqmDQbw7kLalnYw2/biglietti", user.Biglietti);
 	}
 
 	public async Task populateOpere()

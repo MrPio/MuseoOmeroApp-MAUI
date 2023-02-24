@@ -18,7 +18,8 @@ public class AccountManager
 	}
 
 	public Utente Account;
-	public UserCredential? UserCredential;
+	public string Uid;
+	private UserCredential UserCredential;
 
 	public FirebaseAuthClient FirebaseAuthClient = new(
 		new FirebaseAuthConfig()
@@ -35,9 +36,29 @@ public class AccountManager
 		try
 		{
 			UserCredential = await FirebaseAuthClient.SignInWithEmailAndPasswordAsync(email, password);
+			Uid = UserCredential.User.Uid;
+			Account = await DatabaseManager.Instance.LoadJsonObject<Utente>($"utenti/{Uid}");
+			await SecureStorage.Default.SetAsync("uid", UserCredential.User.Uid);
 		}
-		catch (FirebaseAuthException e){ return null; }
+		catch (FirebaseAuthException e) { return null; }
 		return UserCredential;
+	}
+
+	public async Task<bool> CacheSignIn()
+	{
+		var uid = await SecureStorage.Default.GetAsync("uid");
+
+		if (uid is { })
+		{
+			try
+			{
+				Account = await DatabaseManager.Instance.LoadJsonObject<Utente>($"utenti/{uid}");
+				Uid = uid;
+			}
+			catch (Exception e) { return false; }
+			return true;
+		}
+		return false;
 	}
 
 	public async Task SignUp(string email, string password, string username)

@@ -171,6 +171,12 @@
 		<MauiXaml Update="View\Templates\BigliettoView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="View\Templates\HighlightView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="View\Templates\LoadingView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="View\Templates\RoundedEntryView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

@@ -15,6 +15,12 @@ namespace MuseoOmero.ViewWin
 			_viewModel.OpereSortAcending= true;
 			_viewModel.OrdinaOpere();
 		}
+
+		private void HighlightView_Clicked(object sender, EventArgs e)
+		{
+			_viewModel.OpereSortAcending = !_viewModel.OpereSortAcending;
+			_viewModel.OrdinaOpere();
+		}
 	}
 }
 

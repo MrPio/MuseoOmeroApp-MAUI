@@ -47,9 +47,9 @@ public class DatabaseManager
 		var dict = JsonConvert.DeserializeObject<Dictionary<string, T>>(collection);
 		if (dict is null)
 			return null;
-		if (typeof(T) == typeof(Utente))
-			foreach (var entry in dict)
-				(entry.Value as Utente).Id = entry.Key;
+		//if (typeof(T) == typeof(Utente))
+		//	foreach (var entry in dict)
+		//		(entry.Value as Utente).Id = entry.Key;
 		if (typeof(T) == typeof(Opera))
 			foreach (var entry in dict)
 				(entry.Value as Opera).Id = entry.Key;
@@ -69,6 +69,6 @@ public class DatabaseManager
 	// High-Level
 	public async Task SaveAccount(Utente account)
 	{
-		await Put($"utenti/{account.Id}/", account);
+		await Put($"utenti/{AccountManager.Instance.Uid}/", account);
 	}
 }

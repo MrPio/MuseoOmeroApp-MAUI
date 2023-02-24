@@ -3,15 +3,20 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:viewModel="clr-namespace:MuseoOmero.ViewModelWin"
 			 xmlns:template="clr-namespace:MuseoOmero.View.Templates"
+			 xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
 			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
 			 x:Class="MuseoOmero.ViewWin.SignInUpViewWin"
 			 Title="SignIn"
 			 x:DataType="viewModel:SignInUpViewModelWin">
 
 	<Grid>
+		
+		<!--Background-->
 		<Image Aspect="AspectFill"
 			   Margin="0,-30,0,0"
 			   Source="https://i.ibb.co/C1Fb9VS/omero-homepage.jpg" />
+		
+		<!--Vignette-->
 		<BoxView x:Name="Vignette"
 				 Opacity="0.6">
 			<BoxView.Background>
@@ -23,6 +28,8 @@
 				</RadialGradientBrush>
 			</BoxView.Background>
 		</BoxView>
+		
+		<!--Login Frame-->	
 		<Frame Style="{StaticResource FrameRoundedWin}"
 			   HeightRequest="660"
 			   BackgroundColor="#DFFFFFFF"
@@ -84,16 +91,9 @@
 				</Grid>
 			</Grid>
 		</Frame>
-
+	
 		<!-- Loading screen -->
-		<Grid x:Name="Loading"
-			  IsVisible="false">
-			<ActivityIndicator IsRunning="true"
-							   Color="{StaticResource Color2}"
-							   WidthRequest="70"
-							   HeightRequest="70" />
-			<BoxView Color="Black"
-					 Opacity="0.3" />
-		</Grid>
+		<templatesWin:LoadingView x:Name="Loading"
+								  IsVisible="false" />
 	</Grid>
 </ContentPage>

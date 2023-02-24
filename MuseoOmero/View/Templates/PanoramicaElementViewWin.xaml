@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:viewmodels="clr-namespace:MuseoOmero.ViewModel.TemplatesWin"
+			 xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
 			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
 			 x:Class="MuseoOmero.View.TemplatesWin.PanoramicaElementViewWin"
 			 x:DataType="viewmodels:PanoramicaElementViewModelWin">
@@ -10,22 +11,25 @@
 		   BackgroundColor="{Binding BackgroundColor}"
 		   Margin="0"
 		   Padding="0">
+		<Grid>
+			<templatesWin:HighlightView Clicked="TapGestureRecognizer_Tapped" />
+
 			<Grid RowDefinitions="60,*,26"
-				  Padding="26">
-			<Grid.GestureRecognizers>
-				<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-		</Grid.GestureRecognizers>
+				  Padding="26"
+				  InputTransparent="True">
 
 				<!--Prima riga-->
 				<Grid ColumnDefinitions="62,*,30"
-					  ColumnSpacing="14">
+					  ColumnSpacing="14"
+					  InputTransparent="True">
 
 					<!--Icona-->
 					<Frame Grid.Column="0"
 						   BorderColor="Transparent"
 						   BackgroundColor="{Binding FrameColor}"
 						   Padding="0"
-						   CornerRadius="16">
+						   CornerRadius="16"
+						   InputTransparent="True">
 						<Label FontFamily="MaterialDesignIcons"
 							   Text="{Binding Icon}"
 							   FontSize="30"
@@ -42,20 +46,23 @@
 							   FontFamily="Lato"
 							   FontAttributes="Bold"
 							   TextColor="{Binding ForegroundColor}"
-							   FontSize="19">
+							   FontSize="19"
+							   InputTransparent="True">
 						</Label>
 						<Label Grid.Row="1"
 							   Text="{Binding Subtitle}"
 							   FontFamily="LatoLight"
 							   TextColor="{StaticResource Color6}"
-							   FontSize="16">
+							   FontSize="16"
+							   InputTransparent="True">
 						</Label>
 					</Grid>
 
 					<!--Right arrow-->
 					<Label Grid.Column="2"
 						   Style="{StaticResource RightArrowLabel}"
-						   TextColor="{Binding ForegroundColor}" />
+						   TextColor="{Binding ForegroundColor}"
+						   InputTransparent="True" />
 				</Grid>
 
 				<!--Center content-->
@@ -86,5 +93,6 @@
 						   FontSize="16"></Label>
 				</Grid>
 			</Grid>
+		</Grid>
 	</Frame>
 </ContentView>

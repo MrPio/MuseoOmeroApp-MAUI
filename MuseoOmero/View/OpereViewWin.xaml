@@ -4,7 +4,8 @@
 			 xmlns:viewmodels="clr-namespace:MuseoOmero.ViewModelWin"
 			 xmlns:model="clr-namespace:MuseoOmero.Model"
 			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
-			 xmlns:template="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 xmlns:templateWin="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 xmlns:template="clr-namespace:MuseoOmero.View.Templates"
 			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
 			 x:Class="MuseoOmero.ViewWin.OpereViewWin"
 			 Title="OpereViewWin"
@@ -13,14 +14,14 @@
 	<ContentPage.Resources>
 		<converters:BoolToObjectConverter x:Key="SortingIconConverter"
 										  x:TypeArguments="x:String"
-										  TrueObject="{Static material:IconFont.SortAscending }"
-										  FalseObject="{Static material:IconFont.SortDescending }" />
+										  TrueObject="{Static material:IconFont.SortDescending }"
+										  FalseObject="{Static material:IconFont.SortAscending }" />
 	</ContentPage.Resources>
 
 	<Grid RowDefinitions="120,*">
 
 		<!--TopMenu-->
-		<template:TopMenu />
+		<templateWin:TopMenu />
 
 		<!--Center of screen-->
 		<ScrollView Grid.Row="1">
@@ -44,12 +45,15 @@
 							  Margin="10,0,30,0">
 
 							<!-- + Aggiungi Opera-->
-							<Button BackgroundColor="{StaticResource Color1}"
+							<template:RoundedButtonView Text=" +  Aggiungi Opera"
+														Color="{StaticResource Color1}"
+														NewFontSize="16" />
+							<!--<Button BackgroundColor="{StaticResource Color1}"
 									TextColor="{AppThemeBinding Light={StaticResource Color5}, Dark={StaticResource Color1}}"
 									CornerRadius="25"
 									HeightRequest="46"
 									VerticalOptions="Center"
-									Text=" +  Aggiungi Opera" />
+									Text=" +  Aggiungi Opera" />-->
 
 							<!--Filtro-->
 							<Label Grid.Column="2"
@@ -74,15 +78,15 @@
 									</x:Array>
 								</Picker.ItemsSource>
 							</Picker>
+							<templateWin:HighlightView Grid.Column="4"
+													   Clicked="HighlightView_Clicked" />
 							<Label Grid.Column="4"
 								   Style="{StaticResource FontIconLabel}"
 								   Margin="10,0,10,0"
 								   FontSize="28"
+								   InputTransparent="True"
 								   Text="{Binding OpereSortAcending, Converter={StaticResource Key=SortingIconConverter}}"
 								   VerticalOptions="Center">
-								<Label.GestureRecognizers>
-									<TapGestureRecognizer Command="{Binding InvertSortTapCommand}" />
-								</Label.GestureRecognizers>
 							</Label>
 
 						</Grid>
@@ -115,10 +119,17 @@
 									</Style>
 									<converters:FilterToVisibleConverter x:Key="FilterToVisibleConverter" />
 									<ControlTemplate x:Key="HeaderElement"
-													 x:DataType="template:HeaderElement">
+													 x:DataType="templateWin:HeaderElement">
 										<Grid BindingContext="{Binding Source={RelativeSource TemplatedParent}}"
 											  ColumnDefinitions="auto,auto">
+
+											<templateWin:HighlightView Grid.ColumnSpan="2"
+																	   Command="{Binding Source={RelativeSource AncestorType=
+														{x:Type viewmodels:OpereViewModelWin}}, Path=HeaderLabelTapCommand}"
+																	   CommandParameter="{Binding Titolo}" />
+											
 											<Label Style="{StaticResource LabelSortIcon}"
+												   
 												   Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:OpereViewModelWin}},
 												Path=OpereSortAcending, Converter={StaticResource Key=SortingIconConverter}}">
 												<Label.IsVisible>
@@ -133,28 +144,24 @@
 												   Text="{Binding Titolo}"
 												   Margin="0">
 											</Label>
-											<Grid.GestureRecognizers>
-												<TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType=
-														{x:Type viewmodels:OpereViewModelWin}}, Path=HeaderLabelTapCommand}"
-																	  CommandParameter="{Binding Titolo}" />
-											</Grid.GestureRecognizers>
 										</Grid>
 									</ControlTemplate>
 								</Grid.Resources>
-								<template:HeaderElement ControlTemplate="{StaticResource HeaderElement}"
-														Titolo="Titolo" />
-								<template:HeaderElement Grid.Column="1"
-														ControlTemplate="{StaticResource HeaderElement}"
-														Titolo="Sala" />
-								<template:HeaderElement Grid.Column="2"
-														ControlTemplate="{StaticResource HeaderElement}"
-														Titolo="DataReg" />
-								<template:HeaderElement Grid.Column="3"
-														ControlTemplate="{StaticResource HeaderElement}"
-														Titolo="Autore" />
-								<template:HeaderElement Grid.Column="4"
-														ControlTemplate="{StaticResource HeaderElement}"
-														Titolo="Visuals" />
+
+								<templateWin:HeaderElement ControlTemplate="{StaticResource HeaderElement}"
+														   Titolo="Titolo" />
+								<templateWin:HeaderElement Grid.Column="1"
+														   ControlTemplate="{StaticResource HeaderElement}"
+														   Titolo="Sala" />
+								<templateWin:HeaderElement Grid.Column="2"
+														   ControlTemplate="{StaticResource HeaderElement}"
+														   Titolo="DataReg" />
+								<templateWin:HeaderElement Grid.Column="3"
+														   ControlTemplate="{StaticResource HeaderElement}"
+														   Titolo="Autore" />
+								<templateWin:HeaderElement Grid.Column="4"
+														   ControlTemplate="{StaticResource HeaderElement}"
+														   Titolo="Visuals" />
 							</Grid>
 							<Line Style="{StaticResource HRule}" />
 						</VerticalStackLayout>

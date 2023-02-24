@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
 			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
-			 x:Class="MuseoOmero.View.TemplatesWin.TopMenu">
+			 BindingContext="{Binding Source={RelativeSource Mode=Self}}"
+			 x:Class="MuseoOmero.View.TemplatesWin.TopMenu"
+			 x:DataType="templatesWin:TopMenu">
 
 	<Grid ColumnDefinitions="*,*"
 		  HeightRequest="120"
 		  Margin="60,0,60,0"
 		  BackgroundColor="{StaticResource Color5}">
 
-		<!--BentornatoLabel-->
+		<!--Bentornato Label-->
 		<Grid RowDefinitions="1.8*,*"
 			  Margin="0,36,0,28">
 			<Label Grid.Row="0"
-				   Text="Bentornato, NAME"
+				   Text="{Binding Nome, StringFormat='Bentornato, {0}'}"
 				   FontFamily="LatoBold"
-				   FontSize="24">
-			</Label>
+				   FontSize="24" />
 			<Label Grid.Row="1"
 				   Text="Questa è la tua panoramica:"
 				   FontFamily="LatoLight"
@@ -27,35 +29,47 @@
 
 		<!--Account Avatar-->
 		<Grid Grid.Column="1"
-			  ColumnDefinitions="46,auto,auto"
-			  ColumnSpacing="10"
-			  HorizontalOptions="End"
-			  Margin="30,0,26,0">
-			<Grid.GestureRecognizers>
-				<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-			</Grid.GestureRecognizers>
-			<!--<sync:SfAvatarView Grid.Column="0"
-								   ContentType="Custom"
-								   ImageSource="dotnet_bot.png"
-								   VerticalOptions="Center"
-								   StrokeThickness="0"
-								   HorizontalOptions="Center"
-								   HeightRequest="50"
-								   WidthRequest="50"
-								   CornerRadius="40">
-				</sync:SfAvatarView>-->
+			  HorizontalOptions="End">
 
-			<Label Grid.Column="1"
-				   Text="Nome Cognome"
-				   VerticalOptions="Center"
-				   FontAttributes="Bold"
-				   Margin="10"
-				   FontSize="16">
-			</Label>
+			<templatesWin:HighlightView Clicked="TapGestureRecognizer_Tapped" />
+			<Grid ColumnDefinitions="46,auto,auto"
+				  ColumnSpacing="10"
+				  InputTransparent="True"
+				  Margin="30,0,26,0">
 
-			<Label Grid.Column="2"
-				   Style="{StaticResource RightArrowLabel}"
-				   Text="{Static material:IconFont.ChevronDown}" />
+				<!--Avatar-->
+				<!--<Frame x:Name="Frame1"
+					   HeightRequest="46"
+					   WidthRequest="46"
+					   CornerRadius="40"
+					   Padding="0">-->
+				<Image x:Name="Avatar"
+					   Source="dotnet_bot.png"
+					   Aspect="AspectFill"
+					   HeightRequest="46"
+					   WidthRequest="46" />
+				<!--</Frame>-->
+
+				<!--Nome e Cognome-->
+				<Label Grid.Column="1"
+					   VerticalOptions="Center"
+					   FontAttributes="Bold"
+					   Margin="10"
+					   InputTransparent="True"
+					   FontSize="16">
+					<Label.Text>
+						<MultiBinding StringFormat="{}{0} {1}">
+							<Binding Path="Nome" />
+							<Binding Path="Cognome" />
+						</MultiBinding>
+					</Label.Text>
+				</Label>
+
+				<Label Grid.Column="2"
+					   InputTransparent="True"
+					   Style="{StaticResource RightArrowLabel}"
+					   Text="{Static material:IconFont.ChevronDown}" />
+			</Grid>
 		</Grid>
 	</Grid>
 </ContentView>

@@ -16,7 +16,6 @@
 				  RowDefinitions="auto,auto"
 				  Padding="60,40,60,40"
 				  BackgroundColor="{StaticResource Color4}">
-
 			</Grid>
 		</ScrollView>
 	</Grid>
