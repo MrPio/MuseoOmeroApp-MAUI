@@ -120,7 +120,8 @@
 																	   Margin="-10"
 																	   Command="{Binding Source={RelativeSource AncestorType=
 														{x:Type viewmodels:OpereViewModelWin}}, Path=HeaderLabelTapCommand}"
-																	   CommandParameter="{Binding Titolo}" />
+																	   CommandParameter="{Binding Source={RelativeSource AncestorType=
+														{x:Type model:Opera}}, Path=Titolo}" />
 											<Label Style="{StaticResource LabelSortIcon}"
 												   InputTransparent="True"
 												   Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:OpereViewModelWin}},
@@ -290,7 +291,8 @@
 																	   Margin="-10"
 																	   Command="{Binding Source={RelativeSource AncestorType=
 														{x:Type viewmodels:OpereViewModelWin}}, Path=HeaderLabelMostreTapCommand}"
-																	   CommandParameter="{Binding Titolo}" />
+																	   CommandParameter="{Binding Source={RelativeSource AncestorType=
+														{x:Type model:Opera}}, Path=Titolo}" />
 											<Label Style="{StaticResource LabelSortIcon}"
 												   InputTransparent="True"
 												   Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:OpereViewModelWin}},
@@ -419,7 +421,11 @@
 			<BoxView x:Name="Overlay"
 					 BackgroundColor="{StaticResource Color7}"
 					 TranslationX="9999"
-					 Opacity="0.6" />
+					 Opacity="0.6">
+				<BoxView.GestureRecognizers>
+					<TapGestureRecognizer Tapped="CardViewClose_Clicked" />
+				</BoxView.GestureRecognizers>
+			</BoxView>
 
 			<Grid x:Name="CardView"
 				  RowSpacing="24"
@@ -431,117 +437,134 @@
 						   BackgroundColor="{StaticResource Color4}"
 						   Margin="60,40,60,30"
 						   Padding="0">
-						<VerticalStackLayout>
+						<Grid>
+							<VerticalStackLayout>
 
-							<VerticalStackLayout Padding="36"
-												 BackgroundColor="{StaticResource Color5}"
-												 Spacing="8"
-												 Margin="1,0,1,0">
+								<VerticalStackLayout Padding="36"
+													 BackgroundColor="{StaticResource Color5}"
+													 Spacing="8"
+													 Margin="1,0,1,0">
 
-								<Label Style="{StaticResource LabelBold}"
-									   FontSize="30"
-									   Text="{Binding SelectedOpera.Nome,StringFormat='{}Opera: {0}'}"
-									   HorizontalOptions="Center" />
-								<Label Style="{StaticResource LabelThin}"
-									   Text="{Binding SelectedOpera.Visualizzazioni,StringFormat='{}Visualizzazioni: {0}'}"
-									   HorizontalOptions="Center"
-									   FontSize="16" />
-								<!--<Line Style="{StaticResource HRule}"
+									<Label Style="{StaticResource LabelBold}"
+										   FontSize="30"
+										   Text="{Binding SelectedOpera.Nome,StringFormat='{}Opera: {0}'}"
+										   HorizontalOptions="Center" />
+									<Label Style="{StaticResource LabelThin}"
+										   Text="{Binding SelectedOpera.Visualizzazioni,StringFormat='{}Visualizzazioni: {0}'}"
+										   HorizontalOptions="Center"
+										   FontSize="16" />
+									<!--<Line Style="{StaticResource HRule}"
 									  Stroke="{StaticResource Color4}"
 									  Opacity="1"
 									  StrokeThickness="5"
 									  WidthRequest="400" />-->
+								</VerticalStackLayout>
+
+								<VerticalStackLayout Margin="1,0,1,0"
+													 Spacing="2">
+
+									<BoxView HeightRequest="30" />
+									<Grid ColumnDefinitions="1.35*,0.75*,*"
+										  Margin="30,0,20,0">
+										<Image Aspect="AspectFit"
+											   Source="{Binding SelectedOpera.Foto}"
+											   HeightRequest="380" />
+
+										<VerticalStackLayout Grid.Column="1"
+															 HorizontalOptions="End"
+															 VerticalOptions="Center"
+															 Margin="20,0,16,0">
+											<VerticalStackLayout.Resources>
+												<Style TargetType="Label"
+													   BasedOn="{StaticResource LabelNormal}">
+													<Setter Property="FontSize"
+															Value="20" />
+													<Setter Property="HorizontalTextAlignment"
+															Value="End" />
+												</Style>
+											</VerticalStackLayout.Resources>
+											<Label Text="Autore:" />
+											<Label Text="Sala:" />
+											<Label Text="Tecnica:" />
+											<Label Text="Materiale:" />
+											<Label Text="Dimensioni:" />
+											<Label Text="Data Aggiunta:" />
+										</VerticalStackLayout>
+
+										<VerticalStackLayout Grid.Column="2"
+															 VerticalOptions="Center"
+															 HorizontalOptions="Start">
+											<Label Style="{StaticResource LabelThin}"
+												   FontSize="20"
+												   Text="{Binding SelectedOpera.Autore}" />
+											<Label Style="{StaticResource LabelThin}"
+												   FontSize="20">
+												<Label.Text>
+													<MultiBinding StringFormat="{}{0} cm x {1} cm x {2} cm">
+														<Binding Path="SelectedOpera.Dimensioni[0]" />
+														<Binding Path="SelectedOpera.Dimensioni[1]" />
+														<Binding Path="SelectedOpera.Dimensioni[2]" />
+													</MultiBinding>
+												</Label.Text>
+											</Label>
+											<Label Style="{StaticResource LabelThin}"
+												   FontSize="20"
+												   Text="{Binding SelectedOpera.Sala}" />
+											<Label Style="{StaticResource LabelThin}"
+												   FontSize="20"
+												   Text="{Binding SelectedOpera.Tecnica[0]}" />
+											<Label Style="{StaticResource LabelThin}"
+												   FontSize="20"
+												   Text="{Binding SelectedOpera.Materiali[0]}" />
+											<Label Style="{StaticResource LabelThin}"
+												   FontSize="20"
+												   Text="{Binding SelectedOpera.DataAggiunta,StringFormat='{0:dd MMMM, yyyy}'}" />
+										</VerticalStackLayout>
+									</Grid>
+
+									<Frame Style="{StaticResource FrameRoundedWin}"
+										   BackgroundColor="{StaticResource Color5}"
+										   Margin="60,40,60,30">
+										<VerticalStackLayout Spacing="30"
+															 Padding="20,10,20,20">
+											<Label Style="{StaticResource LabelNormal}"
+												   FontSize="20"
+												   HorizontalOptions="Center"
+												   Text="Descrizione" />
+											<Label Style="{StaticResource LabelThin}"
+												   FontSize="18"
+												   HorizontalOptions="Center"
+												   LineBreakMode="WordWrap"
+												   Text="{Binding SelectedOpera.Descrizione}" />
+
+										</VerticalStackLayout>
+									</Frame>
+
+									<BoxView HeightRequest="10" />
+
+									<template:RoundedButtonView Text="Chiudi"
+																WidthRequest="180"
+																Color="{StaticResource Color7}"
+																Clicked="CardViewClose_Clicked" />
+									<BoxView HeightRequest="30" />
+								</VerticalStackLayout>
 							</VerticalStackLayout>
 
-							<VerticalStackLayout Margin="1,0,1,0"
-												 Spacing="2">
-
-								<BoxView HeightRequest="30" />
-								<Grid ColumnDefinitions="1.35*,0.75*,*" Margin="30,0,20,0">
-									<Image Aspect="AspectFit"
-										   Source="{Binding SelectedOpera.Foto}"
-										   HeightRequest="380" />
-
-									<VerticalStackLayout Grid.Column="1"
-														 HorizontalOptions="End"
-														 VerticalOptions="Center"
-														 Margin="20,0,16,0">
-										<VerticalStackLayout.Resources>
-											<Style TargetType="Label"
-												   BasedOn="{StaticResource LabelNormal}">
-												<Setter Property="FontSize"
-														Value="20" />
-												<Setter Property="HorizontalTextAlignment"
-														Value="End" />
-											</Style>
-										</VerticalStackLayout.Resources>
-										<Label Text="Autore:" />
-										<Label Text="Sala:" />
-										<Label Text="Tecnica:" />
-										<Label Text="Materiale:" />
-										<Label Text="Dimensioni:" />
-										<Label Text="Data Aggiunta:" />
-									</VerticalStackLayout>
-
-									<VerticalStackLayout Grid.Column="2"
-														 VerticalOptions="Center"
-														 HorizontalOptions="Start">
-										<Label Style="{StaticResource LabelThin}"
-											   FontSize="20"
-											   Text="{Binding SelectedOpera.Autore}" />
-										<Label Style="{StaticResource LabelThin}"
-											   FontSize="20">
-											<Label.Text>
-												<MultiBinding StringFormat="{}{0} cm x {1} cm x {2} cm">
-													<Binding Path="SelectedOpera.Dimensioni[0]" />
-													<Binding Path="SelectedOpera.Dimensioni[1]" />
-													<Binding Path="SelectedOpera.Dimensioni[2]" />
-												</MultiBinding>
-											</Label.Text>
-										</Label>
-										<Label Style="{StaticResource LabelThin}"
-											   FontSize="20"
-											   Text="{Binding SelectedOpera.Sala}" />
-										<Label Style="{StaticResource LabelThin}"
-											   FontSize="20"
-											   Text="{Binding SelectedOpera.Tecnica[0]}" />
-										<Label Style="{StaticResource LabelThin}"
-											   FontSize="20"
-											   Text="{Binding SelectedOpera.Materiali[0]}" />
-										<Label Style="{StaticResource LabelThin}"
-											   FontSize="20"
-											   Text="{Binding SelectedOpera.DataAggiunta,StringFormat='{0:dd MMMM, yyyy}'}" />
-									</VerticalStackLayout>
-								</Grid>
-
-
-								<Frame Style="{StaticResource FrameRoundedWin}"
-									   BackgroundColor="{StaticResource Color5}"
-									   Margin="60,40,60,30">
-									<VerticalStackLayout Spacing="30"
-														 Padding="20,10,20,20">
-										<Label Style="{StaticResource LabelNormal}"
-											   FontSize="20"
-											   HorizontalOptions="Center"
-											   Text="Descrizione" />
-										<Label Style="{StaticResource LabelThin}"
-											   FontSize="18"
-											   HorizontalOptions="Center"
-											   LineBreakMode="WordWrap"
-											   Text="{Binding SelectedOpera.Descrizione}" />
-
-									</VerticalStackLayout>
-								</Frame>
-
-								<BoxView HeightRequest="10" />
-
-								<template:RoundedButtonView Text="Chiudi"
-															WidthRequest="180"
-															Color="{StaticResource Color7}"
-															Clicked="CardViewClose_Clicked" />
-								<BoxView HeightRequest="30" />
-							</VerticalStackLayout>
-						</VerticalStackLayout>
+							<Grid HorizontalOptions="End"
+								  VerticalOptions="Start"
+								  HeightRequest="50"
+								  WidthRequest="50"
+								  Margin="30">
+								<templateWin:HighlightView Clicked="CardViewClose_Clicked" CornerRadius="99" />
+								<Label Style="{StaticResource FontIconLabel}"
+									   FontSize="32"
+									   VerticalOptions="Center"
+									   HorizontalOptions="Center"
+									   InputTransparent="True"
+									   TextColor="{StaticResource Color7}"
+									   Text="{Static material:IconFont.Close}" />
+							</Grid>
+						</Grid>
 					</Frame>
 				</ScrollView>
 			</Grid>

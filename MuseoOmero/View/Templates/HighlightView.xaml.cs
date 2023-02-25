@@ -5,7 +5,7 @@ namespace MuseoOmero.View.TemplatesWin;
 public partial class HighlightView : ContentView
 {
 	public static readonly BindableProperty AlphaProperty = BindableProperty.Create(nameof(Alpha), typeof(float), typeof(HighlightView), 0.058f);
-	public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(float), typeof(HighlightView), 0f);
+	public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(int), typeof(HighlightView), 0);
 	public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(HighlightView), null);
 	public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(HighlightView), null);
 
@@ -14,9 +14,9 @@ public partial class HighlightView : ContentView
 		get => (float)GetValue(AlphaProperty);
 		set => SetValue(AlphaProperty, value);
 	}
-	public float CornerRadius
+	public int CornerRadius
 	{
-		get => (float)GetValue(CornerRadiusProperty);
+		get => (int)GetValue(CornerRadiusProperty);
 		set => SetValue(CornerRadiusProperty, value);
 	}
 

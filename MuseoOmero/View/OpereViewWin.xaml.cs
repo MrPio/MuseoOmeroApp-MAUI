@@ -82,7 +82,7 @@ namespace MuseoOmero.ViewWin
 
 		private void OperaElement_Clicked(object sender, EventArgs e)
 		{
-			_viewModel.SelectedOpera = ((Button)sender).BindingContext as Opera;
+			_viewModel.SelectedOpera = ((Button)sender).Parent.Parent.BindingContext as Opera;
 			CardViewTransition(true);
 		}
 	}
