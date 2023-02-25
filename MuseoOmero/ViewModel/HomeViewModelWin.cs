@@ -71,7 +71,7 @@ public partial class HomeViewModelWin : ObservableObject
 	{
 		var db = DatabaseManager.Instance;
 
-		//await DbPopulatorManager.Instance.populateOpere();
+		//await DbPopulatorManager.Instance.populateMostre();
 
 		Opere = await db.LoadJsonArray<Opera>("opere"); // TODO filtrare e mostrare + NIENTE DA MOSTRARE
 

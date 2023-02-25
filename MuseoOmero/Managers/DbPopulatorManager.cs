@@ -167,4 +167,31 @@ public class DbPopulatorManager
 		foreach (var opera in opere)
 			await db.Post("opere", opera);
 	}
+
+	public async Task populateMostre()
+	{
+		var mostre = new List<Mostra>()
+		{
+			new(
+				dataAggiunta: DateTime.Now,
+				dataInizio: DateTime.Today.AddDays(10),
+				dataFine: DateTime.Today.AddDays(20),
+				titolo: "Le Patamacchine",
+				foto:"https://i.ibb.co/R6CfrKH/Mostra-2022-23-Patamacchine-1024x411.jpg",
+			descrizione:"Il Museo Tattile Statale Omero ospita la mostra \"Le Patamacchine\", ovvero un salvavita indispensabile alla sopravvivenza dell'immaginario.\r\nSi tratta di un allestimento interattivo, ideato e realizzato dall'Associazione La luna al guinzaglio di Potenza, Salone dei Rifiutati.\r\nLa collezione di opere è ispirata alle macchine inutili dello scultore svizzero Jean Tinguely e ai principi della Patafisica di Alfred Jarry, ovvero alla \"Scienza delle soluzioni immaginarie\".\r\nInaugurazione\r\n\r\nLa mostra è stata inaugurata martedì 6 dicembre alle ore 17:00. Insieme al Presidente del Museo Omero, Aldo Grassini, e allo staff del museo erano presenti Sara Stolfi della cooperativa il Salone dei Rifiutati e Mariangela Tolve dell'Associazione La luna al guinzaglio, che hanno guidato gli ospiti alla scoperta della mostra.\r\nMacchine immaginarie\r\n\r\nLe Patamacchine, come \"Il catalogatore di sogni\", \"Il pacificaphone\", \"Il potenziatore di autostima\", sono oggetti meccanici interamente costruiti con materiale di scarto o usato, in particolare con i Raee (Rifiuti di apparecchiature elettriche ed elettroniche).\r\n\r\nSono macchine alimentate dall'immaginario, sospese tra realtà e non sense, assurde, ironiche, in grado di divertire, incuriosire e creare spiazzamenti percettivi. Macchine con cui interagire, attraverso un apposito libretto di istruzioni. Ogni oggetto contiene potenzialità creative meritevoli di essere accolte e sviluppate, perché ogni cosa può essere riscoperta nelle sue mille possibilità.\r\n\r\nLa mostra intende far riflettere il visitatore sull'importanza delle relazioni umane e del rispetto ambientale, opponendosi alla logica dell'usa e getta con la creatività e la fantasia. Il futuro del nostro ambiente dipende dal modo in cui lo viviamo e dalla dimensione ecologica che riusciremo ad esprimere.\r\n\r\nLo staff del Museo Omero ti guiderà in mostra per mettere alla prova la tua immaginazione.\r\nRegala \"Le Patamacchine\"\r\n\r\nAbbiamo predisposto un buono da regalare a chi desideri per far vivere l'esperienza unica della mostra con una visita guidata.\r\nVieni a ritirarlo al Museo Omero: scegli tu il numero di persone a cui donarlo e chi lo riceve sceglierà la data di ingresso.\r\nInfo e prenotazioni\r\n\r\nPeriodo: dal 7 dicembre 2022 al 12 marzo 2023.\r\nOrario: dal martedì al sabato 16:00 - 19:00; domenica e festivi (26 dicembre, 6 gennaio) 10:00 - 13:00 e 16:00 - 19:00; 1° Gennaio: 16:00 -19:00.\r\nChiuso: lunedì; 24, 25 e 31 Dicembre.\r\nPrenotazione obbligatoria: Telefono e Whatsapp 335 56 96 985, Email prenotazioni@museoomero.it\r\nEtà consigliata: 0-99 anni.\r\nAl Costo di 5 euro è possibile usufruire della visita guidata interattiva alla mostra e dell'ingresso alla collezione Design. Gratuito: 0-4 anni, persone con disabilità e chi li accompagna.",
+			opere: new(){ "-NOvamLQOLqRB9sRruLp", "-NOvamVofQQR_Mc7WjBl", "-NOvamhIclHgTEPPIuF8"}),
+
+			new(
+				dataAggiunta: DateTime.Now,
+				dataInizio: DateTime.Today.AddDays(20),
+				dataFine: DateTime.Today.AddDays(30),
+				titolo: "Pasolini pittore",
+				foto:"https://i.ibb.co/Y8cyCLR/eventi2022-Pasolini-pittore-1024x411.jpg",
+			descrizione:"A Roma, presso la Galleria d'Arte Moderna è in corso \"Pasolini pittore\" un progetto espositivo esclusivo completamente inedito nel suo genere, ideato per i cento anni dalla nascita di Pier Paolo Pasolini (1922-1975). La mostra intende riportare l'attenzione su un aspetto artistico rilevante, spesso trascurato dalla critica, nel contesto creativo complessivo dello scrittore e regista.\r\n\r\nIn mostra oltre 150 opere, selezionate dal corpus della collezione del Gabinetto Scientifico Letterario G.P. Vieusseux di Firenze, depositario della raccolta maggiore di opere di Pasolini, ma anche dalla Fondazione Cineteca di Bologna, dal Centro Studi Pier Paolo Pasolini di Casarsa, per la prima volta in mostra fuori dalla locale Casa Colussi, dall'Archivio Giuseppe Zigaina, oltre che da collezionisti privati.\r\nAccessibilità\r\n\r\nUn'attenzione particolare è stata dedicata all'accessibilità: per le persone con disabilità visiva è stato progettato, in collaborazione con il Museo Tattile Statale Omero di Ancona, un percorso dedicato, dotato di 6 disegni a rilievo e relative audiodescrizioni. Saranno inoltre disponibili visite tattili gratuite, guidate da operatori specializzati.\r\n\r\nA corollario della mostra sarà organizzata una serie di incontri culturali, readings e proiezioni di compendio alle tematiche affrontate nella mostra dal titolo \"Pasoliniana. Intorno a Pasolini pittore\",\r\na cura di Silvana Cirillo e Claudio Crescentini.\r\n\r\nIl progetto, curato da Silvana Cirillo, Claudio Crescentini e Federica Pirani per la Galleria d'Arte\r\nModerna di Roma è promosso da Roma Culture, Sovrintendenza Capitolina ai Beni Culturali, \"Sapienza\" Università di Roma, Facoltà di Lettere e Filosofia, Dipartimento di Lettere e Culture moderne, Gabinetto Scientifico Letterario G.P. Vieusseux di Firenze, Centro Studi Pier Paolo Pasolini di Casarsa della Delizia (PN) e Fondazione Cineteca di Bologna, in collaborazione con l'Archivio Giuseppe Zigaina e l'organizzazione di Zètema Progetto Cultura. Radio Partner Dimensione Suono Soft.\r\nIl catalogo è edito da Silvana Editoriale.",
+			opere: new(){ "-NOvamkQQgYkVrlsBkrz", "-NOvamnDCnhFY6pSJNtt", "-NOvamqSug2oAyHL3Fj7","-NOvamtdRm3tiTAqWP5K","-NOvamvFv5ruR6YDN3b9","-NOvamws1nDH4Y8IUddm","-NOvamyRRZtvsIMsWJUj"})
+		};
+
+		foreach (var mostra in mostre)
+			await db.Post("mostre", mostra);
+	}
 }

@@ -7,7 +7,7 @@
 			 x:Class="MuseoOmero.View.TemplatesWin.TopMenu"
 			 x:DataType="templatesWin:TopMenu">
 
-	<Grid ColumnDefinitions="*,*"
+	<Grid ColumnDefinitions="*,*,auto"
 		  HeightRequest="120"
 		  Margin="60,0,60,0"
 		  BackgroundColor="{StaticResource Color5}">
@@ -32,7 +32,7 @@
 			  HorizontalOptions="End">
 
 			<templatesWin:HighlightView Clicked="TapGestureRecognizer_Tapped" />
-			<Grid ColumnDefinitions="46,auto,auto"
+			<Grid ColumnDefinitions="46,auto,auto,auto"
 				  ColumnSpacing="10"
 				  InputTransparent="True"
 				  Margin="30,0,26,0">
@@ -70,6 +70,15 @@
 					   Style="{StaticResource RightArrowLabel}"
 					   Text="{Static material:IconFont.ChevronDown}" />
 			</Grid>
+		</Grid>
+
+		<Grid Grid.Column="2">
+			<templatesWin:HighlightView Clicked="Logout_Tapped" />
+
+			<Label InputTransparent="True"
+				   Padding="20,0,20,0"
+				   Style="{StaticResource RightArrowLabel}"
+				   Text="{Static material:IconFont.LogoutVariant}" />
 		</Grid>
 	</Grid>
 </ContentView>

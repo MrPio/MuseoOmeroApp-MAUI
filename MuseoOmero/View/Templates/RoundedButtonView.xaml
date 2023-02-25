@@ -15,7 +15,7 @@
 				BackgroundColor="{Binding Color}"
 				BorderColor="{Binding Color}"
 				BorderWidth="0"
-				CornerRadius="26"
+				CornerRadius="25"
                 Clicked="RoundedButton_Clicked"
                 Pressed="RoundedButton_Pressed"
                 Released="RoundedButton_Released">

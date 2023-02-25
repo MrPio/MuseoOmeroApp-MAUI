@@ -198,8 +198,6 @@
 				Value="LatoLight" />
 		<Setter Property="FontSize"
 				Value="14" />
-		<Setter Property="InputTransparent"
-				Value="True" />
 		<Setter Property="VisualStateManager.VisualStateGroups">
 			<VisualStateGroupList>
 				<VisualStateGroup x:Name="CommonStates">

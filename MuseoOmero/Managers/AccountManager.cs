@@ -43,7 +43,10 @@ public class AccountManager
 		catch (FirebaseAuthException e) { return null; }
 		return UserCredential;
 	}
-
+	public void DeleteCache()
+	{
+		SecureStorage.Default.Remove("uid");
+	}
 	public async Task<bool> CacheSignIn()
 	{
 		var uid = await SecureStorage.Default.GetAsync("uid");

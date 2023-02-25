@@ -24,16 +24,16 @@
 		<templateWin:TopMenu />
 
 		<!--Center of screen-->
-		<ScrollView Grid.Row="1">
-			<Grid RowSpacing="30"
-				  RowDefinitions="auto,auto"
-				  Padding="60,40,60,40"
+		<Grid Grid.Row="1">
+			<Grid RowSpacing="24"
+				  RowDefinitions="*,auto"
+				  Padding="60,40,60,30"
 				  BackgroundColor="{StaticResource Color4}">
 
 				<!--Lista di Opere-->
-				<Frame Style="{StaticResource FrameRoundedWin}"
+				<Frame x:Name="ListaOpere"
+					   Style="{StaticResource FrameRoundedWin}"
 					   BackgroundColor="{StaticResource Color5}"
-					   HeightRequest="540"
 					   Padding="0">
 
 					<Grid RowDefinitions="60,auto,*"
@@ -48,12 +48,6 @@
 							<template:RoundedButtonView Text=" +  Aggiungi Opera"
 														Color="{StaticResource Color1}"
 														NewFontSize="16" />
-							<!--<Button BackgroundColor="{StaticResource Color1}"
-									TextColor="{AppThemeBinding Light={StaticResource Color5}, Dark={StaticResource Color1}}"
-									CornerRadius="25"
-									HeightRequest="46"
-									VerticalOptions="Center"
-									Text=" +  Aggiungi Opera" />-->
 
 							<!--Filtro-->
 							<Label Grid.Column="2"
@@ -63,7 +57,6 @@
 								   FontSize="16"
 								   VerticalOptions="Center" />
 							<Picker Grid.Column="3"
-									x:Name="FiltroPicker"
 									VerticalOptions="Center"
 									WidthRequest="140"
 									SelectedIndexChanged="FiltroPicker_SelectedIndexChanged"
@@ -124,12 +117,12 @@
 											  ColumnDefinitions="auto,auto">
 
 											<templateWin:HighlightView Grid.ColumnSpan="2"
+																	   Margin="-10"
 																	   Command="{Binding Source={RelativeSource AncestorType=
 														{x:Type viewmodels:OpereViewModelWin}}, Path=HeaderLabelTapCommand}"
 																	   CommandParameter="{Binding Titolo}" />
-											
 											<Label Style="{StaticResource LabelSortIcon}"
-												   
+												   InputTransparent="True"
 												   Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:OpereViewModelWin}},
 												Path=OpereSortAcending, Converter={StaticResource Key=SortingIconConverter}}">
 												<Label.IsVisible>
@@ -141,6 +134,7 @@
 												</Label.IsVisible>
 											</Label>
 											<Label Grid.Column="1"
+												   InputTransparent="True"
 												   Text="{Binding Titolo}"
 												   Margin="0">
 											</Label>
@@ -178,8 +172,14 @@
 													   BasedOn="{StaticResource LabelNormal}">
 													<Setter Property="FontSize"
 															Value="15" />
+													<Setter Property="InputTransparent"
+															Value="True" />
 												</Style>
 											</Grid.Resources>
+
+											<templateWin:HighlightView Grid.ColumnSpan="5"
+																	   Margin="-14"
+																	   Clicked="OperaElement_Clicked" />
 
 											<Label Text="{Binding Nome}" />
 											<Label Grid.Column="1"
@@ -198,7 +198,353 @@
 						</CollectionView>
 					</Grid>
 				</Frame>
+
+				<!--Lista di Mostre-->
+				<Frame x:Name="ListaMostre"
+					   Grid.Row="0"
+					   TranslationX="1800"
+					   Style="{StaticResource FrameRoundedWin}"
+					   BackgroundColor="{StaticResource Color5}"
+					   Padding="0">
+
+					<Grid RowDefinitions="60,auto,*"
+						  Padding="26,26,26,0">
+
+						<!--Prima riga-->
+						<Grid ColumnDefinitions="160,*,auto,auto,auto"
+							  ColumnSpacing="14"
+							  Margin="10,0,30,0">
+
+							<!-- + Aggiungi Opera-->
+							<template:RoundedButtonView Text=" +  Allestisci Mostra"
+														Color="{StaticResource Color1}"
+														NewFontSize="16" />
+
+							<!--Filtro-->
+							<Label Grid.Column="2"
+								   Style="{StaticResource LabelNormal}"
+								   Text="Filtra per: "
+								   TextColor="{StaticResource Color6}"
+								   FontSize="16"
+								   VerticalOptions="Center" />
+							<Picker Grid.Column="3"
+									VerticalOptions="Center"
+									WidthRequest="140"
+									SelectedIndexChanged="FiltroMostrePicker_SelectedIndexChanged"
+									SelectedItem="{Binding FiltroMostre}">
+								<Picker.ItemsSource>
+									<x:Array Type="{x:Type x:String}">
+										<x:String>Titolo</x:String>
+										<x:String>DataInizio</x:String>
+										<x:String>DataFine</x:String>
+										<x:String>DataReg</x:String>
+									</x:Array>
+								</Picker.ItemsSource>
+							</Picker>
+							<templateWin:HighlightView Grid.Column="4"
+													   Clicked="MostreHighlightView_Clicked" />
+							<Label Grid.Column="4"
+								   Style="{StaticResource FontIconLabel}"
+								   Margin="10,0,10,0"
+								   FontSize="28"
+								   InputTransparent="True"
+								   Text="{Binding MostreSortAcending, Converter={StaticResource Key=SortingIconConverter}}"
+								   VerticalOptions="Center">
+							</Label>
+
+						</Grid>
+
+						<!--Center content-->
+						<VerticalStackLayout Grid.Row="1"
+											 Margin="0,20,0,0">
+							<Line Style="{StaticResource HRule}" />
+							<Grid ColumnDefinitions="*,*,*,*"
+								  Margin="20,20,20,20">
+								<Grid.Resources>
+									<Style TargetType="Label"
+										   BasedOn="{StaticResource LabelBold}">
+										<Setter Property="FontSize"
+												Value="16" />
+										<Setter Property="VerticalOptions"
+												Value="Center" />
+										<Setter Property="HorizontalOptions"
+												Value="Center" />
+									</Style>
+									<Style TargetType="Label"
+										   x:Key="LabelSortIcon"
+										   BasedOn="{StaticResource FontIconLabel}">
+										<Setter Property="FontSize"
+												Value="22" />
+										<Setter Property="VerticalOptions"
+												Value="Center" />
+										<Setter Property="Margin"
+												Value="0,0,6,0" />
+									</Style>
+									<converters:FilterToVisibleConverter x:Key="FilterToVisibleConverter" />
+									<ControlTemplate x:Key="HeaderElement"
+													 x:DataType="templateWin:HeaderElement">
+										<Grid BindingContext="{Binding Source={RelativeSource TemplatedParent}}"
+											  ColumnDefinitions="auto,auto">
+
+											<templateWin:HighlightView Grid.ColumnSpan="2"
+																	   Margin="-10"
+																	   Command="{Binding Source={RelativeSource AncestorType=
+														{x:Type viewmodels:OpereViewModelWin}}, Path=HeaderLabelMostreTapCommand}"
+																	   CommandParameter="{Binding Titolo}" />
+											<Label Style="{StaticResource LabelSortIcon}"
+												   InputTransparent="True"
+												   Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:OpereViewModelWin}},
+												Path=MostreSortAcending, Converter={StaticResource Key=SortingIconConverter}}">
+												<Label.IsVisible>
+													<MultiBinding Converter="{StaticResource FilterToVisibleConverter}">
+														<Binding Source="{RelativeSource AncestorType={x:Type viewmodels:OpereViewModelWin}}"
+																 Path="FiltroMostre" />
+														<Binding Path="Titolo" />
+													</MultiBinding>
+												</Label.IsVisible>
+											</Label>
+											<Label Grid.Column="1"
+												   InputTransparent="True"
+												   Text="{Binding Titolo}"
+												   Margin="0">
+											</Label>
+										</Grid>
+									</ControlTemplate>
+								</Grid.Resources>
+
+								<templateWin:HeaderElement ControlTemplate="{StaticResource HeaderElement}"
+														   Titolo="Titolo" />
+								<templateWin:HeaderElement Grid.Column="1"
+														   ControlTemplate="{StaticResource HeaderElement}"
+														   Titolo="DataInizio" />
+								<templateWin:HeaderElement Grid.Column="2"
+														   ControlTemplate="{StaticResource HeaderElement}"
+														   Titolo="DataFine" />
+								<templateWin:HeaderElement Grid.Column="3"
+														   ControlTemplate="{StaticResource HeaderElement}"
+														   Titolo="DataReg" />
+							</Grid>
+							<Line Style="{StaticResource HRule}" />
+						</VerticalStackLayout>
+
+						<CollectionView Grid.Row="2"
+										ItemsSource="{Binding MostreOrdinate}">
+							<CollectionView.ItemTemplate>
+								<DataTemplate x:DataType="model:Mostra">
+									<VerticalStackLayout>
+										<Grid ColumnDefinitions="*,*,*,*"
+											  Margin="20,20,20,20">
+											<Grid.Resources>
+												<Style TargetType="Label"
+													   BasedOn="{StaticResource LabelNormal}">
+													<Setter Property="FontSize"
+															Value="15" />
+													<Setter Property="InputTransparent"
+															Value="True" />
+												</Style>
+											</Grid.Resources>
+
+											<templateWin:HighlightView Grid.ColumnSpan="4"
+																	   Margin="-14" />
+
+											<Label Text="{Binding Titolo}" />
+											<Label Grid.Column="1"
+												   Text="{Binding DataInizio, StringFormat='{0:dd MMMM, yyyy}'}" />
+											<Label Grid.Column="2"
+												   Text="{Binding DataFine,StringFormat='{0:dd MMMM, yyyy}'}" />
+											<Label Grid.Column="3"
+												   Text="{Binding DataAggiunta , StringFormat='{0:dd MMMM, yyyy}'}" />
+										</Grid>
+										<Line Style="{StaticResource HRule}" />
+									</VerticalStackLayout>
+								</DataTemplate>
+							</CollectionView.ItemTemplate>
+						</CollectionView>
+					</Grid>
+				</Frame>
+
+				<HorizontalStackLayout Grid.Row="1"
+									   HorizontalOptions="Center"
+									   Spacing="20">
+					<HorizontalStackLayout.Resources>
+						<converters:BoolToObjectConverter x:Key="BorderColorConverter"
+														  x:TypeArguments="Color"
+														  TrueObject="{StaticResource Color5}"
+														  FalseObject="Transparent" />
+						<converters:BoolToObjectConverter x:Key="TextColorConverter"
+														  x:TypeArguments="Color"
+														  TrueObject="{StaticResource Color7}"
+														  FalseObject="{StaticResource Color6}" />
+						<Style TargetType="Border">
+							<Setter Property="StrokeThickness"
+									Value="0" />
+							<Setter Property="StrokeShape"
+									Value="RoundRectangle 999" />
+						</Style>
+						<Style TargetType="Label"
+							   BasedOn="{StaticResource LabelNormal}">
+							<Setter Property="Padding"
+									Value="24,14,24,14" />
+							<Setter Property="VerticalTextAlignment"
+									Value="Center" />
+							<Setter Property="FontSize"
+									Value="20" />
+						</Style>
+					</HorizontalStackLayout.Resources>
+
+					<Border BackgroundColor="{Binding OpereOn, Converter={StaticResource BorderColorConverter}}">
+						<Grid>
+							<Label Text="Opere"
+								   TextColor="{Binding OpereOn, Converter={StaticResource TextColorConverter}}" />
+							<templateWin:HighlightView x:Name="OpereOn"
+													   CornerRadius="99"
+													   Clicked="OpereOn_Clicked" />
+						</Grid>
+					</Border>
+
+					<Border BackgroundColor="{Binding MostreOn, 
+						Converter={StaticResource BorderColorConverter},ConverterParameter=true }">
+						<Grid>
+							<Label Text="Mostre"
+								   TextColor="{Binding MostreOn, 
+								Converter={StaticResource TextColorConverter},ConverterParameter=true}" />
+							<templateWin:HighlightView x:Name="MostreOn"
+													   CornerRadius="99"
+													   Clicked="MostreOn_Clicked" />
+						</Grid>
+					</Border>
+				</HorizontalStackLayout>
 			</Grid>
-		</ScrollView>
+
+			<BoxView x:Name="Overlay"
+					 BackgroundColor="{StaticResource Color7}"
+					 TranslationX="9999"
+					 Opacity="0.6" />
+
+			<Grid x:Name="CardView"
+				  RowSpacing="24"
+				  TranslationX="9999"
+				  RowDefinitions="*"
+				  Padding="60,10,60,10">
+				<ScrollView x:Name="CardViewScroll">
+					<Frame Style="{StaticResource FrameRoundedWin}"
+						   BackgroundColor="{StaticResource Color4}"
+						   Margin="60,40,60,30"
+						   Padding="0">
+						<VerticalStackLayout>
+
+							<VerticalStackLayout Padding="36"
+												 BackgroundColor="{StaticResource Color5}"
+												 Spacing="8"
+												 Margin="1,0,1,0">
+
+								<Label Style="{StaticResource LabelBold}"
+									   FontSize="30"
+									   Text="{Binding SelectedOpera.Nome,StringFormat='{}Opera: {0}'}"
+									   HorizontalOptions="Center" />
+								<Label Style="{StaticResource LabelThin}"
+									   Text="{Binding SelectedOpera.Visualizzazioni,StringFormat='{}Visualizzazioni: {0}'}"
+									   HorizontalOptions="Center"
+									   FontSize="16" />
+								<!--<Line Style="{StaticResource HRule}"
+									  Stroke="{StaticResource Color4}"
+									  Opacity="1"
+									  StrokeThickness="5"
+									  WidthRequest="400" />-->
+							</VerticalStackLayout>
+
+							<VerticalStackLayout Margin="1,0,1,0"
+												 Spacing="2">
+
+								<BoxView HeightRequest="30" />
+								<Grid ColumnDefinitions="1.35*,0.75*,*" Margin="30,0,20,0">
+									<Image Aspect="AspectFit"
+										   Source="{Binding SelectedOpera.Foto}"
+										   HeightRequest="380" />
+
+									<VerticalStackLayout Grid.Column="1"
+														 HorizontalOptions="End"
+														 VerticalOptions="Center"
+														 Margin="20,0,16,0">
+										<VerticalStackLayout.Resources>
+											<Style TargetType="Label"
+												   BasedOn="{StaticResource LabelNormal}">
+												<Setter Property="FontSize"
+														Value="20" />
+												<Setter Property="HorizontalTextAlignment"
+														Value="End" />
+											</Style>
+										</VerticalStackLayout.Resources>
+										<Label Text="Autore:" />
+										<Label Text="Sala:" />
+										<Label Text="Tecnica:" />
+										<Label Text="Materiale:" />
+										<Label Text="Dimensioni:" />
+										<Label Text="Data Aggiunta:" />
+									</VerticalStackLayout>
+
+									<VerticalStackLayout Grid.Column="2"
+														 VerticalOptions="Center"
+														 HorizontalOptions="Start">
+										<Label Style="{StaticResource LabelThin}"
+											   FontSize="20"
+											   Text="{Binding SelectedOpera.Autore}" />
+										<Label Style="{StaticResource LabelThin}"
+											   FontSize="20">
+											<Label.Text>
+												<MultiBinding StringFormat="{}{0} cm x {1} cm x {2} cm">
+													<Binding Path="SelectedOpera.Dimensioni[0]" />
+													<Binding Path="SelectedOpera.Dimensioni[1]" />
+													<Binding Path="SelectedOpera.Dimensioni[2]" />
+												</MultiBinding>
+											</Label.Text>
+										</Label>
+										<Label Style="{StaticResource LabelThin}"
+											   FontSize="20"
+											   Text="{Binding SelectedOpera.Sala}" />
+										<Label Style="{StaticResource LabelThin}"
+											   FontSize="20"
+											   Text="{Binding SelectedOpera.Tecnica[0]}" />
+										<Label Style="{StaticResource LabelThin}"
+											   FontSize="20"
+											   Text="{Binding SelectedOpera.Materiali[0]}" />
+										<Label Style="{StaticResource LabelThin}"
+											   FontSize="20"
+											   Text="{Binding SelectedOpera.DataAggiunta,StringFormat='{0:dd MMMM, yyyy}'}" />
+									</VerticalStackLayout>
+								</Grid>
+
+
+								<Frame Style="{StaticResource FrameRoundedWin}"
+									   BackgroundColor="{StaticResource Color5}"
+									   Margin="60,40,60,30">
+									<VerticalStackLayout Spacing="30"
+														 Padding="20,10,20,20">
+										<Label Style="{StaticResource LabelNormal}"
+											   FontSize="20"
+											   HorizontalOptions="Center"
+											   Text="Descrizione" />
+										<Label Style="{StaticResource LabelThin}"
+											   FontSize="18"
+											   HorizontalOptions="Center"
+											   LineBreakMode="WordWrap"
+											   Text="{Binding SelectedOpera.Descrizione}" />
+
+									</VerticalStackLayout>
+								</Frame>
+
+								<BoxView HeightRequest="10" />
+
+								<template:RoundedButtonView Text="Chiudi"
+															WidthRequest="180"
+															Color="{StaticResource Color7}"
+															Clicked="CardViewClose_Clicked" />
+								<BoxView HeightRequest="30" />
+							</VerticalStackLayout>
+						</VerticalStackLayout>
+					</Frame>
+				</ScrollView>
+			</Grid>
+		</Grid>
 	</Grid>
 </ContentPage>
