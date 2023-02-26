@@ -19,12 +19,18 @@ public class DbPopulatorManager
 		await db.Put($"utenti/JTOjcHsfYIY1SqmDQbw7kLalnYw2", user);
 
 		var b = new Biglietto(
-			dataAcquisto: DateTime.Now,
-			dataValidita: DateTime.Today.AddDays(1),
+			dataAcquisto: DateTime.Now.AddMinutes(6),
+			dataValidita: DateTime.Today.AddDays(1).AddMinutes(11),
 			tipologia: TipoBiglietto.MuseoAperto,
 			dataGuida: null
 		);
-		user.Biglietti.AddRange(new List<Biglietto>() { b, b });
+		var b2 = new Biglietto(
+			dataAcquisto: DateTime.Now.AddMinutes(28),
+			dataValidita: DateTime.Today.AddDays(1).AddMinutes(256),
+			tipologia: TipoBiglietto.Mostra,
+			dataGuida: DateTime.Today.AddDays(1).AddMinutes(356)
+		);
+		user.Biglietti.AddRange(new List<Biglietto>() { b, b2 });
 		await db.Put($"utenti/JTOjcHsfYIY1SqmDQbw7kLalnYw2/biglietti", user.Biglietti);
 	}
 

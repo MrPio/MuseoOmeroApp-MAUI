@@ -3,12 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:view="clr-namespace:MuseoOmero.View.TemplatesWin"
 			 x:Class="MuseoOmero.View.TemplatesWin.LoadingView"
-			 BindingContext="{Binding Source={RelativeSource Mode=Self}}"
 			 x:DataType="view:LoadingView">
 
 	<Grid>
 		<ActivityIndicator IsRunning="true"
-						   Color="{StaticResource Color2}"
+						   Color="{StaticResource Color1}"
 						   WidthRequest="70"
 						   HeightRequest="70" />
 		<BoxView Color="Black"

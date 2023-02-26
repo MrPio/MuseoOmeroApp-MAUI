@@ -32,7 +32,7 @@ public partial class HighlightView : ContentView
 		set => SetValue(CommandParameterProperty, value);
 	}
 
-	public event EventHandler Clicked;
+	public event EventHandler Clicked, Pressed, Released;
 	public HighlightView()
 	{
 		InitializeComponent();
@@ -40,12 +40,14 @@ public partial class HighlightView : ContentView
 
 	private void Button_Pressed(object sender, EventArgs e)
 	{
-		Button.BackgroundColor = DeviceManager.Instance.Colors[6].WithAlpha(Alpha);
+		Button.BackgroundColor = DeviceManager.Instance.Colors[0].WithAlpha(Alpha);
+		Pressed?.Invoke(sender, e);
 	}
 
 	private void Button_Released(object sender, EventArgs e)
 	{
 		Button.BackgroundColor = Colors.Transparent;
+		Released?.Invoke(sender, e);
 	}
 	private void Button_Clicked(object sender, EventArgs e)
 	{

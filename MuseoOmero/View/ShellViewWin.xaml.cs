@@ -14,11 +14,11 @@ public partial class ShellViewWin : Shell
 		BindingContext = viewModel;
 		InitializeComponent();
 		InitRoutes();
-			var t = Task.Run(async delegate
-			{
-				await Task.Delay(1400);
-				EspandiRiduciFlyoutLabel_Tapped(null, null);
-			});
+		var t = Task.Run(async delegate
+		{
+			await Task.Delay(1400);
+			EspandiRiduciFlyoutLabel_Tapped(null, null);
+		});
 	}
 	private void InitRoutes()
 	{

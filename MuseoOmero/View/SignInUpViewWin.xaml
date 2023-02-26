@@ -52,7 +52,7 @@
 						   Text="Accedi al portale"
 						   FontFamily="LatoBlack"
 						   HorizontalOptions="Center"
-						   TextColor="{StaticResource Color7}"
+						   TextColor="{StaticResource Color1}"
 						   FontSize="40" />
 				</VerticalStackLayout>
 
@@ -85,7 +85,8 @@
 											   IsPassword="true" />
 					<template:RoundedButtonView Grid.Row="4"
 												Text="Accedi"
-												WidthRequest="260"
+												WidthRequest="220"
+												Margin="0,30,0,0"
 												Color="{StaticResource Color1}"
 												Clicked="Accedi_Clicked" />
 				</Grid>

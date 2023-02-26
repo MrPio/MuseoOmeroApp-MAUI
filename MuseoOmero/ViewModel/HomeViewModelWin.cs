@@ -34,6 +34,7 @@ public partial class HomeViewModelWin : ObservableObject
 	public List<Opera> Opere = new();
 
 	public List<Mostra> Mostre = new();
+	public List<Utente> Utenti = new();
 
 	[ObservableProperty]
 	ObservableCollection<Opera> opereFiltrate = new();
@@ -67,11 +68,9 @@ public partial class HomeViewModelWin : ObservableObject
 		NoOpere = !SiOpere;
 	}
 
-	public async void Initialize()
+	public async Task Initialize()
 	{
 		var db = DatabaseManager.Instance;
-
-		//await DbPopulatorManager.Instance.populateMostre();
 
 		Opere = await db.LoadJsonArray<Opera>("opere"); // TODO filtrare e mostrare + NIENTE DA MOSTRARE
 
@@ -82,7 +81,7 @@ public partial class HomeViewModelWin : ObservableObject
 		}
 		FiltraOpere();
 
-		var users = await db.LoadJsonArray<Utente>("utenti");
+		Utenti = await db.LoadJsonArray<Utente>("utenti");
 		var bigliettiOggi = new List<Biglietto>();
 		var bigliettiVendutiOggi = new List<Biglietto>();
 		var convalideOggi = 0;
@@ -92,7 +91,7 @@ public partial class HomeViewModelWin : ObservableObject
 		var chatTotali = 0;
 		var chatNonLetteTotali = 0;
 
-		foreach (var user in users)
+		foreach (var user in Utenti)
 		{
 			bigliettiOggi.AddRange(from b in user.Biglietti
 								   where b.DataValidita.Date == DateTime.Today

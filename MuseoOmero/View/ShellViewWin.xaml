@@ -16,7 +16,7 @@
 	   Shell.TabBarIsVisible="False"
 	   Shell.NavBarIsVisible="False"
 	   x:Name="Shell"
-	   Shell.FlyoutWidth="84">
+	   Shell.FlyoutWidth="80">
 
 	<!--Styles-->
 	<Shell.Resources>
@@ -73,7 +73,7 @@
 			<Setter Property="ColumnSpacing"
 					Value="10" />
 			<Setter Property="Margin"
-					Value="30,0,30,0" />
+					Value="30,0,0,0" />
 		</Style>
 		<Style TargetType="RadioButton"
 			   x:Key="FlyoutItemRadioButton">
@@ -188,7 +188,7 @@
 
 				<!--@ Museo Omero-->
 				<Grid Style="{StaticResource FlyoutItemGrid}"
-					  ColumnSpacing="3"
+					  ColumnSpacing="10"
 					  Padding="0,24,0,0">
 					<Label Style="{StaticResource FontIconLabel}"
 						   Text="{Static material:IconFont.At}"

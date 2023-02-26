@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
 			 x:Class="MuseoOmero.View.Templates.RoundedButtonView"
-			 BindingContext="{Binding Source={RelativeSource Mode=Self}}"
 			 x:DataType="templates:RoundedButtonView">
 
-				<!--Margin="0,40,0,12"-->
-    <ContentView.Content>
-            <Button x:Name="Button"
-				Text="{Binding Text}"
-				HeightRequest="{Binding NewHeight}"
-				FontSize="{Binding NewFontSize}"
-				BackgroundColor="{Binding Color}"
-				BorderColor="{Binding Color}"
+	<!--Margin="0,40,0,12"-->
+	<ContentView.Content>
+		<Button x:Name="Button"
+				Text="{Binding Source={RelativeSource AncestorType={x:Type templates:RoundedButtonView}}, Path= Text}"
+				HeightRequest="{Binding Source={RelativeSource AncestorType={x:Type templates:RoundedButtonView}}, Path=  NewHeight}"
+				FontSize="{Binding Source={RelativeSource AncestorType={x:Type templates:RoundedButtonView}}, Path=  NewFontSize}"
+				BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type templates:RoundedButtonView}}, Path=  Color}"
+				BorderColor="{Binding Source={RelativeSource AncestorType={x:Type templates:RoundedButtonView}}, Path=  Color}"
 				BorderWidth="0"
 				CornerRadius="25"
-                Clicked="RoundedButton_Clicked"
-                Pressed="RoundedButton_Pressed"
-                Released="RoundedButton_Released">
-            </Button>
-    </ContentView.Content>
+				Clicked="RoundedButton_Clicked"
+				Pressed="RoundedButton_Pressed"
+				Released="RoundedButton_Released">
+		</Button>
+	</ContentView.Content>
 </ContentView>

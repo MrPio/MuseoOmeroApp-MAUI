@@ -1,4 +1,6 @@
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.PlatformConfiguration;
+using System.Runtime.ExceptionServices;
 
 namespace MuseoOmero.ViewWin
 {
@@ -10,6 +12,17 @@ namespace MuseoOmero.ViewWin
 			_viewModel = viewModel;
 			BindingContext = _viewModel;
 			InitializeComponent();
+
+		}
+
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
+			if (_viewModel.ShowOpera)
+			{
+				_viewModel.ShowOpera = false;
+				CardViewTransition(true);
+			}
 		}
 
 		private void FiltroPicker_SelectedIndexChanged(object sender, EventArgs e)
@@ -60,19 +73,22 @@ namespace MuseoOmero.ViewWin
 
 		private void CardViewClose_Clicked(object sender, EventArgs e)
 		{
+
 			CardViewTransition(false);
 		}
-		private async void CardViewTransition(bool show)
+		public async void CardViewTransition(bool show)
 		{
 			if (show)
 			{
 				CardView.TranslationX = 0;
 				Overlay.TranslationX = 0;
 				CardViewScroll.ScrollToAsync(0, 0, false);
+				MostreCardViewScroll.ScrollToAsync(0, 0, false);
 			}
 			CardView.FadeTo((show ? 1 : 0), 450, Easing.CubicOut);
 			CardView.TranslateTo(0, 50 * (show ? 0 : 1), 450, Easing.CubicOut);
 			await Overlay.FadeTo((show ? 0.6 : 0), 450, Easing.CubicOut);
+
 			if (!show)
 			{
 				CardView.TranslationX = 9999;
@@ -84,6 +100,16 @@ namespace MuseoOmero.ViewWin
 		{
 			_viewModel.SelectedOpera = ((Button)sender).Parent.Parent.BindingContext as Opera;
 			CardViewTransition(true);
+		}
+		private void MostraElement_Clicked(object sender, EventArgs e)
+		{
+			_viewModel.SelectedMostra = ((Button)sender).Parent.Parent.BindingContext as Mostra;
+			CardViewTransition(true);
+		}
+
+		private async void AggiungiOpera_Clicked(object sender, EventArgs e)
+		{
+			await DisplayAlert("Funzionalità non ancora implementata", "Per favore, per poter usufruire di questa funzionalità, attendi i prossimi aggiornamenti.","Ok");
 		}
 	}
 }

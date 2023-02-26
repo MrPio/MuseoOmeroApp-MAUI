@@ -10,7 +10,7 @@ public class BoolToObjectConverter<T> : IValueConverter
 
 	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 	{
-		if(parameter is bool e && e)
+		if (parameter is { } && (string)parameter == "true")
 		{
 			return (bool)value ? FalseObject : TrueObject;
 		}

@@ -10,11 +10,18 @@ public partial class SignInUpViewWin : ContentPage
 		_shellViewModelWin = shellViewModelWin;
 		BindingContext = _viewModel;
 		InitializeComponent();
+	}
+
+	protected override void OnAppearing()
+	{
+		base.OnAppearing();
 		new Task(CheckCached).RunSynchronously();
 	}
 
 	private async void CheckCached()
 	{
+		//await DbPopulatorManager.Instance.populateUtenti();
+		await Task.Delay(1600);
 		Loading.IsVisible = true;
 		if (await AccountManager.Instance.CacheSignIn())
 			App.Current.MainPage = new ShellViewWin(_shellViewModelWin);

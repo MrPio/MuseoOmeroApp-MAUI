@@ -24,7 +24,7 @@ public partial class App : Application
             WindowId windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(windowHandle);
             AppWindow appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
             var display=DeviceDisplay.Current.MainDisplayInfo;
-            appWindow.MoveAndResize(new RectInt32((int)(display.Width/2-1330/2),(int)(display.Height/2-850/2),1330,850));
+            appWindow.MoveAndResize(new RectInt32((int)(display.Width/2-1360/2),(int)(display.Height/2-850/2),1360,850));
             appWindow.TitleBar.ExtendsContentIntoTitleBar=true;
 #endif
 		});

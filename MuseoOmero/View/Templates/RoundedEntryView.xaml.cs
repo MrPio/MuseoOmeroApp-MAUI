@@ -53,7 +53,7 @@ public partial class RoundedEntryView : ContentView
 
 	private void Entry_Focused(object sender, FocusEventArgs e)
 	{
-		((Entry)sender).TextColor = DeviceManager.Colors[6];
+		((Entry)sender).TextColor = DeviceManager.Colors[0];
 		IconLabel.TextColor = Color;
 		Border.Stroke = Color;
 		Border.StrokeThickness = 2.6;

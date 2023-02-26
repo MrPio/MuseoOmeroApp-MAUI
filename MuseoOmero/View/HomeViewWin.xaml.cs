@@ -10,10 +10,8 @@ public partial class HomeViewWin : ContentPage
 	{
 		_viewModel = viewModel;
 		BindingContext = _viewModel;
-		_viewModel.Initialize();
 		InitializeComponent();
 		Picker_SelectedIndexChanged(RepartoPicker, null);
-
 	}
 
 	protected override void OnAppearing()
@@ -22,7 +20,10 @@ public partial class HomeViewWin : ContentPage
 		DrawChart();
 		new Task(async delegate
 		{
-			await Task.Delay(1000);
+			Loading.IsVisible = true;
+
+			await _viewModel.Initialize();
+			await Task.Delay(400);
 			Loading.IsVisible = false;
 		}).RunSynchronously();
 	}
@@ -81,5 +82,14 @@ public partial class HomeViewWin : ContentPage
 	{
 		var shellViewModel = this.Handler.MauiContext.Services.GetService<ShellViewModelWin>();
 		shellViewModel.SelectedRoute = "statistiche";
+	}
+
+	private void HighlightView_Clicked(object sender, EventArgs e)
+	{
+		var opera = ((Button)sender).Parent.Parent.BindingContext as Opera;
+		var operaViewModel = Handler.MauiContext.Services.GetService<OpereViewModelWin>();
+		operaViewModel.SelectedOpera = opera;
+		operaViewModel.ShowOpera = true;
+		Handler.MauiContext.Services.GetService<ShellViewModelWin>().SelectedRoute = "opere";
 	}
 }

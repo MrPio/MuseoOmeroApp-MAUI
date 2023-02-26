@@ -17,6 +17,7 @@
 					Grid.ColumnSpan="3">
 				<Grid>
 					<Entry x:Name="MyEntry"
+						   Margin="0,2,0,0"
 						   Placeholder="{Binding Placeholder}"
 						   Text="{Binding Text}"
 						   FontFamily="LatoLight"

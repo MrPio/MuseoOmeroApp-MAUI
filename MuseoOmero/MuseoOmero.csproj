@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks>net7.0-maccatalyst;net7.0-android;net7.0-ios</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
@@ -15,12 +15,12 @@
 		<ApplicationTitle>MuseoOmero</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.museoomero</ApplicationId>
+		<ApplicationId>com.mrpio.museoomero</ApplicationId>
 		<ApplicationIdGuid>78d4b87f-6fca-4dad-9bdf-049586983fc2</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-		<ApplicationVersion>1</ApplicationVersion>
+		<ApplicationDisplayVersion>2.0</ApplicationDisplayVersion>
+		<ApplicationVersion>2</ApplicationVersion>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
@@ -40,7 +40,7 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" BackgroundColor="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#242424" BackgroundColor="#242424" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#1D11D4" BaseSize="128,128" />
@@ -100,7 +100,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="2.0.0" />
+		<PackageReference Include="BarcodeScanner.Mobile.Maui" Version="6.3.0.25-pre" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="4.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 		<PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />
 		<PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
@@ -108,6 +109,11 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 		<PackageReference Include="Sharpnado.Tabs.Maui" Version="3.0.1" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />
+		<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+		<PackageReference Include="ZXing.Net" Version="0.16.9" />
+		<PackageReference Include="ZXing.Net.Bindings.ZKWeb.System.Drawing" Version="0.16.7" />
+		<PackageReference Include="ZXing.Net.Maui" Version="0.3.0-preview.1" />
+		<PackageReference Include="ZXing.Net.Maui.Controls" Version="0.3.0-preview.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -195,6 +201,18 @@
 		<MauiXaml Update="View\Templates\TopBarView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+	  <PackageReference Include="ZXing.Net.Maui.Jgdev">
+	    <Version>1.0.5</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-ios'">
+	  <PackageReference Include="ZXing.Net.Maui.Jgdev">
+	    <Version>1.0.5</Version>
+	  </PackageReference>
 	</ItemGroup>
 
 </Project>

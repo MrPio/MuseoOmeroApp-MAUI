@@ -25,6 +25,8 @@
 
 		<!--Center of screen-->
 		<Grid Grid.Row="1">
+
+			<!--Lista Opere/Mostre-->
 			<Grid RowSpacing="24"
 				  RowDefinitions="*,auto"
 				  Padding="60,40,60,30"
@@ -47,7 +49,8 @@
 							<!-- + Aggiungi Opera-->
 							<template:RoundedButtonView Text=" +  Aggiungi Opera"
 														Color="{StaticResource Color1}"
-														NewFontSize="16" />
+														NewFontSize="16"
+														Clicked="AggiungiOpera_Clicked"/>
 
 							<!--Filtro-->
 							<Label Grid.Column="2"
@@ -120,8 +123,7 @@
 																	   Margin="-10"
 																	   Command="{Binding Source={RelativeSource AncestorType=
 														{x:Type viewmodels:OpereViewModelWin}}, Path=HeaderLabelTapCommand}"
-																	   CommandParameter="{Binding Source={RelativeSource AncestorType=
-														{x:Type model:Opera}}, Path=Titolo}" />
+																	   CommandParameter="{Binding Titolo}" />
 											<Label Style="{StaticResource LabelSortIcon}"
 												   InputTransparent="True"
 												   Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:OpereViewModelWin}},
@@ -219,7 +221,8 @@
 							<!-- + Aggiungi Opera-->
 							<template:RoundedButtonView Text=" +  Allestisci Mostra"
 														Color="{StaticResource Color1}"
-														NewFontSize="16" />
+														NewFontSize="16"
+														Clicked="AggiungiOpera_Clicked"/>
 
 							<!--Filtro-->
 							<Label Grid.Column="2"
@@ -291,8 +294,7 @@
 																	   Margin="-10"
 																	   Command="{Binding Source={RelativeSource AncestorType=
 														{x:Type viewmodels:OpereViewModelWin}}, Path=HeaderLabelMostreTapCommand}"
-																	   CommandParameter="{Binding Source={RelativeSource AncestorType=
-														{x:Type model:Opera}}, Path=Titolo}" />
+																	   CommandParameter="{Binding Titolo}" />
 											<Label Style="{StaticResource LabelSortIcon}"
 												   InputTransparent="True"
 												   Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:OpereViewModelWin}},
@@ -347,7 +349,8 @@
 											</Grid.Resources>
 
 											<templateWin:HighlightView Grid.ColumnSpan="4"
-																	   Margin="-14" />
+																	   Margin="-14"
+																	   Clicked="MostraElement_Clicked" />
 
 											<Label Text="{Binding Titolo}" />
 											<Label Grid.Column="1"
@@ -365,6 +368,7 @@
 					</Grid>
 				</Frame>
 
+				<!--Mostre/Opere Switcher-->
 				<HorizontalStackLayout Grid.Row="1"
 									   HorizontalOptions="Center"
 									   Spacing="20">
@@ -375,7 +379,7 @@
 														  FalseObject="Transparent" />
 						<converters:BoolToObjectConverter x:Key="TextColorConverter"
 														  x:TypeArguments="Color"
-														  TrueObject="{StaticResource Color7}"
+														  TrueObject="{StaticResource Color1}"
 														  FalseObject="{StaticResource Color6}" />
 						<Style TargetType="Border">
 							<Setter Property="StrokeThickness"
@@ -394,32 +398,33 @@
 						</Style>
 					</HorizontalStackLayout.Resources>
 
-					<Border BackgroundColor="{Binding OpereOn, Converter={StaticResource BorderColorConverter}}">
+					<Border BackgroundColor="{Binding MostreOn, Converter={StaticResource BorderColorConverter},ConverterParameter=true}">
 						<Grid>
 							<Label Text="Opere"
-								   TextColor="{Binding OpereOn, Converter={StaticResource TextColorConverter}}" />
+								   TextColor="{Binding MostreOn, Converter={StaticResource TextColorConverter},ConverterParameter=true}" />
 							<templateWin:HighlightView x:Name="OpereOn"
-													   CornerRadius="99"
+													   CornerRadius="30"
 													   Clicked="OpereOn_Clicked" />
 						</Grid>
 					</Border>
 
 					<Border BackgroundColor="{Binding MostreOn, 
-						Converter={StaticResource BorderColorConverter},ConverterParameter=true }">
+						Converter={StaticResource BorderColorConverter} }">
 						<Grid>
 							<Label Text="Mostre"
 								   TextColor="{Binding MostreOn, 
-								Converter={StaticResource TextColorConverter},ConverterParameter=true}" />
+								Converter={StaticResource TextColorConverter}}" />
 							<templateWin:HighlightView x:Name="MostreOn"
-													   CornerRadius="99"
+													   CornerRadius="30"
 													   Clicked="MostreOn_Clicked" />
 						</Grid>
 					</Border>
 				</HorizontalStackLayout>
 			</Grid>
 
+			<!--Overlay-->
 			<BoxView x:Name="Overlay"
-					 BackgroundColor="{StaticResource Color7}"
+					 BackgroundColor="{StaticResource Color1}"
 					 TranslationX="9999"
 					 Opacity="0.6">
 				<BoxView.GestureRecognizers>
@@ -427,17 +432,21 @@
 				</BoxView.GestureRecognizers>
 			</BoxView>
 
+			<!--CardView-->
 			<Grid x:Name="CardView"
 				  RowSpacing="24"
 				  TranslationX="9999"
 				  RowDefinitions="*"
 				  Padding="60,10,60,10">
-				<ScrollView x:Name="CardViewScroll">
-					<Frame Style="{StaticResource FrameRoundedWin}"
-						   BackgroundColor="{StaticResource Color4}"
-						   Margin="60,40,60,30"
-						   Padding="0">
-						<Grid>
+				<Frame Style="{StaticResource FrameRoundedWin}"
+					   BackgroundColor="{StaticResource Color4}"
+					   Margin="60,40,60,30"
+					   Padding="0">
+					<Grid RowDefinitions="*">
+
+						<!--CardView Content [OPERA]-->
+						<ScrollView x:Name="CardViewScroll"
+									IsVisible="{Binding MostreOn, Converter={converters:BoolNagationConverter}}">
 							<VerticalStackLayout>
 
 								<VerticalStackLayout Padding="36"
@@ -445,6 +454,7 @@
 													 Spacing="8"
 													 Margin="1,0,1,0">
 
+									<!--Titolo-->
 									<Label Style="{StaticResource LabelBold}"
 										   FontSize="30"
 										   Text="{Binding SelectedOpera.Nome,StringFormat='{}Opera: {0}'}"
@@ -453,15 +463,12 @@
 										   Text="{Binding SelectedOpera.Visualizzazioni,StringFormat='{}Visualizzazioni: {0}'}"
 										   HorizontalOptions="Center"
 										   FontSize="16" />
-									<!--<Line Style="{StaticResource HRule}"
-									  Stroke="{StaticResource Color4}"
-									  Opacity="1"
-									  StrokeThickness="5"
-									  WidthRequest="400" />-->
 								</VerticalStackLayout>
 
 								<VerticalStackLayout Margin="1,0,1,0"
 													 Spacing="2">
+
+									<!--Immagine e Caratteristiche-->
 
 									<BoxView HeightRequest="30" />
 									<Grid ColumnDefinitions="1.35*,0.75*,*"
@@ -522,6 +529,8 @@
 										</VerticalStackLayout>
 									</Grid>
 
+									<!--Descrizione-->
+
 									<Frame Style="{StaticResource FrameRoundedWin}"
 										   BackgroundColor="{StaticResource Color5}"
 										   Margin="60,40,60,30">
@@ -540,33 +549,128 @@
 										</VerticalStackLayout>
 									</Frame>
 
-									<BoxView HeightRequest="10" />
-
-									<template:RoundedButtonView Text="Chiudi"
+									<!--<BoxView HeightRequest="10" />-->
+									<!--Chiudi Button-->
+									<!--<template:RoundedButtonView Text="Chiudi"
 																WidthRequest="180"
 																Color="{StaticResource Color7}"
-																Clicked="CardViewClose_Clicked" />
+																Clicked="CardViewClose_Clicked" />-->
 									<BoxView HeightRequest="30" />
 								</VerticalStackLayout>
 							</VerticalStackLayout>
+						</ScrollView>
 
-							<Grid HorizontalOptions="End"
-								  VerticalOptions="Start"
-								  HeightRequest="50"
-								  WidthRequest="50"
-								  Margin="30">
-								<templateWin:HighlightView Clicked="CardViewClose_Clicked" CornerRadius="99" />
-								<Label Style="{StaticResource FontIconLabel}"
-									   FontSize="32"
-									   VerticalOptions="Center"
-									   HorizontalOptions="Center"
-									   InputTransparent="True"
-									   TextColor="{StaticResource Color7}"
-									   Text="{Static material:IconFont.Close}" />
-							</Grid>
+						<!--CardView Content [MOSTRA]-->
+						<ScrollView x:Name="MostreCardViewScroll"
+									IsVisible="{Binding MostreOn}">
+							<VerticalStackLayout>
+								<VerticalStackLayout Padding="36"
+													 BackgroundColor="{StaticResource Color5}"
+													 Spacing="8"
+													 Margin="1,0,1,0">
+
+									<!--Titolo-->
+									<Label Style="{StaticResource LabelBold}"
+										   FontSize="30"
+										   Text="{Binding SelectedMostra.Titolo,StringFormat='{}Mostra: {0}'}"
+										   HorizontalOptions="Center" />
+									<Label Style="{StaticResource LabelThin}"
+										   Text="{Binding SelectedMostra.Opere.Count,StringFormat='{}Numero opere: {0}'}"
+										   HorizontalOptions="Center"
+										   FontSize="16" />
+								</VerticalStackLayout>
+
+								<VerticalStackLayout Margin="1,0,1,0"
+													 Spacing="2">
+
+									<!--Immagine e Caratteristiche-->
+									<BoxView HeightRequest="30" />
+									<Image Aspect="AspectFit"
+										   Source="{Binding SelectedMostra.Foto}"
+										   HeightRequest="280"
+										   Margin="30,0,20,0" />
+
+									<Grid ColumnDefinitions="*,*" Margin="0,30,0,0">
+
+										<VerticalStackLayout HorizontalOptions="End"
+															 VerticalOptions="Center"
+															 Margin="20,0,16,0">
+											<VerticalStackLayout.Resources>
+												<Style TargetType="Label"
+													   BasedOn="{StaticResource LabelNormal}">
+													<Setter Property="FontSize"
+															Value="20" />
+													<Setter Property="HorizontalTextAlignment"
+															Value="End" />
+												</Style>
+											</VerticalStackLayout.Resources>
+											<Label Text="DataAggiunta:" />
+											<Label Text="DataInizio:" />
+											<Label Text="DataFine:" />
+										</VerticalStackLayout>
+
+										<VerticalStackLayout Grid.Column="1"
+															 VerticalOptions="Center"
+															 HorizontalOptions="Start">
+											<Label Style="{StaticResource LabelThin}"
+												   FontSize="20"
+												   Text="{Binding SelectedMostra.DataAggiunta,StringFormat='{0:dd MMMM, yyyy}'}" />
+											<Label Style="{StaticResource LabelThin}"
+												   FontSize="20"
+												   Text="{Binding SelectedMostra.DataInizio,StringFormat='{0:dd MMMM, yyyy}'}" />
+											<Label Style="{StaticResource LabelThin}"
+												   FontSize="20"
+												   Text="{Binding SelectedMostra.DataFine,StringFormat='{0:dd MMMM, yyyy}'}" />
+										</VerticalStackLayout>
+									</Grid>
+
+									<!--Descrizione-->
+									<Frame Style="{StaticResource FrameRoundedWin}"
+										   BackgroundColor="{StaticResource Color5}"
+										   Margin="60,40,60,30">
+										<VerticalStackLayout Spacing="30"
+															 Padding="20,10,20,20">
+											<Label Style="{StaticResource LabelNormal}"
+												   FontSize="20"
+												   HorizontalOptions="Center"
+												   Text="Descrizione" />
+											<Label Style="{StaticResource LabelThin}"
+												   FontSize="18"
+												   HorizontalOptions="Center"
+												   LineBreakMode="WordWrap"
+												   Text="{Binding SelectedMostra.Descrizione}" />
+										</VerticalStackLayout>
+									</Frame>
+									
+									<!--<BoxView HeightRequest="10" />-->
+									<!--Chiudi Button-->
+									<!--<template:RoundedButtonView Text="Chiudi"
+																WidthRequest="180"
+																Color="{StaticResource Color7}"
+																Clicked="CardViewClose_Clicked" />-->
+									<BoxView HeightRequest="30" />
+								</VerticalStackLayout>
+							</VerticalStackLayout>
+						</ScrollView>
+
+						<!--Exit Button-->
+						<Grid HorizontalOptions="End"
+							  VerticalOptions="Start"
+							  HeightRequest="50"
+							  WidthRequest="50"
+							  Margin="24">
+							<templateWin:HighlightView Clicked="CardViewClose_Clicked"
+													   CornerRadius="14" />
+							<Label Style="{StaticResource FontIconLabel}"
+								   FontSize="32"
+								   VerticalOptions="Center"
+								   HorizontalOptions="Center"
+								   InputTransparent="True"
+								   TextColor="{StaticResource Color1}"
+								   Text="{Static material:IconFont.Close}" />
 						</Grid>
-					</Frame>
-				</ScrollView>
+					</Grid>
+				</Frame>
 			</Grid>
 		</Grid>
 	</Grid>

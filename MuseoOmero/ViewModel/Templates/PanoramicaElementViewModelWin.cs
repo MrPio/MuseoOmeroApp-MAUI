@@ -8,7 +8,7 @@ public partial class PanoramicaElementViewModelWin : ObservableObject
     [ObservableProperty]
     Color backgroundColor = DeviceManager.Instance.Colors[0],
         foregroundColor = DeviceManager.Instance.Colors[4],
-        frameColor =Color.FromArgb("#40ffffff");
+        frameColor =Color.FromArgb("#22ffffff");
 
     [ObservableProperty] 
     string icon, trendingIcon, title, subtitle, content, underContent;
@@ -22,7 +22,7 @@ public partial class PanoramicaElementViewModelWin : ObservableObject
 		if (!dark)
 		{
 			backgroundColor = DeviceManager.Instance.Colors[4];
-			foregroundColor = DeviceManager.Instance.Colors[6];
+			foregroundColor = DeviceManager.Instance.Colors[0];
 			frameColor = Color.FromArgb("#12000000");
 		}
 		Icon = icon;

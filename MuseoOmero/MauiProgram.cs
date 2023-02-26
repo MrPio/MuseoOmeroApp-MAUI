@@ -1,7 +1,11 @@
-﻿using CommunityToolkit.Maui;
+﻿using BarcodeScanner.Mobile;
+using CommunityToolkit.Maui;
+using MauiSampleCamera;
 using Microsoft.Maui.LifecycleEvents;
 using Sharpnado.Tabs;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+using System.Text;
+using ZXing.Net.Maui.Controls;
 
 namespace MuseoOmero;
 
@@ -26,7 +30,12 @@ public static class MauiProgram
 				fonts.AddFont(filename: "materialdesignicons-webfont_thin.ttf", alias: "MaterialDesignIconsThin");
 			})
 			.UseSharpnadoTabs(loggerEnable: false)
-			.UseSkiaSharp()
+			.UseSkiaSharp().UseBarcodeReader()
+			.ConfigureMauiHandlers(handlers =>
+			{
+				// Add the handlers
+				handlers.AddBarcodeScannerHandler();
+			})
 			.ConfigureLifecycleEvents(events =>
 			{
 #if ANDROID
@@ -49,8 +58,14 @@ public static class MauiProgram
 		builder.Services.AddSingleton<HomeViewModelWin>();
 		builder.Services.AddSingleton<OpereViewModelWin>();
 		builder.Services.AddSingleton<OpereViewWin>();
+		builder.Services.AddSingleton<BiglietteriaViewWin>();
+		builder.Services.AddSingleton<BiglietteriaViewModelWin>();
+
 		builder.Services.AddTransient<SignInUpViewModelWin>();
 #endif
+		builder.Services.AddSingleton<IMediaPicker, CustomMediaPicker>();
+		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
 		return builder.Build();
 	}
 

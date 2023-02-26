@@ -4,6 +4,7 @@ namespace MuseoOmero.Model;
 
 public class Utente
 {
+	[JsonIgnore] public string Uid { get; set; }
 	[JsonProperty("username")] public string Username { get; set; }
 	[JsonProperty("cellulare")] public string Cellulare { get; set; } = null;
 	[JsonProperty("nome")] public string Nome { get; set; } = null;
@@ -12,7 +13,7 @@ public class Utente
 	[JsonProperty("questionari")] public List<Questionario> Questionari;
 	[JsonProperty("chat")] public Chat? Chat;
 
-	public Utente(string username, string nome, string cognome,string cellulare, List<Biglietto> biglietti, List<Questionario> questionari, Chat chat)
+	public Utente(string username, string nome, string cognome, string cellulare, List<Biglietto> biglietti, List<Questionario> questionari, Chat chat)
 	{
 		Username = username;
 		Cellulare = cellulare;
