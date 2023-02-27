@@ -25,6 +25,7 @@ public partial class BiglietteriaViewWin : ContentPage
 	private void HighlightView_Released(object sender, EventArgs e)
 	{
 		QrCodeFrame.CancelAnimation();
+		QrCodeIcon.CancelAnimation();
 		QrCodeFrame.ColorTo(DeviceManager.Instance.Colors[0], DeviceManager.Instance.Colors[3], c => QrCodeFrame.BackgroundColor = c, 350, Easing.CubicOut);
 		QrCodeIcon.ColorTo(DeviceManager.Instance.Colors[3], DeviceManager.Instance.Colors[0], c => QrCodeIcon.TextColor = c, 350, Easing.CubicOut);
 	}

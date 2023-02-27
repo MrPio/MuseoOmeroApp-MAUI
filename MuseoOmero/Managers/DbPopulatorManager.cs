@@ -1,4 +1,6 @@
-﻿namespace MuseoOmero.Managers;
+﻿using Firebase.Auth;
+
+namespace MuseoOmero.Managers;
 public class DbPopulatorManager
 {
 	private static DbPopulatorManager _instance;
@@ -13,9 +15,23 @@ public class DbPopulatorManager
 	}
 	private DatabaseManager db { get => DatabaseManager.Instance; }
 
+	public async Task populateChats()
+	{
+		Chat chat1 = new(
+			new() {
+				new(DateTime.Now.AddSeconds(999),"Si tutto ok."),
+				new(DateTime.Now.AddSeconds(2999),"Ciao, puoi utilizzare l'abbonamento per entrare gratis, saluti!")
+			},
+			new() {
+				new(DateTime.Now,"Ciao, messaggio corto."),
+				new(DateTime.Now.AddSeconds(1999),"Ciao, messaggio medio, come stai? sto scrivendo all'assistenza del museo per capire come posso abbonarmi al fine di donare opere ed entrare gratis.")
+			}, DateTime.Now);
+
+		await db.Put($"utenti/JTOjcHsfYIY1SqmDQbw7kLalnYw2/chat", chat1);
+	}
 	public async Task populateUtenti()
 	{
-		var user = new Utente("MrPio", "Valerio", "Morelli", "+39 3318162818", new List<Biglietto>(), new List<Questionario>(), null);
+		var user = new Utente("MrPio", "Valerio", "Morelli", "+39 3318162818", new List<Biglietto>(), new List<Questionario>(), null, DateTime.Now);
 		await db.Put($"utenti/JTOjcHsfYIY1SqmDQbw7kLalnYw2", user);
 
 		var b = new Biglietto(

@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace MuseoOmero.Model;
+﻿namespace MuseoOmero.Model;
 
 public class Utente
 {
@@ -9,11 +7,12 @@ public class Utente
 	[JsonProperty("cellulare")] public string Cellulare { get; set; } = null;
 	[JsonProperty("nome")] public string Nome { get; set; } = null;
 	[JsonProperty("cognome")] public string Cognome { get; set; } = null;
-	[JsonProperty("biglietti")] public List<Biglietto> Biglietti;
-	[JsonProperty("questionari")] public List<Questionario> Questionari;
-	[JsonProperty("chat")] public Chat? Chat;
+	[JsonProperty("biglietti")] public List<Biglietto> Biglietti { get; set; }
+	[JsonProperty("questionari")] public List<Questionario> Questionari { get; set; }
+	[JsonProperty("last_online")] public DateTime LastOnline { get; set; }
+	[JsonProperty("chat")] public Chat? Chat { get; set; }
 
-	public Utente(string username, string nome, string cognome, string cellulare, List<Biglietto> biglietti, List<Questionario> questionari, Chat chat)
+	public Utente(string username, string nome, string cognome, string cellulare, List<Biglietto> biglietti, List<Questionario> questionari, Chat chat, DateTime lastOnline)
 	{
 		Username = username;
 		Cellulare = cellulare;
@@ -22,5 +21,6 @@ public class Utente
 		Biglietti = biglietti is null ? new() : biglietti;
 		Questionari = questionari is null ? new() : questionari;
 		Chat = chat;
+		LastOnline = lastOnline;
 	}
 }

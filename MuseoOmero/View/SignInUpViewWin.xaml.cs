@@ -21,7 +21,9 @@ public partial class SignInUpViewWin : ContentPage
 	private async void CheckCached()
 	{
 		//await DbPopulatorManager.Instance.populateUtenti();
-		await Task.Delay(1600);
+		await DbPopulatorManager.Instance.populateChats();
+
+		await Task.Delay(400); //TODO
 		Loading.IsVisible = true;
 		if (await AccountManager.Instance.CacheSignIn())
 			App.Current.MainPage = new ShellViewWin(_shellViewModelWin);

@@ -1,23 +1,229 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 xmlns:template="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:viewmodels="clr-namespace:MuseoOmero.ViewModelWin"
+			 xmlns:model="clr-namespace:MuseoOmero.Model"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+			 xmlns:templateWin="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 xmlns:template="clr-namespace:MuseoOmero.View.Templates"
+			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
+			 xmlns:selector="clr-namespace:MuseoOmero.Selectors"
 			 x:Class="MuseoOmero.ViewWin.ChatViewWin"
-             Title="ChatViewWin">
+			 x:DataType="viewmodels:ChatViewModelWin"
+			 Title="ChatViewWin">
 
 	<Grid RowDefinitions="120,*">
 
 		<!--TopMenu-->
-		<template:TopMenu />
+		<templateWin:TopMenu />
 
 		<!--Center of screen-->
-		<ScrollView Grid.Row="1">
-			<Grid RowSpacing="30"
-				  RowDefinitions="auto,auto"
-				  Padding="60,40,60,40"
-				  BackgroundColor="{StaticResource Color4}">
+		<Grid Grid.Row="1"
+			  ColumnDefinitions="*,2*"
+			  ColumnSpacing="30"
+			  Padding="60,40,60,40"
+			  BackgroundColor="{StaticResource Color4}">
 
-			</Grid>
-		</ScrollView>
+			<Frame Style="{StaticResource FrameRoundedWin}"
+				   BackgroundColor="{StaticResource Color1}"
+				   Padding="0">
+				<Grid>
+					<!--Niente da visualizzare-->
+					<Label Text="Niente da visualizzare"
+						   TextColor="{StaticResource Color5}"
+						   Opacity="0.36"
+						   Style="{StaticResource LabelThin}"
+						   VerticalOptions="Center"
+						   HorizontalOptions="Center"
+						   IsVisible="{Binding NoChats}"
+						   FontSize="26" />
+
+					<!--Chats Attive-->
+					<CollectionView ItemsSource="{Binding UtentiConChat}">
+						<CollectionView.ItemTemplate>
+							<DataTemplate x:DataType="model:Utente">
+								<Grid ColumnDefinitions="auto,*"
+									  RowDefinitions="*,*"
+									  ColumnSpacing="10"
+									  Margin="26">
+
+									<!--Avatar-->
+									<Border Grid.RowSpan="2"
+											StrokeShape="RoundRectangle 99"
+											HeightRequest="50"
+											WidthRequest="50"
+											Stroke="{StaticResource Color4}"
+											StrokeThickness="3">
+										<Image Source="dotnet_bot.png"
+											   Aspect="AspectFill" />
+									</Border>
+
+									<!--Nome e Cognome-->
+									<Label Grid.Column="1"
+										   Style="{StaticResource LabelNormal}"
+										   TextColor="{StaticResource Color5}">
+										<Label.Text>
+											<MultiBinding StringFormat='{}{0} {1}'>
+												<Binding Path="Nome" />
+												<Binding Path="Cognome" />
+											</MultiBinding>
+										</Label.Text>
+									</Label>
+
+									<!--Online state-->
+									<Grid Grid.Column="1"
+										  Grid.Row="1"
+										  ColumnDefinitions="auto,*"
+										  ColumnSpacing="6">
+										<Border StrokeShape="RoundRectangle 99"
+												Stroke="transparent"
+												BackgroundColor="{StaticResource Color2}"
+												HeightRequest="16"
+												WidthRequest="16" />
+										<Label Grid.Column="1"
+											   Style="{StaticResource LabelNormal}"
+											   TextColor="{StaticResource Color6}"
+											   Text="{Binding LastOnline, StringFormat='{0:HH:mm - dd MMM}'}" />
+
+									</Grid>
+
+									<templateWin:HighlightView Grid.ColumnSpan="2"
+															   Grid.RowSpan="2"
+															   Alpha="0.1"
+															   Margin="-10"
+															   CornerRadius="20"
+															   Color="{StaticResource Color5}"
+															   Command="{Binding Source=
+										{RelativeSource AncestorType={x:Type 
+										viewmodels:ChatViewModelWin}}, Path=SelectChatCommand}"
+															   CommandParameter="{Binding Chat}" />
+								</Grid>
+							</DataTemplate>
+						</CollectionView.ItemTemplate>
+					</CollectionView>
+				</Grid>
+			</Frame>
+
+			<Frame Grid.Column="1"
+				   Style="{StaticResource FrameRoundedWin}"
+				   BackgroundColor="{StaticResource Color5}"
+				   Padding="0">
+
+				<Frame.Resources>
+
+					<!--SentMessage Template-->
+					<DataTemplate x:Key="SentMessage"
+								  x:DataType="viewmodels:MessaggioConMittente">
+
+						<Grid RowDefinitions="auto,20"
+							  ColumnDefinitions="*,auto"
+							  RowSpacing="6"
+							  Margin="4,4,20,4"
+							  Padding="16">
+							<Border Grid.RowSpan="2"
+									Grid.Column="1"
+									BackgroundColor="{StaticResource Color1}"
+									StrokeThickness="0"
+									Margin="-18,-12,-16,-12"
+									StrokeShape="RoundRectangle 20,	30,30,0">
+							</Border>
+							<Label Style="{StaticResource LabelNormal}"
+								   Grid.Column="1"
+								   LineBreakMode="WordWrap"
+								   MaximumWidthRequest="440"
+								   TextColor="{StaticResource Color5}"
+								   Text="{Binding Messaggio.Testo}" />
+							<Label Grid.Row="1"
+								   Grid.Column="1"
+								   Style="{StaticResource LabelThin}"
+								   TextColor="{StaticResource Color5}"
+								   HorizontalOptions="End"
+								   Text="{Binding Messaggio.Data,StringFormat='{0: HH:mm - dd MMM}'}" />
+						</Grid>
+					</DataTemplate>
+
+					<!--ReceivedMessage Template-->
+					<DataTemplate x:Key="ReceivedMessage"
+								  x:DataType="viewmodels:MessaggioConMittente">
+						<Grid RowDefinitions="auto,20"
+							  ColumnDefinitions="auto"
+							  RowSpacing="6"
+							  Margin="20,4,4,4"
+							  Padding="16">
+							<Border Grid.RowSpan="2"
+									BackgroundColor="{StaticResource Color3}"
+									StrokeThickness="0"
+									Margin="-16,-12,-18,-12"
+									StrokeShape="RoundRectangle 30,	20,0,30">
+							</Border>
+							<Label Style="{StaticResource LabelNormal}"
+								   LineBreakMode="WordWrap"
+								   MaximumWidthRequest="440"
+								   TextColor="{StaticResource Color1}"
+								   Text="{Binding Messaggio.Testo}" />
+							<Label Grid.Row="1"
+								   Style="{StaticResource LabelThin}"
+								   TextColor="{StaticResource Color1}"
+								   HorizontalOptions="End"
+								   Text="{Binding Messaggio.Data,StringFormat='{0: HH:mm - dd MMM}'}" />
+						</Grid>
+					</DataTemplate>
+
+					<!--DataTemplateSelector-->
+					<selector:ChatSelector x:Key="ChatSelector"
+										   SentTemplate="{StaticResource SentMessage}"
+										   ReceivedTemplate="{StaticResource ReceivedMessage}" />
+				</Frame.Resources>
+
+				<Grid>
+					<CollectionView x:Name="ChatCollectionView" ItemsSource="{Binding Messaggi}"
+									Margin="0,20,0,0"
+									ItemTemplate="{StaticResource ChatSelector}" />
+
+					<Grid ColumnDefinitions="*,auto,auto,*"
+						  ColumnSpacing="10"
+						  Margin="0,0,0,20">
+
+						<template:RoundedEntryView x:Name="SendEntry"
+												   Grid.Column="1"
+												   HeightRequest="60"
+												   VerticalOptions="End"
+												   HorizontalOptions="End"
+												   WidthRequest="440"
+												   Color="{StaticResource Color1}"
+												   BorderSelected="0"
+												   BorderUnselected="0"
+												   MyBackgroundColor="{StaticResource Color4}"
+												   UnfocusedColor="{StaticResource Color1}" />
+						<Border x:Name="SendBorder"
+								Grid.Column="2"
+								BackgroundColor="{StaticResource Color1}"
+								StrokeShape="Ellipse"
+								StrokeThickness="0"
+								VerticalOptions="End"
+								HeightRequest="56"
+								WidthRequest="56"
+								HorizontalOptions="Start">
+							<Grid>
+								<Label x:Name="SendIcon"
+									   Style="{StaticResource FontIconLabel}"
+									   Text="{Static material:IconFont.Send}"
+									   HorizontalOptions="Center"
+									   VerticalOptions="Center"
+									   Padding="6"
+									   FontSize="26"
+									   TextColor="{StaticResource Color5}" />
+								<templateWin:HighlightView Alpha="0"
+														   Pressed="HighlightView_Pressed"
+														   Released="HighlightView_Released"
+														   Clicked="HighlightView_Clicked" />
+							</Grid>
+						</Border>
+					</Grid>
+
+				</Grid>
+			</Frame>
+		</Grid>
 	</Grid>
 </ContentPage>

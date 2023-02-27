@@ -4,11 +4,17 @@ namespace MuseoOmero.View.TemplatesWin;
 
 public partial class HighlightView : ContentView
 {
+	public static readonly BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(HighlightView), DeviceManager.Instance.Colors[0]);
 	public static readonly BindableProperty AlphaProperty = BindableProperty.Create(nameof(Alpha), typeof(float), typeof(HighlightView), 0.058f);
 	public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(int), typeof(HighlightView), 0);
 	public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(HighlightView), null);
 	public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(HighlightView), null);
 
+	public Color Color
+	{
+		get => (Color)GetValue(ColorProperty);
+		set => SetValue(ColorProperty, value);
+	}
 	public float Alpha
 	{
 		get => (float)GetValue(AlphaProperty);
@@ -40,7 +46,7 @@ public partial class HighlightView : ContentView
 
 	private void Button_Pressed(object sender, EventArgs e)
 	{
-		Button.BackgroundColor = DeviceManager.Instance.Colors[0].WithAlpha(Alpha);
+		Button.BackgroundColor = Color.WithAlpha(Alpha);
 		Pressed?.Invoke(sender, e);
 	}
 

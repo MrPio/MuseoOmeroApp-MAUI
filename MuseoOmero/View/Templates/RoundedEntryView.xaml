@@ -11,13 +11,14 @@
 			<Border x:Name="Border"
 					Padding="0"
 					StrokeShape="RoundRectangle 999"
+					BackgroundColor="{Binding MyBackgroundColor}"
 					Stroke="{Binding UnfocusedColor}"
-					StrokeThickness="1"
+					StrokeThickness="{Binding BorderUnselected}"
 					Grid.Column="0"
 					Grid.ColumnSpan="3">
 				<Grid>
 					<Entry x:Name="MyEntry"
-						   Margin="0,2,0,0"
+						   Margin="0,-1,0,0"
 						   Placeholder="{Binding Placeholder}"
 						   Text="{Binding Text}"
 						   FontFamily="LatoLight"

@@ -53,6 +53,7 @@ public static class MauiProgram
 
 
 #if WINDOWS
+		builder.Services.AddTransient<SignInUpViewModelWin>();
 		builder.Services.AddSingleton<ShellViewModelWin>();
         builder.Services.AddSingleton<HomeViewWin>();
 		builder.Services.AddSingleton<HomeViewModelWin>();
@@ -60,8 +61,8 @@ public static class MauiProgram
 		builder.Services.AddSingleton<OpereViewWin>();
 		builder.Services.AddSingleton<BiglietteriaViewWin>();
 		builder.Services.AddSingleton<BiglietteriaViewModelWin>();
-
-		builder.Services.AddTransient<SignInUpViewModelWin>();
+		builder.Services.AddSingleton<ChatViewWin>();
+		builder.Services.AddSingleton<ChatViewModelWin>();
 #endif
 		builder.Services.AddSingleton<IMediaPicker, CustomMediaPicker>();
 		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);

@@ -1,6 +1,3 @@
-using MuseoOmero.Managers;
-using MuseoOmero.ViewModel.Templates;
-
 namespace MuseoOmero.View.Templates;
 
 public partial class RoundedEntryView : ContentView
@@ -11,6 +8,9 @@ public partial class RoundedEntryView : ContentView
 	public static readonly BindableProperty IsPasswordProperty = BindableProperty.Create(nameof(IsPassword), typeof(bool), typeof(RoundedButtonView), false);
 	public static readonly BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(RoundedButtonView), DeviceManager.Instance.Colors[0]);
 	public static readonly BindableProperty UnfocusedColorProperty = BindableProperty.Create(nameof(UnfocusedColor), typeof(Color), typeof(RoundedButtonView), DeviceManager.Instance.Colors[4]);
+	public static readonly BindableProperty MyBackgroundColorProperty = BindableProperty.Create(nameof(MyBackgroundColor), typeof(Color), typeof(RoundedButtonView), DeviceManager.Instance.Colors[4]);
+	public static readonly BindableProperty BorderSelectedProperty = BindableProperty.Create(nameof(BorderSelected), typeof(double), typeof(RoundedButtonView), 2.6);
+	public static readonly BindableProperty BorderUnselectedProperty = BindableProperty.Create(nameof(BorderUnselected), typeof(double), typeof(RoundedButtonView), 1.0);
 
 	public event EventHandler Clicked;
 
@@ -44,6 +44,21 @@ public partial class RoundedEntryView : ContentView
 		get => (Color)GetValue(UnfocusedColorProperty);
 		set => SetValue(UnfocusedColorProperty, value);
 	}
+	public Color MyBackgroundColor
+	{
+		get => (Color)GetValue(MyBackgroundColorProperty);
+		set => SetValue(MyBackgroundColorProperty, value);
+	}
+	public double BorderSelected
+	{
+		get => (double)GetValue(BorderSelectedProperty);
+		set => SetValue(BorderSelectedProperty, value);
+	}
+	public double BorderUnselected
+	{
+		get => (double)GetValue(BorderUnselectedProperty);
+		set => SetValue(BorderSelectedProperty, value);
+	}
 
 	private DeviceManager DeviceManager { get => DeviceManager.Instance; }
 	public RoundedEntryView()
@@ -56,8 +71,8 @@ public partial class RoundedEntryView : ContentView
 		((Entry)sender).TextColor = DeviceManager.Colors[0];
 		IconLabel.TextColor = Color;
 		Border.Stroke = Color;
-		Border.StrokeThickness = 2.6;
-		Border.BackgroundColor = Colors.White;
+		Border.StrokeThickness = BorderSelected;
+		Border.BackgroundColor = MyBackgroundColor;
 	}
 
 	private void Entry_Unfocused(object sender, FocusEventArgs e)
@@ -65,7 +80,7 @@ public partial class RoundedEntryView : ContentView
 		((Entry)sender).TextColor = UnfocusedColor;
 		IconLabel.TextColor = UnfocusedColor;
 		Border.Stroke = UnfocusedColor;
-		Border.StrokeThickness = 1f;
-		Border.BackgroundColor = Colors.White;
+		Border.StrokeThickness = BorderUnselected;
+		Border.BackgroundColor = MyBackgroundColor;
 	}
 }
