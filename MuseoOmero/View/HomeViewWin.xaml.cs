@@ -89,6 +89,8 @@ public partial class HomeViewWin : ContentPage
 		var opera = ((Button)sender).Parent.Parent.BindingContext as Opera;
 		var operaViewModel = Handler.MauiContext.Services.GetService<OpereViewModelWin>();
 		operaViewModel.SelectedOpera = opera;
+		operaViewModel.OpereOn = true;
+		operaViewModel.MostreOn = false;
 		operaViewModel.ShowOpera = true;
 		Handler.MauiContext.Services.GetService<ShellViewModelWin>().SelectedRoute = "opere";
 	}

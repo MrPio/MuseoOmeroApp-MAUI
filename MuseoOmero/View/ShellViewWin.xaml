@@ -385,6 +385,15 @@
 						</Grid>
 					</RadioButton.Content>
 				</RadioButton>
+
+				<!--Blank-->
+				<RadioButton Value="blank"
+							 IsChecked="False"
+							 Grid.Row="8"
+							 Margin="-10000,0,0,0"
+							 CheckedChanged="OnMenuItemChanged"
+							 Style="{StaticResource FlyoutItemRadioButton}">
+				</RadioButton>
 			</Grid>
 		</DataTemplate>
 	</Shell.FlyoutContentTemplate>
@@ -417,7 +426,10 @@
 	<FlyoutItem Route="impostazioni">
 		<ShellContent ContentTemplate="{DataTemplate views:ImpostazioniViewWin}" />
 	</FlyoutItem>
-	
+
+	<FlyoutItem Route="blank">
+		<ShellContent ContentTemplate="{DataTemplate views:BlankView}" />
+	</FlyoutItem>
 
 	<!--<FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
 

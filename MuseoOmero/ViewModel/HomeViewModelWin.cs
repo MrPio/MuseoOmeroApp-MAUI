@@ -14,14 +14,14 @@ public partial class HomeViewModelWin : ObservableObject
 		icon: IconFont.Account,
 		title: "Questionari",
 		dark: false,
-		route:""
+		route: ""
 	);
 
 	[ObservableProperty]
 	PanoramicaElementViewModelWin chatPanoramica = new(
 		icon: IconFont.Chat,
 		title: "Chat",
-		dark: false, 
+		dark: false,
 		route: "chat"
 	);
 
@@ -68,20 +68,25 @@ public partial class HomeViewModelWin : ObservableObject
 		NoOpere = !SiOpere;
 	}
 
+	public async Task LoadUtenti()
+	{
+		Utenti = await DatabaseManager.Instance.LoadJsonArray<Utente>("utenti");
+	}
+
 	public async Task Initialize()
 	{
 		var db = DatabaseManager.Instance;
 
 		Opere = await db.LoadJsonArray<Opera>("opere"); // TODO filtrare e mostrare + NIENTE DA MOSTRARE
 
-		Mostre = await db.LoadJsonArray<Mostra>("mostre")??new();
+		Mostre = await db.LoadJsonArray<Mostra>("mostre") ?? new();
 		if (Mostre is { })
 		{
 			this.NomiMostre = (from m in Mostre select m.Titolo).ToList();
 		}
 		FiltraOpere();
 
-		Utenti = await db.LoadJsonArray<Utente>("utenti");
+		await LoadUtenti();
 		var bigliettiOggi = new List<Biglietto>();
 		var bigliettiVendutiOggi = new List<Biglietto>();
 		var convalideOggi = 0;

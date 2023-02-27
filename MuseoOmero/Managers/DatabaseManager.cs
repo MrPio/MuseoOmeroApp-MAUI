@@ -21,6 +21,7 @@ public class DatabaseManager
 		}
 	}
 	public FirebaseClient FirebaseClient = new("https://museoomero-ca8aa-default-rtdb.europe-west1.firebasedatabase.app/");
+	public List<IDisposable> Subscribers = new();
 
 	/* • Append -> Put($"utenti/{utenti[0].Id}/biglietti/{utenti[0].Biglietti.Count}/", biglietto);
 	 */
@@ -61,9 +62,11 @@ public class DatabaseManager
 		var collection = await GetChild(resource).OnceAsJsonAsync();
 		return JsonConvert.DeserializeObject<T>(collection);
 	}
-	public void Observe<T>(string resource, Action<FirebaseEvent<T>> callback)
+	public IDisposable Observe<T>(string resource, Action<FirebaseEvent<T>> callback)
 	{
-		GetChild(resource).AsObservable<T>().Subscribe(callback);
+		var disposable = GetChild(resource).AsObservable<T>().Subscribe(callback);
+		Subscribers.Add(disposable);
+		return disposable;
 	}
 
 	// High-Level

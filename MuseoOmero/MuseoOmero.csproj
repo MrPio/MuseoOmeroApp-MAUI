@@ -150,6 +150,9 @@
 		<MauiXaml Update="View\BiglietteriaViewWin.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="View\BlankView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="View\ChatViewWin.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

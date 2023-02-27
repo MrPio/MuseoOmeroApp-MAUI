@@ -1,15 +1,11 @@
 ﻿namespace MuseoOmero.Model;
-public partial class Messaggio : ObservableObject
+public class Messaggio
 {
-	[JsonProperty("data")]
-	[ObservableProperty]
-	public DateTime data;
-	[ObservableProperty]
+	[JsonProperty("data")] public DateTime Data { get; set; }
 
-	[JsonProperty("testo")] public string testo;
-	[ObservableProperty]
+	[JsonProperty("testo")] public string Testo { get; set; }
 
-	[JsonProperty("letto")] public bool letto = false;
+	[JsonProperty("letto")] public bool Letto { get; set; }
 
 	[JsonConstructor]
 	public Messaggio(DateTime data, string testo, bool letto)

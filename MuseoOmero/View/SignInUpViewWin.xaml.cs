@@ -21,9 +21,9 @@ public partial class SignInUpViewWin : ContentPage
 	private async void CheckCached()
 	{
 		//await DbPopulatorManager.Instance.populateUtenti();
-		await DbPopulatorManager.Instance.populateChats();
+		//await DbPopulatorManager.Instance.populateChats();
 
-		await Task.Delay(400); //TODO
+		await Task.Delay(800); //TODO
 		Loading.IsVisible = true;
 		if (await AccountManager.Instance.CacheSignIn())
 			App.Current.MainPage = new ShellViewWin(_shellViewModelWin);
@@ -32,7 +32,7 @@ public partial class SignInUpViewWin : ContentPage
 	private async void Accedi_Clicked(object sender, EventArgs e)
 	{
 		Loading.IsVisible = true;
-		await DbPopulatorManager.Instance.populateUtenti();
+		//await DbPopulatorManager.Instance.populateUtenti();
 		if (EmailEntry.Text.Length < 3 || PasswordEntry.Text.Length < 3)
 		{
 			await Application.Current.MainPage.DisplayAlert("Campi non compilati", "Assicurati di aver compilato correttamente i campi.", "OK");

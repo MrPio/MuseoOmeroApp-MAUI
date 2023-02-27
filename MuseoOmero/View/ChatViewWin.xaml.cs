@@ -3,12 +3,16 @@ namespace MuseoOmero.ViewWin;
 public partial class ChatViewWin : ContentPage
 {
 	ChatViewModelWin _viewModel;
-	public ChatViewWin(ChatViewModelWin viewModel)
+	private ShellViewModelWin _shellViewModelWin;
+
+	public ChatViewWin(ChatViewModelWin viewModel, ShellViewModelWin shellViewModelWin)
 	{
+		viewModel.CollectionViewCallback = ScrollChat;
 		_viewModel = viewModel;
 		BindingContext = _viewModel;
 		_viewModel.Initialize();
 		InitializeComponent();
+		_shellViewModelWin = shellViewModelWin;
 	}
 
 	private void HighlightView_Pressed(object sender, EventArgs e)
@@ -27,21 +31,31 @@ public partial class ChatViewWin : ContentPage
 
 	}
 
+	private async Task ScrollChat()
+	{
+		await Task.Delay(400);
+		ChatCollectionView.ScrollTo(_viewModel.Messaggi.Count - 1);
+	}
+
 	private async void HighlightView_Clicked(object sender, EventArgs e)
 	{
+		if (_viewModel.CurrentUtente is null)
+			return;
+
 		var text = SendEntry.Text;
 		if (text.Length > 0)
 		{
-			var msg = new MessaggioConMittente(new(DateTime.Now, text), false);
-			_viewModel.Messaggi.Add(msg);
-			//SendEntry.Text = string.Empty;
+			var messaggio = new Messaggio(DateTime.Now, text);
+			_viewModel.Messaggi.Add(new(messaggio, false));
+			SendEntry.Text = string.Empty;
 
-			var shellViewModel = this.Handler.MauiContext.Services.GetService<ShellViewModelWin>();
-			shellViewModel.SelectedRoute = "account";
-			shellViewModel.SelectedRoute = "chat";
+			// L'unica soluzione che ho trovato dopo moltissimi tentativi per 
+			// trigger-are l'aggiornamento della collection view
+			_shellViewModelWin.SelectedRoute = "blank";
+			_shellViewModelWin.SelectedRoute = "chat";
 
-			await Task.Delay(200);
-			ChatCollectionView.ScrollTo(_viewModel.Messaggi.Count-1);
+			await _viewModel.SendMessage(messaggio);
+			await ScrollChat();
 		}
 	}
 }

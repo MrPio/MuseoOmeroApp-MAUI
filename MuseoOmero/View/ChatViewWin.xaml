@@ -111,6 +111,10 @@
 				   Padding="0">
 
 				<Frame.Resources>
+					<converters:BoolToObjectConverter x:Key="LettoNonLetto"
+													  x:TypeArguments="x:String"
+													  TrueObject="{Static material:IconFont.CheckAll}"
+													  FalseObject="{Static material:IconFont.Check}" />
 
 					<!--SentMessage Template-->
 					<DataTemplate x:Key="SentMessage"
@@ -134,12 +138,23 @@
 								   MaximumWidthRequest="440"
 								   TextColor="{StaticResource Color5}"
 								   Text="{Binding Messaggio.Testo}" />
-							<Label Grid.Row="1"
-								   Grid.Column="1"
-								   Style="{StaticResource LabelThin}"
-								   TextColor="{StaticResource Color5}"
-								   HorizontalOptions="End"
-								   Text="{Binding Messaggio.Data,StringFormat='{0: HH:mm - dd MMM}'}" />
+							<Grid Grid.Row="1"
+								  Grid.Column="1"
+								  ColumnDefinitions="auto,auto"
+								  HorizontalOptions="End"
+								  ColumnSpacing="10">
+								<Label Style="{StaticResource LabelThin}"
+									   TextColor="{StaticResource Color5}"
+									   HorizontalOptions="End"
+									   Text="{Binding Messaggio.Data,StringFormat='{0: HH:mm - dd MMM}'}" />
+								<Label Grid.Column="1"
+									   Style="{StaticResource FontIconLabel}"
+									   TextColor="{StaticResource Color5}"
+									   HorizontalOptions="End"
+									   VerticalOptions="End"
+									   FontSize="20"
+									   Text="{Binding Messaggio.Letto,Converter={StaticResource LettoNonLetto}}" />
+							</Grid>
 						</Grid>
 					</DataTemplate>
 
@@ -177,8 +192,9 @@
 				</Frame.Resources>
 
 				<Grid>
-					<CollectionView x:Name="ChatCollectionView" ItemsSource="{Binding Messaggi}"
-									Margin="0,20,0,0"
+					<CollectionView x:Name="ChatCollectionView"
+									ItemsSource="{Binding Messaggi}"
+									Margin="0,10,0,90"
 									ItemTemplate="{StaticResource ChatSelector}" />
 
 					<Grid ColumnDefinitions="*,auto,auto,*"
