@@ -11,6 +11,7 @@ public partial class RoundedEntryView : ContentView
 	public static readonly BindableProperty MyBackgroundColorProperty = BindableProperty.Create(nameof(MyBackgroundColor), typeof(Color), typeof(RoundedButtonView), DeviceManager.Instance.Colors[4]);
 	public static readonly BindableProperty BorderSelectedProperty = BindableProperty.Create(nameof(BorderSelected), typeof(double), typeof(RoundedButtonView), 2.6);
 	public static readonly BindableProperty BorderUnselectedProperty = BindableProperty.Create(nameof(BorderUnselected), typeof(double), typeof(RoundedButtonView), 1.0);
+	public static readonly BindableProperty KeyboardProperty = BindableProperty.Create(nameof(Keyboard), typeof(Keyboard), typeof(RoundedButtonView), Keyboard.Default);
 
 	public event EventHandler Clicked;
 
@@ -58,6 +59,11 @@ public partial class RoundedEntryView : ContentView
 	{
 		get => (double)GetValue(BorderUnselectedProperty);
 		set => SetValue(BorderSelectedProperty, value);
+	}
+	public Keyboard Keyboard
+	{
+		get => (Keyboard)GetValue(KeyboardProperty);
+		set => SetValue(KeyboardProperty, value);
 	}
 
 	private DeviceManager DeviceManager { get => DeviceManager.Instance; }

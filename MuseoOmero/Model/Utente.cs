@@ -3,6 +3,7 @@
 public class Utente
 {
 	[JsonIgnore] public string Uid { get; set; }
+	[JsonIgnore] public string FotoProfilo { get; set; }
 	[JsonProperty("username")] public string Username { get; set; }
 	[JsonProperty("cellulare")] public string Cellulare { get; set; } = null;
 	[JsonProperty("nome")] public string Nome { get; set; } = null;
@@ -12,8 +13,22 @@ public class Utente
 	[JsonProperty("last_online")] public DateTime LastOnline { get; set; }
 	[JsonProperty("chat")] public Chat? Chat { get; set; }
 
+	[JsonConstructor]
 	public Utente(string username, string nome, string cognome, string cellulare, List<Biglietto> biglietti, List<Questionario> questionari, Chat chat, DateTime lastOnline)
 	{
+		Username = username;
+		Cellulare = cellulare;
+		Nome = nome;
+		Cognome = cognome;
+		Biglietti = biglietti is null ? new() : biglietti;
+		Questionari = questionari is null ? new() : questionari;
+		Chat = chat;
+		LastOnline = lastOnline;
+	}
+
+	public Utente(string uid,string username, string nome, string cognome, string cellulare, List<Biglietto> biglietti, List<Questionario> questionari, Chat chat, DateTime lastOnline)
+	{
+		Uid = uid;
 		Username = username;
 		Cellulare = cellulare;
 		Nome = nome;

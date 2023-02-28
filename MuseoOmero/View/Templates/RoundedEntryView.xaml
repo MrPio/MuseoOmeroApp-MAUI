@@ -3,7 +3,6 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:view="clr-namespace:MuseoOmero.View.Templates"
 			 x:Class="MuseoOmero.View.Templates.RoundedEntryView"
-			 BindingContext="{Binding Source={RelativeSource Mode=Self}}"
 			 x:DataType="view:RoundedEntryView">
 
 	<ContentView.Content>
@@ -11,31 +10,32 @@
 			<Border x:Name="Border"
 					Padding="0"
 					StrokeShape="RoundRectangle 999"
-					BackgroundColor="{Binding MyBackgroundColor}"
-					Stroke="{Binding UnfocusedColor}"
-					StrokeThickness="{Binding BorderUnselected}"
+					BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type view:RoundedEntryView}}, Path= MyBackgroundColor}"
+					Stroke="{Binding Source={RelativeSource AncestorType={x:Type view:RoundedEntryView}}, Path= UnfocusedColor}"
+					StrokeThickness="{Binding Source={RelativeSource AncestorType={x:Type view:RoundedEntryView}}, Path= BorderUnselected}"
 					Grid.Column="0"
 					Grid.ColumnSpan="3">
 				<Grid>
 					<Entry x:Name="MyEntry"
 						   Margin="0,-1,0,0"
-						   Placeholder="{Binding Placeholder}"
-						   Text="{Binding Text}"
+						   Keyboard="{Binding Source={RelativeSource AncestorType={x:Type view:RoundedEntryView}}, Path=Keyboard}"
+						   Placeholder="{Binding Source={RelativeSource AncestorType={x:Type view:RoundedEntryView}}, Path= Placeholder}"
+						   Text="{Binding Source={RelativeSource AncestorType={x:Type view:RoundedEntryView}}, Path= Text}"
 						   FontFamily="LatoLight"
 						   FontSize="18"
 						   Focused="Entry_Focused"
 						   HorizontalTextAlignment="Center"
-						   TextColor="{Binding UnfocusedColor}"
-						   IsPassword="{Binding IsPassword}"
+						   TextColor="{Binding Source={RelativeSource AncestorType={x:Type view:RoundedEntryView}}, Path= UnfocusedColor}"
+						   IsPassword="{Binding Source={RelativeSource AncestorType={x:Type view:RoundedEntryView}}, Path= IsPassword}"
 						   Unfocused="Entry_Unfocused">
 					</Entry>
 				</Grid>
 			</Border>
 			<Label x:Name="IconLabel"
 				   Style="{StaticResource FontIconLabel}"
-				   TextColor="{Binding UnfocusedColor}"
+				   TextColor="{Binding Source={RelativeSource AncestorType={x:Type view:RoundedEntryView}}, Path= UnfocusedColor}"
 				   Grid.Column="1"
-				   Text="{Binding Icon}"
+				   Text="{Binding Source={RelativeSource AncestorType={x:Type view:RoundedEntryView}}, Path= Icon}"
 				   VerticalOptions="Center"
 				   HorizontalOptions="Center">
 			</Label>

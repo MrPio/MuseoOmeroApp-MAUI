@@ -40,7 +40,7 @@ public partial class HomeViewModelWin : ObservableObject
 	ObservableCollection<Opera> opereFiltrate = new();
 
 	[ObservableProperty]
-	string repartoPickerSelectedItem = "Museo", salaMostraPickerSelectedItem = "Ingresso";
+	string repartoPickerSelectedItem = "Museo", salaMostraPickerSelectedItem = "Greco e Romano";
 
 	[ObservableProperty]
 	public bool noOpere, siOpere;

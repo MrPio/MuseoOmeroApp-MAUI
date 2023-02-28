@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui;
 using MauiSampleCamera;
 using Microsoft.Maui.LifecycleEvents;
+using MuseoOmero.View.TemplatesWin;
 using Sharpnado.Tabs;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using System.Text;
@@ -30,7 +31,8 @@ public static class MauiProgram
 				fonts.AddFont(filename: "materialdesignicons-webfont_thin.ttf", alias: "MaterialDesignIconsThin");
 			})
 			.UseSharpnadoTabs(loggerEnable: false)
-			.UseSkiaSharp().UseBarcodeReader()
+			.UseSkiaSharp()
+			.UseBarcodeReader()
 			.ConfigureMauiHandlers(handlers =>
 			{
 				// Add the handlers
@@ -63,6 +65,8 @@ public static class MauiProgram
 		builder.Services.AddSingleton<BiglietteriaViewModelWin>();
 		builder.Services.AddSingleton<ChatViewWin>();
 		builder.Services.AddSingleton<ChatViewModelWin>();
+		builder.Services.AddSingleton<AccountViewWin>();
+		builder.Services.AddSingleton<AccountViewModelWin>();
 #endif
 		builder.Services.AddSingleton<IMediaPicker, CustomMediaPicker>();
 		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);

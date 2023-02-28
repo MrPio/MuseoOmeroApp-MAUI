@@ -67,8 +67,8 @@ namespace MuseoOmero.ViewWin
 
 		private void Translation(bool inverse = false)
 		{
-			ListaMostre.TranslateTo(1800 * (inverse ? 1 : 0), 0, 500, Easing.CubicInOut);
-			ListaOpere.TranslateTo(-1800 * (inverse ? 0 : 1), 0, 500, Easing.CubicInOut);
+			ListaMostre.TranslateTo(1600 * (inverse ? 1 : 0), 0, 500, Easing.CubicInOut);
+			ListaOpere.TranslateTo(-1600 * (inverse ? 0 : 1), 0, 500, Easing.CubicInOut);
 		}
 
 		private void CardViewClose_Clicked(object sender, EventArgs e)

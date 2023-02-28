@@ -52,7 +52,7 @@
 									Text="Ricerca"
 									Icon="{Static material:IconFont.Magnify}"
 									Color="{StaticResource Color2}"
-									Opacity="{Binding Source={RelativeSource AncestorType={x:Type viewModels:TopBarViewModel}}, Path=RicercaOpacity}" />
+									Opacity="{Binding RicercaOpacity}" />
 	</Grid>
 </ContentView>
     

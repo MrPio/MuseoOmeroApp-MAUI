@@ -16,7 +16,7 @@
 	<Grid RowDefinitions="120,*">
 
 		<!--TopMenu-->
-		<templateWin:TopMenu />
+		<templateWin:TopMenu x:Name="TopMenu"/>
 
 		<!--Center of screen-->
 		<Grid Grid.Row="1"
@@ -55,7 +55,7 @@
 											WidthRequest="50"
 											Stroke="{StaticResource Color4}"
 											StrokeThickness="3">
-										<Image Source="dotnet_bot.png"
+										<Image Source="{Binding FotoProfilo}"
 											   Aspect="AspectFill" />
 									</Border>
 

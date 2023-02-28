@@ -38,17 +38,19 @@
 				  Margin="30,0,26,0">
 
 				<!--Avatar-->
-				<!--<Frame x:Name="Frame1"
-					   HeightRequest="46"
+				<Frame HeightRequest="46"
 					   WidthRequest="46"
 					   CornerRadius="40"
-					   Padding="0">-->
-				<Image x:Name="Avatar"
-					   Source="dotnet_bot.png"
-					   Aspect="AspectFill"
-					   HeightRequest="46"
-					   WidthRequest="46" />
-				<!--</Frame>-->
+					   Padding="0">
+					<Image x:Name="Avatar"
+						   Aspect="AspectFill"
+						   HeightRequest="46"
+						   WidthRequest="46" />
+				</Frame>
+
+				<templatesWin:LoadingView x:Name="LoadingView"
+										  HeightRequest="46"
+										  WidthRequest="46" />
 
 				<!--Nome e Cognome-->
 				<Label Grid.Column="1"

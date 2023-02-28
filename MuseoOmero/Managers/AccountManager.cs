@@ -17,7 +17,7 @@ public class AccountManager
 		}
 	}
 
-	public Utente Account;
+	public Dipendente Dipendente;
 	public string Uid;
 	private UserCredential UserCredential;
 
@@ -33,14 +33,28 @@ public class AccountManager
 
 	public async Task<UserCredential> SignIn(string email, string password)
 	{
-		try
+		UserCredential = await FirebaseAuthClient.SignInWithEmailAndPasswordAsync(email, password);
+		Uid = UserCredential.User.Uid;
+		Dipendente = await DatabaseManager.Instance.LoadJsonObject<Dipendente>($"dipendenti/{Uid}");
+
+		if (Dipendente is null)
 		{
-			UserCredential = await FirebaseAuthClient.SignInWithEmailAndPasswordAsync(email, password);
-			Uid = UserCredential.User.Uid;
-			Account = await DatabaseManager.Instance.LoadJsonObject<Utente>($"utenti/{Uid}");
-			await SecureStorage.Default.SetAsync("uid", UserCredential.User.Uid);
+			if (await DatabaseManager.Instance.LoadJsonObject<Utente>($"utenti/{Uid}") is { })
+			{
+
+				await App.Current.MainPage.DisplayAlert("Attenzione", "Non puoi accedere al portale gestionale utilizzando le credenziali di un cliente! Per favore inserisci delle credenziali valide.", "Ok");
+				throw new Exception("Account di cliente");
+			}
+			else
+			{
+				await App.Current.MainPage.DisplayAlert("Errore", "L'account è stato rimosso dal database, quindi non è possibile accedere. Per favore contatta l'assistenza per la creazione di un nuovo account.", "Ok");
+				throw new Exception("Account rimosso");
+
+			}
+			return null;
 		}
-		catch (FirebaseAuthException e) { return null; }
+		await SecureStorage.Default.SetAsync("uid", UserCredential.User.Uid);
+
 		return UserCredential;
 	}
 	public void DeleteCache()
@@ -55,13 +69,20 @@ public class AccountManager
 		{
 			try
 			{
-				Account = await DatabaseManager.Instance.LoadJsonObject<Utente>($"utenti/{uid}");
+				Dipendente = await DatabaseManager.Instance.LoadJsonObject<Dipendente>($"dipendenti/{uid}");
+				if (Dipendente is null)
+					return false;
 				Uid = uid;
 			}
 			catch (Exception e) { return false; }
 			return true;
 		}
 		return false;
+	}
+
+	public async Task ResetPassword(string email)
+	{
+		await FirebaseAuthClient.ResetEmailPasswordAsync(email);
 	}
 
 	public async Task SignUp(string email, string password, string username)

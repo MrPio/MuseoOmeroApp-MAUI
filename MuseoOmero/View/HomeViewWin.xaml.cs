@@ -66,8 +66,8 @@ public partial class HomeViewWin : ContentPage
 			var elems = RepartoPicker.SelectedIndex == 0 ? _viewModel.Sale : _viewModel.NomiMostre;
 			SalaMostraPicker.ItemsSource = elems;
 			SalaMostraPicker.ItemsSource = SalaMostraPicker.GetItemsAsArray(); //https://github.com/dotnet/maui/issues/9739
-			if (elems.Count > 0)
-				SalaMostraPicker.SelectedIndex = 0;
+			if (elems.Count > 1)
+				SalaMostraPicker.SelectedIndex = 1;
 		}
 		_viewModel.FiltraOpere();
 	}

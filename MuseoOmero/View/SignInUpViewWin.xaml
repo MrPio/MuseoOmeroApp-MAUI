@@ -10,12 +10,12 @@
 			 x:DataType="viewModel:SignInUpViewModelWin">
 
 	<Grid>
-		
+
 		<!--Background-->
 		<Image Aspect="AspectFill"
 			   Margin="0,-30,0,0"
 			   Source="https://i.ibb.co/C1Fb9VS/omero-homepage.jpg" />
-		
+
 		<!--Vignette-->
 		<BoxView x:Name="Vignette"
 				 Opacity="0.6">
@@ -28,8 +28,8 @@
 				</RadialGradientBrush>
 			</BoxView.Background>
 		</BoxView>
-		
-		<!--Login Frame-->	
+
+		<!--Login Frame-->
 		<Frame Style="{StaticResource FrameRoundedWin}"
 			   HeightRequest="660"
 			   BackgroundColor="#DFFFFFFF"
@@ -39,7 +39,7 @@
 				<!--Accedi al portale-->
 				<VerticalStackLayout VerticalOptions="Center">
 					<Image Aspect="AspectFill"
-						   WidthRequest="240"
+						   WidthRequest="160"
 						   Source="https://i.ibb.co/HtKjCsF/logo-museoomero.png" />
 
 					<BoxView HeightRequest="30"
@@ -58,8 +58,10 @@
 
 				<!--<Bottom Grid-->
 				<Grid Grid.Row="1"
-					  RowDefinitions="auto,auto,auto, auto,auto"
+					  RowDefinitions="auto,auto,auto, auto,auto,auto"
 					  RowSpacing="12">
+
+					<!--Email-->
 					<Label Text="Email:"
 						   HorizontalOptions="Center"
 						   Style="{StaticResource LabelNormal}" />
@@ -70,6 +72,8 @@
 											   Color="{StaticResource Color1}"
 											   UnfocusedColor="{StaticResource Color6}"
 											   Icon="{Static material:IconFont.Email}" />
+
+					<!--Password-->
 					<Label Grid.Row="2"
 						   Text="Password:"
 						   Margin="0,10,0,0"
@@ -83,16 +87,31 @@
 											   UnfocusedColor="{StaticResource Color6}"
 											   Icon="{Static material:IconFont.Key}"
 											   IsPassword="true" />
+
+					<!--Accedi Button-->
 					<template:RoundedButtonView Grid.Row="4"
 												Text="Accedi"
 												WidthRequest="220"
 												Margin="0,30,0,0"
 												Color="{StaticResource Color1}"
 												Clicked="Accedi_Clicked" />
+
+					<Grid Grid.Row="5"
+						  Margin="0,10,0,0">
+						<Label x:Name="PwdDimenticataLabel" Style="{StaticResource LabelBold}"
+							   HorizontalOptions="Center"
+							   FontSize="18"
+							   Text="Password dimenticata" />
+						<templatesWin:HighlightView Alpha="0"
+													Pressed="HighlightView_Pressed"
+													Released="HighlightView_Released"
+													Clicked="HighlightView_Clicked"/>
+
+					</Grid>
 				</Grid>
 			</Grid>
 		</Frame>
-	
+
 		<!-- Loading screen -->
 		<templatesWin:LoadingView x:Name="Loading"
 								  IsVisible="false" />

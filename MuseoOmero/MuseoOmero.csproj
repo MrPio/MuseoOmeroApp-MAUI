@@ -96,6 +96,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<MauiImage Include="Resources\Raw\images_online.cs" />
 		<MauiImage Include="Resources\Raw\material_design.cs" />
 	</ItemGroup>
 
@@ -105,6 +106,7 @@
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 		<PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />
 		<PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
+		<PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
 		<PackageReference Include="Microcharts" Version="0.9.5.9" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 		<PackageReference Include="Sharpnado.Tabs.Maui" Version="3.0.1" />

@@ -1,22 +1,224 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 xmlns:template="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:viewmodels="clr-namespace:MuseoOmero.ViewModelWin"
+			 xmlns:model="clr-namespace:MuseoOmero.Model"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+			 xmlns:templateWin="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 xmlns:template="clr-namespace:MuseoOmero.View.Templates"
+			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
+			 xmlns:selector="clr-namespace:MuseoOmero.Selectors"
 			 x:Class="MuseoOmero.ViewWin.AccountViewWin"
-             Title="AccountViewWin">
+			 x:DataType="viewmodels:AccountViewModelWin"
+			 Title="AccountViewWin">
+
+	<ContentPage.Resources>
+		<Style TargetType="template:RoundedEntryView">
+			<Setter Property="Grid.Column"
+					Value="1" />
+			<Setter Property="WidthRequest"
+					Value="200" />
+			<Setter Property="BorderUnselected"
+					Value="0" />
+			<Setter Property="HorizontalOptions"
+					Value="Start" />
+			<Setter Property="UnfocusedColor"
+					Value="{StaticResource Color1}" />
+			<Setter Property="VerticalOptions"
+					Value="Center" />
+		</Style>
+	</ContentPage.Resources>
 
 	<Grid RowDefinitions="120,*">
 
 		<!--TopMenu-->
-		<template:TopMenu />
+		<templateWin:TopMenu x:Name="TopMenu" />
 
 		<!--Center of screen-->
-		<ScrollView Grid.Row="1">
-			<Grid RowSpacing="30"
-				  RowDefinitions="auto,auto"
-				  Padding="60,40,60,40"
-				  BackgroundColor="{StaticResource Color4}">
-			</Grid>
-		</ScrollView>
+		<Grid Grid.Row="1">
+
+			<!--Center of screen-->
+			<ScrollView>
+				<Grid>
+
+					<VerticalStackLayout Spacing="8"
+										 Padding="60,40,60,40"
+										 BackgroundColor="{StaticResource Color4}">
+
+						<!--Foto profilo-->
+						<Label Style="{StaticResource LabelBold}"
+							   HorizontalTextAlignment="Center"
+							   Text="Foto di profilo" />
+						<Label Style="{StaticResource LabelThin}"
+							   HorizontalTextAlignment="Center"
+							   LineBreakMode="WordWrap"
+							   Text="Fai click sul qui sotto per cambiare la tua foto di profilo" />
+						<BoxView HeightRequest="12" />
+						<Frame x:Name="PhotoFrame"
+							   Style="{StaticResource FrameRoundedWin}"
+							   HeightRequest="220"
+							   WidthRequest="220"
+							   Padding="0"
+							   HasShadow="True"
+							   BackgroundColor="{StaticResource Color5}">
+							<Grid>
+								<!--Foto-->
+								<Image x:Name="PhotoImage"
+									   Source="{Binding ImageUrl}" />
+
+								<!--Overlay-->
+								<Label x:Name="PhotoIcon"
+									   Opacity="0"
+									   Style="{StaticResource FontIconLabel}"
+									   Text="{Static material:IconFont.Camera}"
+									   HorizontalOptions="Center"
+									   VerticalOptions="Center"
+									   TextColor="{StaticResource Color1}"
+									   FontSize="134" />
+								<templateWin:HighlightView Pressed="HighlightView_Pressed"
+														   Released="HighlightView_Released"
+														   Clicked="HighlightView_Clicked"
+														   Alpha="0" />
+							</Grid>
+						</Frame>
+
+						<!--Anagrafica Frame-->
+						<BoxView HeightRequest="20" />
+						<Grid ColumnDefinitions="auto,*"
+							  ColumnSpacing="10"
+							  Margin="30,0,0,0">
+							<Label Style="{StaticResource FontIconLabel}"
+								   Text="{Static material:IconFont.Account}"
+								   FontSize="26"
+								   TextColor="{StaticResource Color1}" />
+							<Label Grid.Column="1"
+								   Style="{StaticResource LabelBold}"
+								   Text="Anagrafica"
+								   VerticalOptions="Center"
+								   FontSize="19" />
+						</Grid>
+						<Frame Style="{StaticResource FrameRoundedWin}">
+							<Grid ColumnDefinitions="*,1.4*"
+								  ColumnSpacing="20"
+								  RowDefinitions="60,60,60">
+								<Grid.Resources>
+									<Style TargetType="Label"
+										   BasedOn="{StaticResource LabelNormal}">
+										<Setter Property="VerticalOptions"
+												Value="Center" />
+										<Setter Property="HorizontalOptions"
+												Value="End" />
+									</Style>
+								</Grid.Resources>
+								<Label Text="Nome:" />
+								<Label Grid.Row="1"
+									   Text="Cognome:" />
+								<Label Grid.Row="2"
+									   Text="Cellulare:" />
+
+								<template:RoundedEntryView Text="{Binding Dipendente.Nome,Mode=TwoWay}" />
+								<template:RoundedEntryView Grid.Row="1"
+														   Text="{Binding Dipendente.Cognome,Mode=TwoWay}" />
+								<template:RoundedEntryView Grid.Row="2"
+														   Keyboard="Numeric"
+														   Text="{Binding Dipendente.Cellulare,Mode=TwoWay}" />
+							</Grid>
+						</Frame>
+
+						<!--Lavoro Frame-->
+						<BoxView HeightRequest="20" />
+						<Grid ColumnDefinitions="auto,*"
+							  ColumnSpacing="10"
+							  Margin="30,0,0,0">
+							<Label Style="{StaticResource FontIconLabel}"
+								   Text="{Static material:IconFont.Briefcase}"
+								   FontSize="26"
+								   TextColor="{StaticResource Color1}" />
+							<Label Grid.Column="1"
+								   Style="{StaticResource LabelBold}"
+								   Text="Lavoro"
+								   VerticalOptions="Center"
+								   FontSize="19" />
+						</Grid>
+						<Frame Style="{StaticResource FrameRoundedWin}">
+							<Grid ColumnDefinitions="*,1.4*"
+								  ColumnSpacing="20"
+								  RowDefinitions="60">
+								<Grid.Resources>
+									<Style TargetType="Label"
+										   BasedOn="{StaticResource LabelNormal}">
+										<Setter Property="VerticalOptions"
+												Value="Center" />
+										<Setter Property="HorizontalOptions"
+												Value="End" />
+									</Style>
+								</Grid.Resources>
+								<Label Text="Ruolo:" />
+
+								<template:RoundedEntryView Text="{Binding Dipendente.Ruolo,Mode=TwoWay}" />
+							</Grid>
+						</Frame>
+
+						<!--Sicurezza Frame-->
+						<BoxView HeightRequest="20" />
+						<Grid ColumnDefinitions="auto,*"
+							  ColumnSpacing="10"
+							  Margin="30,0,0,0">
+							<Label Style="{StaticResource FontIconLabel}"
+								   Text="{Static material:IconFont.Shield}"
+								   FontSize="26"
+								   TextColor="{StaticResource Color1}" />
+							<Label Grid.Column="1"
+								   Style="{StaticResource LabelBold}"
+								   Text="Sicurezza"
+								   VerticalOptions="Center"
+								   FontSize="19" />
+						</Grid>
+						<Frame Style="{StaticResource FrameRoundedWin}">
+							<Grid ColumnDefinitions="*,1.4*"
+								  ColumnSpacing="20"
+								  RowDefinitions="60,60">
+								<Label Style="{StaticResource LabelNormal}"
+									   Text="Email:"
+									   HorizontalOptions="End"
+									   VerticalOptions="Center" />
+								<Label Grid.Row="1"
+									   Style="{StaticResource LabelNormal}"
+									   Text="Password:"
+									   HorizontalOptions="End"
+									   VerticalOptions="Center" />
+
+								<Label Grid.Column="1"
+									   Style="{StaticResource LabelThin}"
+									   FontSize="19"
+									   Text="{Binding Dipendente.Email}"
+									   VerticalOptions="Center" />
+								<template:RoundedButtonView Grid.Column="1"
+															Grid.Row="1"
+															WidthRequest="200"
+															HorizontalOptions="Start"
+															Text="Cambia"
+															Color="{StaticResource Color1}"
+															Clicked="RoundedButtonView_Clicked" />
+							</Grid>
+						</Frame>
+					</VerticalStackLayout>
+
+					<!--Save Button-->
+					<template:RoundedButtonView Text="Save"
+												HorizontalOptions="End"
+												VerticalOptions="Start"
+												Color="{StaticResource Color1}"
+												Margin="30"
+												WidthRequest="120" 
+												Clicked="SaveButton_Clicked"/>
+				</Grid>
+			</ScrollView>
+
+			<!-- Loading screen -->
+			<templateWin:LoadingView x:Name="Loading"
+									 IsVisible="{Binding IsBusy}" />
+		</Grid>
 	</Grid>
 </ContentPage>

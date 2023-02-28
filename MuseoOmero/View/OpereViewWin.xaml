@@ -205,7 +205,7 @@
 				<!--Lista di Mostre-->
 				<Frame x:Name="ListaMostre"
 					   Grid.Row="0"
-					   TranslationX="1800"
+					   TranslationX="1600"
 					   Style="{StaticResource FrameRoundedWin}"
 					   BackgroundColor="{StaticResource Color5}"
 					   Padding="0">
@@ -552,7 +552,7 @@
 									<!--<BoxView HeightRequest="10" />-->
 									<!--Chiudi Button-->
 									<!--<template:RoundedButtonView Text="Chiudi"
-																WidthRequest="180"
+																WidthRequest="160"
 																Color="{StaticResource Color7}"
 																Clicked="CardViewClose_Clicked" />-->
 									<BoxView HeightRequest="30" />
@@ -645,7 +645,7 @@
 									<!--<BoxView HeightRequest="10" />-->
 									<!--Chiudi Button-->
 									<!--<template:RoundedButtonView Text="Chiudi"
-																WidthRequest="180"
+																WidthRequest="160"
 																Color="{StaticResource Color7}"
 																Clicked="CardViewClose_Clicked" />-->
 									<BoxView HeightRequest="30" />

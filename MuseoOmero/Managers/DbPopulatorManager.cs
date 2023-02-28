@@ -1,7 +1,7 @@
 ﻿using Firebase.Auth;
 
 namespace MuseoOmero.Managers;
-public class DbPopulatorManager
+public class DbPopulatorManager	
 {
 	private static DbPopulatorManager _instance;
 	private DbPopulatorManager() { }
@@ -27,12 +27,12 @@ public class DbPopulatorManager
 				new(DateTime.Now.AddSeconds(1999),"Ciao, messaggio medio, come stai? sto scrivendo all'assistenza del museo per capire come posso abbonarmi al fine di donare opere ed entrare gratis.")
 			}, DateTime.Now);
 
-		await db.Put($"utenti/JTOjcHsfYIY1SqmDQbw7kLalnYw2/chat", chat1);
+		await db.Put($"utenti/SKQziGzDYnRabkwjqCBMuaADigx2/chat", chat1);
 	}
 	public async Task populateUtenti()
 	{
-		var user = new Utente("MrPio", "Valerio", "Morelli", "+39 3318162818", new List<Biglietto>(), new List<Questionario>(), null, DateTime.Now);
-		await db.Put($"utenti/JTOjcHsfYIY1SqmDQbw7kLalnYw2", user);
+		var utente = new Utente("SKQziGzDYnRabkwjqCBMuaADigx2", "MaRio98", "Mario", "Rossi", "+39 3333333333", new List<Biglietto>(), new List<Questionario>(), null, DateTime.Now);
+		await db.Put($"utenti/{utente.Uid}", utente);
 
 		var b = new Biglietto(
 			dataAcquisto: DateTime.Now.AddMinutes(6),
@@ -46,8 +46,14 @@ public class DbPopulatorManager
 			tipologia: TipoBiglietto.Mostra,
 			dataGuida: DateTime.Today.AddDays(1).AddMinutes(356)
 		);
-		user.Biglietti.AddRange(new List<Biglietto>() { b, b2 });
-		await db.Put($"utenti/JTOjcHsfYIY1SqmDQbw7kLalnYw2/biglietti", user.Biglietti);
+		utente.Biglietti.AddRange(new List<Biglietto>() { b, b2 });
+		await db.Put($"utenti/{utente.Uid}/biglietti", utente.Biglietti);
+	}
+
+	public async Task populateDipendenti()
+	{
+		var dipendente = new Dipendente("JTOjcHsfYIY1SqmDQbw7kLalnYw2", "Valerio", "Morelli", "+39 3318162818", "assistenza@museo.omero.it","amministratore",DateTime.Now);
+		await db.Put($"dipendenti/{dipendente.Uid}", dipendente);
 	}
 
 	public async Task populateOpere()
@@ -89,7 +95,7 @@ public class DbPopulatorManager
 				tecnica:new(){ "incisione","intaglio"},
 				materiali:new(){"legno"},
 				foto:"https://i.ibb.co/YNPx5Cy/opera-vanvitelli-Mole-Vanvitelliana-1.jpg",
-				descrizione:"“Estremamente laborioso, e disegnatore indefesso, egli riuniva qualità sovente discordi, prontezza d’ingegno e sofferenza di studio, vivacità di spirito e ostinazione di fatica. In mezzo a tante occupazioni e gloria sì rara, era sempre umano, moderato, piacevole, discreto cogli operai, pietoso con i miseri, cortese con tutti. […] Raro ed imitabile esempio di lodevolissima onestà, [Vanvitelli era] di dolci costumi, nettissimo d’invidia, affabile e sincero per natura era da tutti desiderato, ed amici aveva moltissimi” Luigi Vanvitelli junior (nipote dell’architetto), “Vita dell’architetto Luigi Vanvitelli”.\r\n\r\nAll’ingresso del percorso espositivo è collocato il modello volumetrico della Mole Vanvitelliana di Ancona, l’imponente struttura che ospita il Museo Omero. Conosciuta anche come Ex Lazzeretto, fu ideata Luigi Vanvitelli e costruita tra il 1733 e il 1743. Il modellino volumetrico, realizzato da Fabio Ridolfi, è in legno e riproduce in scala 1:250 i volumi essenziali dell’edificio così come era in origine: una grande architettura di forma pentagonale poggiante su un’isola artificiale di 20.000 metri quadrati, e circondata dall’acqua, senza collegamenti con la terraferma.\r\n\r\nLa parte più esterna della Mole Vanvitelliana consiste in una cinta muraria dotata di due accessi e rinforzata da un rivellino (fortificazione) dal lato rivolto verso il mare aperto. Al suo interno gli edifici che compongono il corpo principale disegnano un secondo pentagono, che si sviluppa in verticale e lascia aperto al centro un cortile interno. Un tempietto in stile neoclassico di forma circolare è collocato al centro della corte. Le parti corrispondenti agli edifici e al cortile interno sono in legno di tiglio, mentre il tempietto è stato realizzato usando il cirmolo. Situato all’ingresso della collezione, il modello permette al visitatore non vedente di comprendere le forme del luogo in cui si trova.\r\n\r\nLa realizzazione del Lazzaretto della città rientrava nel progetto di ristrutturazione della città voluto da Papa Clemente XII, per dare alla città un’identità più moderna. Concepita inizialmente con funzione sanitaria (poteva contenere fino a 2000 persone), nel tempo la Mole ha assunto diverse destinazioni d’uso: da difesa bellica, a base navale, da magazzino, a raffineria e manifattura tabacchi. La sua funzione originaria è richiamata dal tempietto dedicato a San Rocco, protettore dei malati di peste. Oltre a servire come luogo di riunione in occasione delle cerimonie religiose nel lazzaretto, il tempietto, in marmo bianco, celava anche un complesso sistema di approvvigionamento di acqua potabile.\r\n\r\nIl Museo Omero, trasferitosi alla Mole nel 2012, occupa attualmente uno dei lati del pentagono in tutta la sua lunghezza.",
+				descrizione:"“Estremamente laborioso, e disegnatore indefesso, egli riuniva qualità sovente discordi, prontezza d’ingegno e sofferenza di studio, vivacità di spirito e ostinazione di fatica. In mezzo a tante occupazioni e gloria sì rara, era sempre umano, moderato, piacevole, discreto cogli operai, pietoso con i miseri, cortese con tutti. […] Raro ed imitabile esempio di lodevolissima onestà, [Vanvitelli era] di dolci costumi, nettissimo d’invidia, affabile e sincero per natura era da tutti desiderato, ed amici aveva moltissimi” Luigi Vanvitelli junior (nipote dell’architetto), “Vita dell’architetto Luigi Vanvitelli”.\r\n\r\nAll’ingresso del percorso espositivo è collocato il modello volumetrico della Mole Vanvitelliana di Ancona, l’imponente struttura che ospita il Museo Omero. Conosciuta anche come Ex Lazzeretto, fu ideata Luigi Vanvitelli e costruita tra il 1733 e il 1743. Il modellino volumetrico, realizzato da Fabio Ridolfi, è in legno e riproduce in scala 1:160 i volumi essenziali dell’edificio così come era in origine: una grande architettura di forma pentagonale poggiante su un’isola artificiale di 20.000 metri quadrati, e circondata dall’acqua, senza collegamenti con la terraferma.\r\n\r\nLa parte più esterna della Mole Vanvitelliana consiste in una cinta muraria dotata di due accessi e rinforzata da un rivellino (fortificazione) dal lato rivolto verso il mare aperto. Al suo interno gli edifici che compongono il corpo principale disegnano un secondo pentagono, che si sviluppa in verticale e lascia aperto al centro un cortile interno. Un tempietto in stile neoclassico di forma circolare è collocato al centro della corte. Le parti corrispondenti agli edifici e al cortile interno sono in legno di tiglio, mentre il tempietto è stato realizzato usando il cirmolo. Situato all’ingresso della collezione, il modello permette al visitatore non vedente di comprendere le forme del luogo in cui si trova.\r\n\r\nLa realizzazione del Lazzaretto della città rientrava nel progetto di ristrutturazione della città voluto da Papa Clemente XII, per dare alla città un’identità più moderna. Concepita inizialmente con funzione sanitaria (poteva contenere fino a 2000 persone), nel tempo la Mole ha assunto diverse destinazioni d’uso: da difesa bellica, a base navale, da magazzino, a raffineria e manifattura tabacchi. La sua funzione originaria è richiamata dal tempietto dedicato a San Rocco, protettore dei malati di peste. Oltre a servire come luogo di riunione in occasione delle cerimonie religiose nel lazzaretto, il tempietto, in marmo bianco, celava anche un complesso sistema di approvvigionamento di acqua potabile.\r\n\r\nIl Museo Omero, trasferitosi alla Mole nel 2012, occupa attualmente uno dei lati del pentagono in tutta la sua lunghezza.",
 				visualizzazioni:4
 				),
 
@@ -100,7 +106,7 @@ public class DbPopulatorManager
 				nome:"Partenone",
 				autore:"Gruppo Ricalchi",
 				dataAggiunta:DateTime.Now,
-				dimensioni:new[]{ 113f, 240f, 100f },
+				dimensioni:new[]{ 113f, 160f, 100f },
 				tecnica:new(){ "assemblaggio"},
 				materiali:new(){"legno", "gesso", "resina"},
 				foto:"https://i.ibb.co/g60D2Jk/opera-Fidia-partenone-2010-3008-64-1.jpg",
@@ -164,7 +170,7 @@ public class DbPopulatorManager
 				nome:"Zeus o Poseidone di Capo Artemisio ",
 				autore:"Verdetti Ri-Calchi",
 				dataAggiunta:DateTime.Now,
-				dimensioni:new[]{ 209f, 250, 230 },
+				dimensioni:new[]{ 209f, 160, 230 },
 				tecnica:new(){ "calco al vero"},
 				materiali:new(){"bronzo"},
 				foto:"https://i.ibb.co/mvTYdZ2/opera-Poseidone-di-Capo-Artemisio-2010-2808-POSEID-2-903x1024.jpg",

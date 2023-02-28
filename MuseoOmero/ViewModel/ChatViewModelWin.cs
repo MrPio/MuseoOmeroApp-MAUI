@@ -1,12 +1,9 @@
-﻿using System;
-using System.Linq;
-
-namespace MuseoOmero.ViewModelWin;
+﻿namespace MuseoOmero.ViewModelWin;
 
 public partial class ChatViewModelWin : ObservableObject
 {
 	private ShellViewModelWin _shellViewModelWin;
-	private IDisposable _chatObserver, _miaChatObserver ;
+	private IDisposable _chatObserver, _miaChatObserver;
 	public Func<Task> CollectionViewCallback = null;
 	[ObservableProperty]
 	HomeViewModelWin homeViewModel;
@@ -91,12 +88,16 @@ public partial class ChatViewModelWin : ObservableObject
 			await DatabaseManager.Instance.Put($"utenti/{CurrentUtente.Uid}/chat/", CurrentUtente.Chat);
 	}
 
-	public void Initialize()
+	public async void Initialize()
 	{
 		UtentiConChat = new(HomeViewModel.Utenti.FindAll(u => u.Chat is { }));
 		NoChats = UtentiConChat.Count == 0;
 		foreach (var utente in UtentiConChat)
+		{
+			var url = await StorageManager.Instance.GetLink($"{AccountManager.Instance.Uid}/foto_profilo/");
+			utente.FotoProfilo = url is { } ? url : ImagesOnline.Anonymous;
 			Chats.Add(utente.Chat);
+		}
 	}
 
 	public async Task SendMessage(Messaggio messaggio)

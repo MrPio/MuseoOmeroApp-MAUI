@@ -1,3 +1,4 @@
+
 namespace MuseoOmero.ViewWin;
 
 public partial class ChatViewWin : ContentPage
@@ -13,6 +14,12 @@ public partial class ChatViewWin : ContentPage
 		_viewModel.Initialize();
 		InitializeComponent();
 		_shellViewModelWin = shellViewModelWin;
+	}
+
+	protected override void OnAppearing()
+	{
+		base.OnAppearing();
+		_viewModel.Initialize();
 	}
 
 	private void HighlightView_Pressed(object sender, EventArgs e)
