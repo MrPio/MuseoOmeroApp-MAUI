@@ -31,7 +31,7 @@ public static class MauiProgram
 				fonts.AddFont(filename: "materialdesignicons-webfont_thin.ttf", alias: "MaterialDesignIconsThin");
 			})
 			.UseSharpnadoTabs(loggerEnable: false)
-			.UseSkiaSharp()
+			.UseSkiaSharp(true)
 			.UseBarcodeReader()
 			.ConfigureMauiHandlers(handlers =>
 			{
@@ -67,7 +67,10 @@ public static class MauiProgram
 		builder.Services.AddSingleton<ChatViewModelWin>();
 		builder.Services.AddSingleton<AccountViewWin>();
 		builder.Services.AddSingleton<AccountViewModelWin>();
+		builder.Services.AddSingleton<StatisticheViewWin>();
+		builder.Services.AddSingleton<StatisticheViewModelWin>();
 #endif
+
 		builder.Services.AddSingleton<IMediaPicker, CustomMediaPicker>();
 		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 

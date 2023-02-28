@@ -94,7 +94,7 @@ public partial class ChatViewModelWin : ObservableObject
 		NoChats = UtentiConChat.Count == 0;
 		foreach (var utente in UtentiConChat)
 		{
-			var url = await StorageManager.Instance.GetLink($"{AccountManager.Instance.Uid}/foto_profilo/");
+			var url = await StorageManager.Instance.GetLink($"{utente.Uid}/foto_profilo/");
 			utente.FotoProfilo = url is { } ? url : ImagesOnline.Anonymous;
 			Chats.Add(utente.Chat);
 		}

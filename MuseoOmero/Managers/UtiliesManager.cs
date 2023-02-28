@@ -14,7 +14,7 @@ public class UtiliesManager
 			return _instance;
 		}
 	}
-
+	private FileStream _stream;
 	public FileStream CropImageToSquare(string path)
 	{
 		Bitmap bmpImage = new(System.Drawing.Image.FromFile(path));
@@ -29,8 +29,11 @@ public class UtiliesManager
 			bmpCropped = bmpImage;
 
 		MemoryStream memoryStream = new();
-		var newPath = Path.Combine(FileSystem.AppDataDirectory, "avatarCropped.png");
+		var newPath = Path.Combine(FileSystem.AppDataDirectory, $"avatarCropped_{new Random().Next(999999)}.png");
 		bmpCropped.Save(newPath);
-		return File.OpenRead(newPath);
+		if (_stream is { })
+			_stream.Close();
+		_stream = File.OpenRead(newPath);
+		return _stream;
 	}
 }

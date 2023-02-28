@@ -17,29 +17,29 @@ public partial class AccountViewWin : ContentPage
 
 	private void HighlightView_Pressed(object sender, EventArgs e)
 	{
-		PhotoFrame.ColorTo(DeviceManager.Instance.Colors[4], DeviceManager.Instance.Colors[0], c => PhotoFrame.BackgroundColor = c, 160, Easing.CubicOut);
-		PhotoIcon.ColorTo(DeviceManager.Instance.Colors[0], DeviceManager.Instance.Colors[3], c => PhotoIcon.TextColor = c, 160, Easing.CubicOut);
-		PhotoIcon.FadeTo(1, 160, Easing.CubicOut);
-		PhotoImage.FadeTo(0, 160, Easing.CubicOut);
+		PhotoFrame.ColorTo(DeviceManager.Instance.Colors[4], DeviceManager.Instance.Colors[0], c => PhotoFrame.BackgroundColor = c, 350, Easing.CubicOut);
+		PhotoIcon.ColorTo(DeviceManager.Instance.Colors[0], DeviceManager.Instance.Colors[3], c => PhotoIcon.TextColor = c, 350, Easing.CubicOut);
+		PhotoIcon.FadeTo(1, 350, Easing.CubicOut);
+		PhotoImage.FadeTo(0, 350, Easing.CubicOut);
 	}
 
 	private void HighlightView_Released(object sender, EventArgs e)
 	{
 		PhotoFrame.CancelAnimation();
 		PhotoIcon.CancelAnimation();
-		PhotoFrame.ColorTo(DeviceManager.Instance.Colors[0], DeviceManager.Instance.Colors[4], c => PhotoFrame.BackgroundColor = c, 160, Easing.CubicOut);
-		PhotoIcon.ColorTo(DeviceManager.Instance.Colors[3], DeviceManager.Instance.Colors[0], c => PhotoIcon.TextColor = c, 160, Easing.CubicOut);
-		PhotoIcon.FadeTo(0, 160, Easing.CubicOut);
-		PhotoImage.FadeTo(1, 160, Easing.CubicOut);
+		PhotoFrame.ColorTo(DeviceManager.Instance.Colors[0], DeviceManager.Instance.Colors[4], c => PhotoFrame.BackgroundColor = c, 350, Easing.CubicOut);
+		PhotoIcon.ColorTo(DeviceManager.Instance.Colors[3], DeviceManager.Instance.Colors[0], c => PhotoIcon.TextColor = c, 350, Easing.CubicOut);
+		PhotoIcon.FadeTo(0, 350, Easing.CubicOut);
+		PhotoImage.FadeTo(1, 350, Easing.CubicOut);
 	}
 
 	private async void HighlightView_Clicked(object sender, EventArgs e)
 	{
 		_viewModel.IsBusy = true;
 		var fileResult = await MediaPicker.PickPhotoAsync(new MediaPickerOptions { Title = "Scegli una nuova foto di profilo" });
-		var stream = UtiliesManager.Instance.CropImageToSquare(fileResult.FullPath);
 		if (fileResult is { })
 		{
+			var stream = UtiliesManager.Instance.CropImageToSquare(fileResult.FullPath);
 			await StorageManager.Instance.Upload(
 				resource: $"{AccountManager.Instance.Uid}/foto_profilo/",
 				stream: stream
@@ -74,9 +74,14 @@ public partial class AccountViewWin : ContentPage
 
 	private async void SaveButton_Clicked(object sender, EventArgs e)
 	{
-		_viewModel.IsBusy= true;
+		_viewModel.IsBusy = true;
 		await DatabaseManager.Instance.Put(
 			resource: $"dipendenti/{AccountManager.Instance.Uid}", _viewModel.Dipendente);
-		_viewModel.IsBusy = false; 
+		_viewModel.IsBusy = false;
+	}
+
+	private void PointerGestureRecognizer_PointerEntered(object sender, PointerEventArgs e)
+	{
+
 	}
 }

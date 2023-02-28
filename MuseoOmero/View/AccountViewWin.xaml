@@ -76,10 +76,15 @@
 									   VerticalOptions="Center"
 									   TextColor="{StaticResource Color1}"
 									   FontSize="134" />
-								<templateWin:HighlightView Pressed="HighlightView_Pressed"
-														   Released="HighlightView_Released"
+								<templateWin:HighlightView 
+														   
 														   Clicked="HighlightView_Clicked"
-														   Alpha="0" />
+														   Alpha="0">
+									<templateWin:HighlightView.GestureRecognizers>
+										<PointerGestureRecognizer PointerEntered="HighlightView_Pressed"
+																  PointerExited="HighlightView_Released"/>
+									</templateWin:HighlightView.GestureRecognizers>
+								</templateWin:HighlightView>
 							</Grid>
 						</Frame>
 
