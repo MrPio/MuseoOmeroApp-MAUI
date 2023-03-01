@@ -22,7 +22,7 @@ public partial class SignInUpViewWin : ContentPage
 	{
 		await Task.Delay(2000);
 
-		//await DbPopulatorManager.Instance.populateUtenti();
+		//await DbPopulatorManager.Instance.PopulateUtentiBigliettiQuestionariChats();
 		//await DbPopulatorManager.Instance.populateChats();
 		//await DbPopulatorManager.Instance.populateDipendenti();
 		if (String.IsNullOrEmpty(await SecureStorage.Default.GetAsync("uid")))

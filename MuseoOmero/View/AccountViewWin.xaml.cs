@@ -1,7 +1,3 @@
-using MuseoOmero.View.TemplatesWin;
-using System.Drawing;
-using System.DrawingCore;
-
 namespace MuseoOmero.ViewWin;
 
 public partial class AccountViewWin : ContentPage

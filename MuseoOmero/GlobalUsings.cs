@@ -16,3 +16,4 @@ global using MuseoOmero.ViewModel.TemplatesWin;
 global using System.Globalization;
 global using Newtonsoft.Json;
 global using MuseoOmero.View.TemplatesWin;
+global using MuseoOmero.Extensions;

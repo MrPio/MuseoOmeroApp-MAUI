@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.DrawingCore;
+﻿using System.DrawingCore;
 
 namespace MuseoOmero.Managers;
 
@@ -18,9 +17,9 @@ public class UtiliesManager
 	private FileStream _stream;
 	public FileStream CropImageToSquare(string path)
 	{
-		Bitmap bmpImage = new(System.Drawing.Image.FromFile(path));
+		System.Drawing.Bitmap bmpImage = new(System.Drawing.Image.FromFile(path));
 		var width = bmpImage.Width;
-		Bitmap bmpCropped;
+		System.Drawing.Bitmap bmpCropped;
 		var height = bmpImage.Height;
 		if (width > height)
 			bmpCropped = bmpImage.Clone(new((width - height) / 2, 0, height, height), bmpImage.PixelFormat);

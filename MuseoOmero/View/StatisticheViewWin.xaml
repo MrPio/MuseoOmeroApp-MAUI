@@ -41,8 +41,8 @@
 					  HorizontalOptions="Center">
 					<lvc:PieChart Series="{Binding Series3}"
 								  MaxAngle="360" InitialRotation="99"/>
-					<lvc:CartesianChart Grid.Column="1"
-										Series="{Binding Series4}" />
+					<!--<lvc:CartesianChart Grid.Column="1"
+										Series="{Binding Series4}" />-->
 				</Grid>
 			</VerticalStackLayout>
 		</ScrollView>

@@ -109,9 +109,8 @@ public partial class HomeViewModelWin : ObservableObject
 									 select q);
 			compilazioniTotali += user.Questionari.Count;
 
-			if (user.Chat is { })
+			if (user.Chat is { } && user.Chat?.MessaggiUtente is { })
 			{
-
 				messaggiNonLetti.AddRange(from m in user.Chat?.MessaggiUtente
 										  where !m.Letto
 										  select m);

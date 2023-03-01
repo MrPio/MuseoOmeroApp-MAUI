@@ -48,11 +48,6 @@ public partial class StatisticheViewModelWin : ObservableObject
 		new PieSeries<double> { Values = new List<double> { 3 }, InnerRadius = 50,MaxOuterRadius = 1 }
   };
 
-	public async void Initialize()
-	{
-
-	}
-
 	[ObservableProperty]
 	ColumnSeries<float>[] bigliettiSeries;
 

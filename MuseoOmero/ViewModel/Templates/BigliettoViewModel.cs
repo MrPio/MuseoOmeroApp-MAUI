@@ -18,10 +18,10 @@ namespace MuseoOmero.ViewModel.Templates
         public BigliettoViewModel(Biglietto biglietto)
         {
             Data = biglietto.DataValidita;
-            TipologiaBiglietto = biglietto.Tipologia.Value;
+            TipologiaBiglietto = nameof(biglietto.Tipologia);
             TurnoGuida = biglietto.DataGuida == null ? "No turno guida." : "Guida alle " +
             biglietto.DataGuida?.ToString("HH:mm");
-            Icon = biglietto.Tipologia.Icon;
+            Icon = IconeBiglietto.Values[(int)biglietto.Tipologia];
         }
 
 

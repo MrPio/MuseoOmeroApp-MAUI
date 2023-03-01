@@ -1,4 +1,3 @@
-
 namespace MuseoOmero.ViewWin;
 
 public partial class ChatViewWin : ContentPage
@@ -16,10 +15,11 @@ public partial class ChatViewWin : ContentPage
 		_shellViewModelWin = shellViewModelWin;
 	}
 
-	protected override void OnAppearing()
+	protected async override void OnAppearing()
 	{
 		base.OnAppearing();
-		_viewModel.Initialize();
+		//_shellViewModelWin.SelectedRoute = "blank";
+		//_shellViewModelWin.SelectedRoute = "chat";
 	}
 
 	private void HighlightView_Pressed(object sender, EventArgs e)

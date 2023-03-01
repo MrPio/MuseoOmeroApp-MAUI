@@ -9,7 +9,7 @@ public class Biglietto
 
 	[JsonProperty("data_convalida")] public DateTime? DataConvalida { get; set; }
 
-	[JsonProperty("tipologia")] public TipoBiglietto Tipologia { get; set; } = null;
+	[JsonProperty("tipologia")] public TipoBiglietto? Tipologia { get; set; } = null;
 
 	[JsonProperty("data_guida")] public DateTime? DataGuida { get; set; } = null;
 

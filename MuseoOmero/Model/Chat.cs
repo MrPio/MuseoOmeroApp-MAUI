@@ -9,8 +9,8 @@ public class Chat
 	[JsonConstructor]
 	public Chat( List<Messaggio> messaggiMuseo, List<Messaggio> messaggiUtente, DateTime dataInizio)
 	{
-		MessaggiMuseo = messaggiMuseo;
-		MessaggiUtente = messaggiUtente;
+		MessaggiMuseo = messaggiMuseo??=new();
+		MessaggiUtente = messaggiUtente ??= new();
 		DataInizio = dataInizio;
 	}
 }

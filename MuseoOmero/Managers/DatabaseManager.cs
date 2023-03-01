@@ -37,7 +37,7 @@ public class DatabaseManager
 	public async Task Put(string resource, object obj)
 	{
 		await GetChild(resource).PutAsync(obj);
-	}
+	}	
 	public async Task Post(string resource, object obj)
 	{
 		await GetChild(resource).PostAsync(obj);

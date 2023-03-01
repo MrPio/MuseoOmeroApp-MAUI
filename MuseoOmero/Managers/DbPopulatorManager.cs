@@ -1,4 +1,5 @@
 ﻿using Firebase.Auth;
+using System.Security.AccessControl;
 
 namespace MuseoOmero.Managers;
 public class DbPopulatorManager
@@ -29,50 +30,81 @@ public class DbPopulatorManager
 
 		await db.Put($"utenti/SKQziGzDYnRabkwjqCBMuaADigx2/chat", chat1);
 	}
-	public async Task populateUtenti()
+	public async Task PopulateUtentiBigliettiQuestionariChats()
 	{
 		var util = UtiliesManager.Instance;
 		var ran = UtiliesManager.Random;
 		for (int i = 0; i < 30; i++)
 		{
+			//Aggiungo Biglietti e Questionari
 			List<Biglietto> biglietti = new();
 			List<Questionario> questionari = new();
 			for (int j = 0; j < ran.Next(5); j++)
 			{
+				//Aggiungo un Biglietto [100%]
 				var ranAcq = util.RandomDate(365);
 				var ranVal = ranAcq.AddDays(ran.Next(4));
 				biglietti.Add(
 					new Biglietto(
 						dataAcquisto: ranAcq,
 						dataValidita: ranVal.AddDays(ran.Next(4)),
-						tipologia: (TipoBiglietto)ran.Next(3),
+						tipologia: ran.NextEnum<TipoBiglietto>(),
 						dataGuida: ran.Next(2) == 1 ? null : ranVal
 					)
 				);
-				questionari.Add(
-					new Questionario(
-						tipologiaVisita:,
-						accompagnatoriVisita:,
-						motivazioneVisita:,
-						titoloStudi:,
-						numeroVisite:,
-						ritorno:,
-						valutazioneVisita:,
-						valutazioneEsperienza:,
-						valutazioneStruttura:,
-						dataCompilazione:,
-						)
-				);
+
+				//Aggiungo un Questionario [66.7%]
+				if (ran.NextDouble() < 0.667d)
+				{
+					questionari.Add(
+						new Questionario(
+							tipologiaVisita: ran.NextElement(TipologiaVisita.Values),
+							accompagnatoriVisita: ran.NextElement(AccompagnatoriVisita.Values),
+							motivazioneVisita: ran.NextElement(MotivazioneVisita.Values),
+							titoloStudi: ran.NextElement(TitoloStudi.Values),
+							numeroVisite: ran.Next(5),
+							ritorno: ran.NextElement(Ritorno.Values),
+							valutazioneVisita: (int)Easing.BounceOut.Ease(ran.NextDouble() * 6) + 1,
+							valutazioneEsperienza: (int)Easing.BounceOut.Ease(ran.NextDouble() * 6) + 1,
+							valutazioneStruttura: (int)Easing.BounceOut.Ease(ran.NextDouble() * 6) + 1,
+							dataCompilazione: ranVal
+							)
+					);
+				}
 			}
+
+			//Aggiungo Chat [33.3%]
+			Chat chat = null;
+			if (ran.NextDouble() < 0.333f)
+			{
+				List<Messaggio> messaggiMuseo = new();
+				List<Messaggio> messaggiUtente = new();
+				for (int j = 0; j < ran.Next(10); j++)
+				{
+					messaggiMuseo.Add(new(
+						data: util.RandomDate(365),
+						testo: util.RandomString(100)
+					));
+				}
+				for (int j = 0; j < ran.Next(12); j++)
+				{
+					messaggiUtente.Add(new(
+						data: util.RandomDate(365),
+						testo: util.RandomString(80)
+					));
+				}
+				chat = new(messaggiMuseo, messaggiUtente, DateTime.Now.AddDays(-365));
+			}
+
 			var utente = new Utente(
 				uid: util.RandomString(28),
 				username: util.RandomString(5),
 				nome: util.RandomString(5),
 				cognome: util.RandomString(5),
 				cellulare: "+39 " + util.RandomStringNumeric(10),
-				biglietti: new List<Biglietto>(),
-				questionari: new List<Questionario>(),
-				chat: null,
+				biglietti: biglietti,
+				questionari: questionari,
+				chat: chat,
 				lastOnline: util.RandomDate(365)
 			);
 			await db.Put($"utenti/{utente.Uid}", utente);

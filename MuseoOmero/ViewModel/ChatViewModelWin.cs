@@ -26,6 +26,9 @@ public partial class ChatViewModelWin : ObservableObject
 		_shellViewModelWin = shellViewModelWin;
 	}
 
+	[ObservableProperty]
+	bool isBusy;
+
 	[RelayCommand]
 	async void SelectChat(Chat chat)
 	{
@@ -52,6 +55,8 @@ public partial class ChatViewModelWin : ObservableObject
 			{
 				//HomeViewModel.LoadUtenti();
 				var msg = o.Object;
+				if (o.Object is null)
+					return;
 				if (Messaggi.ToList().Find(m => m.Messaggio.Data == msg.Data) is { } m)
 					m.Messaggio = msg;
 				else
@@ -70,6 +75,8 @@ public partial class ChatViewModelWin : ObservableObject
 	{
 		//HomeViewModel.LoadUtenti();
 		var msg = o.Object;
+		if (o.Object is null)
+			return;
 		if (Messaggi.ToList().Find(m => m.Messaggio.Data == msg.Data) is { } m)
 			m.Messaggio = msg;
 		else
@@ -88,16 +95,19 @@ public partial class ChatViewModelWin : ObservableObject
 			await DatabaseManager.Instance.Put($"utenti/{CurrentUtente.Uid}/chat/", CurrentUtente.Chat);
 	}
 
-	public async void Initialize()
+	public async Task Initialize()
 	{
-		UtentiConChat = new(HomeViewModel.Utenti.FindAll(u => u.Chat is { }));
-		NoChats = UtentiConChat.Count == 0;
-		foreach (var utente in UtentiConChat)
+		IsBusy = true;
+		var utenti = HomeViewModel.Utenti.FindAll(u => u.Chat is { });
+		NoChats = utenti.Count == 0;
+		foreach (var utente in utenti)
 		{
 			var url = await StorageManager.Instance.GetLink($"{utente.Uid}/foto_profilo/");
 			utente.FotoProfilo = url is { } ? url : ImagesOnline.Anonymous;
 			Chats.Add(utente.Chat);
 		}
+		UtentiConChat = new(utenti);
+		IsBusy = false;
 	}
 
 	public async Task SendMessage(Messaggio messaggio)
