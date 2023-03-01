@@ -4,11 +4,15 @@ using LiveChartsCore.Measure;
 using LiveChartsCore.Easing;
 using LiveChartsCore.Kernel;
 using LiveChartsCore.SkiaSharpView.Drawing.Geometries;
+using LiveChartsCore.SkiaSharpView.Painting;
+using SkiaSharp;
+using System.Linq;
 
 namespace MuseoOmero.ViewModelWin;
 
 public partial class StatisticheViewModelWin : ObservableObject
 {
+	private HomeViewModelWin _homeViewModelWin;
 	[ObservableProperty]
 	IEnumerable<ISeries> series
 		= new GaugeBuilder()
@@ -49,40 +53,55 @@ public partial class StatisticheViewModelWin : ObservableObject
 
 	}
 
-	public List<ISeries> Series4 { get; set; }
-	public StatisticheViewModelWin()
+	[ObservableProperty]
+	ColumnSeries<float>[] bigliettiSeries;
+
+	[ObservableProperty]
+	Axis[] bigliettiXAxes =
 	{
-		var values1 = new List<float>();
-		var values2 = new List<float>();
-
-		var fx = EasingFunctions.BounceInOut; // this is the function we are going to plot
-		var x = 0f;
-
-		while (x <= 1)
+		new()
 		{
-			values1.Add(fx(x));
-			values2.Add(fx(x - 0.15f));
-			x += 0.025f;
+			Labels = new[] { "L", "M", "MM","G","V","S","D" },
+			LabelsRotation = 30,
+			SeparatorsPaint = new SolidColorPaint(new SKColor(200, 200, 200)),
+			SeparatorsAtCenter = false,
+			TicksPaint = new SolidColorPaint(new SKColor(35, 35, 35)),
+			TicksAtCenter = true
 		}
+	};
 
-		var columnSeries1 = new ColumnSeries<float>
+	public StatisticheViewModelWin(HomeViewModelWin homeViewModelWin)
+	{
+		_homeViewModelWin = homeViewModelWin;
+		foreach (var s in BigliettiSeries)
+			s.PointMeasured += OnPointMeasured;
+	}
+
+	public async void Initialize()
+	{
+		//BIGLIETTI
+		var vendite = new float[7];
+		var convalide = new float[7];
+		var utenti = _homeViewModelWin.Utenti;
+		foreach (var b in utenti.SelectMany(u => u.Biglietti))
 		{
-			Values = values1,
-			Stroke = null,
-			Padding = 2
-		};
-
-		var columnSeries2 = new ColumnSeries<float>
+			++vendite[(int)b.DataAcquisto.DayOfWeek];
+			if (b.DataConvalida is { })
+				++convalide[(int)b.DataConvalida?.DayOfWeek];
+		}
+		BigliettiSeries = new ColumnSeries<float>[]
 		{
-			Values = values2,
-			Stroke = null,
-			Padding = 2
+			new()
+			{
+				Name = "Venduti",
+				Values = vendite
+			},
+			new()
+			{
+				Name = "Venduti",
+				Values = convalide
+			}
 		};
-
-		columnSeries1.PointMeasured += OnPointMeasured;
-		columnSeries2.PointMeasured += OnPointMeasured;
-
-		Series4 = new List<ISeries> { columnSeries1, columnSeries2 };
 	}
 	private void OnPointMeasured(ChartPoint<float, RoundedRectangleGeometry, LabelGeometry> point)
 	{

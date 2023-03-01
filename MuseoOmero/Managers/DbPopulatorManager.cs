@@ -1,7 +1,7 @@
 ﻿using Firebase.Auth;
 
 namespace MuseoOmero.Managers;
-public class DbPopulatorManager	
+public class DbPopulatorManager
 {
 	private static DbPopulatorManager _instance;
 	private DbPopulatorManager() { }
@@ -31,28 +31,57 @@ public class DbPopulatorManager
 	}
 	public async Task populateUtenti()
 	{
-		var utente = new Utente("SKQziGzDYnRabkwjqCBMuaADigx2", "MaRio98", "Mario", "Rossi", "+39 3333333333", new List<Biglietto>(), new List<Questionario>(), null, DateTime.Now);
-		await db.Put($"utenti/{utente.Uid}", utente);
-
-		var b = new Biglietto(
-			dataAcquisto: DateTime.Now.AddMinutes(6),
-			dataValidita: DateTime.Today.AddDays(1).AddMinutes(11),
-			tipologia: TipoBiglietto.MuseoAperto,
-			dataGuida: null
-		);
-		var b2 = new Biglietto(
-			dataAcquisto: DateTime.Now.AddMinutes(28),
-			dataValidita: DateTime.Today.AddDays(1).AddMinutes(256),
-			tipologia: TipoBiglietto.Mostra,
-			dataGuida: DateTime.Today.AddDays(1).AddMinutes(356)
-		);
-		utente.Biglietti.AddRange(new List<Biglietto>() { b, b2 });
-		await db.Put($"utenti/{utente.Uid}/biglietti", utente.Biglietti);
+		var util = UtiliesManager.Instance;
+		var ran = UtiliesManager.Random;
+		for (int i = 0; i < 30; i++)
+		{
+			List<Biglietto> biglietti = new();
+			List<Questionario> questionari = new();
+			for (int j = 0; j < ran.Next(5); j++)
+			{
+				var ranAcq = util.RandomDate(365);
+				var ranVal = ranAcq.AddDays(ran.Next(4));
+				biglietti.Add(
+					new Biglietto(
+						dataAcquisto: ranAcq,
+						dataValidita: ranVal.AddDays(ran.Next(4)),
+						tipologia: (TipoBiglietto)ran.Next(3),
+						dataGuida: ran.Next(2) == 1 ? null : ranVal
+					)
+				);
+				questionari.Add(
+					new Questionario(
+						tipologiaVisita:,
+						accompagnatoriVisita:,
+						motivazioneVisita:,
+						titoloStudi:,
+						numeroVisite:,
+						ritorno:,
+						valutazioneVisita:,
+						valutazioneEsperienza:,
+						valutazioneStruttura:,
+						dataCompilazione:,
+						)
+				);
+			}
+			var utente = new Utente(
+				uid: util.RandomString(28),
+				username: util.RandomString(5),
+				nome: util.RandomString(5),
+				cognome: util.RandomString(5),
+				cellulare: "+39 " + util.RandomStringNumeric(10),
+				biglietti: new List<Biglietto>(),
+				questionari: new List<Questionario>(),
+				chat: null,
+				lastOnline: util.RandomDate(365)
+			);
+			await db.Put($"utenti/{utente.Uid}", utente);
+		}
 	}
 
 	public async Task populateDipendenti()
 	{
-		var dipendente = new Dipendente("JTOjcHsfYIY1SqmDQbw7kLalnYw2", "Valerio", "Morelli", "+39 3318162818", "assistenza@museo.omero.it","amministratore",DateTime.Now);
+		var dipendente = new Dipendente("JTOjcHsfYIY1SqmDQbw7kLalnYw2", "Valerio", "Morelli", "+39 3318162818", "assistenza@museo.omero.it", "amministratore", DateTime.Now);
 		await db.Put($"dipendenti/{dipendente.Uid}", dipendente);
 	}
 
