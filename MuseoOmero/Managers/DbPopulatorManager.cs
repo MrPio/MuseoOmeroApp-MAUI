@@ -64,9 +64,9 @@ public class DbPopulatorManager
 							titoloStudi: ran.NextElement(TitoloStudi.Values),
 							numeroVisite: ran.Next(5),
 							ritorno: ran.NextElement(Ritorno.Values),
-							valutazioneVisita: (int)Easing.BounceOut.Ease(ran.NextDouble() * 6) + 1,
-							valutazioneEsperienza: (int)Easing.BounceOut.Ease(ran.NextDouble() * 6) + 1,
-							valutazioneStruttura: (int)Easing.BounceOut.Ease(ran.NextDouble() * 6) + 1,
+							valutazioneVisita: ran.Next(11),
+							valutazioneEsperienza: ran.Next(11),
+							valutazioneStruttura: ran.Next(11),
 							dataCompilazione: ranVal
 							)
 					);

@@ -62,7 +62,7 @@ public partial class SignInUpViewWin : ContentPage
 			else if (ex.Message == "Account rimosso")
 				await App.Current.MainPage.DisplayAlert("Errore", "L'account è stato rimosso dal database, quindi non è possibile accedere. Per favore contatta l'assistenza per la creazione di un nuovo account.", "Ok");
 			else
-				await Application.Current.MainPage.DisplayAlert("Autenticazione non riuscita", "Assicurati di aver compilato correttamente i campi.", "OK");
+				await Application.Current.MainPage.DisplayAlert("Autenticazione non riuscita", "Email e/o Password errati. Per favore, assicurati di aver compilato correttamente i campi.", "OK");
 			Loading.IsVisible = false;
 			return;
 		}
@@ -90,21 +90,6 @@ public partial class SignInUpViewWin : ContentPage
 
 	private async void HighlightView_Clicked(object sender, EventArgs e)
 	{
-		var email = await DisplayPromptAsync("Email", "Inserisci l'email dell'account dove invieremo la procedura necessaria al ripristino della password.", placeholder: "email@example.com", maxLength: 50);
-
-		if (!String.IsNullOrEmpty(email))
-		{
-			if (email.Contains('@') && email.Contains('.'))
-			{
-				await AccountManager.Instance.ResetPassword(email);
-				await DisplayAlert("Successo", "Per favore, controlla la tua casella di posta per reimpostare la password.", "Ok");
-
-			}
-			else
-			{
-				await DisplayAlert("Attenzione", "Per favore, inserisci un'email valida.", "Riprova");
-				HighlightView_Clicked(null, null);
-			}
-		}
+		await AccountManager.Instance.ResetPassword();
 	}
 }

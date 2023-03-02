@@ -310,8 +310,8 @@
 											 Margin="1,0,1,0">
 
 							<!--QRCode-->
-							<Grid ColumnDefinitions="160"
-								  RowDefinitions="160"
+							<Grid ColumnDefinitions="185"
+								  RowDefinitions="185"
 								  HorizontalOptions="Center"
 								  VerticalOptions="Center">
 								<zxing:BarcodeGeneratorView Format="QrCode"

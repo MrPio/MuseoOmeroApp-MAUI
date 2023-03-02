@@ -24,26 +24,69 @@
 		<ScrollView Grid.Row="1">
 			<VerticalStackLayout BackgroundColor="{StaticResource Color4}"
 								 Padding="30">
-				<Grid ColumnDefinitions="*,*"
-					  RowDefinitions="300"
-					  HorizontalOptions="Center">
-					<lvc:PieChart x:Name="Pie1"
-								  Series="{Binding Series}"
-								  EasingFunction="{Binding Source={x:Static lvcore:EasingFunctions.CubicOut}}"
-								  InitialRotation="0"
-								  Total="100" />
-					<lvc:PieChart Grid.Column="1"
-								  Series="{Binding Series2}"></lvc:PieChart>
 
-				</Grid>
-				<Grid ColumnDefinitions="*,*"
+				<!--BigliettiSeries-->
+				<Frame Style="{StaticResource FrameRoundedWin}">
+					<Grid RowDefinitions="40,30,300"
+						  HorizontalOptions="Center">
+						<Label Style="{StaticResource LabelBold}"
+							   Text="Statistiche sui biglietti"
+							   HorizontalOptions="Center" />
+						<Label  Grid.Row="1"
+								Style="{StaticResource LabelNormal}"
+								Text="Media acquisti nei giorni della settimana"
+								HorizontalOptions="Center" />
+						<lvc:CartesianChart Grid.Row="2"
+											Series="{Binding BigliettiSeries}"
+											XAxes="{Binding BigliettiXAxes}"
+											LegendPosition="Right" />
+					</Grid>
+				</Frame>
+
+				<!--QuestionariSeries-->
+				<BoxView HeightRequest="30" />
+				<Frame Style="{StaticResource FrameRoundedWin}">
+					<Grid RowDefinitions="40,30,320"
+						  ColumnDefinitions="*,*"
+						  HorizontalOptions="Center">
+						<Label Grid.ColumnSpan="2"
+							   Style="{StaticResource LabelBold}"
+							   Text="Statistiche sui questionari"
+							   HorizontalOptions="Center" />
+
+						<Label Grid.Row="1"
+							   Style="{StaticResource LabelNormal}"
+							   Text="Valutazioni"
+							   HorizontalOptions="Center" />
+						<lvc:PieChart Grid.Row="2"
+									  Series="{Binding QuestionariValutazioniSeries}"
+									  EasingFunction="{Binding Source={x:Static lvcore:EasingFunctions.CubicOut}}"
+									  InitialRotation="0"
+									  Total="10" />
+
+						<Label Grid.Row="1"
+							   Grid.Column="1"
+							   Style="{StaticResource LabelNormal}"
+							   Text="Tipologie Visite"
+							   HorizontalOptions="Center" />
+						<lvc:PieChart Grid.Row="2"
+									  Grid.Column="1"
+									  Series="{Binding QuestionariTipologieVisiteSeries}" />
+					</Grid>
+				</Frame>
+
+				<!--<lvc:PieChart Grid.Column="1"
+								  Series="{Binding Series2}"></lvc:PieChart>-->
+
+				<!--<Grid ColumnDefinitions="*,*"
 					  RowDefinitions="300"
 					  HorizontalOptions="Center">
 					<lvc:PieChart Series="{Binding Series3}"
-								  MaxAngle="360" InitialRotation="99"/>
+								  MaxAngle="360"
+								  InitialRotation="99" />-->
 					<!--<lvc:CartesianChart Grid.Column="1"
 										Series="{Binding Series4}" />-->
-				</Grid>
+				<!--</Grid>-->
 			</VerticalStackLayout>
 		</ScrollView>
 	</Grid>

@@ -89,4 +89,30 @@ public class AccountManager
 	{
 		UserCredential = await FirebaseAuthClient.CreateUserWithEmailAndPasswordAsync(email, password, username);
 	}
+
+	public async Task LoadDipendente()
+	{
+		Dipendente = await DatabaseManager.Instance.LoadJsonObject<Dipendente>($"dipendenti/{Uid}");
+	}
+
+	public async Task ResetPassword()
+	{
+		var main = App.Current.MainPage;
+		var email = await main.DisplayPromptAsync("Email", "Inserisci l'email dell'account dove invieremo la procedura necessaria al ripristino della password.", placeholder: "email@example.com", maxLength: 50);
+
+		if (!String.IsNullOrEmpty(email))
+		{
+			if (email.Contains('@') && email.Contains('.'))
+			{
+				await AccountManager.Instance.ResetPassword(email);
+				await main.DisplayAlert("Email inviata", "Per favore, controlla la tua casella di posta per reimpostare la password.", "Ok");
+
+			}
+			else
+			{
+				await main.DisplayAlert("Attenzione", "Per favore, inserisci un'email valida.", "Riprova");
+				await ResetPassword();
+			}
+		}
+	}
 }

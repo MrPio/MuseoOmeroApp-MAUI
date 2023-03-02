@@ -11,11 +11,12 @@ public partial class AccountViewModelWin : ObservableObject
 
 	public async void Initialize()
 	{
+		var account = AccountManager.Instance;
 		IsBusy = true;
 		var url = await StorageManager.Instance.GetLink($"{AccountManager.Instance.Uid}/foto_profilo/");
 		ImageUrl = url is { } ? url : ImagesOnline.Anonymous;
-
-		Dipendente = AccountManager.Instance.Dipendente;
+		await account.LoadDipendente();
+		Dipendente = account.Dipendente;
 		IsBusy = false;
 	}
 }

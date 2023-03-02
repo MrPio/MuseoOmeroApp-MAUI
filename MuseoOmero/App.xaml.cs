@@ -15,6 +15,8 @@ public partial class App : Application
     public App(SignInUpViewModelWin signInUpViewModelWin, ShellViewModelWin shellViewModelWin)
     {
         InitializeComponent();
+		var width = 1360;
+		var height= 920;
 
 		Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping(nameof(IWindow), (handler, view) =>
 		{
@@ -26,7 +28,7 @@ public partial class App : Application
             WindowId windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(windowHandle);
             AppWindow appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
             var display=DeviceDisplay.Current.MainDisplayInfo;
-            appWindow.MoveAndResize(new RectInt32((int)(display.Width/2-1360/2),(int)(display.Height/2-850/2),1360,850));
+            appWindow.MoveAndResize(new RectInt32((int)(display.Width/2-width/2),(int)(display.Height/2-height/2),width,height));
             appWindow.TitleBar.ExtendsContentIntoTitleBar=true;
 #endif
 		});

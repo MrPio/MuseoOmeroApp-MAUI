@@ -37,7 +37,7 @@ public class DatabaseManager
 	public async Task Put(string resource, object obj)
 	{
 		await GetChild(resource).PutAsync(obj);
-	}	
+	}
 	public async Task Post(string resource, object obj)
 	{
 		await GetChild(resource).PostAsync(obj);
@@ -60,7 +60,13 @@ public class DatabaseManager
 	public async Task<T> LoadJsonObject<T>(string resource)
 	{
 		var collection = await GetChild(resource).OnceAsJsonAsync();
-		return JsonConvert.DeserializeObject<T>(collection);
+		var obj = JsonConvert.DeserializeObject<T>(collection);
+		if (obj is { })
+		{
+			if (typeof(T) == typeof(Dipendente))
+				(obj as Dipendente).Uid = resource.Split('/', StringSplitOptions.RemoveEmptyEntries).Last();
+		}
+		return obj;
 	}
 	public IDisposable Observe<T>(string resource, Action<FirebaseEvent<T>> callback)
 	{

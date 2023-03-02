@@ -5,6 +5,7 @@ public partial class TopMenu : ContentView
 	public static List<TopMenu> TopMenus = new();
 	public static string Url = null;
 	public static bool UrlSet;
+
 	public string Nome => AccountManager.Instance.Dipendente.Nome;
 	public string Cognome => AccountManager.Instance.Dipendente.Cognome;
 
@@ -14,7 +15,7 @@ public partial class TopMenu : ContentView
 	{
 		InitializeComponent();
 		Initialize();
-		TopMenus.Add(this);	
+		TopMenus.Add(this);
 	}
 
 
@@ -43,5 +44,13 @@ public partial class TopMenu : ContentView
 
 			App.Current.MainPage = new SignInUpViewWin(Handler.MauiContext.Services.GetService<SignInUpViewModelWin>(), Handler.MauiContext.Services.GetService<ShellViewModelWin>());
 		}
+	}
+
+	private void Refresh_Clicked(object sender, EventArgs e)
+	{
+		var _shellViewModelWin = App.Current.MainPage.Handler.MauiContext.Services.GetService<ShellViewModelWin>();
+		var tmp = _shellViewModelWin.SelectedRoute;
+		_shellViewModelWin.SelectedRoute = "blank";
+		_shellViewModelWin.SelectedRoute = tmp;
 	}
 }

@@ -11,6 +11,12 @@ public partial class AccountViewWin : ContentPage
 		InitializeComponent();
 	}
 
+	protected override void OnAppearing()
+	{
+		base.OnAppearing();
+		_viewModel.Initialize();
+	}
+
 	private void HighlightView_Pressed(object sender, EventArgs e)
 	{
 		PhotoFrame.ColorTo(DeviceManager.Instance.Colors[4], DeviceManager.Instance.Colors[0], c => PhotoFrame.BackgroundColor = c, 350, Easing.CubicOut);
@@ -50,22 +56,7 @@ public partial class AccountViewWin : ContentPage
 
 	private async void RoundedButtonView_Clicked(object sender, EventArgs e)
 	{
-		var email = await DisplayPromptAsync("Email", "Inserisci l'email dell'account dove invieremo la procedura necessaria al ripristino della password.", placeholder: "email@example.com", maxLength: 50);
-
-		if (!String.IsNullOrEmpty(email))
-		{
-			if (email.Contains('@') && email.Contains('.'))
-			{
-				await AccountManager.Instance.ResetPassword(email);
-				await DisplayAlert("Successo", "Per favore, controlla la tua casella di posta per reimpostare la password.", "Ok");
-
-			}
-			else
-			{
-				await DisplayAlert("Attenzione", "Per favore, inserisci un'email valida.", "Riprova");
-				RoundedButtonView_Clicked(null, null);
-			}
-		}
+		await AccountManager.Instance.ResetPassword();
 	}
 
 	private async void SaveButton_Clicked(object sender, EventArgs e)

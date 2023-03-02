@@ -7,9 +7,9 @@
 			 x:Class="MuseoOmero.View.TemplatesWin.TopMenu"
 			 x:DataType="templatesWin:TopMenu">
 
-	<Grid ColumnDefinitions="*,*,auto"
+	<Grid ColumnDefinitions="*,*,auto,auto"
 		  HeightRequest="120"
-		  Margin="60,0,60,0"
+		  Margin="60,0,40,0"
 		  BackgroundColor="{StaticResource Color5}">
 
 		<!--Bentornato Label-->
@@ -35,7 +35,7 @@
 			<Grid ColumnDefinitions="46,auto,auto,auto"
 				  ColumnSpacing="10"
 				  InputTransparent="True"
-				  Margin="30,0,26,0">
+				  Margin="30,0,10,0">
 
 				<!--Avatar-->
 				<Frame HeightRequest="46"
@@ -74,13 +74,22 @@
 			</Grid>
 		</Grid>
 
+		<!--Logout-->
 		<Grid Grid.Column="2">
-			<templatesWin:HighlightView Clicked="Logout_Tapped" />
-
-			<Label InputTransparent="True"
-				   Padding="20,0,20,0"
+			<Label Padding="20,0,20,0"
 				   Style="{StaticResource RightArrowLabel}"
 				   Text="{Static material:IconFont.LogoutVariant}" />
+			<templatesWin:HighlightView Clicked="Logout_Tapped" />
+		</Grid>
+
+		<!--Refresh-->
+		<Grid Grid.Column="3">
+			<Label Padding="20,0,20,0"
+				   Style="{StaticResource FontIconLabel}"
+				   FontSize="24"
+				   VerticalOptions="Center"
+				   Text="{Static material:IconFont.Refresh}" />
+			<templatesWin:HighlightView Clicked="Refresh_Clicked" />
 		</Grid>
 	</Grid>
 </ContentView>

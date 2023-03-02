@@ -166,12 +166,12 @@ public partial class BiglietteriaViewModelWin : ObservableObject
 			{
 				if (b.Uid == id)
 				{
-					if(b.DataValidita.Subtract(DateTime.Today).TotalHours<1)
+					if(b.DataValidita.Date.Subtract(DateTime.Today).TotalHours<1)
 					{
 						await Shell.Current.DisplayAlert("Biglietto Scaduto", $"Il biglietto scansionato è scaduto in data {b.DataValidita:d MMM yyyy}", "Ok");
 						return;
 					}
-					else if (b.DataValidita.Subtract(DateTime.Today).TotalHours > 24)
+					else if (b.DataValidita.Date.Subtract(DateTime.Today).TotalHours > 24)
 					{
 						await Shell.Current.DisplayAlert("Biglietto Invalido", $"Il biglietto scansionato non è valido oggi, può essere convalidato in data {b.DataValidita:d MMM yyyy}", "Ok");
 						return;

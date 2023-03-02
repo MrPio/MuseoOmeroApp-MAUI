@@ -16,6 +16,6 @@ public partial class StatisticheViewWin : ContentPage
 	protected override void OnAppearing()
 	{
 		base.OnAppearing();
-		Pie1.Series = _viewModel.Series;
+		_viewModel.Initialize();
 	}
 }

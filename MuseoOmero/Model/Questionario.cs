@@ -20,9 +20,9 @@ public class Questionario
 		TitoloStudi = titoloStudi;
 		NumeroVisite = numeroVisite;
 		Ritorno = ritorno;
-		ValutazioneVisita = valutazioneVisita;
-		ValutazioneEsperienza = valutazioneEsperienza;
-		ValutazioneStruttura = valutazioneStruttura;
+		ValutazioneVisita = Math.Min(10,valutazioneVisita);
+		ValutazioneEsperienza = Math.Min(10, valutazioneEsperienza);
+		ValutazioneStruttura = Math.Min(10, valutazioneStruttura);
 		DataCompilazione = dataCompilazione;
 	}
 }
