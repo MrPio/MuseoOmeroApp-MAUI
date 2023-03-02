@@ -21,16 +21,19 @@
 		<templateWin:TopMenu />
 
 		<!--Center of screen-->
-		<ScrollView Grid.Row="1">
+		<ScrollView Grid.Row="1"
+					Scrolled="ScrollView_Scrolled">
 			<VerticalStackLayout BackgroundColor="{StaticResource Color4}"
 								 Padding="30">
 
 				<!--BigliettiSeries-->
 				<Frame Style="{StaticResource FrameRoundedWin}">
-					<Grid RowDefinitions="40,30,300"
+					<Grid RowDefinitions="50,30,300"
+						  ColumnDefinitions="800"
 						  HorizontalOptions="Center">
 						<Label Style="{StaticResource LabelBold}"
 							   Text="Statistiche sui biglietti"
+							   FontSize="24"
 							   HorizontalOptions="Center" />
 						<Label  Grid.Row="1"
 								Style="{StaticResource LabelNormal}"
@@ -46,33 +49,83 @@
 				<!--QuestionariSeries-->
 				<BoxView HeightRequest="30" />
 				<Frame Style="{StaticResource FrameRoundedWin}">
-					<Grid RowDefinitions="40,30,320"
-						  ColumnDefinitions="*,*"
-						  HorizontalOptions="Center">
-						<Label Grid.ColumnSpan="2"
-							   Style="{StaticResource LabelBold}"
+					<VerticalStackLayout>
+
+						<!--Statistiche sui questionari Label-->
+						<Label Style="{StaticResource LabelBold}"
 							   Text="Statistiche sui questionari"
+							   FontSize="24"
 							   HorizontalOptions="Center" />
 
-						<Label Grid.Row="1"
-							   Style="{StaticResource LabelNormal}"
-							   Text="Valutazioni"
-							   HorizontalOptions="Center" />
-						<lvc:PieChart Grid.Row="2"
-									  Series="{Binding QuestionariValutazioniSeries}"
-									  EasingFunction="{Binding Source={x:Static lvcore:EasingFunctions.CubicOut}}"
-									  InitialRotation="0"
-									  Total="10" />
+						<BoxView HeightRequest="30" />
 
-						<Label Grid.Row="1"
-							   Grid.Column="1"
-							   Style="{StaticResource LabelNormal}"
-							   Text="Tipologie Visite"
-							   HorizontalOptions="Center" />
-						<lvc:PieChart Grid.Row="2"
-									  Grid.Column="1"
-									  Series="{Binding QuestionariTipologieVisiteSeries}" />
-					</Grid>
+						<!--QuestionariValutazioniSeries & QuestionariTipologieVisiteSeries-->
+						<Grid RowDefinitions="300,40"
+							  ColumnDefinitions="*,*,*"
+							  HorizontalOptions="Center">
+
+							<Label Grid.Row="1"
+								   Style="{StaticResource LabelNormal}"
+								   Text="Valutazioni"
+								   HorizontalOptions="Center" />
+							<lvc:PieChart x:Name="Pie1"
+										  Series="{Binding QuestionariValutazioniSeries}"
+										  EasingFunction="{Binding Source={x:Static lvcore:EasingFunctions.CubicOut}}"
+										  InitialRotation="0"
+										  Total="10" />
+
+							<Label Grid.Column="1"
+								   Grid.Row="1"
+								   Style="{StaticResource LabelNormal}"
+								   Text="Tipologie Visite"
+								   HorizontalOptions="Center" />
+							<lvc:PieChart x:Name="Pie2"
+										  Grid.Column="1"
+										  Series="{Binding QuestionariTipologieVisiteSeries}" />
+
+							<Label Grid.Column="2"
+								   Grid.Row="1"
+								   Style="{StaticResource LabelNormal}"
+								   Text="Accompagnatori"
+								   HorizontalOptions="Center" />
+							<lvc:PieChart x:Name="Pie3"
+										  Grid.Column="2"
+										  Series="{Binding QuestionariAccompagnatoriVisitaSeries}"
+										  EasingFunction="{Binding Source={x:Static lvcore:EasingFunctions.CubicOut}}" />
+						</Grid>
+
+						<BoxView HeightRequest="30" />
+						<Grid RowDefinitions="300,auto"
+							  ColumnDefinitions="*,*,*"
+							  HorizontalOptions="Center">
+							<Label Grid.Row="1" Style="{StaticResource LabelNormal}"
+								   Text="Motivazione Visita"
+								   HorizontalOptions="Center" />
+							<lvc:PieChart x:Name="Pie4"
+										  Series="{Binding QuestionariMotivazioneVisitaSeries}"
+										  InitialRotation="245"
+										  EasingFunction="{Binding Source={x:Static lvcore:EasingFunctions.CubicOut}}" />
+
+							<Label Grid.Row="1" Grid.Column="1"
+								   Style="{StaticResource LabelNormal}"
+								   Text="Titolo studi"
+								   HorizontalOptions="Center" />
+							<lvc:PieChart x:Name="Pie5"
+										  Grid.Column="1"
+										  Series="{Binding QuestionariTitoloStudiSeries}"
+										  EasingFunction="{Binding Source={x:Static lvcore:EasingFunctions.CubicOut}}" />
+
+							<Label Grid.Row="1" Grid.Column="2"
+								   Style="{StaticResource LabelNormal}"
+								   Text="Ritorno al museo"
+								   HorizontalOptions="Center" />
+							<lvc:PieChart x:Name="Pie6"
+										  Grid.Column="2"
+										  Series="{Binding QuestionariRitornoSeries}"
+										  EasingFunction="{Binding Source={x:Static lvcore:EasingFunctions.CubicOut}}" />
+
+						</Grid>
+					</VerticalStackLayout>
 				</Frame>
 
 				<!--<lvc:PieChart Grid.Column="1"
@@ -84,7 +137,7 @@
 					<lvc:PieChart Series="{Binding Series3}"
 								  MaxAngle="360"
 								  InitialRotation="99" />-->
-					<!--<lvc:CartesianChart Grid.Column="1"
+				<!--<lvc:CartesianChart Grid.Column="1"
 										Series="{Binding Series4}" />-->
 				<!--</Grid>-->
 			</VerticalStackLayout>

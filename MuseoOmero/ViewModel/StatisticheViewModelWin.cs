@@ -8,6 +8,7 @@ using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
 using System.Linq;
 using LiveChartsCore.Kernel.Sketches;
+using LiveChartsCore.SkiaSharpView.Maui;
 
 namespace MuseoOmero.ViewModelWin;
 
@@ -78,6 +79,7 @@ public partial class StatisticheViewModelWin : ObservableObject
 				if (b.DataConvalida is { })
 					++convalide[(int)b.DataConvalida?.DayOfWeek];
 			}
+			BigliettiSeries = new ColumnSeries<float>[] { };
 			BigliettiSeries = new ColumnSeries<float>[]
 			{
 			new()
@@ -93,7 +95,7 @@ public partial class StatisticheViewModelWin : ObservableObject
 			};
 			foreach (var s in BigliettiSeries)
 			{
-				s.PointMeasured += OnPointMeasured; //Ritardo nella comparsa
+				s.PointMeasured += OnPointMeasuredBar; //Ritardo nella comparsa
 				s.ChartPointPointerHover += OnPointerHoverBar;
 				//s.ChartPointPointerDown += OnPointerDown;
 				s.ChartPointPointerHoverLost += OnPointerHoverLostBar;
@@ -128,8 +130,8 @@ public partial class StatisticheViewModelWin : ObservableObject
 
 		//QUESTIONARI - tipologia_visita
 		{
-			var occorrenze = new int[3];
 			var values = TipologiaVisita.Values;
+			var occorrenze = new int[values.Length];
 			foreach (var q in questionari)
 			{
 				if (values.Contains(q.TipologiaVisita))
@@ -148,12 +150,94 @@ public partial class StatisticheViewModelWin : ObservableObject
 			}
 
 		}
+
 		//QUESTIONARI - accompagnatori_visita
+		{
+			var values = AccompagnatoriVisita.Values;
+			var occorrenze = new int[values.Length];
+			foreach (var q in questionari)
+			{
+				if (values.Contains(q.AccompagnatoriVisita))
+					++occorrenze[values.IndexOf(q.AccompagnatoriVisita)];
+			}
+			QuestionariAccompagnatoriVisitaSeries = new PieSeries<double>[values.Length];
+			for (var i = 0; i < values.Length; ++i)
+			{
+				PieSeries<double> series = new() { Values = new List<double>() { occorrenze[i] }, Name = values[i] };
+				series.PointMeasured += OnPointMeasuredPie;
+				series.Pushout = 4;
+				series.InnerRadius = 60;
+				series.DataLabelsFormatter = p => p.Context.Series.Name;
+				QuestionariAccompagnatoriVisitaSeries[i] = series;
+			}
+		}
+
 		//QUESTIONARI - motivazione_visita
+		{
+			var values = MotivazioneVisita.Values;
+			var occorrenze = new int[values.Length];
+			foreach (var q in questionari)
+			{
+				if (values.Contains(q.MotivazioneVisita))
+					++occorrenze[values.IndexOf(q.MotivazioneVisita)];
+			}
+			QuestionariMotivazioneVisitaSeries = new PieSeries<double>[values.Length];
+			for (var i = 0; i < values.Length; ++i)
+			{
+				PieSeries<double> series = new() { Values = new List<double>() { occorrenze[i] }, Name = values[i] };
+				series.PointMeasured += OnPointMeasuredPie;
+				series.Pushout = 4;
+				series.MaxOuterRadius = ((double)i / values.Length) * 0.2 + 0.8;
+				series.DataLabelsFormatter = p => p.Context.Series.Name;
+				QuestionariMotivazioneVisitaSeries[i] = series;
+			}
+		}
+
 		//QUESTIONARI - titolo_studi
+		{
+			var values = TitoloStudi.Values;
+			var occorrenze = new int[values.Length];
+			foreach (var q in questionari)
+			{
+				if (values.Contains(q.TitoloStudi))
+					++occorrenze[values.IndexOf(q.TitoloStudi)];
+			}
+			QuestionariTitoloStudiSeries = new PieSeries<double>[values.Length];
+			for (var i = 0; i < values.Length; ++i)
+			{
+				PieSeries<double> series = new() { Values = new List<double>() { occorrenze[i] }, Name = values[i] };
+				series.PointMeasured += OnPointMeasuredPie;
+				series.Pushout = 4;
+				series.InnerRadius = 60;
+				series.DataLabelsFormatter = p => p.Context.Series.Name;
+				series.MaxOuterRadius = ((double)i / values.Length) * 0.2 + 0.8;
+
+				QuestionariTitoloStudiSeries[i] = series;
+			}
+		}
+
 		//QUESTIONARI - ritorno
+		{
+			var values = Ritorno.Values;
+			var occorrenze = new int[values.Length];
+			foreach (var q in questionari)
+			{
+				if (values.Contains(q.Ritorno))
+					++occorrenze[values.IndexOf(q.Ritorno)];
+			}
+			QuestionariRitornoSeries = new PieSeries<double>[values.Length];
+			for (var i = 0; i < values.Length; ++i)
+			{
+				PieSeries<double> series = new() { Values = new List<double>() { occorrenze[i] }, Name = values[i] };
+				series.PointMeasured += OnPointMeasuredPie;
+				series.Pushout = 4;
+				series.InnerRadius = 30;
+				series.DataLabelsFormatter = p => p.Context.Series.Name;
+				QuestionariRitornoSeries[i] = series;
+			}
+		}
 	}
-	private void OnPointMeasured(ChartPoint<float, RoundedRectangleGeometry, LabelGeometry> point)
+	private void OnPointMeasuredBar(ChartPoint<float, RoundedRectangleGeometry, LabelGeometry> point)
 	{
 		var visual = point.Visual;
 		if (visual is null) return;
@@ -170,7 +254,8 @@ public partial class StatisticheViewModelWin : ObservableObject
 					.WithEasingFunction(delayedFunction.Function));
 	}
 
-	private void OnPointerDown(IChartView chart, ChartPoint<float, RoundedRectangleGeometry, LabelGeometry>? point)
+
+	private void OnPointerDownBar(IChartView chart, ChartPoint<float, RoundedRectangleGeometry, LabelGeometry>? point)
 	{
 		if (point?.Visual is null) return;
 		point.Visual.Fill = new SolidColorPaint(SKColors.Orange);
@@ -190,11 +275,37 @@ public partial class StatisticheViewModelWin : ObservableObject
 		chart.Invalidate();
 	}
 
+	//PIE
+	private void OnPointMeasuredPie(ChartPoint<double, DoughnutGeometry, LabelGeometry> point)
+	{
+		var visual = point.Visual;
+		if (visual is null) return;
+
+		var delayedFunction = new DelayedFunction(EasingFunctions.BuildCustomElasticOut(4.85f, 2.80f), point, 1225f);
+
+		_ = visual
+			.TransitionateProperties(
+				nameof(visual.Y),
+				nameof(visual.Height))
+			.WithAnimation(animation =>
+				animation
+					.WithDuration(delayedFunction.Speed)
+					.WithEasingFunction(delayedFunction.Function));
+	}
+
 	private void OnPointerHoverPie(IChartView chart, ChartPoint<double, DoughnutGeometry, LabelGeometry>? point)
 	{
 		if (point?.Visual is null) return;
 		point.Visual.PushOut = 30;
 		chart.Invalidate();
+	}
+
+	private void OnPointerDownPie(IChartView chart, ChartPoint<double, DoughnutGeometry, LabelGeometry>? point)
+	{
+		if (point?.Visual is null) return;
+		((PieChart)chart).InitialRotation += 40;
+		//((PieChart)chart).ShowTooltip();
+		//chart.Invalidate(); // <- ensures the canvas is redrawn after we set the fill
 	}
 
 	private void OnPointerHoverLostPie(IChartView chart, ChartPoint<double, DoughnutGeometry, LabelGeometry>? point)

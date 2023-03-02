@@ -35,6 +35,7 @@
 			   BackgroundColor="#DFFFFFFF"
 			   WidthRequest="460">
 			<Grid RowDefinitions="*,1.3*">
+				
 
 				<!--Accedi al portale-->
 				<VerticalStackLayout VerticalOptions="Center">

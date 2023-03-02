@@ -38,13 +38,12 @@ public partial class ChatViewWin : ContentPage
 
 	}
 
-	private async Task ScrollChat()
+	private void ScrollChat()
 	{
-		await Task.Delay(400);
 		ChatCollectionView.ScrollTo(_viewModel.Messaggi.Count - 1);
 	}
 
-	private async void HighlightView_Clicked(object sender, EventArgs e)
+	private void HighlightView_Clicked(object sender, EventArgs e)
 	{
 		if (_viewModel.CurrentUtente is null)
 			return;
@@ -58,11 +57,13 @@ public partial class ChatViewWin : ContentPage
 
 			// L'unica soluzione che ho trovato dopo moltissimi tentativi per 
 			// trigger-are l'aggiornamento della collection view
-			_shellViewModelWin.SelectedRoute = "blank";
-			_shellViewModelWin.SelectedRoute = "chat";
+			//SOLUZIONE: mettere l'await come ultima istruzione nel viewModel
 
-			await _viewModel.SendMessage(messaggio);
-			await ScrollChat();
+			//_shellViewModelWin.SelectedRoute = "blank";
+			//_shellViewModelWin.SelectedRoute = "chat";
+
+			_viewModel.SendMessage(messaggio);
+			ScrollChat();
 		}
 	}
 }

@@ -4,7 +4,7 @@ public partial class ChatViewModelWin : ObservableObject
 {
 	private ShellViewModelWin _shellViewModelWin;
 	private IDisposable _chatObserver, _miaChatObserver;
-	public Func<Task> CollectionViewCallback = null;
+	public Action CollectionViewCallback = null;
 	[ObservableProperty]
 	HomeViewModelWin homeViewModel;
 
@@ -43,7 +43,10 @@ public partial class ChatViewModelWin : ObservableObject
 		_shellViewModelWin.SelectedRoute = "chat";
 
 		if (CollectionViewCallback is { })
+		{
+			await Task.Delay(400);
 			CollectionViewCallback.Invoke();
+		}
 
 		if (_chatObserver is { })
 			_chatObserver.Dispose();
@@ -53,10 +56,10 @@ public partial class ChatViewModelWin : ObservableObject
 			resource: $"utenti/{CurrentUtente.Uid}/chat/messaggi_utente",
 			callback: (o) =>
 			{
-				//HomeViewModel.LoadUtenti();
 				var msg = o.Object;
 				if (o.Object is null)
 					return;
+				// Se l'utente ha modificato il testo di un messaggio che già è nella collection view
 				if (Messaggi.ToList().Find(m => m.Messaggio.Data == msg.Data) is { } m)
 					m.Messaggio = msg;
 				else
@@ -92,28 +95,38 @@ public partial class ChatViewModelWin : ObservableObject
 		foreach (var m in chat.MessaggiUtente.Where(m => !m.Letto))
 			m.Letto = changes = true;
 		if (changes)
-			await DatabaseManager.Instance.Put($"utenti/{CurrentUtente.Uid}/chat/", CurrentUtente.Chat);
+			DatabaseManager.Instance.Put($"utenti/{CurrentUtente.Uid}/chat/", CurrentUtente.Chat);
 	}
 
-	public async Task Initialize()
+	public async Task LoadAvatars()
 	{
-		IsBusy = true;
-		var utenti = HomeViewModel.Utenti.FindAll(u => u.Chat is { });
-		NoChats = utenti.Count == 0;
-		foreach (var utente in utenti)
+		var utenti = new List<Utente>();
+
+		foreach (var utente in UtentiConChat)
 		{
 			var url = await StorageManager.Instance.GetLink($"{utente.Uid}/foto_profilo/");
 			utente.FotoProfilo = url is { } ? url : ImagesOnline.Anonymous;
 			Chats.Add(utente.Chat);
+			utenti.Add(utente);
 		}
 		UtentiConChat = new(utenti);
+
+	}
+
+	public void Initialize()
+	{
+		IsBusy = true;
+		var utenti = HomeViewModel.Utenti.FindAll(u => u.Chat is { });
+		NoChats = utenti.Count == 0;
+		UtentiConChat = new(utenti);
+		LoadAvatars();
 		IsBusy = false;
 	}
 
-	public async Task SendMessage(Messaggio messaggio)
+	public void SendMessage(Messaggio messaggio)
 	{
-		await DatabaseManager.Instance.Put($"utenti/{CurrentUtente.Uid}/chat/messaggi_museo/{CurrentUtente.Chat.MessaggiMuseo.Count}", messaggio);
 		CurrentUtente.Chat.MessaggiMuseo.Add(messaggio);
+		DatabaseManager.Instance.Put($"utenti/{CurrentUtente.Uid}/chat/messaggi_museo/{CurrentUtente.Chat.MessaggiMuseo.Count}", messaggio);
 	}
 }
 

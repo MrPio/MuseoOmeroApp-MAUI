@@ -15,7 +15,7 @@
 					StrokeThickness="{Binding Source={RelativeSource AncestorType={x:Type view:RoundedEntryView}}, Path= BorderUnselected}"
 					Grid.Column="0"
 					Grid.ColumnSpan="3">
-				<Grid>
+				<Grid >
 					<Entry x:Name="MyEntry"
 						   Margin="0,-1,0,0"
 						   Keyboard="{Binding Source={RelativeSource AncestorType={x:Type view:RoundedEntryView}}, Path=Keyboard}"
