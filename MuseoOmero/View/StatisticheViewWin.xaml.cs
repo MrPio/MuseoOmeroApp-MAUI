@@ -34,6 +34,7 @@ public partial class StatisticheViewWin : ContentPage
 			Pie4.InitialRotation += delta;
 			Pie5.InitialRotation += delta;
 			Pie6.InitialRotation += delta;
+			Polar1.InitialRotation += delta/4;
 			lastScrollY = scroll;
 		}
 	}

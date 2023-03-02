@@ -6,6 +6,27 @@ public enum TipoBiglietto
 	Laboratorio = 2
 }
 
+public static class Sala
+{
+	public static readonly string[] Values ={"Ingresso", "Greco e Romano", "Mimica del volto umano", "Ancona", "Medievale e '400", "Rinascimentale", "Dipinti", "'900 e Contemporaneo", "Movimento scolpito", "Deposito"
+	};
+}
+
+public static class Materiale
+{
+	public static readonly string[] Values =
+		"bronzo\r\ngesso\r\ngesso alabastrino\r\ngesso patinato\r\nlegno\r\nmetallo\r\nottone\r\nresina\r\nspecchio\r\nterracotta\r\nvetro".Split("\r\n");
+
+}
+
+public static class Tecnica
+{
+	public static readonly string[] Values =
+		"assemblaggio\r\ncalco\r\ncalco al vero\r\ndoratura\r\nfusione\r\nincisione\r\nintaglio\r\npatinatura".Split("\r\n");
+
+}
+
+
 public static class IconeBiglietto
 {
 	public static readonly string[] Values ={

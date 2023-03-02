@@ -26,7 +26,7 @@ public partial class HomeViewModelWin : ObservableObject
 	);
 
 	[ObservableProperty]
-	List<string> sale = new() { "Ingresso", "Greco e Romano", "Mimica del volto umano", "Ancona", "Medievale e '400", "Rinascimentale", "Dipinti", "'900 e Contemporaneo", "Movimento scolpito", "Deposito" };
+	List<string> sale = Model.Enums.Sala.Values.ToList();
 
 	[ObservableProperty]
 	List<string> nomiMostre = new();

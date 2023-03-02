@@ -19,8 +19,8 @@ namespace MuseoOmero.ViewModel.Templates
         {
             Data = biglietto.DataValidita;
             TipologiaBiglietto = nameof(biglietto.Tipologia);
-            TurnoGuida = biglietto.DataGuida == null ? "No turno guida." : "Guida alle " +
-            biglietto.DataGuida?.ToString("HH:mm");
+            TurnoGuida = biglietto.OrarioGuida == null ? "No turno guida." : "Guida alle " +
+            biglietto.OrarioGuida?.ToString("HH:mm");
             Icon = IconeBiglietto.Values[(int)biglietto.Tipologia];
         }
 

@@ -19,16 +19,26 @@ public partial class BiglietteriaViewModelWin : ObservableObject
 	ObservableCollection<Biglietto> convalidatiOggi = new(), bigliettiOrdinati = new();
 
 	[ObservableProperty]
-	bool noConvalideOggi = true, isBusy = false, bigliettiSortAcending = true;
+	bool noConvalideOggi = true, isBusy, bigliettiSortAcending = false, vendiBigliettoOn;
+
+	[ObservableProperty]
+	TipoBiglietto tipo = TipoBiglietto.MuseoAperto;
 
 	[ObservableProperty]
 	HomeViewModelWin homeViewModelWin;
 
 	[ObservableProperty]
-	Biglietto selectedBiglietto;
+	Biglietto selectedBiglietto, nuovoBiglietto;
 
 	[ObservableProperty]
 	string filtroBiglietti = "DataValid";
+
+	public string BuyerUid;
+
+	public Action<bool> CardViewTransitionCallback;
+
+	[ObservableProperty]
+	bool acquistoConGuida;
 
 
 
@@ -96,6 +106,33 @@ public partial class BiglietteriaViewModelWin : ObservableObject
 		BigliettiSortAcending = !BigliettiSortAcending;
 		OrdinaBiglietti();
 	}
+	[RelayCommand]
+	async void ConvalidaSelectedBiglietto()
+	{
+		await ConvalidaBiglietto(SelectedBiglietto.Uid);
+		Initialize();
+		await App.Current.MainPage.DisplayAlert("Convalida effettuata", "Convalida avvenuta con successo!", "Ok");
+
+		// Per evitare il thread marshalling
+		MainThread.BeginInvokeOnMainThread(() => { CardViewTransitionCallback.Invoke(false); });
+
+	}
+	[RelayCommand]
+	async void AcquistaBiglietto()
+	{
+		IsBusy = true;
+		if (!AcquistoConGuida)
+			NuovoBiglietto.OrarioGuida = null;
+		var buyer = this.HomeViewModelWin.Utenti.Find(u => u.Uid == BuyerUid);
+		buyer.Biglietti.Add(NuovoBiglietto);
+		await DatabaseManager.Instance.Put($"utenti/{buyer.Uid}/biglietti/{buyer.Biglietti.Count - 1}", NuovoBiglietto);
+		Initialize();
+		IsBusy = false;
+		await App.Current.MainPage.DisplayAlert("Acquisto effettuato", "Acquisto del biglietto effettuato con successo!", "Ok");
+
+		// Per evitare il thread marshalling
+		MainThread.BeginInvokeOnMainThread(() => { CardViewTransitionCallback.Invoke(false); });
+	}
 
 	public void OrdinaBiglietti()
 	{
@@ -144,7 +181,9 @@ public partial class BiglietteriaViewModelWin : ObservableObject
 
 	public void Initialize()
 	{
-		foreach (var b in HomeViewModelWin.Utenti.SelectMany(u => u.Biglietti))
+		bigliettiTotali = new();
+		ConvalidatiOggi = new();
+		foreach (var b in this.HomeViewModelWin.Utenti.SelectMany(u => u.Biglietti))
 		{
 			if (b.DataConvalida is { } && b.DataConvalida?.Date == DateTime.Today)
 			{
@@ -153,37 +192,40 @@ public partial class BiglietteriaViewModelWin : ObservableObject
 			}
 
 			bigliettiTotali.Add(b);
-			OrdinaBiglietti();
 		}
+		BigliettiSortAcending = false;
+		OrdinaBiglietti();
 	}
 
 	async Task ConvalidaBiglietto(string id)
 	{
-		foreach (var u in HomeViewModelWin.Utenti)
+		IsBusy = true;
+		foreach (var u in this.HomeViewModelWin.Utenti)
 		{
-			var count = 0;
 			foreach (var b in u.Biglietti)
 			{
 				if (b.Uid == id)
 				{
-					if(b.DataValidita.Date.Subtract(DateTime.Today).TotalHours<1)
+					if (b.DataValidita.Date < DateTime.Today)
 					{
 						await Shell.Current.DisplayAlert("Biglietto Scaduto", $"Il biglietto scansionato è scaduto in data {b.DataValidita:d MMM yyyy}", "Ok");
+						IsBusy = false;
 						return;
 					}
-					else if (b.DataValidita.Date.Subtract(DateTime.Today).TotalHours > 24)
+					else if (b.DataValidita.Date > DateTime.Today.AddDays(1))
 					{
 						await Shell.Current.DisplayAlert("Biglietto Invalido", $"Il biglietto scansionato non è valido oggi, può essere convalidato in data {b.DataValidita:d MMM yyyy}", "Ok");
+						IsBusy = false;
 						return;
 					}
 					b.DataConvalida = DateTime.Now;
 					ConvalidatiOggi.Add(b);
 					NoConvalideOggi = false;
-					await DatabaseManager.Instance.Put($"utenti/{u.Uid}/biglietti/{count}", b);
-					++count;
+					await DatabaseManager.Instance.Put($"utenti/{u.Uid}/biglietti/{u.Biglietti.IndexOf(b)}", b);
 				}
 			}
 		}
+		IsBusy = false;
 	}
 
 }

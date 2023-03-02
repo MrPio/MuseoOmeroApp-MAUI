@@ -9,28 +9,30 @@ public class Biglietto
 
 	[JsonProperty("data_convalida")] public DateTime? DataConvalida { get; set; }
 
-	[JsonProperty("tipologia")] public TipoBiglietto? Tipologia { get; set; } = null;
+	[JsonProperty("tipologia")] public TipoBiglietto Tipologia { get; set; }=TipoBiglietto.MuseoAperto;
 
-	[JsonProperty("data_guida")] public DateTime? DataGuida { get; set; } = null;
+	[JsonProperty("data_guida")] public TimeSpan? OrarioGuida { get; set; } = null;
 
-	public Biglietto(DateTime dataAcquisto, DateTime dataValidita, TipoBiglietto tipologia, DateTime? dataConvalida = null, DateTime? dataGuida = null)
+	public Biglietto(DateTime dataAcquisto, DateTime dataValidita, TipoBiglietto tipologia, DateTime? dataConvalida = null, TimeSpan? dataGuida = null)
 	{
 		Uid = (DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond).ToString();
 		DataAcquisto = dataAcquisto;
 		DataValidita = dataValidita;
 		Tipologia = tipologia;
 		DataConvalida = dataConvalida;
-		DataGuida = dataGuida;
+		OrarioGuida = dataGuida;
 	}
 
 	[JsonConstructor]
-	public Biglietto(string  uid, DateTime dataAcquisto, DateTime dataValidita, DateTime? dataConvalida, TipoBiglietto tipologia, DateTime? dataGuida)
+	public Biglietto(string uid, DateTime dataAcquisto, DateTime dataValidita, DateTime? dataConvalida, TipoBiglietto tipologia, TimeSpan? dataGuida)
 	{
 		Uid = uid;
 		DataAcquisto = dataAcquisto;
 		DataValidita = dataValidita;
 		DataConvalida = dataConvalida;
 		Tipologia = tipologia;
-		DataGuida = dataGuida;
+		OrarioGuida = dataGuida;
 	}
+
+	public bool IsValido => DataValidita.Date == DateTime.Today;
 }

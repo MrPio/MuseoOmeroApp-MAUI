@@ -17,13 +17,13 @@ public partial class OpereViewModelWin : ObservableObject
 	bool opereSortAcending = true, mostreSortAcending = true;
 
 	[ObservableProperty]
-	bool opereOn = true,mostreOn=false;
+	bool opereOn = true, mostreOn, aggiungiMostreOn;
 
 	[ObservableProperty]
-	Opera selectedOpera;
+	Opera selectedOpera,nuovaOpera;
 
-[ObservableProperty]
-	Mostra selectedMostra;
+	[ObservableProperty]
+	Mostra selectedMostra,nuovaMostra;
 
 	[RelayCommand]
 	void HeaderLabelTap(string titolo)

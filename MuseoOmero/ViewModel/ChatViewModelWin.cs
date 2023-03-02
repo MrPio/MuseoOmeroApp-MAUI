@@ -117,7 +117,7 @@ public partial class ChatViewModelWin : ObservableObject
 	{
 		IsBusy = true;
 		var utenti = HomeViewModel.Utenti.FindAll(u => u.Chat is { });
-		NoChats = utenti.Count == 0;
+		NoChats = utenti.Count() == 0;
 		UtentiConChat = new(utenti);
 		LoadAvatars();
 		IsBusy = false;
@@ -126,7 +126,7 @@ public partial class ChatViewModelWin : ObservableObject
 	public void SendMessage(Messaggio messaggio)
 	{
 		CurrentUtente.Chat.MessaggiMuseo.Add(messaggio);
-		DatabaseManager.Instance.Put($"utenti/{CurrentUtente.Uid}/chat/messaggi_museo/{CurrentUtente.Chat.MessaggiMuseo.Count}", messaggio);
+		_ = DatabaseManager.Instance.Put($"utenti/{CurrentUtente.Uid}/chat/messaggi_museo/{CurrentUtente.Chat.MessaggiMuseo.Count - 1}", messaggio);
 	}
 }
 

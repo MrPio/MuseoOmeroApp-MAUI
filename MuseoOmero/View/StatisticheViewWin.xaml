@@ -24,7 +24,8 @@
 		<ScrollView Grid.Row="1"
 					Scrolled="ScrollView_Scrolled">
 			<VerticalStackLayout BackgroundColor="{StaticResource Color4}"
-								 Padding="30">
+								 Padding="30"
+								 Spacing="30">
 
 				<!--BigliettiSeries-->
 				<Frame Style="{StaticResource FrameRoundedWin}">
@@ -47,9 +48,8 @@
 				</Frame>
 
 				<!--QuestionariSeries-->
-				<BoxView HeightRequest="30" />
 				<Frame Style="{StaticResource FrameRoundedWin}">
-					<VerticalStackLayout>
+					<VerticalStackLayout Spacing="30">
 
 						<!--Statistiche sui questionari Label-->
 						<Label Style="{StaticResource LabelBold}"
@@ -57,16 +57,14 @@
 							   FontSize="24"
 							   HorizontalOptions="Center" />
 
-						<BoxView HeightRequest="30" />
-
-						<!--QuestionariValutazioniSeries & QuestionariTipologieVisiteSeries-->
+						<!--Valutazioni & TipologieVisite & Accompagnatori-->
 						<Grid RowDefinitions="300,40"
 							  ColumnDefinitions="*,*,*"
 							  HorizontalOptions="Center">
 
 							<Label Grid.Row="1"
 								   Style="{StaticResource LabelNormal}"
-								   Text="Valutazioni"
+								   Text="Medie valutazioni"
 								   HorizontalOptions="Center" />
 							<lvc:PieChart x:Name="Pie1"
 										  Series="{Binding QuestionariValutazioniSeries}"
@@ -94,11 +92,12 @@
 										  EasingFunction="{Binding Source={x:Static lvcore:EasingFunctions.CubicOut}}" />
 						</Grid>
 
-						<BoxView HeightRequest="30" />
+						<!--Motivazione & TitoloStudi & Ritorno-->
 						<Grid RowDefinitions="300,auto"
 							  ColumnDefinitions="*,*,*"
 							  HorizontalOptions="Center">
-							<Label Grid.Row="1" Style="{StaticResource LabelNormal}"
+							<Label Grid.Row="1"
+								   Style="{StaticResource LabelNormal}"
 								   Text="Motivazione Visita"
 								   HorizontalOptions="Center" />
 							<lvc:PieChart x:Name="Pie4"
@@ -106,7 +105,8 @@
 										  InitialRotation="245"
 										  EasingFunction="{Binding Source={x:Static lvcore:EasingFunctions.CubicOut}}" />
 
-							<Label Grid.Row="1" Grid.Column="1"
+							<Label Grid.Row="1"
+								   Grid.Column="1"
 								   Style="{StaticResource LabelNormal}"
 								   Text="Titolo studi"
 								   HorizontalOptions="Center" />
@@ -115,7 +115,8 @@
 										  Series="{Binding QuestionariTitoloStudiSeries}"
 										  EasingFunction="{Binding Source={x:Static lvcore:EasingFunctions.CubicOut}}" />
 
-							<Label Grid.Row="1" Grid.Column="2"
+							<Label Grid.Row="1"
+								   Grid.Column="2"
 								   Style="{StaticResource LabelNormal}"
 								   Text="Ritorno al museo"
 								   HorizontalOptions="Center" />
@@ -125,21 +126,48 @@
 										  EasingFunction="{Binding Source={x:Static lvcore:EasingFunctions.CubicOut}}" />
 
 						</Grid>
+
+						<!--Visite/Compilazioni-->
+						<Grid RowDefinitions="300,auto"
+							  ColumnDefinitions="800"
+							  HorizontalOptions="Center">
+							<lvc:CartesianChart Series="{Binding QuestionariSeries}"
+												XAxes="{Binding QuestionariXAxes}"
+												LegendPosition="Right" />
+							<Label Grid.Row="1"
+								   Style="{StaticResource LabelNormal}"
+								   Text="Rapporto Visite/Compilazioni"
+								   HorizontalOptions="Center" />
+						</Grid>
+						<BoxView HeightRequest="30" />
 					</VerticalStackLayout>
 				</Frame>
 
-				<!--<lvc:PieChart Grid.Column="1"
-								  Series="{Binding Series2}"></lvc:PieChart>-->
+				<!--OpereSeries-->
+				<Frame Style="{StaticResource FrameRoundedWin}">
+					<VerticalStackLayout Spacing="30">
+						<!--Statistiche sulle opere Label-->
+						<Label Style="{StaticResource LabelBold}"
+							   Text="Statistiche sulle opere"
+							   FontSize="24"
+							   HorizontalOptions="Center" />
 
-				<!--<Grid ColumnDefinitions="*,*"
-					  RowDefinitions="300"
-					  HorizontalOptions="Center">
-					<lvc:PieChart Series="{Binding Series3}"
-								  MaxAngle="360"
-								  InitialRotation="99" />-->
-				<!--<lvc:CartesianChart Grid.Column="1"
-										Series="{Binding Series4}" />-->
-				<!--</Grid>-->
+						<!--Visuals per sala-->
+						<Grid RowDefinitions="600,auto"
+							  ColumnDefinitions="800"
+							  HorizontalOptions="Center">
+							<lvc:PolarChart  x:Name="Polar1"
+											 Series="{Binding OpereSeries}"
+											 AngleAxes="{Binding OpereAxis}" />
+							<Label Grid.Row="1"
+								   Style="{StaticResource LabelNormal}"
+								   Text="Visualizzazioni opere per sala"
+								   HorizontalOptions="Center" />
+						</Grid>
+						<BoxView HeightRequest="30" />
+					</VerticalStackLayout>
+				</Frame>
+
 			</VerticalStackLayout>
 		</ScrollView>
 	</Grid>

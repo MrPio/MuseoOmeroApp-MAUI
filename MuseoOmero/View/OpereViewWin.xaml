@@ -7,6 +7,7 @@
 			 xmlns:templateWin="clr-namespace:MuseoOmero.View.TemplatesWin"
 			 xmlns:template="clr-namespace:MuseoOmero.View.Templates"
 			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
+			 xmlns:enums="clr-namespace:MuseoOmero.Model.Enums"
 			 x:Class="MuseoOmero.ViewWin.OpereViewWin"
 			 Title="OpereViewWin"
 			 x:DataType="viewmodels:OpereViewModelWin">
@@ -50,7 +51,7 @@
 							<template:RoundedButtonView Text=" +  Aggiungi Opera"
 														Color="{StaticResource Color1}"
 														NewFontSize="16"
-														Clicked="AggiungiOpera_Clicked"/>
+														Clicked="AggiungiOpera_Clicked" />
 
 							<!--Filtro-->
 							<Label Grid.Column="2"
@@ -222,7 +223,7 @@
 							<template:RoundedButtonView Text=" +  Allestisci Mostra"
 														Color="{StaticResource Color1}"
 														NewFontSize="16"
-														Clicked="AggiungiOpera_Clicked"/>
+														Clicked="AggiungiOpera_Clicked" />
 
 							<!--Filtro-->
 							<Label Grid.Column="2"
@@ -432,7 +433,7 @@
 				</BoxView.GestureRecognizers>
 			</BoxView>
 
-			<!--CardView-->
+			<!--CardView [OPERE/MOSTRE]-->
 			<Grid x:Name="CardView"
 				  RowSpacing="24"
 				  TranslationX="9999"
@@ -590,7 +591,8 @@
 										   HeightRequest="280"
 										   Margin="30,0,20,0" />
 
-									<Grid ColumnDefinitions="*,*" Margin="0,30,0,0">
+									<Grid ColumnDefinitions="*,*"
+										  Margin="0,30,0,0">
 
 										<VerticalStackLayout HorizontalOptions="End"
 															 VerticalOptions="Center"
@@ -641,7 +643,7 @@
 												   Text="{Binding SelectedMostra.Descrizione}" />
 										</VerticalStackLayout>
 									</Frame>
-									
+
 									<!--<BoxView HeightRequest="10" />-->
 									<!--Chiudi Button-->
 									<!--<template:RoundedButtonView Text="Chiudi"
@@ -659,15 +661,246 @@
 							  HeightRequest="50"
 							  WidthRequest="50"
 							  Margin="24">
-							<templateWin:HighlightView Clicked="CardViewClose_Clicked"
-													   CornerRadius="14" />
 							<Label Style="{StaticResource FontIconLabel}"
 								   FontSize="32"
 								   VerticalOptions="Center"
 								   HorizontalOptions="Center"
-								   InputTransparent="True"
 								   TextColor="{StaticResource Color1}"
 								   Text="{Static material:IconFont.Close}" />
+							<templateWin:HighlightView x:Name="ExitButton"
+													   Clicked="CardViewClose_Clicked"
+													   CornerRadius="14" />
+						</Grid>
+					</Grid>
+				</Frame>
+			</Grid>
+
+			<!--CardView [AGGIUNGI]-->
+			<Grid x:Name="CardViewAggiungi"
+				  RowSpacing="24"
+				  TranslationX="9999"
+				  RowDefinitions="*"
+				  Padding="60,10,60,10">
+				<Frame Style="{StaticResource FrameRoundedWin}"
+					   BackgroundColor="{StaticResource Color4}"
+					   Margin="60,40,60,30"
+					   Padding="0">
+					<Grid RowDefinitions="*">
+
+						<!--CardView Content [AGGIUNGI OPERA]-->
+						<ScrollView x:Name="CardViewAggiungiScroll"
+									IsVisible="{Binding AggiungiMostreOn, Converter={converters:BoolNagationConverter}}">
+							<VerticalStackLayout BindingContext="{Binding NuovaOpera}">
+
+								<VerticalStackLayout Padding="36"
+													 BackgroundColor="{StaticResource Color5}"
+													 Spacing="8"
+													 Margin="1,0,1,0">
+
+									<!--Titolo-->
+									<Label Style="{StaticResource LabelBold}"
+										   FontSize="30"
+										   Text="Aggiungi una nuova opera"
+										   HorizontalOptions="Center" />
+									<Label Style="{StaticResource LabelThin}"
+										   Text="Per favore, compila i seguenti campi."
+										   HorizontalOptions="Center"
+										   FontSize="16" />
+								</VerticalStackLayout>
+
+								<VerticalStackLayout Margin="1,0,1,0"
+													 Spacing="2"
+													 x:DataType="model:Opera">
+
+									<!--Immagine e Caratteristiche-->
+									<BoxView HeightRequest="30" />
+									<Grid ColumnDefinitions="1.35*,0.75*,*"
+										  Margin="30,0,20,0">
+										<Image Aspect="AspectFit"
+											   Source="{Binding Foto}"
+											   HeightRequest="380" />
+
+										<VerticalStackLayout Grid.Column="1"
+															 HorizontalOptions="End"
+															 VerticalOptions="Center"
+															 Spacing="20"
+															 Margin="20,0,16,0">
+											<VerticalStackLayout.Resources>
+												<Style TargetType="Label"
+													   BasedOn="{StaticResource LabelNormal}">
+													<Setter Property="FontSize"
+															Value="20" />
+													<Setter Property="HorizontalTextAlignment"
+															Value="End" />
+												</Style>
+											</VerticalStackLayout.Resources>
+											<Label Text="Titolo:" />
+											<Label Text="Autore:" />
+											<Label Text="Sala:" />
+											<Label Text="Tecnica:" />
+											<Label Text="Materiale:" />
+											<Label Text="Dimensioni:" />
+										</VerticalStackLayout>
+
+										<VerticalStackLayout Grid.Column="2"
+															 VerticalOptions="Center"
+															 Spacing="10"
+															 HorizontalOptions="Start">
+											<VerticalStackLayout.Resources>
+												<Style TargetType="template:RoundedEntryView">
+													<Setter Property="Color"
+															Value="{StaticResource Color1}" />
+													<Setter Property="WidthRequest"
+															Value="230" />
+												</Style>
+											</VerticalStackLayout.Resources>
+
+											<template:RoundedEntryView Text="{Binding Nome,Mode=TwoWay}"
+																	   Placeholder="Gioconda" />
+											<template:RoundedEntryView Text="{Binding Autore,Mode=TwoWay}"
+																	   Placeholder="Leonardo DaVinci" />
+											<Picker ItemsSource="{Static enums:Sala.Values}"
+													SelectedItem="{Binding Sala,Mode=TwoWay}" />
+											<CollectionView ItemsLayout="HorizontalList"
+															ItemsSource="{Static enums:Materiale.Values}"
+															SelectionMode="Multiple"
+															>
+												<CollectionView.ItemTemplate>
+													<DataTemplate>
+														<!--TODO DATA TEMPLATE SELECTOR, FAR FUNZIONARE IL BINDING DELLA COLLVIEW-->
+														<!--TODO LEGGI L'ULTIMA PAGINA APERA SU FIREFOX-->d
+														<Label Style="{StaticResource LabelNormal}"
+															   Text="{Binding .}"
+															   FontSize="16"
+															   HorizontalOptions="End"
+															   Margin="10,20,20,20" />
+													</DataTemplate>
+												</CollectionView.ItemTemplate>
+											</CollectionView>
+										</VerticalStackLayout>
+									</Grid>
+
+									<!--Descrizione-->
+
+									<Frame Style="{StaticResource FrameRoundedWin}"
+										   BackgroundColor="{StaticResource Color5}"
+										   Margin="60,40,60,30">
+										<VerticalStackLayout Spacing="30"
+															 Padding="20,10,20,20">
+											<Label Style="{StaticResource LabelNormal}"
+												   FontSize="20"
+												   HorizontalOptions="Center"
+												   Text="Descrizione" />
+
+										</VerticalStackLayout>
+									</Frame>
+									<BoxView HeightRequest="30" />
+								</VerticalStackLayout>
+							</VerticalStackLayout>
+						</ScrollView>
+
+						<!--CardView Content [AGGIUNGI MOSTRA]-->
+						<ScrollView x:Name="MostreCardViewAggiungiScroll"
+									IsVisible="{Binding AggiungiMostreOn}">
+							<VerticalStackLayout>
+								<VerticalStackLayout Padding="36"
+													 BackgroundColor="{StaticResource Color5}"
+													 Spacing="8"
+													 Margin="1,0,1,0">
+
+									<!--Titolo-->
+									<Label Style="{StaticResource LabelBold}"
+										   FontSize="30"
+										   Text="{Binding SelectedMostra.Titolo,StringFormat='{}Mostra: {0}'}"
+										   HorizontalOptions="Center" />
+									<Label Style="{StaticResource LabelThin}"
+										   Text="{Binding SelectedMostra.Opere.Count,StringFormat='{}Numero opere: {0}'}"
+										   HorizontalOptions="Center"
+										   FontSize="16" />
+								</VerticalStackLayout>
+
+								<VerticalStackLayout Margin="1,0,1,0"
+													 Spacing="2">
+
+									<!--Immagine e Caratteristiche-->
+									<BoxView HeightRequest="30" />
+									<Image Aspect="AspectFit"
+										   Source="{Binding SelectedMostra.Foto}"
+										   HeightRequest="280"
+										   Margin="30,0,20,0" />
+
+									<Grid ColumnDefinitions="*,*"
+										  Margin="0,30,0,0">
+
+										<VerticalStackLayout HorizontalOptions="End"
+															 VerticalOptions="Center"
+															 Margin="20,0,16,0">
+											<VerticalStackLayout.Resources>
+												<Style TargetType="Label"
+													   BasedOn="{StaticResource LabelNormal}">
+													<Setter Property="FontSize"
+															Value="20" />
+													<Setter Property="HorizontalTextAlignment"
+															Value="End" />
+												</Style>
+											</VerticalStackLayout.Resources>
+											<Label Text="DataAggiunta:" />
+											<Label Text="DataInizio:" />
+											<Label Text="DataFine:" />
+										</VerticalStackLayout>
+
+										<VerticalStackLayout Grid.Column="1"
+															 VerticalOptions="Center"
+															 HorizontalOptions="Start">
+											<Label Style="{StaticResource LabelThin}"
+												   FontSize="20"
+												   Text="{Binding SelectedMostra.DataAggiunta,StringFormat='{0:dd MMMM, yyyy}'}" />
+											<Label Style="{StaticResource LabelThin}"
+												   FontSize="20"
+												   Text="{Binding SelectedMostra.DataInizio,StringFormat='{0:dd MMMM, yyyy}'}" />
+											<Label Style="{StaticResource LabelThin}"
+												   FontSize="20"
+												   Text="{Binding SelectedMostra.DataFine,StringFormat='{0:dd MMMM, yyyy}'}" />
+										</VerticalStackLayout>
+									</Grid>
+
+									<!--Descrizione-->
+									<Frame Style="{StaticResource FrameRoundedWin}"
+										   BackgroundColor="{StaticResource Color5}"
+										   Margin="60,40,60,30">
+										<VerticalStackLayout Spacing="30"
+															 Padding="20,10,20,20">
+											<Label Style="{StaticResource LabelNormal}"
+												   FontSize="20"
+												   HorizontalOptions="Center"
+												   Text="Descrizione" />
+											<Label Style="{StaticResource LabelThin}"
+												   FontSize="18"
+												   HorizontalOptions="Center"
+												   LineBreakMode="WordWrap"
+												   Text="{Binding SelectedMostra.Descrizione}" />
+										</VerticalStackLayout>
+									</Frame>
+									<BoxView HeightRequest="30" />
+								</VerticalStackLayout>
+							</VerticalStackLayout>
+						</ScrollView>
+
+						<!--Exit Button-->
+						<Grid HorizontalOptions="End"
+							  VerticalOptions="Start"
+							  HeightRequest="50"
+							  WidthRequest="50"
+							  Margin="24">
+							<Label Style="{StaticResource FontIconLabel}"
+								   FontSize="32"
+								   VerticalOptions="Center"
+								   HorizontalOptions="Center"
+								   TextColor="{StaticResource Color1}"
+								   Text="{Static material:IconFont.Close}" />
+							<templateWin:HighlightView x:Name="ExitButtonAggiungi"
+													   Clicked="CardViewClose_Clicked"
+													   CornerRadius="14" />
 						</Grid>
 					</Grid>
 				</Frame>

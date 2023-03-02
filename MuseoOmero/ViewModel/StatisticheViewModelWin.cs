@@ -57,7 +57,27 @@ public partial class StatisticheViewModelWin : ObservableObject
 	IEnumerable<ISeries> questionariValutazioniSeries;
 	[ObservableProperty]
 	ISeries[] questionariTipologieVisiteSeries, questionariAccompagnatoriVisitaSeries, questionariMotivazioneVisitaSeries, questionariTitoloStudiSeries, questionariRitornoSeries;
+	[ObservableProperty]
+	ColumnSeries<float>[] questionariSeries;
+	[ObservableProperty]
+	Axis[] questionariXAxes =
+	{
+		new()
+		{
+			Labels = new[] { "L", "M", "MM","G","V","S","D" },
+			LabelsRotation = 30,
+			SeparatorsPaint = new SolidColorPaint(new SKColor(200, 200, 200)),
+			SeparatorsAtCenter = false,
+			TicksPaint = new SolidColorPaint(new SKColor(35, 35, 35)),
+			TicksAtCenter = true,
+		}
+	};
 
+	// OPERE series
+	[ObservableProperty]
+	public ISeries[] opereSeries;
+	[ObservableProperty]
+	public PolarAxis[] opereAxis;
 	public StatisticheViewModelWin(HomeViewModelWin homeViewModelWin)
 	{
 		_homeViewModelWin = homeViewModelWin;
@@ -68,6 +88,7 @@ public partial class StatisticheViewModelWin : ObservableObject
 		var utenti = _homeViewModelWin.Utenti;
 		var biglietti = utenti.SelectMany(u => u.Biglietti);
 		var questionari = utenti.SelectMany(u => u.Questionari);
+		var opere = _homeViewModelWin.Opere;
 
 		//BIGLIETTI - vendite/convalide
 		{
@@ -79,7 +100,9 @@ public partial class StatisticheViewModelWin : ObservableObject
 				if (b.DataConvalida is { })
 					++convalide[(int)b.DataConvalida?.DayOfWeek];
 			}
-			BigliettiSeries = new ColumnSeries<float>[] { };
+
+			//Per triggherare il refresh
+			BigliettiSeries = Array.Empty<ColumnSeries<float>>();
 			BigliettiSeries = new ColumnSeries<float>[]
 			{
 			new()
@@ -235,6 +258,78 @@ public partial class StatisticheViewModelWin : ObservableObject
 				series.DataLabelsFormatter = p => p.Context.Series.Name;
 				QuestionariRitornoSeries[i] = series;
 			}
+		}
+
+		//QUESTIONARI - visite/compilazioni
+		{
+			var numeroMesi = 12;
+			var visite = new float[numeroMesi];
+			var compilazioni = new float[numeroMesi];
+			var xAxisLabels = new string[numeroMesi];
+			for (var i = 0; i > -numeroMesi; --i)
+			{
+				var startDate = DateTime.Now.AddMonths(i - 1);
+				var endDate = DateTime.Now.AddMonths(i);
+				xAxisLabels[numeroMesi + i - 1] = startDate.ToString("dd MMM yy");
+				// Andrebbe usato per correttezza b.DataConvalida, e non b.DataValidita, ma al momento
+				// ho solo 1 biglietto convalidato e il risultato non sarebbe apprezzabile
+				visite[numeroMesi + i - 1] = biglietti.Where(b => b.DataValidita.IsBetween(startDate, endDate)).Count();
+				compilazioni[numeroMesi + i - 1] = questionari.Where(q => q.DataCompilazione.IsBetween(startDate, endDate)).Count();
+			}
+			QuestionariSeries = Array.Empty<ColumnSeries<float>>(); //Per triggherare il refresh
+			QuestionariSeries = new ColumnSeries<float>[]
+			{
+				new()
+				{
+					Name = "Visite",
+					Values = visite,
+					MaxBarWidth = double.MaxValue,
+				IgnoresBarPosition = true,
+					IsVisibleAtLegend = true,
+				},
+				new()
+				{
+					Name = "Compilazioni",
+					Values = compilazioni,
+					MaxBarWidth = 40,
+				IgnoresBarPosition = true
+				}
+			};
+			QuestionariXAxes[0].Labels = xAxisLabels;
+			foreach (var s in BigliettiSeries)
+			{
+				s.PointMeasured += OnPointMeasuredBar; //Ritardo nella comparsa
+				s.ChartPointPointerHover += OnPointerHoverBar;
+				//s.ChartPointPointerDown += OnPointerDown;
+				s.ChartPointPointerHoverLost += OnPointerHoverLostBar;
+			}
+		}
+
+		//OPERE - visualizzazioni per sala
+		{
+			var sale = _homeViewModelWin.Sale;
+			var visualsTot = new int[sale.Count()];
+			foreach (var o in opere)
+				visualsTot[sale.IndexOf(o.Sala)] += o.Visualizzazioni;
+
+			OpereSeries = new PolarLineSeries<int>[]
+			{
+				new PolarLineSeries<int>
+				{
+					Values = visualsTot,
+					LineSmoothness = 0,
+					GeometrySize= 0,
+					Stroke= new SolidColorPaint(SKColors.Blue),
+					Fill = new SolidColorPaint(SKColors.Blue.WithAlpha(80))
+				}
+			};
+			OpereAxis = new[] {
+				new PolarAxis
+				{
+					LabelsRotation = LiveCharts.TangentAngle,
+					Labels = sale
+				}
+			};
 		}
 	}
 	private void OnPointMeasuredBar(ChartPoint<float, RoundedRectangleGeometry, LabelGeometry> point)

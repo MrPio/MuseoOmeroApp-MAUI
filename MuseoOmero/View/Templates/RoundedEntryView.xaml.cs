@@ -7,7 +7,7 @@ public partial class RoundedEntryView : ContentView
 	public static readonly BindableProperty IconProperty = BindableProperty.Create(nameof(Icon), typeof(string), typeof(RoundedButtonView), string.Empty);
 	public static readonly BindableProperty IsPasswordProperty = BindableProperty.Create(nameof(IsPassword), typeof(bool), typeof(RoundedButtonView), false);
 	public static readonly BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(RoundedButtonView), DeviceManager.Instance.Colors[0]);
-	public static readonly BindableProperty UnfocusedColorProperty = BindableProperty.Create(nameof(UnfocusedColor), typeof(Color), typeof(RoundedButtonView), DeviceManager.Instance.Colors[4]);
+	public static readonly BindableProperty UnfocusedColorProperty = BindableProperty.Create(nameof(UnfocusedColor), typeof(Color), typeof(RoundedButtonView), DeviceManager.Instance.Colors[5]);
 	public static readonly BindableProperty MyBackgroundColorProperty = BindableProperty.Create(nameof(MyBackgroundColor), typeof(Color), typeof(RoundedButtonView), DeviceManager.Instance.Colors[4]);
 	public static readonly BindableProperty BorderSelectedProperty = BindableProperty.Create(nameof(BorderSelected), typeof(double), typeof(RoundedButtonView), 2.6);
 	public static readonly BindableProperty BorderUnselectedProperty = BindableProperty.Create(nameof(BorderUnselected), typeof(double), typeof(RoundedButtonView), 1.0);

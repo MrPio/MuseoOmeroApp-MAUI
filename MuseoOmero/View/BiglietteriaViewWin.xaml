@@ -8,6 +8,8 @@
 			 xmlns:template="clr-namespace:MuseoOmero.View.Templates"
 			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
 			 xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+			 xmlns:enums="clr-namespace:MuseoOmero.Model.Enums"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
 			 x:Class="MuseoOmero.ViewWin.BiglietteriaViewWin"
 			 Title="Biglietteria"
 			 x:DataType="viewmodels:BiglietteriaViewModelWin">
@@ -94,7 +96,9 @@
 										  Margin="22,12,26,12"
 										  ColumnSpacing="18">
 										<Label Style="{StaticResource FontIconLabel}"
-											   Text="{Static material:IconFont.Ticket}"
+											   Text="{Binding Tipologia,
+											Converter={converters:IndexToArrayItemConverter},
+											ConverterParameter={Static enums:IconeBiglietto.Values}}"
 											   TextColor="{StaticResource Color1}" />
 										<Label Grid.Column="1"
 											   VerticalOptions="Center"
@@ -129,20 +133,26 @@
 					  Padding="26,26,26,0">
 
 					<!--Prima riga-->
-					<Grid ColumnDefinitions="auto,auto,auto"
+					<Grid ColumnDefinitions="120,*,auto,auto,auto"
 						  ColumnSpacing="14"
-						  HorizontalOptions="End"
 						  Margin="10,0,30,0">
 
+						<!-- + Aggiungi Biglietto-->
+						<template:RoundedButtonView Text=" +  Vendi"
+													Color="{StaticResource Color1}"
+													NewFontSize="16"
+													Clicked="AggiungiBiglietto_Clicked" />
+
 						<!--Filtro-->
-						<Label Style="{StaticResource LabelNormal}"
+						<Label Grid.Column="2"
+							   Style="{StaticResource LabelNormal}"
 							   Text="Filtra per: "
 							   TextColor="{StaticResource Color6}"
 							   FontSize="16"
 							   VerticalOptions="Center" />
-						<Picker Grid.Column="1"
+						<Picker Grid.Column="3"
 								VerticalOptions="Center"
-								WidthRequest="140"
+								WidthRequest="160"
 								SelectedIndexChanged="FiltroPicker_SelectedIndexChanged"
 								SelectedItem="{Binding FiltroBiglietti}">
 							<Picker.ItemsSource>
@@ -156,7 +166,7 @@
 						</Picker>
 						<templateWin:HighlightView Grid.Column="4"
 												   Clicked="HighlightView_Clicked" />
-						<Label Grid.Column="2"
+						<Label Grid.Column="4"
 							   Style="{StaticResource FontIconLabel}"
 							   Margin="10,0,10,0"
 							   FontSize="28"
@@ -253,22 +263,30 @@
 												   BasedOn="{StaticResource LabelNormal}">
 												<Setter Property="FontSize"
 														Value="15" />
-												<Setter Property="InputTransparent"
-														Value="True" />
+												<Setter Property="TextColor">
+													<Setter.Value>
+														<Binding Path="IsValido">
+															<Binding.Converter>
+																<converters:BoolToObjectConverter x:TypeArguments="Color"
+																								  TrueObject="{StaticResource Color1}"
+																								  FalseObject="{StaticResource Color6}" />
+															</Binding.Converter>
+														</Binding>
+													</Setter.Value>
+												</Setter>
 											</Style>
 										</Grid.Resources>
 
-										<templateWin:HighlightView Grid.ColumnSpan="5"
-																   Margin="-14"
-																   Clicked="BigliettoElement_Clicked" />
-
-										<Label Text="{Binding DataValidita,StringFormat='{0:dd MMM}'}" />
+										<Label Text="{Binding DataValidita,StringFormat='{0:dd MMM yy}'}" />
 										<Label Grid.Column="1"
 											   Text="{Binding Tipologia}" />
 										<Label Grid.Column="2"
-											   Text="{Binding DataAcquisto,StringFormat='{0:HH:MM - dd MMM}'}" />
+											   Text="{Binding DataAcquisto,StringFormat='{0:HH:mm - dd MMM}'}" />
 										<Label Grid.Column="3"
 											   Text="{Binding DataConvalida,StringFormat='{0:dd MMM}'}" />
+										<templateWin:HighlightView Grid.ColumnSpan="5"
+																   Margin="-14"
+																   Clicked="BigliettoElement_Clicked" />
 									</Grid>
 									<Line Style="{StaticResource HRule}" />
 								</VerticalStackLayout>
@@ -303,24 +321,33 @@
 					<Grid RowDefinitions="*"
 						  BackgroundColor="{StaticResource Color5}">
 
-						<!--CardView Content [BIGLIETTO]-->
-						<VerticalStackLayout Padding="36"
-											 Spacing="8"
-											 VerticalOptions="Center"
-											 Margin="1,0,1,0">
+						<!--CardView Content [CONVALIDA BIGLIETTO]-->
+						<Grid RowDefinitions="*,*"
+							  IsVisible="{Binding VendiBigliettoOn,Converter={converters:BoolNagationConverter}}">
+							<Grid.Resources>
+								<converters:BoolToObjectConverter x:Key="ColorConv"
+																  x:TypeArguments="Color"
+																  TrueObject="{StaticResource Color1}"
+																  FalseObject="{StaticResource Color6}" />
+								<converters:BoolToObjectConverter x:Key="TextConv"
+																  x:TypeArguments="x:String"
+																  TrueObject="Convalida"
+																  FalseObject="Non valido" />
+							</Grid.Resources>
 
 							<!--QRCode-->
-							<Grid ColumnDefinitions="185"
-								  RowDefinitions="185"
+							<Grid ColumnDefinitions="200"
+								  RowDefinitions="200"
 								  HorizontalOptions="Center"
+								  Margin="0,70,0,0"
 								  VerticalOptions="Center">
 								<zxing:BarcodeGeneratorView Format="QrCode"
 															Value="{Binding SelectedBiglietto.Uid}"
 															ForegroundColor="{StaticResource Color1}" />
 							</Grid>
 
-							<BoxView HeightRequest="20" />
-							<Grid ColumnDefinitions="*,*"
+							<Grid Grid.Row="1"
+								  ColumnDefinitions="*,*"
 								  ColumnSpacing="16">
 								<VerticalStackLayout Grid.Column="0"
 													 HorizontalOptions="End">
@@ -341,7 +368,6 @@
 								</VerticalStackLayout>
 
 								<VerticalStackLayout Grid.Column="1"
-													 VerticalOptions="Center"
 													 HorizontalOptions="Start">
 									<VerticalStackLayout.Resources>
 										<Style TargetType="Label"
@@ -351,13 +377,111 @@
 										</Style>
 									</VerticalStackLayout.Resources>
 									<Label Text="{Binding SelectedBiglietto.Tipologia}" />
-									<Label Text="{Binding SelectedBiglietto.DataAcquisto,StringFormat='{0:HH:mm - dd MMMM}'}" />
-									<Label Text="{Binding SelectedBiglietto.DataConvalida,StringFormat='{0:HH:mm - dd MMMM}'}" />
-									<Label Text="{Binding SelectedBiglietto.DataValidita,StringFormat='{0:dd MMMM}'}" />
-									<Label Text="{Binding SelectedBiglietto.DataGuida,StringFormat='{0:HH:mm - dd MMMM}'}" />
+									<Label Text="{Binding SelectedBiglietto.DataAcquisto,StringFormat='{0:HH:mm - dd MMMM yyyy}'}" />
+									<Label Text="{Binding SelectedBiglietto.DataConvalida,StringFormat='{0:HH:mm - dd MMMM yyyy}'}" />
+									<Label Text="{Binding SelectedBiglietto.DataValidita,StringFormat='{0:dd MMMM yyyy}'}" />
+									<Label Text="{Binding SelectedBiglietto.OrarioGuida,StringFormat='{0:HH:mm}'}" />
 								</VerticalStackLayout>
 							</Grid>
-						</VerticalStackLayout>
+
+							<!--ConvalidaButton-->
+							<template:RoundedButtonView Grid.Row="1"
+														Text="{Binding SelectedBiglietto.IsValido,
+								Converter={StaticResource TextConv}}"
+														VerticalOptions="End"
+														Color="{Binding SelectedBiglietto.IsValido,
+								Converter={StaticResource ColorConv}}"
+														InputTransparent="{Binding SelectedBiglietto.IsValido,
+								Converter={converters:BoolNagationConverter}}"
+														WidthRequest="200"
+														Margin="0,0,0,50"
+														Command="{Binding ConvalidaSelectedBigliettoCommand}" />
+						</Grid>
+
+						<!--CardView Content [VENDI BIGLIETTO]-->
+						<Grid RowDefinitions="*,*"
+							  Margin="0,20,0,0"
+							  IsVisible="{Binding VendiBigliettoOn}">
+
+							<!--Titolo-->
+							<Label x:Name="VendiBigliettoTitolo"
+								   Style="{StaticResource LabelBold}" />
+
+							<!--QRCode-->
+							<Grid ColumnDefinitions="200"
+								  RowDefinitions="200"
+								  HorizontalOptions="Center"
+								  Margin="0,70,0,0"
+								  VerticalOptions="Center">
+								<zxing:BarcodeGeneratorView Format="QrCode"
+															Value="{Binding NuovoBiglietto.Uid}"
+															ForegroundColor="{StaticResource Color1}" />
+							</Grid>
+
+							<!--Dettagli bliglietto-->
+							<Grid Grid.Row="1"
+								  ColumnDefinitions="*,*"
+								  ColumnSpacing="16">
+								<VerticalStackLayout Grid.Column="0"
+													 HorizontalOptions="End"
+													 Spacing="20">
+									<VerticalStackLayout.Resources>
+										<Style TargetType="Label"
+											   BasedOn="{StaticResource LabelNormal}">
+											<Setter Property="FontSize"
+													Value="20" />
+											<Setter Property="HorizontalTextAlignment"
+													Value="End" />
+											<Setter Property="VerticalOptions"
+													Value="Center" />
+											<Setter Property="HeightRequest"
+													Value="28" />
+										</Style>
+									</VerticalStackLayout.Resources>
+									<Label Text="Tipologia:" />
+									<Label Text="Giorno di validità:" />
+									<Label Text="Servizio guida:" />
+									<Label Text="Orario guida:" />
+								</VerticalStackLayout>
+
+								<VerticalStackLayout Grid.Column="1"
+													 HorizontalOptions="Start"
+													 Spacing="20">
+									<Picker x:Name="TipologiaPicker"
+											SelectedIndex="{Binding NuovoBiglietto.Tipologia,
+										Converter={toolkit:EnumToIntConverter},
+										ConverterParameter={x:Type enums:TipoBiglietto},
+										Mode=TwoWay}"
+											WidthRequest="160"
+											HorizontalOptions="Start">
+										<Picker.ItemsSource>
+											<x:Array Type="{x:Type x:String}">
+												<x:String>MuseoAperto</x:String>
+												<x:String>Mostra</x:String>
+												<x:String>Laboratorio</x:String>
+											</x:Array>
+										</Picker.ItemsSource>
+									</Picker>
+									<DatePicker Date="{Binding NuovoBiglietto.DataValidita,Mode=TwoWay}"
+												Format="dd MMM yyyy"
+												WidthRequest="160"
+												HorizontalOptions="Start" />
+									<CheckBox x:Name="AcquistoConGuidaCheckBox"
+											  IsChecked="{Binding AcquistoConGuida, Mode=TwoWay}" />
+									<TimePicker Time="{Binding NuovoBiglietto.OrarioGuida,Mode=TwoWay}"
+												IsEnabled="{Binding AcquistoConGuida}" />
+								</VerticalStackLayout>
+							</Grid>
+
+							<!--AcquistaButton-->
+							<template:RoundedButtonView Grid.Row="1"
+														Text="Acquista"
+														VerticalOptions="End"
+														Color="{StaticResource Color1}"
+														WidthRequest="200"
+														Margin="0,0,0,50"
+														Command="{Binding AcquistaBigliettoCommand}" />
+						</Grid>
 
 						<!--Exit Button-->
 						<Grid HorizontalOptions="End"

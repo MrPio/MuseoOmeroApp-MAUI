@@ -16,22 +16,27 @@ public class DbPopulatorManager
 	}
 	private DatabaseManager db { get => DatabaseManager.Instance; }
 
-	public async Task populateChats()
+	public async Task<string[]> LeggiNomiItaliani()
 	{
-		Chat chat1 = new(
-			new() {
-				new(DateTime.Now.AddSeconds(999),"Si tutto ok."),
-				new(DateTime.Now.AddSeconds(2999),"Ciao, puoi utilizzare l'abbonamento per entrare gratis, saluti!")
-			},
-			new() {
-				new(DateTime.Now,"Ciao, messaggio corto."),
-				new(DateTime.Now.AddSeconds(1999),"Ciao, messaggio medio, come stai? sto scrivendo all'assistenza del museo per capire come posso abbonarmi al fine di donare opere ed entrare gratis.")
-			}, DateTime.Now);
+		using var stream = await FileSystem.OpenAppPackageFileAsync("NomiItaliani.txt");
+		using var reader = new StreamReader(stream);
+		var contents = reader.ReadToEnd();
 
-		await db.Put($"utenti/SKQziGzDYnRabkwjqCBMuaADigx2/chat", chat1);
+		return contents.Replace(Environment.NewLine, " ").Split(" ", StringSplitOptions.RemoveEmptyEntries);
 	}
+	public async Task<string[]> LeggiFrasiItaliane()
+	{
+		using var stream = await FileSystem.OpenAppPackageFileAsync("FrasiItaliane.txt");
+		using var reader = new StreamReader(stream);
+		var contents = reader.ReadToEnd();
+
+		return contents.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+	}
+
 	public async Task PopulateUtentiBigliettiQuestionariChats()
 	{
+		var nomi = await LeggiNomiItaliani();
+		var frasi = await LeggiFrasiItaliane();
 		var util = UtiliesManager.Instance;
 		var ran = UtiliesManager.Random;
 		for (int i = 0; i < 30; i++)
@@ -42,14 +47,14 @@ public class DbPopulatorManager
 			for (int j = 0; j < ran.Next(5); j++)
 			{
 				//Aggiungo un Biglietto [100%]
-				var ranAcq = util.RandomDate(365);
-				var ranVal = ranAcq.AddDays(ran.Next(4));
+				var ranAcq = util.RandomDate(365,5);
+				var ranVal = ranAcq.AddDays(ran.Next(4)).AddMinutes(ran.Next(96) * 15);
 				biglietti.Add(
 					new Biglietto(
 						dataAcquisto: ranAcq,
-						dataValidita: ranVal.AddDays(ran.Next(4)),
+						dataValidita: ranVal,
 						tipologia: ran.NextEnum<TipoBiglietto>(),
-						dataGuida: ran.Next(2) == 1 ? null : ranVal
+						dataGuida: ran.Next(2) == 1 ? null : ranVal.TimeOfDay
 					)
 				);
 
@@ -73,24 +78,24 @@ public class DbPopulatorManager
 				}
 			}
 
-			//Aggiungo Chat [33.3%]
+			//Aggiungo Chat [25%]
 			Chat chat = null;
-			if (ran.NextDouble() < 0.333f)
+			if (ran.NextDouble() < 0.25f)
 			{
 				List<Messaggio> messaggiMuseo = new();
 				List<Messaggio> messaggiUtente = new();
-				for (int j = 0; j < ran.Next(10); j++)
+				for (int j = 0; j < ran.Next(18); j++)
 				{
 					messaggiMuseo.Add(new(
 						data: util.RandomDate(365),
-						testo: util.RandomString(100)
+						testo: ran.NextElement(frasi)
 					));
 				}
-				for (int j = 0; j < ran.Next(12); j++)
+				for (int j = 0; j < ran.Next(18); j++)
 				{
 					messaggiUtente.Add(new(
 						data: util.RandomDate(365),
-						testo: util.RandomString(80)
+						testo: ran.NextElement(frasi)
 					));
 				}
 				chat = new(messaggiMuseo, messaggiUtente, DateTime.Now.AddDays(-365));
@@ -98,9 +103,9 @@ public class DbPopulatorManager
 
 			var utente = new Utente(
 				uid: util.RandomString(28),
-				username: util.RandomString(5),
-				nome: util.RandomString(5),
-				cognome: util.RandomString(5),
+				username: ran.NextElement(nomi) + ran.Next(99).ToString(),
+				nome: ran.NextElement(nomi),
+				cognome: ran.NextElement(nomi),
 				cellulare: "+39 " + util.RandomStringNumeric(10),
 				biglietti: biglietti,
 				questionari: questionari,
@@ -110,14 +115,12 @@ public class DbPopulatorManager
 			await db.Put($"utenti/{utente.Uid}", utente);
 		}
 	}
-
-	public async Task populateDipendenti()
+	public async Task PopulateDipendenti()
 	{
 		var dipendente = new Dipendente("JTOjcHsfYIY1SqmDQbw7kLalnYw2", "Valerio", "Morelli", "+39 3318162818", "assistenza@museo.omero.it", "amministratore", DateTime.Now);
 		await db.Put($"dipendenti/{dipendente.Uid}", dipendente);
 	}
-
-	public async Task populateOpere()
+	public async Task PopulateOpere()
 	{
 		var opere = new List<Opera>()
 		{
@@ -256,8 +259,7 @@ public class DbPopulatorManager
 		foreach (var opera in opere)
 			await db.Post("opere", opera);
 	}
-
-	public async Task populateMostre()
+	public async Task PopulateMostre()
 	{
 		var mostre = new List<Mostra>()
 		{

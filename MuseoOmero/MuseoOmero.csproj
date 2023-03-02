@@ -93,6 +93,8 @@
 		<None Remove="Resources\Images\univpm_logo_white.png" />
 		<None Remove="Resources\Images\wave.svg" />
 		<None Remove="Resources\Images\wave2.svg" />
+		<None Remove="Resources\Raw\FrasiItaliane.txt" />
+		<None Remove="Resources\Raw\NomiItaliani.txt" />
 	</ItemGroup>
 
 	<ItemGroup>

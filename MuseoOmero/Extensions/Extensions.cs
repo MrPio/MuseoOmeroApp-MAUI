@@ -45,3 +45,11 @@ public static class ArrayExtensions
 		return Array.IndexOf(array, value);
 	}
 }
+
+public static class DateTimeExtension
+{
+	public static bool IsBetween(this DateTime datetime, DateTime start, DateTime end)
+	{
+		return datetime<end && datetime>start;
+	}
+}

@@ -1,11 +1,16 @@
+using System.Security.AccessControl;
+
 namespace MuseoOmero.ViewWin;
 
 public partial class BiglietteriaViewWin : ContentPage
 {
 	BiglietteriaViewModelWin _viewModel;
-	public BiglietteriaViewWin(BiglietteriaViewModelWin viewModel)
+	private ShellViewModelWin _shellViewModelWin;
+
+	public BiglietteriaViewWin(BiglietteriaViewModelWin viewModel, ShellViewModelWin shellViewModelWin)
 	{
 		_viewModel = viewModel;
+		_shellViewModelWin = shellViewModelWin;
 		BindingContext = _viewModel;
 		InitializeComponent();
 	}
@@ -14,6 +19,7 @@ public partial class BiglietteriaViewWin : ContentPage
 	{
 		base.OnAppearing();
 		_viewModel.Initialize();
+		_viewModel.CardViewTransitionCallback = CardViewTransition;
 	}
 
 	private void HighlightView_Pressed(object sender, EventArgs e)
@@ -59,10 +65,11 @@ public partial class BiglietteriaViewWin : ContentPage
 		}
 	}
 
-	private void BigliettoElement_Clicked(object sender, EventArgs e)
+	private async void BigliettoElement_Clicked(object sender, EventArgs e)
 	{
 		var b = ((Button)sender).Parent.Parent.BindingContext as Biglietto;
 		_viewModel.SelectedBiglietto = b;
+		_viewModel.VendiBigliettoOn = false;
 		CardViewTransition(true);
 	}
 
@@ -70,5 +77,37 @@ public partial class BiglietteriaViewWin : ContentPage
 	{
 		_viewModel.BigliettiSortAcending = true;
 		_viewModel.OrdinaBiglietti();
+	}
+
+	private async void AggiungiBiglietto_Clicked(object sender, EventArgs e)
+	{
+		if (this.AnimationIsRunning("translation"))
+			return;
+
+		// Chiedo chi è il compratore
+		var values = new List<string>();
+		_viewModel.HomeViewModelWin.Utenti.ForEach(u => values.Add($"{u.Nome} {u.Cognome}"));
+		var nomeCognome = await DisplayActionSheet("Seleziona Utente", null,null, values.OrderBy(s => s).ToArray());
+		if (string.IsNullOrEmpty(nomeCognome))
+			return;
+		VendiBigliettoTitolo.Text = $"Acquisto biglietto per: {nomeCognome}";
+		var nome = nomeCognome.Split(' ')[0];
+		var cognome = nomeCognome.Split(' ')[1];
+		_viewModel.BuyerUid = _viewModel.HomeViewModelWin.Utenti.Find(u => u.Nome == nome && u.Cognome == cognome).Uid;
+
+		// Inizializzo il nuovo biglietto
+		_viewModel.NuovoBiglietto = new Biglietto(
+						dataAcquisto: DateTime.Now,
+						dataValidita: DateTime.Today,
+						tipologia: TipoBiglietto.MuseoAperto,
+						dataGuida: TimeSpan.FromHours(12)
+					);
+
+		//Forzo l'aggiornamento per Picker e TimePicker bugs
+		_shellViewModelWin.SelectedRoute = "blank";
+		_shellViewModelWin.SelectedRoute = "biglietteria";
+
+		_viewModel.VendiBigliettoOn = true;
+		CardViewTransition(true);
 	}
 }

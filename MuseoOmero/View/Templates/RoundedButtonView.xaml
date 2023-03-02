@@ -5,19 +5,16 @@
 			 x:Class="MuseoOmero.View.Templates.RoundedButtonView"
 			 x:DataType="templates:RoundedButtonView">
 
-	<!--Margin="0,40,0,12"-->
-	<ContentView.Content>
-		<Button x:Name="Button"
-				Text="{Binding Source={RelativeSource AncestorType={x:Type templates:RoundedButtonView}}, Path= Text}"
-				HeightRequest="{Binding Source={RelativeSource AncestorType={x:Type templates:RoundedButtonView}}, Path=  NewHeight}"
-				FontSize="{Binding Source={RelativeSource AncestorType={x:Type templates:RoundedButtonView}}, Path=  NewFontSize}"
-				BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type templates:RoundedButtonView}}, Path=  Color}"
-				BorderColor="{Binding Source={RelativeSource AncestorType={x:Type templates:RoundedButtonView}}, Path=  Color}"
-				BorderWidth="0"
-				CornerRadius="25"
-				Clicked="RoundedButton_Clicked"
-				Pressed="RoundedButton_Pressed"
-				Released="RoundedButton_Released">
-		</Button>
-	</ContentView.Content>
+	<Button x:Name="Button"
+			Text="{Binding Source={RelativeSource AncestorType={x:Type templates:RoundedButtonView}}, Path= Text}"
+			HeightRequest="{Binding Source={RelativeSource AncestorType={x:Type templates:RoundedButtonView}}, Path=  NewHeight}"
+			FontSize="{Binding Source={RelativeSource AncestorType={x:Type templates:RoundedButtonView}}, Path=  NewFontSize}"
+			BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type templates:RoundedButtonView}}, Path=  Color}"
+			BorderColor="{Binding Source={RelativeSource AncestorType={x:Type templates:RoundedButtonView}}, Path=  Color}"
+			BorderWidth="0"
+			CornerRadius="25"
+			Clicked="RoundedButton_Clicked"
+			Pressed="RoundedButton_Pressed"
+			Released="RoundedButton_Released">
+	</Button>
 </ContentView>
