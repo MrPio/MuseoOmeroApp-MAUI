@@ -1,7 +1,4 @@
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.PlatformConfiguration;
-using MuseoOmero.Resources.Material;
-using System.Runtime.ExceptionServices;
+using MuseoOmero.Managers;
 
 namespace MuseoOmero.ViewWin
 {
@@ -13,7 +10,6 @@ namespace MuseoOmero.ViewWin
 			_viewModel = viewModel;
 			BindingContext = _viewModel;
 			InitializeComponent();
-
 		}
 
 		protected override void OnAppearing()
@@ -74,10 +70,13 @@ namespace MuseoOmero.ViewWin
 
 		private void CardViewClose_Clicked(object sender, EventArgs e)
 		{
-			if (sender == ExitButton)
-				CardViewTransition(false, CardView);
-			else
-				CardViewTransition(false, CardViewAggiungi);
+			CardViewTransition(false, CardView);
+
+		}
+		private void CardViewAggiungiClose_Clicked(object sender, EventArgs e)
+		{
+			CardViewTransition(false, CardViewAggiungi);
+
 		}
 		public async void CardViewTransition(bool show, Grid cardView)
 		{
@@ -128,9 +127,118 @@ namespace MuseoOmero.ViewWin
 				foto: ImagesOnline.NoImage,
 				descrizione: "",
 				visualizzazioni: 0
-				);
+			);
+
+			//RESET dei componenti
+			MaterialiCollectionView.UpdateSelectedItems(new List<object>());
+			TecnicheCollectionView.UpdateSelectedItems(new List<object>());
+			PhotoImage.Source = ImagesOnline.NoImage;
+			NuovaOperaLarghezza.Text = string.Empty;
+			NuovaOperaAltezza.Text = string.Empty;
+			NuovaOperaProfondita.Text = string.Empty;
+
 			CardViewTransition(true, CardViewAggiungi);
 
+		}
+
+		private void MaterialiCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var current = e.CurrentSelection;
+			_viewModel.NuovaOpera.Materiali = current.Cast<string>().ToList();
+		}
+		private void TecnicheCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var current = e.CurrentSelection;
+			_viewModel.NuovaOpera.Tecnica = current.Cast<string>().ToList();
+		}
+
+		private void NuovaOperaPhoto_Pressed(object sender, EventArgs e)
+		{
+			PhotoFrame.ColorTo(DeviceManager.Instance.Colors[3], DeviceManager.Instance.Colors[0], c => PhotoFrame.BackgroundColor = c, 350, Easing.CubicOut);
+			PhotoIcon.ColorTo(DeviceManager.Instance.Colors[0], DeviceManager.Instance.Colors[3], c => PhotoIcon.TextColor = c, 350, Easing.CubicOut);
+			PhotoIcon.FadeTo(1, 350, Easing.CubicOut);
+			PhotoImage.FadeTo(0, 350, Easing.CubicOut);
+		}
+		private void NuovaOperaPhoto_Released(object sender, EventArgs e)
+		{
+			PhotoFrame.CancelAnimation();
+			PhotoIcon.CancelAnimation();
+			PhotoFrame.ColorTo(DeviceManager.Instance.Colors[0], DeviceManager.Instance.Colors[3], c => PhotoFrame.BackgroundColor = c, 350, Easing.CubicOut);
+			PhotoIcon.ColorTo(DeviceManager.Instance.Colors[3], DeviceManager.Instance.Colors[0], c => PhotoIcon.TextColor = c, 350, Easing.CubicOut);
+			PhotoIcon.FadeTo(0, 350, Easing.CubicOut);
+			PhotoImage.FadeTo(1, 350, Easing.CubicOut);
+		}
+		private async void NuovaOperaPhoto_Clicked(object sender, EventArgs e)
+		{
+			_viewModel.IsBusy = true;
+			var fileResult = await MediaPicker.PickPhotoAsync(new MediaPickerOptions { Title = "Scegli una nuova foto di profilo" });
+			if (fileResult is { })
+			{
+				var sm = StorageManager.Instance;
+				var um = UtiliesManager.Instance;
+				var randUid = um.RandomString(18);
+				var res = $"opereImages/{randUid}/foto/";
+				var stream = um.ImageToStream(fileResult.FullPath, false);
+
+				await sm.Upload(res, stream);
+				var url = await sm.GetLink(res);
+				_viewModel.NuovaOpera.Foto = url;
+				PhotoImage.Source = url;
+			}
+			_viewModel.IsBusy = false;
+		}
+
+		private async void SalvaNuovaOpera_Clicked(object sender, EventArgs e)
+		{
+			_viewModel.IsBusy = true;
+			var opera = _viewModel.NuovaOpera;
+
+			try
+			{
+				opera.Dimensioni[0] = float.Parse(NuovaOperaLarghezza.Text);
+				opera.Dimensioni[1] = float.Parse(NuovaOperaAltezza.Text);
+				opera.Dimensioni[2] = float.Parse(NuovaOperaProfondita.Text);
+			}
+			catch (Exception ex)
+			{
+				DisplayAlert("Dimensioni errate", "Per favore, inserisci dei valori validi per le 3 dimensioni dell'opera.", "Ok");
+				_viewModel.IsBusy = false;
+				return;
+			}
+			if (opera.Nome.Length < 1)
+			{
+				DisplayAlert("Titolo necessario", "Per favore, inserisci un titolo per poter salvare la nuova opera.", "Ok");
+			}
+			else
+			{
+				if (_viewModel.OpereOrdinate.Where(o => o.Nome.ToLower().Trim() == opera.Nome.ToLower().Trim()).Any())
+				{
+					DisplayAlert("Titolo già in uso", "Per favore, un titolo diverso.", "Ok");
+					_viewModel.IsBusy = false;
+					return;
+				}
+				await DatabaseManager.Instance.Post("opere", opera);
+				await _viewModel.HomeViewModel.Initialize();
+				_viewModel.OrdinaOpere();
+				DisplayAlert("Successo", "Opera memorizzata con successo!", "Ok");
+				CardViewTransition(false, CardViewAggiungi);
+			}
+			_viewModel.IsBusy = false;
+		}
+		private async void EliminaOpera_Clicked(object sender, EventArgs e)
+		{
+			var opera = _viewModel.SelectedOpera;
+			var answer = await DisplayAlert("Eliminazione definitiva", $"Attenzione, stai per eliminare definitivamente l'opera [{opera.Nome}]. Sei sicuro di voler procedere?", "Si", "Annulla");
+			if (answer)
+			{
+				_viewModel.IsBusy = true;
+				await DatabaseManager.Instance.Delete($"opere/{opera.Id}");
+				await _viewModel.HomeViewModel.Initialize();
+				_viewModel.OrdinaOpere();
+				DisplayAlert("Successo", "Opera eliminata con successo!", "Ok");
+				CardViewTransition(false, CardView);
+				_viewModel.IsBusy = false;
+			}
 		}
 	}
 }

@@ -42,6 +42,10 @@ public class DatabaseManager
 	{
 		await GetChild(resource).PostAsync(obj);
 	}
+	public async Task Delete(string resource)
+	{
+		await GetChild(resource).DeleteAsync();
+	}
 	public async Task<List<T>> LoadJsonArray<T>(string resource)
 	{
 		var collection = await GetChild(resource).OnceAsJsonAsync();

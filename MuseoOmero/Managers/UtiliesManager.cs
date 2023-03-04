@@ -15,18 +15,25 @@ public class UtiliesManager
 		}
 	}
 	private FileStream _stream;
-	public FileStream CropImageToSquare(string path)
+	public FileStream ImageToStream(string path, bool crop)
 	{
 		System.Drawing.Bitmap bmpImage = new(System.Drawing.Image.FromFile(path));
-		var width = bmpImage.Width;
 		System.Drawing.Bitmap bmpCropped;
-		var height = bmpImage.Height;
-		if (width > height)
-			bmpCropped = bmpImage.Clone(new((width - height) / 2, 0, height, height), bmpImage.PixelFormat);
-		else if (height > width)
-			bmpCropped = bmpImage.Clone(new(0, (height - width) / 2, width, width), bmpImage.PixelFormat);
+		if (crop)
+		{
+			var width = bmpImage.Width;
+			var height = bmpImage.Height;
+			if (width > height)
+				bmpCropped = bmpImage.Clone(new((width - height) / 2, 0, height, height), bmpImage.PixelFormat);
+			else if (height > width)
+				bmpCropped = bmpImage.Clone(new(0, (height - width) / 2, width, width), bmpImage.PixelFormat);
+			else
+				bmpCropped = bmpImage;
+		}
 		else
+		{
 			bmpCropped = bmpImage;
+		}
 
 		MemoryStream memoryStream = new();
 		var newPath = Path.Combine(FileSystem.AppDataDirectory, $"avatarCropped_{new Random().Next(999999)}.png");
@@ -55,7 +62,7 @@ public class UtiliesManager
 
 	public DateTime RandomDate(int dayBack, int dayForward = 0)
 	{
-		dayBack=Math.Abs(dayBack);
+		dayBack = Math.Abs(dayBack);
 		dayBack -= 1;
 		int daysShift = Random.Next(dayBack + dayForward) - dayBack;
 		int secondsShift = Random.Next(3600 * 24);

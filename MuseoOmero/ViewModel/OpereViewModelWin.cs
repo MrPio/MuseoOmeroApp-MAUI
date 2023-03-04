@@ -2,7 +2,7 @@
 
 public partial class OpereViewModelWin : ObservableObject
 {
-	private HomeViewModelWin _homeViewModel;
+	public HomeViewModelWin HomeViewModel;
 	public bool ShowOpera = false;
 	[ObservableProperty]
 	string filtroOpere = "Titolo", filtroMostre = "Titolo";
@@ -14,7 +14,7 @@ public partial class OpereViewModelWin : ObservableObject
 	ObservableCollection<Mostra> mostreOrdinate = new();
 
 	[ObservableProperty]
-	bool opereSortAcending = true, mostreSortAcending = true;
+	bool opereSortAcending = true, mostreSortAcending = true, isBusy;
 
 	[ObservableProperty]
 	bool opereOn = true, mostreOn, aggiungiMostreOn;
@@ -69,7 +69,7 @@ public partial class OpereViewModelWin : ObservableObject
 			"Visuals" => o => o.Visualizzazioni,
 			_ => o => o.Nome
 		};
-		var opereOrdinate = _homeViewModel.Opere.OrderBy(opereFunc).ToList();
+		var opereOrdinate = HomeViewModel.Opere.OrderBy(opereFunc).ToList();
 		if (!OpereSortAcending)
 			opereOrdinate.Reverse();
 		OpereOrdinate = new ObservableCollection<Opera>(opereOrdinate.ToList());
@@ -83,13 +83,13 @@ public partial class OpereViewModelWin : ObservableObject
 			"Autore" => m => m.DataFine,
 			_ => m => m.Titolo
 		};
-		var mostreOrdinate = _homeViewModel.Mostre.OrderBy(mostreFunc).ToList();
+		var mostreOrdinate = HomeViewModel.Mostre.OrderBy(mostreFunc).ToList();
 		if (!MostreSortAcending)
 			mostreOrdinate.Reverse();
 		MostreOrdinate = new ObservableCollection<Mostra>(mostreOrdinate.ToList());
 	}
 	public OpereViewModelWin(HomeViewModelWin homeViewModelWin)
 	{
-		_homeViewModel = homeViewModelWin;
+		HomeViewModel = homeViewModelWin;
 	}
 }

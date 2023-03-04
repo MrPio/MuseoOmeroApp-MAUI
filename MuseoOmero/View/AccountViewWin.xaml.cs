@@ -41,7 +41,7 @@ public partial class AccountViewWin : ContentPage
 		var fileResult = await MediaPicker.PickPhotoAsync(new MediaPickerOptions { Title = "Scegli una nuova foto di profilo" });
 		if (fileResult is { })
 		{
-			var stream = UtiliesManager.Instance.CropImageToSquare(fileResult.FullPath);
+			var stream = UtiliesManager.Instance.ImageToStream(fileResult.FullPath,true);
 			await StorageManager.Instance.Upload(
 				resource: $"{AccountManager.Instance.Uid}/foto_profilo/",
 				stream: stream
@@ -65,10 +65,5 @@ public partial class AccountViewWin : ContentPage
 		await DatabaseManager.Instance.Put(
 			resource: $"dipendenti/{AccountManager.Instance.Uid}", _viewModel.Dipendente);
 		_viewModel.IsBusy = false;
-	}
-
-	private void PointerGestureRecognizer_PointerEntered(object sender, PointerEventArgs e)
-	{
-
 	}
 }

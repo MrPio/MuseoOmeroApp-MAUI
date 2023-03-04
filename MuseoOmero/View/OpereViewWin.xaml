@@ -449,28 +449,25 @@
 						<ScrollView x:Name="CardViewScroll"
 									IsVisible="{Binding MostreOn, Converter={converters:BoolNagationConverter}}">
 							<VerticalStackLayout>
-
-								<VerticalStackLayout Padding="36"
-													 BackgroundColor="{StaticResource Color5}"
-													 Spacing="8"
-													 Margin="1,0,1,0">
-
-									<!--Titolo-->
-									<Label Style="{StaticResource LabelBold}"
-										   FontSize="30"
-										   Text="{Binding SelectedOpera.Nome,StringFormat='{}Opera: {0}'}"
-										   HorizontalOptions="Center" />
-									<Label Style="{StaticResource LabelThin}"
-										   Text="{Binding SelectedOpera.Visualizzazioni,StringFormat='{}Visualizzazioni: {0}'}"
-										   HorizontalOptions="Center"
-										   FontSize="16" />
-								</VerticalStackLayout>
-
 								<VerticalStackLayout Margin="1,0,1,0"
 													 Spacing="2">
+									<VerticalStackLayout Padding="36"
+														 BackgroundColor="{StaticResource Color5}"
+														 Spacing="8"
+														 Margin="1,0,1,0">
+
+										<!--Titolo-->
+										<Label Style="{StaticResource LabelBold}"
+											   FontSize="30"
+											   Text="{Binding SelectedOpera.Nome,StringFormat='{}Opera: {0}'}"
+											   HorizontalOptions="Center" />
+										<Label Style="{StaticResource LabelThin}"
+											   Text="{Binding SelectedOpera.Visualizzazioni,StringFormat='{}Visualizzazioni: {0}'}"
+											   HorizontalOptions="Center"
+											   FontSize="16" />
+									</VerticalStackLayout>
 
 									<!--Immagine e Caratteristiche-->
-
 									<BoxView HeightRequest="30" />
 									<Grid ColumnDefinitions="1.35*,0.75*,*"
 										  Margin="30,0,20,0">
@@ -550,12 +547,11 @@
 										</VerticalStackLayout>
 									</Frame>
 
-									<!--<BoxView HeightRequest="10" />-->
-									<!--Chiudi Button-->
-									<!--<template:RoundedButtonView Text="Chiudi"
-																WidthRequest="160"
-																Color="{StaticResource Color7}"
-																Clicked="CardViewClose_Clicked" />-->
+									<BoxView HeightRequest="20" />
+									<template:RoundedButtonView Text="Elimina opera"
+																Color="OrangeRed"
+																WidthRequest="200"
+																Clicked="EliminaOpera_Clicked" />
 									<BoxView HeightRequest="30" />
 								</VerticalStackLayout>
 							</VerticalStackLayout>
@@ -691,109 +687,213 @@
 						<ScrollView x:Name="CardViewAggiungiScroll"
 									IsVisible="{Binding AggiungiMostreOn, Converter={converters:BoolNagationConverter}}">
 							<VerticalStackLayout BindingContext="{Binding NuovaOpera}">
-
-								<VerticalStackLayout Padding="36"
-													 BackgroundColor="{StaticResource Color5}"
-													 Spacing="8"
-													 Margin="1,0,1,0">
-
-									<!--Titolo-->
-									<Label Style="{StaticResource LabelBold}"
-										   FontSize="30"
-										   Text="Aggiungi una nuova opera"
-										   HorizontalOptions="Center" />
-									<Label Style="{StaticResource LabelThin}"
-										   Text="Per favore, compila i seguenti campi."
-										   HorizontalOptions="Center"
-										   FontSize="16" />
-								</VerticalStackLayout>
-
 								<VerticalStackLayout Margin="1,0,1,0"
 													 Spacing="2"
 													 x:DataType="model:Opera">
+									<VerticalStackLayout Padding="36"
+														 BackgroundColor="{StaticResource Color5}"
+														 Spacing="8"
+														 Margin="1,0,1,0">
+
+										<!--Titolo-->
+										<Label Style="{StaticResource LabelBold}"
+											   FontSize="30"
+											   Text="Aggiungi una nuova opera"
+											   HorizontalOptions="Center" />
+										<Label Style="{StaticResource LabelThin}"
+											   Text="Per favore, compila i seguenti campi."
+											   HorizontalOptions="Center"
+											   FontSize="16" />
+									</VerticalStackLayout>
 
 									<!--Immagine e Caratteristiche-->
 									<BoxView HeightRequest="30" />
-									<Grid ColumnDefinitions="1.35*,0.75*,*"
+									<Frame x:Name="PhotoFrame"
+										   Style="{StaticResource FrameRoundedWin}"
+										   HeightRequest="300"
+										   WidthRequest="400"
+										   Padding="0"
+										   BackgroundColor="{StaticResource Color4}">
+										<Grid>
+											<!--Foto-->
+											<Image x:Name="PhotoImage"
+												   Aspect="AspectFit"/>
+
+											<!--Overlay-->
+											<Label x:Name="PhotoIcon"
+												   Opacity="0"
+												   Style="{StaticResource FontIconLabel}"
+												   Text="{Static material:IconFont.Upload}"
+												   HorizontalOptions="Center"
+												   VerticalOptions="Center"
+												   TextColor="{StaticResource Color1}"
+												   FontSize="134" />
+											<templateWin:HighlightView Clicked="NuovaOperaPhoto_Clicked"
+																	   Alpha="0">
+												<templateWin:HighlightView.GestureRecognizers>
+													<PointerGestureRecognizer PointerEntered="NuovaOperaPhoto_Pressed"
+																			  PointerExited="NuovaOperaPhoto_Released" />
+												</templateWin:HighlightView.GestureRecognizers>
+											</templateWin:HighlightView>
+										</Grid>
+									</Frame>
+
+									<BoxView HeightRequest="30" />
+									<Grid ColumnDefinitions="0.7*,1*"
+										  RowSpacing="12"
+										  ColumnSpacing="16"
+										  RowDefinitions="40,40,40,240,40,240"
 										  Margin="30,0,20,0">
-										<Image Aspect="AspectFit"
-											   Source="{Binding Foto}"
-											   HeightRequest="380" />
+										<Grid.Resources>
+											<Style TargetType="Label"
+												   BasedOn="{StaticResource LabelNormal}">
+												<Setter Property="FontSize"
+														Value="20" />
+												<Setter Property="VerticalOptions"
+														Value="Center" />
+												<Setter Property="HorizontalTextAlignment"
+														Value="End" />
+											</Style>
+											<Style TargetType="template:RoundedEntryView">
+												<Setter Property="Color"
+														Value="{StaticResource Color1}" />
+												<Setter Property="WidthRequest"
+														Value="230" />
+												<Setter Property="HorizontalOptions"
+														Value="Start" />
+											</Style>
+										</Grid.Resources>
 
-										<VerticalStackLayout Grid.Column="1"
-															 HorizontalOptions="End"
-															 VerticalOptions="Center"
-															 Spacing="20"
-															 Margin="20,0,16,0">
-											<VerticalStackLayout.Resources>
-												<Style TargetType="Label"
-													   BasedOn="{StaticResource LabelNormal}">
-													<Setter Property="FontSize"
-															Value="20" />
-													<Setter Property="HorizontalTextAlignment"
-															Value="End" />
-												</Style>
-											</VerticalStackLayout.Resources>
-											<Label Text="Titolo:" />
-											<Label Text="Autore:" />
-											<Label Text="Sala:" />
-											<Label Text="Tecnica:" />
-											<Label Text="Materiale:" />
-											<Label Text="Dimensioni:" />
-										</VerticalStackLayout>
+										<Label Text="Titolo:" />
+										<Label Grid.Row="1"
+											   Text="Autore:" />
+										<Label Grid.Row="2"
+											   Text="Sala:" />
+										<Label Grid.Row="3"
+											   Text="Materiale:" />
+										<Label Grid.Row="4"
+											   Text="Dimensioni:" />
+										<Label Grid.Row="5"
+											   Text="Tecnica:" />
 
-										<VerticalStackLayout Grid.Column="2"
-															 VerticalOptions="Center"
-															 Spacing="10"
-															 HorizontalOptions="Start">
-											<VerticalStackLayout.Resources>
-												<Style TargetType="template:RoundedEntryView">
-													<Setter Property="Color"
-															Value="{StaticResource Color1}" />
-													<Setter Property="WidthRequest"
-															Value="230" />
-												</Style>
-											</VerticalStackLayout.Resources>
-
-											<template:RoundedEntryView Text="{Binding Nome,Mode=TwoWay}"
-																	   Placeholder="Gioconda" />
-											<template:RoundedEntryView Text="{Binding Autore,Mode=TwoWay}"
-																	   Placeholder="Leonardo DaVinci" />
-											<Picker ItemsSource="{Static enums:Sala.Values}"
-													SelectedItem="{Binding Sala,Mode=TwoWay}" />
-											<CollectionView ItemsLayout="HorizontalList"
-															ItemsSource="{Static enums:Materiale.Values}"
-															SelectionMode="Multiple"
-															>
-												<CollectionView.ItemTemplate>
-													<DataTemplate>
-														<!--TODO DATA TEMPLATE SELECTOR, FAR FUNZIONARE IL BINDING DELLA COLLVIEW-->
-														<!--TODO LEGGI L'ULTIMA PAGINA APERA SU FIREFOX-->d
-														<Label Style="{StaticResource LabelNormal}"
-															   Text="{Binding .}"
-															   FontSize="16"
-															   HorizontalOptions="End"
-															   Margin="10,20,20,20" />
-													</DataTemplate>
-												</CollectionView.ItemTemplate>
-											</CollectionView>
-										</VerticalStackLayout>
+										<template:RoundedEntryView Grid.Column="1"
+																   Text="{Binding Nome,Mode=TwoWay}"
+																   Placeholder="Gioconda" />
+										<template:RoundedEntryView Grid.Column="1"
+																   Grid.Row="1"
+																   Text="{Binding Autore,Mode=TwoWay}"
+																   Placeholder="Leonardo DaVinci" />
+										<Picker Grid.Column="1"
+												Grid.Row="2"
+												VerticalOptions="Center"
+												ItemsSource="{Static enums:Sala.Values}"
+												SelectedItem="{Binding Sala,Mode=TwoWay}" />
+										<CollectionView x:Name="MaterialiCollectionView" Grid.Column="1"
+														Grid.Row="3"
+														WidthRequest="240"
+														HorizontalOptions="Start"
+														ItemsSource="{Static enums:Materiale.Values}"
+														SelectionMode="Multiple"
+														SelectionChanged="MaterialiCollectionView_SelectionChanged">
+											<CollectionView.ItemTemplate>
+												<DataTemplate>
+													<Label Style="{StaticResource LabelNormal}"
+														   Text="{Binding .}"
+														   FontSize="16"
+														   Margin="10,20,20,20"
+														   HorizontalOptions="End">
+														<VisualStateManager.VisualStateGroups>
+															<VisualStateGroupList>
+																<VisualStateGroup>
+																	<VisualState x:Name="Normal">
+																		<VisualState.Setters>
+																			<Setter Property="TextColor"
+																					Value="{StaticResource Color6}" />
+																		</VisualState.Setters>
+																	</VisualState>
+																	<VisualState x:Name="Selected">
+																		<VisualState.Setters>
+																			<Setter Property="TextColor"
+																					Value="{StaticResource Color1}" />
+																		</VisualState.Setters>
+																	</VisualState>
+																</VisualStateGroup>
+															</VisualStateGroupList>
+														</VisualStateManager.VisualStateGroups>
+													</Label>
+												</DataTemplate>
+											</CollectionView.ItemTemplate>
+										</CollectionView>
+										<HorizontalStackLayout Grid.Column="1"
+															   Grid.Row="4"
+															   Spacing="6">
+											<template:RoundedEntryView x:Name="NuovaOperaLarghezza"
+																	   Placeholder="00.0"
+																	   WidthRequest="80" />
+											<Label Text="cm" />
+											<template:RoundedEntryView x:Name="NuovaOperaAltezza"
+																	   Placeholder="00.0"
+																	   WidthRequest="80" />
+											<Label Text="cm" />
+											<template:RoundedEntryView x:Name="NuovaOperaProfondita"
+																	   Placeholder="00.0"
+																	   WidthRequest="80" />
+											<Label Text="cm" />
+										</HorizontalStackLayout>
+										<CollectionView x:Name="TecnicheCollectionView" Grid.Column="1"
+														Grid.Row="5"
+														WidthRequest="240"
+														HorizontalOptions="Start"
+														ItemsSource="{Static enums:Tecnica.Values}"
+														SelectionMode="Multiple"
+														SelectionChanged="TecnicheCollectionView_SelectionChanged">
+											<CollectionView.ItemTemplate>
+												<DataTemplate>
+													<Label Style="{StaticResource LabelNormal}"
+														   Text="{Binding .}"
+														   FontSize="16"
+														   Margin="10,20,20,20"
+														   HorizontalOptions="End">
+														<VisualStateManager.VisualStateGroups>
+															<VisualStateGroupList>
+																<VisualStateGroup>
+																	<VisualState x:Name="Normal">
+																		<VisualState.Setters>
+																			<Setter Property="TextColor"
+																					Value="{StaticResource Color6}" />
+																		</VisualState.Setters>
+																	</VisualState>
+																	<VisualState x:Name="Selected">
+																		<VisualState.Setters>
+																			<Setter Property="TextColor"
+																					Value="{StaticResource Color1}" />
+																		</VisualState.Setters>
+																	</VisualState>
+																</VisualStateGroup>
+															</VisualStateGroupList>
+														</VisualStateManager.VisualStateGroups>
+													</Label>
+												</DataTemplate>
+											</CollectionView.ItemTemplate>
+										</CollectionView>
 									</Grid>
 
 									<!--Descrizione-->
-
 									<Frame Style="{StaticResource FrameRoundedWin}"
 										   BackgroundColor="{StaticResource Color5}"
+										   HeightRequest="460"
 										   Margin="60,40,60,30">
-										<VerticalStackLayout Spacing="30"
-															 Padding="20,10,20,20">
-											<Label Style="{StaticResource LabelNormal}"
-												   FontSize="20"
-												   HorizontalOptions="Center"
-												   Text="Descrizione" />
-
-										</VerticalStackLayout>
+										<Editor Placeholder="Descrizione"
+												Text="{Binding Descrizione, Mode=TwoWay}"
+												FontFamily="LatoLight"
+												FontSize="18" />
 									</Frame>
+
+									<BoxView HeightRequest="20" />
+									<template:RoundedButtonView Text="Salva opera"
+																Color="{StaticResource Color1}"
+																WidthRequest="180"
+																Clicked="SalvaNuovaOpera_Clicked" />
 									<BoxView HeightRequest="30" />
 								</VerticalStackLayout>
 							</VerticalStackLayout>
@@ -899,12 +999,16 @@
 								   TextColor="{StaticResource Color1}"
 								   Text="{Static material:IconFont.Close}" />
 							<templateWin:HighlightView x:Name="ExitButtonAggiungi"
-													   Clicked="CardViewClose_Clicked"
+													   Clicked="CardViewAggiungiClose_Clicked"
 													   CornerRadius="14" />
 						</Grid>
 					</Grid>
 				</Frame>
 			</Grid>
+
+			<!-- Loading screen -->
+			<templateWin:LoadingView x:Name="Loading"
+									 IsVisible="{Binding IsBusy}" />
 		</Grid>
 	</Grid>
 </ContentPage>

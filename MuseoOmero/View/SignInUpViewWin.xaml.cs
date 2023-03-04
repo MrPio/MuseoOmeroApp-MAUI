@@ -20,7 +20,7 @@ public partial class SignInUpViewWin : ContentPage
 
 	private async void CheckCached()
 	{
-		await Task.Delay(2000);
+		//await Task.Delay(2000);
 
 		//await DbPopulatorManager.Instance.PopulateUtentiBigliettiQuestionariChats();
 		//await DbPopulatorManager.Instance.populateChats();
