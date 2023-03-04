@@ -2,10 +2,13 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:view="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 xmlns:extensions="clr-namespace:MuseoOmero.Extensions"
 			 x:Class="MuseoOmero.View.TemplatesWin.HighlightView"
-			 x:DataType="view:HighlightView">
+			 x:DataType="view:HighlightView"
+			 extensions:Metadata.Tag="{Binding Source={RelativeSource Mode=Self},Path=Tag}">
 
 	<Button x:Name="Button"
+			extensions:Metadata.Tag="{Binding Source={RelativeSource AncestorType={x:Type view:HighlightView}},Path=Tag}"
 			BackgroundColor="Transparent"
 			BorderWidth="0"
 			Pressed="Button_Pressed"

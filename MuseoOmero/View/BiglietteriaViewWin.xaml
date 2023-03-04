@@ -19,7 +19,7 @@
 										  TrueObject="{Static material:IconFont.SortDescending }"
 										  FalseObject="{Static material:IconFont.SortAscending }" />
 	</ContentPage.Resources>
-	<Grid RowDefinitions="120,*">
+	<Grid RowDefinitions="auto,*">
 
 		<!--TopMenu-->
 		<templateWin:TopMenu />

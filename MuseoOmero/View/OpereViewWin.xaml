@@ -8,6 +8,7 @@
 			 xmlns:template="clr-namespace:MuseoOmero.View.Templates"
 			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
 			 xmlns:enums="clr-namespace:MuseoOmero.Model.Enums"
+			 xmlns:extensions="clr-namespace:MuseoOmero.Extensions"
 			 x:Class="MuseoOmero.ViewWin.OpereViewWin"
 			 Title="OpereViewWin"
 			 x:DataType="viewmodels:OpereViewModelWin">
@@ -51,7 +52,7 @@
 							<template:RoundedButtonView Text=" +  Aggiungi Opera"
 														Color="{StaticResource Color1}"
 														NewFontSize="16"
-														Clicked="AggiungiOpera_Clicked" />
+														Clicked="AggiungiOperaMostra_Clicked" />
 
 							<!--Filtro-->
 							<Label Grid.Column="2"
@@ -223,7 +224,7 @@
 							<template:RoundedButtonView Text=" +  Allestisci Mostra"
 														Color="{StaticResource Color1}"
 														NewFontSize="16"
-														Clicked="AggiungiOpera_Clicked" />
+														Clicked="AggiungiOperaMostra_Clicked" />
 
 							<!--Filtro-->
 							<Label Grid.Column="2"
@@ -433,6 +434,73 @@
 				</BoxView.GestureRecognizers>
 			</BoxView>
 
+			<!--LeftRightArrows-->
+			<Grid x:Name="LeftRightArrows"
+				  TranslationX="9999"
+				  VerticalOptions="Center"
+				  ColumnDefinitions="120,*,120">
+				<Label x:Name="LeftArrow"
+					   extensions:Metadata.Tag="left"
+					   Style="{StaticResource FontIconLabel}"
+					   HorizontalOptions="Center"
+					   FontSize="44"
+					   TextColor="{StaticResource Color5}">
+					<VisualStateManager.VisualStateGroups>
+						<VisualStateGroupList>
+							<VisualStateGroup x:Name="CommonStates">
+								<VisualState x:Name="Normal">
+									<VisualState.Setters>
+										<Setter Property="Text"
+												Value="{Static material:IconFont.ChevronLeftCircleOutline}" />
+									</VisualState.Setters>
+								</VisualState>
+
+								<VisualState x:Name="PointerOver">
+									<VisualState.Setters>
+										<Setter Property="Text"
+												Value="{Static material:IconFont.ChevronLeftCircle}" />
+									</VisualState.Setters>
+								</VisualState>
+							</VisualStateGroup>
+						</VisualStateGroupList>
+					</VisualStateManager.VisualStateGroups>
+					<Label.GestureRecognizers>
+						<TapGestureRecognizer Tapped="LeftRightArrow_Tapped" />
+					</Label.GestureRecognizers>
+				</Label>
+
+				<Label x:Name="RightArrow"
+					   Grid.Column="2"
+					   extensions:Metadata.Tag="right"
+					   FontSize="44"
+					   HorizontalOptions="Center"
+					   Style="{StaticResource FontIconLabel}"
+					   TextColor="{StaticResource Color5}">
+					<VisualStateManager.VisualStateGroups>
+						<VisualStateGroupList>
+							<VisualStateGroup x:Name="CommonStates">
+								<VisualState x:Name="Normal">
+									<VisualState.Setters>
+										<Setter Property="Text"
+												Value="{Static material:IconFont.ChevronRightCircleOutline}" />
+									</VisualState.Setters>
+								</VisualState>
+
+								<VisualState x:Name="PointerOver">
+									<VisualState.Setters>
+										<Setter Property="Text"
+												Value="{Static material:IconFont.ChevronRightCircle}" />
+									</VisualState.Setters>
+								</VisualState>
+							</VisualStateGroup>
+						</VisualStateGroupList>
+					</VisualStateManager.VisualStateGroups>
+					<Label.GestureRecognizers>
+						<TapGestureRecognizer Tapped="LeftRightArrow_Tapped" />
+					</Label.GestureRecognizers>
+				</Label>
+			</Grid>
+
 			<!--CardView [OPERE/MOSTRE]-->
 			<Grid x:Name="CardView"
 				  RowSpacing="24"
@@ -551,7 +619,10 @@
 									<template:RoundedButtonView Text="Elimina opera"
 																Color="OrangeRed"
 																WidthRequest="200"
-																Clicked="EliminaOpera_Clicked" />
+																Clicked="EliminaOperaMostra_Clicked"
+																ColorAlpha="0"
+																BorderWidth="2"
+																StyleInvert="True" />
 									<BoxView HeightRequest="30" />
 								</VerticalStackLayout>
 							</VerticalStackLayout>
@@ -561,32 +632,57 @@
 						<ScrollView x:Name="MostreCardViewScroll"
 									IsVisible="{Binding MostreOn}">
 							<VerticalStackLayout>
-								<VerticalStackLayout Padding="36"
-													 BackgroundColor="{StaticResource Color5}"
-													 Spacing="8"
-													 Margin="1,0,1,0">
-
-									<!--Titolo-->
-									<Label Style="{StaticResource LabelBold}"
-										   FontSize="30"
-										   Text="{Binding SelectedMostra.Titolo,StringFormat='{}Mostra: {0}'}"
-										   HorizontalOptions="Center" />
-									<Label Style="{StaticResource LabelThin}"
-										   Text="{Binding SelectedMostra.Opere.Count,StringFormat='{}Numero opere: {0}'}"
-										   HorizontalOptions="Center"
-										   FontSize="16" />
-								</VerticalStackLayout>
-
 								<VerticalStackLayout Margin="1,0,1,0"
 													 Spacing="2">
+									<VerticalStackLayout Padding="36"
+														 BackgroundColor="{StaticResource Color5}"
+														 Spacing="8"
+														 Margin="1,0,1,0">
+
+										<!--Titolo-->
+										<Label Style="{StaticResource LabelBold}"
+											   FontSize="30"
+											   Text="{Binding SelectedMostra.Titolo,StringFormat='{}Mostra: {0}'}"
+											   HorizontalOptions="Center" />
+										<Label Style="{StaticResource LabelThin}"
+											   Text="{Binding SelectedMostra.Opere.Count,StringFormat='{}Numero opere: {0}'}"
+											   HorizontalOptions="Center"
+											   FontSize="16" />
+									</VerticalStackLayout>
 
 									<!--Immagine e Caratteristiche-->
 									<BoxView HeightRequest="30" />
-									<Image Aspect="AspectFit"
-										   Source="{Binding SelectedMostra.Foto}"
+									<Frame x:Name="MostraPhotoFrame2"
+										   Style="{StaticResource FrameRoundedWin}"
 										   HeightRequest="280"
-										   Margin="30,0,20,0" />
+										   WidthRequest="400"
+										   Padding="0"
+										   BackgroundColor="{StaticResource Color4}">
+										<Grid>
+											<!--Foto-->
+											<Image x:Name="MostraPhotoImage2"
+												   Source="{Binding SelectedMostra.Foto}"
+												   Aspect="AspectFit" />
 
+											<!--Overlay-->
+											<Label x:Name="MostraPhotoIcon2"
+												   Opacity="0"
+												   Style="{StaticResource FontIconLabel}"
+												   Text="{Static material:IconFont.Upload}"
+												   HorizontalOptions="Center"
+												   VerticalOptions="Center"
+												   TextColor="{StaticResource Color1}"
+												   FontSize="134" />
+											<templateWin:HighlightView Clicked="NuovaOperaMostraPhoto_Clicked"
+																	   Alpha="0"
+																	   Tag="MostraPhoto2">
+												<templateWin:HighlightView.GestureRecognizers>
+													<PointerGestureRecognizer PointerEntered="NuovaOperaMostraPhoto_PointerEntered"
+																			  PointerExited="NuovaOperaMostraPhoto_PointerExited" />
+												</templateWin:HighlightView.GestureRecognizers>
+											</templateWin:HighlightView>
+										</Grid>
+									</Frame>
 									<Grid ColumnDefinitions="*,*"
 										  Margin="0,30,0,0">
 
@@ -622,6 +718,38 @@
 										</VerticalStackLayout>
 									</Grid>
 
+									<CollectionView WidthRequest="600"
+													HorizontalOptions="Center"
+													ItemsSource="{Binding OpereInSelectedMostra}">
+										<CollectionView.ItemsLayout>
+											<GridItemsLayout Orientation="Vertical"
+															 Span="3"
+															 VerticalItemSpacing="10"
+															 HorizontalItemSpacing="6" />
+										</CollectionView.ItemsLayout>
+
+										<CollectionView.ItemTemplate>
+											<DataTemplate x:DataType="model:Opera">
+												<Grid>
+													<Image Source="{Binding Foto}"
+														   Aspect="AspectFit"
+														   HeightRequest="180">
+													</Image>
+													<templateWin:HighlightView CornerRadius="20"
+																			   Clicked="OperaInMostra_Clicked"/>
+												</Grid>
+											</DataTemplate>
+										</CollectionView.ItemTemplate>
+									</CollectionView>
+
+									<template:RoundedButtonView Text="Aggiungi opera"
+																Color="{StaticResource Color1}"
+																WidthRequest="200"
+																Clicked="AggiungiOperaAMostra_Clicked"
+																ColorAlpha="0"
+																BorderWidth="2"
+																StyleInvert="True" />
+
 									<!--Descrizione-->
 									<Frame Style="{StaticResource FrameRoundedWin}"
 										   BackgroundColor="{StaticResource Color5}"
@@ -640,12 +768,14 @@
 										</VerticalStackLayout>
 									</Frame>
 
-									<!--<BoxView HeightRequest="10" />-->
-									<!--Chiudi Button-->
-									<!--<template:RoundedButtonView Text="Chiudi"
-																WidthRequest="160"
-																Color="{StaticResource Color7}"
-																Clicked="CardViewClose_Clicked" />-->
+									<BoxView HeightRequest="20" />
+									<template:RoundedButtonView Text="Elimina mostra"
+																Color="OrangeRed"
+																WidthRequest="200"
+																Clicked="EliminaOperaMostra_Clicked"
+																ColorAlpha="0"
+																BorderWidth="2"
+																StyleInvert="True" />
 									<BoxView HeightRequest="30" />
 								</VerticalStackLayout>
 							</VerticalStackLayout>
@@ -679,7 +809,7 @@
 				  Padding="60,10,60,10">
 				<Frame Style="{StaticResource FrameRoundedWin}"
 					   BackgroundColor="{StaticResource Color4}"
-					   Margin="60,40,60,30"
+					   Margin="60,30,60,30"
 					   Padding="0">
 					<Grid RowDefinitions="*">
 
@@ -717,7 +847,7 @@
 										<Grid>
 											<!--Foto-->
 											<Image x:Name="PhotoImage"
-												   Aspect="AspectFit"/>
+												   Aspect="AspectFit" />
 
 											<!--Overlay-->
 											<Label x:Name="PhotoIcon"
@@ -728,11 +858,12 @@
 												   VerticalOptions="Center"
 												   TextColor="{StaticResource Color1}"
 												   FontSize="134" />
-											<templateWin:HighlightView Clicked="NuovaOperaPhoto_Clicked"
+											<templateWin:HighlightView Clicked="NuovaOperaMostraPhoto_Clicked"
+																	   Tag="Photo"
 																	   Alpha="0">
 												<templateWin:HighlightView.GestureRecognizers>
-													<PointerGestureRecognizer PointerEntered="NuovaOperaPhoto_Pressed"
-																			  PointerExited="NuovaOperaPhoto_Released" />
+													<PointerGestureRecognizer PointerEntered="NuovaOperaMostraPhoto_PointerEntered"
+																			  PointerExited="NuovaOperaMostraPhoto_PointerExited" />
 												</templateWin:HighlightView.GestureRecognizers>
 											</templateWin:HighlightView>
 										</Grid>
@@ -778,7 +909,7 @@
 
 										<template:RoundedEntryView Grid.Column="1"
 																   Text="{Binding Nome,Mode=TwoWay}"
-																   Placeholder="Gioconda" />
+																   Placeholder="Monnalisa" />
 										<template:RoundedEntryView Grid.Column="1"
 																   Grid.Row="1"
 																   Text="{Binding Autore,Mode=TwoWay}"
@@ -788,7 +919,8 @@
 												VerticalOptions="Center"
 												ItemsSource="{Static enums:Sala.Values}"
 												SelectedItem="{Binding Sala,Mode=TwoWay}" />
-										<CollectionView x:Name="MaterialiCollectionView" Grid.Column="1"
+										<CollectionView x:Name="MaterialiCollectionView"
+														Grid.Column="1"
 														Grid.Row="3"
 														WidthRequest="240"
 														HorizontalOptions="Start"
@@ -840,7 +972,8 @@
 																	   WidthRequest="80" />
 											<Label Text="cm" />
 										</HorizontalStackLayout>
-										<CollectionView x:Name="TecnicheCollectionView" Grid.Column="1"
+										<CollectionView x:Name="TecnicheCollectionView"
+														Grid.Column="1"
 														Grid.Row="5"
 														WidthRequest="240"
 														HorizontalOptions="Start"
@@ -893,7 +1026,7 @@
 									<template:RoundedButtonView Text="Salva opera"
 																Color="{StaticResource Color1}"
 																WidthRequest="180"
-																Clicked="SalvaNuovaOpera_Clicked" />
+																Clicked="SalvaNuovaOperaMostra_Clicked" />
 									<BoxView HeightRequest="30" />
 								</VerticalStackLayout>
 							</VerticalStackLayout>
@@ -902,85 +1035,163 @@
 						<!--CardView Content [AGGIUNGI MOSTRA]-->
 						<ScrollView x:Name="MostreCardViewAggiungiScroll"
 									IsVisible="{Binding AggiungiMostreOn}">
-							<VerticalStackLayout>
-								<VerticalStackLayout Padding="36"
-													 BackgroundColor="{StaticResource Color5}"
-													 Spacing="8"
-													 Margin="1,0,1,0">
-
-									<!--Titolo-->
-									<Label Style="{StaticResource LabelBold}"
-										   FontSize="30"
-										   Text="{Binding SelectedMostra.Titolo,StringFormat='{}Mostra: {0}'}"
-										   HorizontalOptions="Center" />
-									<Label Style="{StaticResource LabelThin}"
-										   Text="{Binding SelectedMostra.Opere.Count,StringFormat='{}Numero opere: {0}'}"
-										   HorizontalOptions="Center"
-										   FontSize="16" />
-								</VerticalStackLayout>
-
+							<VerticalStackLayout BindingContext="{Binding NuovaMostra}">
 								<VerticalStackLayout Margin="1,0,1,0"
-													 Spacing="2">
+													 Spacing="2"
+													 x:DataType="model:Mostra">
+									<VerticalStackLayout Padding="36"
+														 BackgroundColor="{StaticResource Color5}"
+														 Spacing="8"
+														 Margin="1,0,1,0">
+
+										<!--Titolo-->
+										<Label Style="{StaticResource LabelBold}"
+											   FontSize="30"
+											   Text="Registra una nuova mostra"
+											   HorizontalOptions="Center" />
+										<Label Style="{StaticResource LabelThin}"
+											   Text="Per favore, compila i seguenti campi."
+											   HorizontalOptions="Center"
+											   FontSize="16" />
+									</VerticalStackLayout>
 
 									<!--Immagine e Caratteristiche-->
 									<BoxView HeightRequest="30" />
-									<Image Aspect="AspectFit"
-										   Source="{Binding SelectedMostra.Foto}"
-										   HeightRequest="280"
-										   Margin="30,0,20,0" />
+									<Frame x:Name="MostraPhotoFrame"
+										   Style="{StaticResource FrameRoundedWin}"
+										   HeightRequest="300"
+										   WidthRequest="400"
+										   Padding="0"
+										   BackgroundColor="{StaticResource Color4}">
+										<Grid>
+											<!--Foto-->
+											<Image x:Name="MostraPhotoImage"
+												   Aspect="AspectFit" />
 
-									<Grid ColumnDefinitions="*,*"
-										  Margin="0,30,0,0">
+											<!--Overlay-->
+											<Label x:Name="MostraPhotoIcon"
+												   Opacity="0"
+												   Style="{StaticResource FontIconLabel}"
+												   Text="{Static material:IconFont.Upload}"
+												   HorizontalOptions="Center"
+												   VerticalOptions="Center"
+												   TextColor="{StaticResource Color1}"
+												   FontSize="134" />
+											<templateWin:HighlightView Clicked="NuovaOperaMostraPhoto_Clicked"
+																	   Tag="MostraPhoto"
+																	   Alpha="0">
+												<templateWin:HighlightView.GestureRecognizers>
+													<PointerGestureRecognizer PointerEntered="NuovaOperaMostraPhoto_PointerEntered"
+																			  PointerExited="NuovaOperaMostraPhoto_PointerExited" />
+												</templateWin:HighlightView.GestureRecognizers>
+											</templateWin:HighlightView>
+										</Grid>
+									</Frame>
 
-										<VerticalStackLayout HorizontalOptions="End"
-															 VerticalOptions="Center"
-															 Margin="20,0,16,0">
-											<VerticalStackLayout.Resources>
-												<Style TargetType="Label"
-													   BasedOn="{StaticResource LabelNormal}">
-													<Setter Property="FontSize"
-															Value="20" />
-													<Setter Property="HorizontalTextAlignment"
-															Value="End" />
-												</Style>
-											</VerticalStackLayout.Resources>
-											<Label Text="DataAggiunta:" />
-											<Label Text="DataInizio:" />
-											<Label Text="DataFine:" />
-										</VerticalStackLayout>
+									<BoxView HeightRequest="30" />
+									<Grid ColumnDefinitions="0.25*,1*"
+										  RowSpacing="12"
+										  ColumnSpacing="16"
+										  RowDefinitions="40,40,40,440"
+										  Margin="30,0,20,0">
+										<Grid.Resources>
+											<Style TargetType="Label"
+												   BasedOn="{StaticResource LabelNormal}">
+												<Setter Property="FontSize"
+														Value="20" />
+												<Setter Property="VerticalOptions"
+														Value="Center" />
+												<Setter Property="HorizontalTextAlignment"
+														Value="End" />
+											</Style>
+											<Style TargetType="template:RoundedEntryView">
+												<Setter Property="Color"
+														Value="{StaticResource Color1}" />
+												<Setter Property="WidthRequest"
+														Value="230" />
+												<Setter Property="HorizontalOptions"
+														Value="Start" />
+											</Style>
+										</Grid.Resources>
 
-										<VerticalStackLayout Grid.Column="1"
-															 VerticalOptions="Center"
-															 HorizontalOptions="Start">
-											<Label Style="{StaticResource LabelThin}"
-												   FontSize="20"
-												   Text="{Binding SelectedMostra.DataAggiunta,StringFormat='{0:dd MMMM, yyyy}'}" />
-											<Label Style="{StaticResource LabelThin}"
-												   FontSize="20"
-												   Text="{Binding SelectedMostra.DataInizio,StringFormat='{0:dd MMMM, yyyy}'}" />
-											<Label Style="{StaticResource LabelThin}"
-												   FontSize="20"
-												   Text="{Binding SelectedMostra.DataFine,StringFormat='{0:dd MMMM, yyyy}'}" />
-										</VerticalStackLayout>
+										<Label Text="Titolo:" />
+										<Label Grid.Row="1"
+											   Text="Data Inizio:" />
+										<Label Grid.Row="2"
+											   Text="Data Fine:" />
+										<Label Grid.Row="3"
+											   Text="Opere:" />
+
+										<template:RoundedEntryView Grid.Column="1"
+																   Text="{Binding Titolo,Mode=TwoWay}"
+																   Placeholder="Le Patamacchine" />
+										<DatePicker Grid.Column="1"
+													Grid.Row="1"
+													Date="{Binding DataInizio,Mode=TwoWay}" />
+										<DatePicker Grid.Column="1"
+													Grid.Row="2"
+													Date="{Binding DataFine,Mode=TwoWay}" />
+										<CollectionView x:Name="OpereInMostraCollectionView"
+														Grid.Column="1"
+														Grid.Row="3"
+														WidthRequest="600"
+														HorizontalOptions="Start"
+														ItemsSource="{Binding Source={RelativeSource AncestorType=
+											{x:Type viewmodels:OpereViewModelWin}},Path=OpereOrdinate}"
+														SelectionMode="Multiple"
+														SelectionChanged="OpereInMostraCollectionView_SelectionChanged">
+											<CollectionView.ItemsLayout>
+												<GridItemsLayout Orientation="Vertical"
+																 Span="3"
+																 VerticalItemSpacing="10"
+																 HorizontalItemSpacing="6" />
+											</CollectionView.ItemsLayout>
+
+											<CollectionView.ItemTemplate>
+												<DataTemplate x:DataType="model:Opera">
+													<Image Source="{Binding Foto}"
+														   Aspect="AspectFit"
+														   HeightRequest="180">
+														<VisualStateManager.VisualStateGroups>
+															<VisualStateGroupList>
+																<VisualStateGroup>
+																	<VisualState x:Name="Normal">
+																		<VisualState.Setters>
+																			<Setter Property="Opacity"
+																					Value="0.42" />
+																		</VisualState.Setters>
+																	</VisualState>
+																	<VisualState x:Name="Selected">
+																		<VisualState.Setters>
+																			<Setter Property="Opacity"
+																					Value="1" />
+																		</VisualState.Setters>
+																	</VisualState>
+																</VisualStateGroup>
+															</VisualStateGroupList>
+														</VisualStateManager.VisualStateGroups>
+													</Image>
+												</DataTemplate>
+											</CollectionView.ItemTemplate>
+										</CollectionView>
 									</Grid>
 
 									<!--Descrizione-->
 									<Frame Style="{StaticResource FrameRoundedWin}"
 										   BackgroundColor="{StaticResource Color5}"
+										   HeightRequest="460"
 										   Margin="60,40,60,30">
-										<VerticalStackLayout Spacing="30"
-															 Padding="20,10,20,20">
-											<Label Style="{StaticResource LabelNormal}"
-												   FontSize="20"
-												   HorizontalOptions="Center"
-												   Text="Descrizione" />
-											<Label Style="{StaticResource LabelThin}"
-												   FontSize="18"
-												   HorizontalOptions="Center"
-												   LineBreakMode="WordWrap"
-												   Text="{Binding SelectedMostra.Descrizione}" />
-										</VerticalStackLayout>
+										<Editor Placeholder="Descrizione"
+												Text="{Binding Descrizione, Mode=TwoWay}"
+												FontFamily="LatoLight"
+												FontSize="18" />
 									</Frame>
+
+									<BoxView HeightRequest="20" />
+									<template:RoundedButtonView Text="Salva mostra"
+																Color="{StaticResource Color1}"
+																WidthRequest="180"
+																Clicked="SalvaNuovaOperaMostra_Clicked" />
 									<BoxView HeightRequest="30" />
 								</VerticalStackLayout>
 							</VerticalStackLayout>

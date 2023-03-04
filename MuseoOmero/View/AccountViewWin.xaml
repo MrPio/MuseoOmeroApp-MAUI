@@ -30,7 +30,7 @@
 		</Style>
 	</ContentPage.Resources>
 
-	<Grid RowDefinitions="120,*">
+	<Grid RowDefinitions="auto,*">
 
 		<!--TopMenu-->
 		<templateWin:TopMenu x:Name="TopMenu" />

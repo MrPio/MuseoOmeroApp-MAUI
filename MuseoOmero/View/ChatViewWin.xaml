@@ -13,7 +13,7 @@
 			 x:DataType="viewmodels:ChatViewModelWin"
 			 Title="ChatViewWin">
 
-	<Grid RowDefinitions="120,*">
+	<Grid RowDefinitions="auto,*">
 
 		<!--TopMenu-->
 		<templateWin:TopMenu x:Name="TopMenu"/>

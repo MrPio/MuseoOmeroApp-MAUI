@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace MuseoOmero.View.TemplatesWin;
 
 public partial class TopMenu : ContentView
@@ -5,6 +7,13 @@ public partial class TopMenu : ContentView
 	public static List<TopMenu> TopMenus = new();
 	public static string Url = null;
 	public static bool UrlSet;
+
+	bool fullscreenState = true;
+	public bool FullscreenState
+	{
+		get { return fullscreenState; }
+		set { fullscreenState = value; OnPropertyChanged(); }
+	}
 
 	public string Nome => AccountManager.Instance.Dipendente.Nome;
 	public string Cognome => AccountManager.Instance.Dipendente.Cognome;
@@ -52,5 +61,22 @@ public partial class TopMenu : ContentView
 		var tmp = _shellViewModelWin.SelectedRoute;
 		_shellViewModelWin.SelectedRoute = "blank";
 		_shellViewModelWin.SelectedRoute = tmp;
+	}
+
+	private void Fullscreen_Clicked(object sender, EventArgs e)
+	{
+		if (MainGrid.AnimationIsRunning("FullscreenAnimation"))
+			return;
+		Func<double, double> fun = FullscreenState ? v => 120 - v * 60 : v => 60 + v * 60;
+		MainGrid.Animate(
+			name: "FullscreenAnimation",
+			animation: new(v => { 
+				MainGrid.HeightRequest = fun(v);
+				((Grid)Parent).RowDefinitions[0] = new(fun(v));
+			}, easing: Easing.CubicOut),
+			length: 400
+		);
+		FullscreenState = !FullscreenState;
+
 	}
 }

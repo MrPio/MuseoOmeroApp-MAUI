@@ -9,6 +9,7 @@ public partial class HighlightView : ContentView
 	public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(int), typeof(HighlightView), 0);
 	public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(HighlightView), null);
 	public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(HighlightView), null);
+	public static readonly BindableProperty TagProperty = BindableProperty.Create(nameof(Tag), typeof(string), typeof(HighlightView), "ciccio");
 
 	public Color Color
 	{
@@ -25,7 +26,6 @@ public partial class HighlightView : ContentView
 		get => (int)GetValue(CornerRadiusProperty);
 		set => SetValue(CornerRadiusProperty, value);
 	}
-
 	public ICommand Command
 	{
 		get => (ICommand)GetValue(CommandProperty);
@@ -36,6 +36,11 @@ public partial class HighlightView : ContentView
 	{
 		get => (object)GetValue(CommandParameterProperty);
 		set => SetValue(CommandParameterProperty, value);
+	}
+	public string Tag
+	{
+		get => (string)GetValue(TagProperty);
+		set => SetValue(TagProperty, value);
 	}
 
 	public event EventHandler Clicked, Pressed, Released;
@@ -49,7 +54,6 @@ public partial class HighlightView : ContentView
 		Button.BackgroundColor = Color.WithAlpha(Alpha);
 		Pressed?.Invoke(sender, e);
 	}
-
 	private void Button_Released(object sender, EventArgs e)
 	{
 		Button.BackgroundColor = Colors.Transparent;

@@ -1,4 +1,5 @@
 ﻿namespace MuseoOmero.Extensions;
+
 public static class VisualElementExtensions
 {
 	public static Task<bool> ColorTo(this VisualElement self, Color fromColor, Color toColor, Action<Color> callback, uint length = 160, Easing easing = null)
@@ -50,6 +51,17 @@ public static class DateTimeExtension
 {
 	public static bool IsBetween(this DateTime datetime, DateTime start, DateTime end)
 	{
-		return datetime<end && datetime>start;
+		return datetime < end && datetime > start;
 	}
+}
+
+public class Metadata
+{
+	public static readonly BindableProperty TagProperty = BindableProperty.Create("Tag", typeof(string), typeof(Metadata), null);
+
+	public static string GetTag(BindableObject bindable)
+		=> (string)bindable.GetValue(TagProperty);
+
+	public static void SetTag(BindableObject bindable, string value)
+		=> bindable.SetValue(TagProperty, value);
 }

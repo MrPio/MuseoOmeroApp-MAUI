@@ -16,14 +16,29 @@ public partial class OpereViewModelWin : ObservableObject
 	[ObservableProperty]
 	bool opereSortAcending = true, mostreSortAcending = true, isBusy;
 
+
 	[ObservableProperty]
 	bool opereOn = true, mostreOn, aggiungiMostreOn;
 
 	[ObservableProperty]
-	Opera selectedOpera,nuovaOpera;
+	Opera selectedOpera, nuovaOpera;
 
 	[ObservableProperty]
-	Mostra selectedMostra,nuovaMostra;
+	[NotifyPropertyChangedFor(nameof(OpereInSelectedMostra))]
+	Mostra selectedMostra, nuovaMostra;
+
+	public List<Opera> OpereInSelectedMostra
+	{
+		get
+		{
+			var opere = new List<Opera>();
+			if (SelectedMostra is { })
+				foreach (var id in SelectedMostra.Opere)
+					opere.Add(OpereOrdinate.ToList().Find(o => o.Id == id));
+			return opere;
+		}
+	}
+
 
 	[RelayCommand]
 	void HeaderLabelTap(string titolo)

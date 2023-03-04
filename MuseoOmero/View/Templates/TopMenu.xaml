@@ -3,11 +3,13 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
 			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
 			 BindingContext="{Binding Source={RelativeSource Mode=Self}}"
 			 x:Class="MuseoOmero.View.TemplatesWin.TopMenu"
 			 x:DataType="templatesWin:TopMenu">
 
-	<Grid ColumnDefinitions="*,*,auto,auto"
+	<Grid x:Name="MainGrid"
+		  ColumnDefinitions="*,*,auto,auto,auto"
 		  HeightRequest="120"
 		  Margin="60,0,40,0"
 		  BackgroundColor="{StaticResource Color5}">
@@ -90,6 +92,22 @@
 				   VerticalOptions="Center"
 				   Text="{Static material:IconFont.Refresh}" />
 			<templatesWin:HighlightView Clicked="Refresh_Clicked" />
+		</Grid>
+
+		<!--Espandi/Riduci-->
+		<Grid Grid.Column="4">
+			<Grid.Resources>
+				<converters:BoolToObjectConverter x:Key="FullscreenIconConverter"
+												  x:TypeArguments="x:String"
+												  TrueObject="{Static material:IconFont.FullscreenExit}"
+												  FalseObject="{Static material:IconFont.Fullscreen}" />
+			</Grid.Resources>
+			<Label Padding="20,0,20,0"
+				   Style="{StaticResource FontIconLabel}"
+				   FontSize="24"
+				   VerticalOptions="Center"
+				   Text="{Binding FullscreenState, Converter={StaticResource FullscreenIconConverter}}" />
+			<templatesWin:HighlightView Clicked="Fullscreen_Clicked" />
 		</Grid>
 	</Grid>
 </ContentView>

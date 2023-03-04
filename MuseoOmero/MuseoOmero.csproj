@@ -104,7 +104,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="BarcodeScanner.Mobile.Maui" Version="6.3.0.25-pre" />
-		<PackageReference Include="CommunityToolkit.Maui" Version="4.0.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="5.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 		<PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />
 		<PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />

@@ -9,7 +9,7 @@
 			 x:Class="MuseoOmero.ViewWin.HomeViewWin"
 			 x:DataType="viewModel:HomeViewModelWin">
 
-	<Grid RowDefinitions="120,*">
+	<Grid RowDefinitions="auto,*">
 
 		<!--TopMenu-->
 		<template:TopMenu />
