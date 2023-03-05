@@ -16,6 +16,7 @@
 					Grid.Column="0"
 					Grid.ColumnSpan="3"
 					Padding="0"
+					BackgroundColor="{Binding MyBackgroundColor}"
 					StrokeThickness="{Binding BorderUnfocused}"
 					StrokeShape="RoundRectangle 999"
 					Stroke="{Binding UnfocusedColor}"

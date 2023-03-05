@@ -73,7 +73,6 @@ public partial class SignInUpView : ContentPage
 
 	private void HighlightView_Pressed(object sender, EventArgs e)
 	{
-		PwdDimenticataLabel.ColorTo(DeviceManager.Instance.Colors[0], DeviceManager.Instance.Colors[2], c => PwdDimenticataLabel.TextColor = c, 350, Easing.CubicOut);
 		PwdDimenticataLabel.FontAttributes = FontAttributes.Bold;
 		PwdDimenticataLabel.TextDecorations = TextDecorations.Underline;
 	}
@@ -81,7 +80,6 @@ public partial class SignInUpView : ContentPage
 	private void HighlightView_Released(object sender, EventArgs e)
 	{
 		PwdDimenticataLabel.CancelAnimation();
-		PwdDimenticataLabel.ColorTo(DeviceManager.Instance.Colors[1], DeviceManager.Instance.Colors[0], c => PwdDimenticataLabel.TextColor = c, 350, Easing.CubicOut);
 		PwdDimenticataLabel.FontAttributes = FontAttributes.None;
 		PwdDimenticataLabel.TextDecorations = TextDecorations.None;
 	}

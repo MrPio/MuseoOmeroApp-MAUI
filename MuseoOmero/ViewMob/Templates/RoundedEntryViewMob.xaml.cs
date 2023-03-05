@@ -103,6 +103,8 @@ public partial class RoundedEntryViewMob : ContentView
 		Border.Stroke = UnfocusedColor;
 		Border.StrokeThickness = BorderUnfocused;
 		Border.BackgroundColor = _devM.Colors[4];
+		Border.BackgroundColor = MyBackgroundColor;
+
 	}
 
 	private void DatePicker_Focused(object sender, FocusEventArgs e)
@@ -120,6 +122,7 @@ public partial class RoundedEntryViewMob : ContentView
 		IconLabel.TextColor = UnfocusedColor;
 		Border.Stroke = UnfocusedColor;
 		Border.StrokeThickness = BorderUnfocused;
-		Border.BackgroundColor = _devM.Colors[4];
+		Border.BackgroundColor = MyBackgroundColor;
+
 	}
 }
