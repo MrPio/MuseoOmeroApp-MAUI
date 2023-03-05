@@ -38,4 +38,9 @@ public partial class StatisticheViewWin : ContentPage
 			lastScrollY = scroll;
 		}
 	}
+
+	private void Calcola_Clicked(object sender, EventArgs e)
+	{
+		_viewModel.Initialize();
+    }
 }

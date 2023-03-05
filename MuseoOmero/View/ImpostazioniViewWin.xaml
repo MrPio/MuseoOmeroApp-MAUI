@@ -1,12 +1,138 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:viewmodels="clr-namespace:MuseoOmero.ViewModelWin"
+			 xmlns:model="clr-namespace:MuseoOmero.Model"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+			 xmlns:templateWin="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 xmlns:template="clr-namespace:MuseoOmero.View.Templates"
+			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
+			 xmlns:selector="clr-namespace:MuseoOmero.Selectors"
+			 xmlns:extensions="clr-namespace:MuseoOmero.Extensions"
 			 x:Class="MuseoOmero.ViewWin.ImpostazioniViewWin"
-             Title="ImpostazioniViewWin">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+			 x:DataType="viewmodels:ImpostazioniViewModelWin"
+			 Title="Impostazioni">
+
+	<Grid RowDefinitions="auto,*">
+
+		<!--TopMenu-->
+		<templateWin:TopMenu x:Name="TopMenu" />
+
+		<!--Center of screen-->
+		<Grid Grid.Row="1">
+
+			<!--Center of screen-->
+			<ScrollView>
+				<VerticalStackLayout Spacing="8"
+									 Padding="60,40,60,40"
+									 BackgroundColor="{DynamicResource Color4}">
+
+					<!--Tema Frame-->
+					<Grid ColumnDefinitions="auto,*"
+						  ColumnSpacing="10"
+						  Margin="30,0,0,0">
+						<Label Style="{StaticResource FontIconLabel}"
+							   Text="{Static material:IconFont.ThemeLightDark}"
+							   FontSize="26"
+							   TextColor="{DynamicResource Color1}" />
+						<Label Grid.Column="1"
+							   Style="{StaticResource LabelBold}"
+							   Text="Tema dell'applicazione"
+							   VerticalOptions="Center"
+							   FontSize="19" />
+					</Grid>
+					<Frame Style="{StaticResource FrameRoundedWin}">
+						<Grid ColumnDefinitions="80,80,80,80,*"
+							  ColumnSpacing="20"
+							  HorizontalOptions="Center">
+
+							<Frame Style="{StaticResource FrameRoundedWin}"
+								   CornerRadius="18"
+								   Padding="0"
+								   BackgroundColor="#212121">
+								<Grid Margin="24">
+									<Label Style="{StaticResource FontIconLabel}"
+										   Text="{Static material:IconFont.Lightbulb}"
+										   FontSize="36"
+										   TextColor="White" />
+									<templateWin:HighlightView Tag="black"
+															   Alpha="0.3"
+															   Margin="-24"
+															   CornerRadius="18"
+															   Clicked='HighlightView_Clicked' />
+								</Grid>
+							</Frame>
+							<Frame Grid.Column="1"
+								   Style="{StaticResource FrameRoundedWin}"
+								   CornerRadius="18"
+								   Padding="0"
+								   BackgroundColor="#1c4832">
+								<Grid Padding="24">
+									<Label Style="{StaticResource FontIconLabel}"
+										   Text="{Static material:IconFont.Lightbulb}"
+										   FontSize="36"
+										   TextColor="White" />
+									<templateWin:HighlightView Tag="darkGreen"
+															   Alpha="0.3"
+															   Margin="-24"
+															   CornerRadius="18"
+															   Clicked='HighlightView_Clicked' />
+								</Grid>
+							</Frame>
+							<Frame  Grid.Column="3"
+									Style="{StaticResource FrameRoundedWin}"
+									CornerRadius="18"
+									Padding="0"
+									BackgroundColor="#34265C">
+								<Grid Padding="24">
+									<Label Style="{StaticResource FontIconLabel}"
+										   Text="{Static material:IconFont.Lightbulb}"
+										   FontSize="36"
+										   TextColor="White" />
+									<templateWin:HighlightView Tag="green"
+															   Alpha="0.2"
+															   Margin="-24"
+															   Clicked='HighlightView_Clicked' />
+								</Grid>
+							</Frame>
+							<Frame  Grid.Column="2"
+									Style="{StaticResource FrameRoundedWin}"
+									CornerRadius="18"
+									Padding="0"
+									BackgroundColor="#f6d13b">
+								<Grid Padding="24">
+									<Label Style="{StaticResource FontIconLabel}"
+										   Text="{Static material:IconFont.Lightbulb}"
+										   FontSize="36"
+										   TextColor="White" />
+									<templateWin:HighlightView Tag="highContrast"
+															   Alpha="0.1"
+															   Margin="-24"
+															   CornerRadius="18"
+															   Clicked='HighlightView_Clicked' />
+								</Grid>
+							</Frame>
+						</Grid>
+					</Frame>
+
+				</VerticalStackLayout>
+			</ScrollView>
+
+			<!-- Credits -->
+			<Grid ColumnDefinitions="auto,auto"
+				  ColumnSpacing="6"
+				  HorizontalOptions="End"
+				  VerticalOptions="End"
+				  Margin="0,0,40,26">
+				<Label Style="{StaticResource LabelNormal}"
+					   VerticalOptions="Center"
+					   Text="Applicazione realizzata da " />
+				<Label Grid.Column="1" Style="{StaticResource LabelBold}"
+					   FontSize="19"
+					   Text="Valerio Morelli" />
+			</Grid>
+		</Grid>
+	</Grid>
+
 </ContentPage>

@@ -12,7 +12,7 @@
 		  ColumnDefinitions="*,*,auto,auto,auto"
 		  HeightRequest="120"
 		  Margin="60,0,40,0"
-		  BackgroundColor="{StaticResource Color5}">
+		  BackgroundColor="{DynamicResource Color5}">
 
 		<!--Bentornato Label-->
 		<Grid RowDefinitions="1.8*,*"
@@ -25,7 +25,7 @@
 				   Text="Questa è la tua panoramica:"
 				   FontFamily="LatoLight"
 				   FontSize="16"
-				   TextColor="{StaticResource Color6}">
+				   TextColor="{DynamicResource Color6}">
 			</Label>
 		</Grid>
 

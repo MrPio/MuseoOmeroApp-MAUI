@@ -15,7 +15,7 @@ public partial class RoundedButtonView : ContentView
 	public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(RoundedButtonView), null);
 	public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(RoundedButtonView), null);
 	public static readonly BindableProperty StyleInvertProperty = BindableProperty.Create(nameof(StyleInvert), typeof(bool), typeof(RoundedButtonView), false);
-	public static readonly BindableProperty BorderWidthProperty = BindableProperty.Create(nameof(BorderWidth), typeof(double), typeof(RoundedButtonView), 4d);
+	public static readonly BindableProperty BorderWidthProperty = BindableProperty.Create(nameof(BorderWidth), typeof(double), typeof(RoundedButtonView), 2d);
 	public static readonly BindableProperty ColorAlphaProperty = BindableProperty.Create(nameof(Height), typeof(double), typeof(RoundedButtonView), 1d);
 
 

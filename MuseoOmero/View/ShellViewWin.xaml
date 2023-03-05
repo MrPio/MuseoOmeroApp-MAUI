@@ -9,7 +9,7 @@
 	   FlyoutHeaderBehavior="CollapseOnScroll"
 	   x:Class="MuseoOmero.ViewWin.ShellViewWin"
 	   FlyoutBehavior="Locked"
-	   FlyoutBackgroundColor="{StaticResource Color1}"
+	   FlyoutBackgroundColor="{DynamicResource Color1}"
 	   x:DataType="viewModels:ShellViewModelWin"
 	   ItemTemplate="{StaticResource FlyoutItem}"
 	   MenuItemTemplate="{StaticResource FlyoutMenuItem}"
@@ -156,7 +156,7 @@
 	<!--Flyout appearence-->
 	<Shell.FlyoutContentTemplate>
 		<DataTemplate>
-			<Grid Background="{StaticResource Color1}"
+			<Grid Background="{DynamicResource Color1}"
 				  RowDefinitions="144,50,50,50,50,50,50,*,auto,5"
 				  RowSpacing="10"
 				  RadioButtonGroup.GroupName="Menu"
@@ -177,7 +177,7 @@
 						   Text="{Static material:IconFont.Menu}"
 						   Grid.Row="0"
 						   FontSize="30"
-						   TextColor="{StaticResource Color5}"
+						   TextColor="{DynamicResource Color5}"
 						   VerticalOptions="CenterAndExpand"
 						   HorizontalOptions="Center">
 						<Label.GestureRecognizers>
@@ -194,10 +194,10 @@
 						   Text="{Static material:IconFont.At}"
 						   FontSize="32"
 						   VerticalOptions="Center"
-						   TextColor="{StaticResource Color5}" />
+						   TextColor="{DynamicResource Color5}" />
 					<Label Grid.Column="1"
 						   Style="{StaticResource LabelBold}"
-						   TextColor="{StaticResource Color5}"
+						   TextColor="{DynamicResource Color5}"
 						   Text="Museo Omero"
 						   VerticalOptions="Center"
 						   LineBreakMode="TailTruncation"

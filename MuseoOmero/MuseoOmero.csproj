@@ -122,6 +122,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Compile Update="Resources\Styles\DarkGreenTheme.xaml.cs">
+		  <DependentUpon>DarkGreenTheme.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Styles\GreenTheme.xaml.cs">
+		  <DependentUpon>GreenTheme.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Styles\BlackTheme.xaml.cs">
+		  <DependentUpon>BlackTheme.xaml</DependentUpon>
+		</Compile>
 		<Compile Update="View\IMieiTitoliView.xaml.cs">
 		  <DependentUpon>IMieiTitoliView.xaml</DependentUpon>
 		</Compile>
@@ -147,6 +156,12 @@
 
 	<ItemGroup>
 		<MauiXaml Update="Resources\Styles\ControlTemplates.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Resources\Styles\HighContrastTheme.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Resources\Styles\BlackTheme.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="View\AccountViewWin.xaml">

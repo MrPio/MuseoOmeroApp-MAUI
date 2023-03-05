@@ -27,7 +27,7 @@
 		<!--Center of screen-->
 		<Grid Grid.Row="1"
 			  ColumnDefinitions="*,1.5*"
-			  BackgroundColor="{StaticResource Color4}">
+			  BackgroundColor="{DynamicResource Color4}">
 
 			<!--Left Frame [CONVALIDA]-->
 			<Frame Style="{StaticResource FrameRoundedWin}"
@@ -50,7 +50,7 @@
 							   HeightRequest="220"
 							   WidthRequest="220"
 							   Padding="0"
-							   BackgroundColor="{StaticResource Color4}">
+							   BackgroundColor="{DynamicResource Color4}">
 							<Grid ColumnDefinitions="*"
 								  RowDefinitions="*">
 								<Label x:Name="QrCodeIcon"
@@ -58,7 +58,7 @@
 									   Text="{Static material:IconFont.QrcodeScan}"
 									   HorizontalOptions="Center"
 									   VerticalOptions="Center"
-									   TextColor="{StaticResource Color1}"
+									   TextColor="{DynamicResource Color1}"
 									   FontSize="134" />
 								<templateWin:HighlightView Pressed="HighlightView_Pressed"
 														   Released="HighlightView_Released"
@@ -74,7 +74,7 @@
 						<!--Niente da visualizzare-->
 						<Label Grid.Row="1"
 							   Text="Niente da visualizzare"
-							   TextColor="{StaticResource Color6}"
+							   TextColor="{DynamicResource Color6}"
 							   Opacity="0.36"
 							   Style="{StaticResource LabelThin}"
 							   VerticalOptions="Center"
@@ -88,7 +88,7 @@
 						<CollectionView.ItemTemplate>
 							<DataTemplate x:DataType="model:Biglietto">
 								<Frame Style="{StaticResource FrameRoundedWin}"
-									   BackgroundColor="{StaticResource Color4}"
+									   BackgroundColor="{DynamicResource Color4}"
 									   CornerRadius="28"
 									   Margin="6"
 									   Padding="0">
@@ -99,7 +99,7 @@
 											   Text="{Binding Tipologia,
 											Converter={converters:IndexToArrayItemConverter},
 											ConverterParameter={Static enums:IconeBiglietto.Values}}"
-											   TextColor="{StaticResource Color1}" />
+											   TextColor="{DynamicResource Color1}" />
 										<Label Grid.Column="1"
 											   VerticalOptions="Center"
 											   FontSize="18"
@@ -139,7 +139,7 @@
 
 						<!-- + Aggiungi Biglietto-->
 						<template:RoundedButtonView Text=" +  Vendi"
-													Color="{StaticResource Color1}"
+													Color="{DynamicResource Color1}"
 													NewFontSize="16"
 													Clicked="AggiungiBiglietto_Clicked" />
 
@@ -147,7 +147,7 @@
 						<Label Grid.Column="2"
 							   Style="{StaticResource LabelNormal}"
 							   Text="Filtra per: "
-							   TextColor="{StaticResource Color6}"
+							   TextColor="{DynamicResource Color6}"
 							   FontSize="16"
 							   VerticalOptions="Center" />
 						<Picker Grid.Column="3"
@@ -299,7 +299,7 @@
 			<!--Overlay-->
 			<BoxView x:Name="Overlay"
 					 Grid.ColumnSpan="2"
-					 BackgroundColor="{StaticResource Color1}"
+					 BackgroundColor="{DynamicResource Color1}"
 					 TranslationX="9999"
 					 Opacity="0.6">
 				<BoxView.GestureRecognizers>
@@ -315,11 +315,11 @@
 				  RowDefinitions="*"
 				  Padding="60,10,60,10">
 				<Frame Style="{StaticResource FrameRoundedWin}"
-					   BackgroundColor="{StaticResource Color4}"
+					   BackgroundColor="{DynamicResource Color4}"
 					   Margin="60,40,60,30"
 					   Padding="0">
 					<Grid RowDefinitions="*"
-						  BackgroundColor="{StaticResource Color5}">
+						  BackgroundColor="{DynamicResource Color5}">
 
 						<!--CardView Content [CONVALIDA BIGLIETTO]-->
 						<Grid RowDefinitions="*,*"
@@ -343,7 +343,7 @@
 								  VerticalOptions="Center">
 								<zxing:BarcodeGeneratorView Format="QrCode"
 															Value="{Binding SelectedBiglietto.Uid}"
-															ForegroundColor="{StaticResource Color1}" />
+															ForegroundColor="{DynamicResource Color1}" />
 							</Grid>
 
 							<Grid Grid.Row="1"
@@ -415,7 +415,7 @@
 								  VerticalOptions="Center">
 								<zxing:BarcodeGeneratorView Format="QrCode"
 															Value="{Binding NuovoBiglietto.Uid}"
-															ForegroundColor="{StaticResource Color1}" />
+															ForegroundColor="{DynamicResource Color1}" />
 							</Grid>
 
 							<!--Dettagli bliglietto-->
@@ -477,7 +477,7 @@
 							<template:RoundedButtonView Grid.Row="1"
 														Text="Acquista"
 														VerticalOptions="End"
-														Color="{StaticResource Color1}"
+														Color="{DynamicResource Color1}"
 														WidthRequest="200"
 														Margin="0,0,0,50"
 														Command="{Binding AcquistaBigliettoCommand}" />
@@ -496,7 +496,7 @@
 								   VerticalOptions="Center"
 								   HorizontalOptions="Center"
 								   InputTransparent="True"
-								   TextColor="{StaticResource Color1}"
+								   TextColor="{DynamicResource Color1}"
 								   Text="{Static material:IconFont.Close}" />
 						</Grid>
 					</Grid>

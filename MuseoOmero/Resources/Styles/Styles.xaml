@@ -518,6 +518,8 @@
 				Value="MaterialDesignIcons" />
 		<Setter Property="FontSize"
 				Value="30" />
+		<Setter Property="TextColor"
+				Value="{DynamicResource Color1}" />
 	</Style>
 
 	<!--LABEL TEXT-->
@@ -551,7 +553,7 @@
 		<Setter Property="FontSize"
 				Value="24" />
 		<Setter Property="TextColor"
-				Value="{StaticResource Color7}" />
+				Value="{DynamicResource Color1}" />
 		<Setter Property="VerticalOptions"
 				Value="Center" />
 		<Setter Property="HorizontalOptions"

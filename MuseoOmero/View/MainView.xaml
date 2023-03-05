@@ -8,8 +8,8 @@
 			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
 			 xmlns:views="clr-namespace:MuseoOmero.View"
 			 x:DataType="viewModels:MainViewModel"
-			 BackgroundColor="{StaticResource Color4}"
-			 tabs:TouchEffect.Color="{StaticResource Color1}"
+			 BackgroundColor="{DynamicResource Color4}"
+			 tabs:TouchEffect.Color="{DynamicResource Color1}"
 			 Title="MuseoOmero">
 
 	<ContentPage.Resources>
@@ -17,9 +17,9 @@
 			<Style x:Key="BottomTab"
 				   TargetType="tabs:BottomTabItem">
 				<Setter Property="SelectedTabColor"
-						Value="{StaticResource Color5}" />
+						Value="{DynamicResource Color5}" />
 				<Setter Property="UnselectedLabelColor"
-						Value="{StaticResource Color1}" />
+						Value="{DynamicResource Color1}" />
 				<Setter Property="FontFamily"
 						Value="MaterialDesignIcons" />
 			</Style>
@@ -49,7 +49,7 @@
 			<Rectangle Grid.Row="0"
 					   
 					   HeightRequest="30"
-					   BackgroundColor="{StaticResource Color2}">
+					   BackgroundColor="{DynamicResource Color2}">
 			</Rectangle>
 			<Image TranslationY="-4"
 				   InputTransparent="False"
@@ -63,7 +63,7 @@
 				   Grid.Row="0"
 				   Grid.RowSpan="2"
 				   Padding="6"
-				   TextColor="{StaticResource Color5}"
+				   TextColor="{DynamicResource Color5}"
 				   FontSize="24"
 				   HorizontalTextAlignment="Center"
 				   FontFamily="Lato"
@@ -129,7 +129,7 @@
 		<Grid x:Name="Loading"
 			  IsVisible="{Binding Loading}">
 			<ActivityIndicator IsRunning="true"
-							   Color="{StaticResource Color2}"
+							   Color="{DynamicResource Color2}"
 							   WidthRequest="70"
 							   HeightRequest="70"/>
 			<BoxView Color="Black"

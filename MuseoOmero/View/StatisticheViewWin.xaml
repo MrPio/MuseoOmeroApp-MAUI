@@ -27,6 +27,32 @@
 								 Padding="30"
 								 Spacing="30">
 
+				<!--Filtro Date-->
+				<Grid ColumnDefinitions="*,*"
+					  ColumnSpacing="16">
+					<Label Style="{StaticResource LabelNormal}"
+						   Text="Data inizio:" 
+						   HorizontalOptions="End"
+						   VerticalOptions="Center"/>
+					<DatePicker Grid.Column="1"
+								Date="{Binding DataInizio,Mode=TwoWay}"
+								FontSize="17" />
+				</Grid>
+				<Grid ColumnDefinitions="*,*"
+					  ColumnSpacing="17">
+					<Label Style="{StaticResource LabelNormal}"
+						   Text="Data fine:"
+						   HorizontalOptions="End"
+						   VerticalOptions="Center" />
+					<DatePicker Grid.Column="1"
+								Date="{Binding DataFine,Mode=TwoWay}"
+								FontSize="17" />
+				</Grid>
+				<template:RoundedButtonView Text="Calcola"
+											WidthRequest="160"
+											Color="{DynamicResource Yellow100Accent}" 
+											Clicked="Calcola_Clicked"/>
+
 				<!--BigliettiSeries-->
 				<Frame Style="{StaticResource FrameRoundedWin}">
 					<Grid RowDefinitions="50,30,300"

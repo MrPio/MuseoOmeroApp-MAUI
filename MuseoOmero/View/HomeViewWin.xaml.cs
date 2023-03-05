@@ -1,4 +1,5 @@
 using Microcharts;
+using MuseoOmero.Messages;
 using SkiaSharp.Views.Maui;
 
 namespace MuseoOmero.ViewWin;

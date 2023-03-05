@@ -24,7 +24,7 @@
 			<Setter Property="HorizontalOptions"
 					Value="Start" />
 			<Setter Property="UnfocusedColor"
-					Value="{StaticResource Color1}" />
+					Value="{DynamicResource Color1}" />
 			<Setter Property="VerticalOptions"
 					Value="Center" />
 		</Style>
@@ -44,7 +44,7 @@
 
 					<VerticalStackLayout Spacing="8"
 										 Padding="60,40,60,40"
-										 BackgroundColor="{StaticResource Color4}">
+										 BackgroundColor="{DynamicResource Color4}">
 
 						<!--Foto profilo-->
 						<Label Style="{StaticResource LabelBold}"
@@ -61,7 +61,7 @@
 							   WidthRequest="220"
 							   Padding="0"
 							   HasShadow="True"
-							   BackgroundColor="{StaticResource Color5}">
+							   BackgroundColor="{DynamicResource Color5}">
 							<Grid>
 								<!--Foto-->
 								<Image x:Name="PhotoImage"
@@ -74,7 +74,7 @@
 									   Text="{Static material:IconFont.Camera}"
 									   HorizontalOptions="Center"
 									   VerticalOptions="Center"
-									   TextColor="{StaticResource Color1}"
+									   TextColor="{DynamicResource Color1}"
 									   FontSize="134" />
 								<templateWin:HighlightView 
 														   
@@ -96,7 +96,7 @@
 							<Label Style="{StaticResource FontIconLabel}"
 								   Text="{Static material:IconFont.Account}"
 								   FontSize="26"
-								   TextColor="{StaticResource Color1}" />
+								   TextColor="{DynamicResource Color1}" />
 							<Label Grid.Column="1"
 								   Style="{StaticResource LabelBold}"
 								   Text="Anagrafica"
@@ -139,7 +139,7 @@
 							<Label Style="{StaticResource FontIconLabel}"
 								   Text="{Static material:IconFont.Briefcase}"
 								   FontSize="26"
-								   TextColor="{StaticResource Color1}" />
+								   TextColor="{DynamicResource Color1}" />
 							<Label Grid.Column="1"
 								   Style="{StaticResource LabelBold}"
 								   Text="Lavoro"
@@ -173,7 +173,7 @@
 							<Label Style="{StaticResource FontIconLabel}"
 								   Text="{Static material:IconFont.Shield}"
 								   FontSize="26"
-								   TextColor="{StaticResource Color1}" />
+								   TextColor="{DynamicResource Color1}" />
 							<Label Grid.Column="1"
 								   Style="{StaticResource LabelBold}"
 								   Text="Sicurezza"
@@ -204,7 +204,7 @@
 															WidthRequest="200"
 															HorizontalOptions="Start"
 															Text="Cambia"
-															Color="{StaticResource Color1}"
+															Color="{DynamicResource Color1}"
 															Clicked="RoundedButtonView_Clicked" />
 							</Grid>
 						</Frame>
@@ -214,7 +214,7 @@
 					<template:RoundedButtonView Text="Save"
 												HorizontalOptions="End"
 												VerticalOptions="Start"
-												Color="{StaticResource Color1}"
+												Color="{DynamicResource Color1}"
 												Margin="30"
 												WidthRequest="120" 
 												Clicked="SaveButton_Clicked"/>

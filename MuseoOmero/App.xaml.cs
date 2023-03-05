@@ -5,6 +5,7 @@ using Windows.Graphics;
 #endif
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
+using MuseoOmero.Messages;
 using MuseoOmero.View;
 using MuseoOmero.ViewWin;
 
@@ -12,11 +13,11 @@ namespace MuseoOmero;
 
 public partial class App : Application
 {
-    public App(SignInUpViewModelWin signInUpViewModelWin, ShellViewModelWin shellViewModelWin)
-    {
-        InitializeComponent();
+	public App(SignInUpViewModelWin signInUpViewModelWin, ShellViewModelWin shellViewModelWin)
+	{
+		InitializeComponent();
 		var width = 1360;
-		var height= 920;
+		var height = 920;
 
 		Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping(nameof(IWindow), (handler, view) =>
 		{
@@ -34,44 +35,55 @@ public partial class App : Application
 		});
 
 		var loggedIn = true;
-        if (loggedIn)
-        {
-            if (DeviceInfo.Platform == DevicePlatform.Android || DeviceInfo.Platform == DevicePlatform.iOS)
-                MainPage = new MainView();
-            else if (DeviceInfo.Platform == DevicePlatform.WinUI || DeviceInfo.Platform == DevicePlatform.MacCatalyst)
-                //MainPage = new ShellViewWin(shellViewModelWin);
-                MainPage = new SignInUpViewWin(signInUpViewModelWin, shellViewModelWin);
-        }
-        else
-        {
-            //MainPage = new LoginPage();
-        }
+		if (loggedIn)
+		{
+			if (DeviceInfo.Platform == DevicePlatform.Android || DeviceInfo.Platform == DevicePlatform.iOS)
+				MainPage = new MainView();
+			else if (DeviceInfo.Platform == DevicePlatform.WinUI || DeviceInfo.Platform == DevicePlatform.MacCatalyst)
+				//MainPage = new ShellViewWin(shellViewModelWin);
+				MainPage = new SignInUpViewWin(signInUpViewModelWin, shellViewModelWin);
+		}
+		else
+		{
+			//MainPage = new LoginPage();
+		}
 
 		LiveCharts.Configure(config =>
 				config
-					// registers SkiaSharp as the library backend
-					// REQUIRED unless you build your own
 					.AddSkiaSharp()
-
-					// adds the default supported types
-					// OPTIONAL but highly recommend
 					.AddDefaultMappers()
-
-					// select a theme, default is Light
-					// OPTIONAL
-					//.AddDarkTheme()
 					.AddLightTheme()
-
-					// finally register your own mappers
-					// you can learn more about mappers at:
-					// ToDo add website link...
-					//.HasMap<City>((city, point) =>
-					//{
-					//	point.PrimaryValue = city.Population;
-					//	point.SecondaryValue = point.Context.Index;
-					//})
-				// .HasMap<Foo>( .... )
-				// .HasMap<Bar>( .... )
 				);
+
+		WeakReferenceMessenger.Default.Register<ThemeChangedMessage>(this, (r, m) =>
+		{
+			LoadTheme(m.Value);
+		});
+		LoadTheme(Preferences.Get("AppTheme", "black"));
+	}
+
+	private void LoadTheme(string theme)
+	{
+		if (!MainThread.IsMainThread)
+		{
+			MainThread.BeginInvokeOnMainThread(() => LoadTheme(theme));
+			return;
+		}
+
+		ResourceDictionary dictionary = theme switch
+		{
+			"green" => new Resources.Styles.GreenTheme(),
+			"darkGreen" => new Resources.Styles.DarkGreenTheme(),
+			"black" => new Resources.Styles.BlackTheme(),
+			"highContrast" => new Resources.Styles.HighContrastTheme(),
+			_ => null
+		};
+		var themes = new[] { "GreenTheme", "DarkGreenTheme", "BlackTheme", "HighContrastTheme" };
+		foreach (var res in Resources.MergedDictionaries)
+			if (res.Source is { } && themes.Any(t => res.Source.ToString().Contains(t)))
+				Resources.MergedDictionaries.Remove(res);
+
+		if (dictionary != null)
+			Resources.MergedDictionaries.Add(dictionary);
 	}
 }

@@ -24,7 +24,7 @@
 						   Text="{Binding Title}"
 						   FontFamily="Lato"
 						   FontSize="18"
-						   TextColor="{StaticResource Color5}"
+						   TextColor="{DynamicResource Color5}"
 						   HeightRequest="46"
 						   VerticalTextAlignment="Center" />
 				</Grid>
@@ -49,7 +49,7 @@
 							   FontFamily="Lato"
 							   FontSize="18"
 							   VerticalTextAlignment="Center"
-							   TextColor="{StaticResource Color5}" />
+							   TextColor="{DynamicResource Color5}" />
 					</Frame>
 
 				</Grid>

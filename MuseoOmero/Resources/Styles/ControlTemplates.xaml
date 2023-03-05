@@ -11,7 +11,7 @@
 							<VisualState.Setters>
 								<!--<Setter TargetName="OuterBorder"
 										Property="Background"
-										Value="{StaticResource Color7}" />
+										Value="{DynamicResource Color7}" />
 								<Setter TargetName="OuterBorder"
 										Property="Border.StrokeThickness"
 										Value="0" />
@@ -59,7 +59,7 @@
 
 			<!--<Border x:Name="OuterBorder"
 					Background="Transparent"
-					Stroke="{StaticResource Color2}"
+					Stroke="{DynamicResource Color2}"
 					StrokeThickness="0"
 					HorizontalOptions="Fill"
 					HeightRequest="70"
@@ -74,7 +74,7 @@
 					Margin="20"
 					HorizontalOptions="Center"
 					VerticalOptions="Center"
-					Stroke="{StaticResource Color2}"
+					Stroke="{DynamicResource Color2}"
 					StrokeThickness="0">
 				<Border.StrokeShape>
 					<RoundRectangle CornerRadius="8" />

@@ -7,7 +7,7 @@
 
 	<Grid>
 		<ActivityIndicator IsRunning="true"
-						   Color="{StaticResource Color1}"
+						   Color="{DynamicResource Color1}"
 						   WidthRequest="70"
 						   HeightRequest="70" />
 		<BoxView Color="Black"

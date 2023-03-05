@@ -6,7 +6,6 @@ using LiveChartsCore.Kernel;
 using LiveChartsCore.SkiaSharpView.Drawing.Geometries;
 using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
-using System.Linq;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView.Maui;
 
@@ -16,24 +15,8 @@ public partial class StatisticheViewModelWin : ObservableObject
 {
 	private HomeViewModelWin _homeViewModelWin;
 
-
-	public ISeries[] Series2 { get; set; } =
-	{
-		new PieSeries<double> { Values = new List<double> { 3 }, Pushout = 4 },
-		new PieSeries<double> { Values = new List<double> { 3 }, Pushout = 4 },
-		new PieSeries<double> { Values = new List<double> { 3 }, Pushout = 4 },
-		new PieSeries<double> { Values = new List<double> { 2 }, Pushout = 4 },
-		new PieSeries<double> { Values = new List<double> { 5 }, Pushout = 30 }
-	};
-
-	public ISeries[] Series3 { get; set; } = new ISeries[]
-  {
-		new PieSeries<double> { Values = new List<double> { 2 }, InnerRadius = 50,MaxOuterRadius = 0.8 },
-		new PieSeries<double> { Values = new List<double> { 4 }, InnerRadius = 50,MaxOuterRadius = 0.85 },
-		new PieSeries<double> { Values = new List<double> { 1 }, InnerRadius = 50,MaxOuterRadius = 0.9 },
-		new PieSeries<double> { Values = new List<double> { 4 }, InnerRadius = 50,MaxOuterRadius = 0.95 },
-		new PieSeries<double> { Values = new List<double> { 3 }, InnerRadius = 50,MaxOuterRadius = 1 }
-  };
+	[ObservableProperty]
+	DateTime dataInizio = DateTime.Today.AddMonths(-3), dataFine = DateTime.Today;
 
 	// BIGLIETTI series
 	[ObservableProperty]
@@ -86,8 +69,10 @@ public partial class StatisticheViewModelWin : ObservableObject
 	public async void Initialize()
 	{
 		var utenti = _homeViewModelWin.Utenti;
-		var biglietti = utenti.SelectMany(u => u.Biglietti);
-		var questionari = utenti.SelectMany(u => u.Questionari);
+		var bigliettiTot = utenti.SelectMany(u => u.Biglietti);
+		var biglietti = bigliettiTot.Where(b => b.DataAcquisto.IsBetween(DataInizio, DataFine));
+		var questionariTot = utenti.SelectMany(u => u.Questionari);
+		var questionari = questionariTot.Where(q => q.DataCompilazione.IsBetween(DataInizio, DataFine));
 		var opere = _homeViewModelWin.Opere;
 
 		//BIGLIETTI - vendite/convalide
@@ -162,13 +147,14 @@ public partial class StatisticheViewModelWin : ObservableObject
 			}
 			QuestionariTipologieVisiteSeries = new PieSeries<double>[]{
 				new() { Values= new List<double>() {occorrenze[0] },Name=values[0]},
-				new() { Values= new List<double>() {occorrenze[0] },Name=values[1]},
-				new() { Values= new List<double>() {occorrenze[0] },Name=values[2]},
+				new() { Values= new List<double>() {occorrenze[1] },Name=values[1]},
+				new() { Values= new List<double>() {occorrenze[2] },Name=values[2]},
 			};
-
 			foreach (PieSeries<double> series in QuestionariTipologieVisiteSeries)
 			{
 				series.Pushout = 4;
+				series.DataLabelsPaint = new SolidColorPaint(new SKColor(30, 30, 30));
+				series.DataLabelsPosition= LiveChartsCore.Measure.PolarLabelsPosition.Middle;
 				series.DataLabelsFormatter = p => p.Context.Series.Name;
 			}
 
@@ -190,6 +176,8 @@ public partial class StatisticheViewModelWin : ObservableObject
 				series.PointMeasured += OnPointMeasuredPie;
 				series.Pushout = 4;
 				series.InnerRadius = 60;
+				series.DataLabelsPaint = new SolidColorPaint(new SKColor(30, 30, 30));
+				series.DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle;
 				series.DataLabelsFormatter = p => p.Context.Series.Name;
 				QuestionariAccompagnatoriVisitaSeries[i] = series;
 			}
@@ -211,7 +199,9 @@ public partial class StatisticheViewModelWin : ObservableObject
 				series.PointMeasured += OnPointMeasuredPie;
 				series.Pushout = 4;
 				series.MaxOuterRadius = ((double)i / values.Length) * 0.2 + 0.8;
-				series.DataLabelsFormatter = p => p.Context.Series.Name;
+				series.DataLabelsPaint = new SolidColorPaint(new SKColor(30, 30, 30));
+				series.DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle;
+				series.DataLabelsFormatter = p => p.Context.Series.Name.Substring(0,Math.Min(7, p.Context.Series.Name.Length))+"..";
 				QuestionariMotivazioneVisitaSeries[i] = series;
 			}
 		}
@@ -232,6 +222,8 @@ public partial class StatisticheViewModelWin : ObservableObject
 				series.PointMeasured += OnPointMeasuredPie;
 				series.Pushout = 4;
 				series.InnerRadius = 60;
+				series.DataLabelsPaint = new SolidColorPaint(new SKColor(30, 30, 30));
+				series.DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle;
 				series.DataLabelsFormatter = p => p.Context.Series.Name;
 				series.MaxOuterRadius = ((double)i / values.Length) * 0.2 + 0.8;
 
@@ -255,6 +247,8 @@ public partial class StatisticheViewModelWin : ObservableObject
 				series.PointMeasured += OnPointMeasuredPie;
 				series.Pushout = 4;
 				series.InnerRadius = 30;
+				series.DataLabelsPaint = new SolidColorPaint(new SKColor(30, 30, 30));
+				series.DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle;
 				series.DataLabelsFormatter = p => p.Context.Series.Name;
 				QuestionariRitornoSeries[i] = series;
 			}
@@ -273,8 +267,8 @@ public partial class StatisticheViewModelWin : ObservableObject
 				xAxisLabels[numeroMesi + i - 1] = startDate.ToString("dd MMM yy");
 				// Andrebbe usato per correttezza b.DataConvalida, e non b.DataValidita, ma al momento
 				// ho solo 1 biglietto convalidato e il risultato non sarebbe apprezzabile
-				visite[numeroMesi + i - 1] = biglietti.Where(b => b.DataValidita.IsBetween(startDate, endDate)).Count();
-				compilazioni[numeroMesi + i - 1] = questionari.Where(q => q.DataCompilazione.IsBetween(startDate, endDate)).Count();
+				visite[numeroMesi + i - 1] = bigliettiTot.Where(b => b.DataValidita.IsBetween(startDate, endDate)).Count();
+				compilazioni[numeroMesi + i - 1] = questionariTot.Where(q => q.DataCompilazione.IsBetween(startDate, endDate)).Count();
 			}
 			QuestionariSeries = Array.Empty<ColumnSeries<float>>(); //Per triggherare il refresh
 			QuestionariSeries = new ColumnSeries<float>[]

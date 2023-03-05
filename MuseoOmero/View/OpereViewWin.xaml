@@ -32,12 +32,12 @@
 			<Grid RowSpacing="24"
 				  RowDefinitions="*,auto"
 				  Padding="60,40,60,30"
-				  BackgroundColor="{StaticResource Color4}">
+				  BackgroundColor="{DynamicResource Color4}">
 
 				<!--Lista di Opere-->
 				<Frame x:Name="ListaOpere"
 					   Style="{StaticResource FrameRoundedWin}"
-					   BackgroundColor="{StaticResource Color5}"
+					   BackgroundColor="{DynamicResource Color5}"
 					   Padding="0">
 
 					<Grid RowDefinitions="60,auto,*"
@@ -50,7 +50,7 @@
 
 							<!-- + Aggiungi Opera-->
 							<template:RoundedButtonView Text=" +  Aggiungi Opera"
-														Color="{StaticResource Color1}"
+														Color="{DynamicResource Color1}"
 														NewFontSize="16"
 														Clicked="AggiungiOperaMostra_Clicked" />
 
@@ -58,7 +58,7 @@
 							<Label Grid.Column="2"
 								   Style="{StaticResource LabelNormal}"
 								   Text="Filtra per: "
-								   TextColor="{StaticResource Color6}"
+								   TextColor="{DynamicResource Color6}"
 								   FontSize="16"
 								   VerticalOptions="Center" />
 							<Picker Grid.Column="3"
@@ -209,7 +209,7 @@
 					   Grid.Row="0"
 					   TranslationX="1600"
 					   Style="{StaticResource FrameRoundedWin}"
-					   BackgroundColor="{StaticResource Color5}"
+					   BackgroundColor="{DynamicResource Color5}"
 					   Padding="0">
 
 					<Grid RowDefinitions="60,auto,*"
@@ -222,7 +222,7 @@
 
 							<!-- + Aggiungi Opera-->
 							<template:RoundedButtonView Text=" +  Allestisci Mostra"
-														Color="{StaticResource Color1}"
+														Color="{DynamicResource Color1}"
 														NewFontSize="16"
 														Clicked="AggiungiOperaMostra_Clicked" />
 
@@ -230,7 +230,7 @@
 							<Label Grid.Column="2"
 								   Style="{StaticResource LabelNormal}"
 								   Text="Filtra per: "
-								   TextColor="{StaticResource Color6}"
+								   TextColor="{DynamicResource Color6}"
 								   FontSize="16"
 								   VerticalOptions="Center" />
 							<Picker Grid.Column="3"
@@ -426,7 +426,7 @@
 
 			<!--Overlay-->
 			<BoxView x:Name="Overlay"
-					 BackgroundColor="{StaticResource Color1}"
+					 BackgroundColor="{DynamicResource Color1}"
 					 TranslationX="9999"
 					 Opacity="0.6">
 				<BoxView.GestureRecognizers>
@@ -444,7 +444,7 @@
 					   Style="{StaticResource FontIconLabel}"
 					   HorizontalOptions="Center"
 					   FontSize="44"
-					   TextColor="{StaticResource Color5}">
+					   TextColor="{DynamicResource Color5}">
 					<VisualStateManager.VisualStateGroups>
 						<VisualStateGroupList>
 							<VisualStateGroup x:Name="CommonStates">
@@ -475,7 +475,7 @@
 					   FontSize="44"
 					   HorizontalOptions="Center"
 					   Style="{StaticResource FontIconLabel}"
-					   TextColor="{StaticResource Color5}">
+					   TextColor="{DynamicResource Color5}">
 					<VisualStateManager.VisualStateGroups>
 						<VisualStateGroupList>
 							<VisualStateGroup x:Name="CommonStates">
@@ -508,7 +508,7 @@
 				  RowDefinitions="*"
 				  Padding="60,10,60,10">
 				<Frame Style="{StaticResource FrameRoundedWin}"
-					   BackgroundColor="{StaticResource Color4}"
+					   BackgroundColor="{DynamicResource Color4}"
 					   Margin="60,40,60,30"
 					   Padding="0">
 					<Grid RowDefinitions="*">
@@ -520,7 +520,7 @@
 								<VerticalStackLayout Margin="1,0,1,0"
 													 Spacing="2">
 									<VerticalStackLayout Padding="36"
-														 BackgroundColor="{StaticResource Color5}"
+														 BackgroundColor="{DynamicResource Color5}"
 														 Spacing="8"
 														 Margin="1,0,1,0">
 
@@ -598,7 +598,7 @@
 									<!--Descrizione-->
 
 									<Frame Style="{StaticResource FrameRoundedWin}"
-										   BackgroundColor="{StaticResource Color5}"
+										   BackgroundColor="{DynamicResource Color5}"
 										   Margin="60,40,60,30">
 										<VerticalStackLayout Spacing="30"
 															 Padding="20,10,20,20">
@@ -635,7 +635,7 @@
 								<VerticalStackLayout Margin="1,0,1,0"
 													 Spacing="2">
 									<VerticalStackLayout Padding="36"
-														 BackgroundColor="{StaticResource Color5}"
+														 BackgroundColor="{DynamicResource Color5}"
 														 Spacing="8"
 														 Margin="1,0,1,0">
 
@@ -657,7 +657,7 @@
 										   HeightRequest="280"
 										   WidthRequest="400"
 										   Padding="0"
-										   BackgroundColor="{StaticResource Color4}">
+										   BackgroundColor="{DynamicResource Color4}">
 										<Grid>
 											<!--Foto-->
 											<Image x:Name="MostraPhotoImage2"
@@ -671,7 +671,7 @@
 												   Text="{Static material:IconFont.Upload}"
 												   HorizontalOptions="Center"
 												   VerticalOptions="Center"
-												   TextColor="{StaticResource Color1}"
+												   TextColor="{DynamicResource Color1}"
 												   FontSize="134" />
 											<templateWin:HighlightView Clicked="NuovaOperaMostraPhoto_Clicked"
 																	   Alpha="0"
@@ -743,7 +743,7 @@
 									</CollectionView>
 
 									<template:RoundedButtonView Text="Aggiungi opera"
-																Color="{StaticResource Color1}"
+																Color="{DynamicResource Color1}"
 																WidthRequest="200"
 																Clicked="AggiungiOperaAMostra_Clicked"
 																ColorAlpha="0"
@@ -752,7 +752,7 @@
 
 									<!--Descrizione-->
 									<Frame Style="{StaticResource FrameRoundedWin}"
-										   BackgroundColor="{StaticResource Color5}"
+										   BackgroundColor="{DynamicResource Color5}"
 										   Margin="60,40,60,30">
 										<VerticalStackLayout Spacing="30"
 															 Padding="20,10,20,20">
@@ -791,7 +791,7 @@
 								   FontSize="32"
 								   VerticalOptions="Center"
 								   HorizontalOptions="Center"
-								   TextColor="{StaticResource Color1}"
+								   TextColor="{DynamicResource Color1}"
 								   Text="{Static material:IconFont.Close}" />
 							<templateWin:HighlightView x:Name="ExitButton"
 													   Clicked="CardViewClose_Clicked"
@@ -808,7 +808,7 @@
 				  RowDefinitions="*"
 				  Padding="60,10,60,10">
 				<Frame Style="{StaticResource FrameRoundedWin}"
-					   BackgroundColor="{StaticResource Color4}"
+					   BackgroundColor="{DynamicResource Color4}"
 					   Margin="60,30,60,30"
 					   Padding="0">
 					<Grid RowDefinitions="*">
@@ -821,7 +821,7 @@
 													 Spacing="2"
 													 x:DataType="model:Opera">
 									<VerticalStackLayout Padding="36"
-														 BackgroundColor="{StaticResource Color5}"
+														 BackgroundColor="{DynamicResource Color5}"
 														 Spacing="8"
 														 Margin="1,0,1,0">
 
@@ -843,7 +843,7 @@
 										   HeightRequest="300"
 										   WidthRequest="400"
 										   Padding="0"
-										   BackgroundColor="{StaticResource Color4}">
+										   BackgroundColor="{DynamicResource Color4}">
 										<Grid>
 											<!--Foto-->
 											<Image x:Name="PhotoImage"
@@ -856,7 +856,7 @@
 												   Text="{Static material:IconFont.Upload}"
 												   HorizontalOptions="Center"
 												   VerticalOptions="Center"
-												   TextColor="{StaticResource Color1}"
+												   TextColor="{DynamicResource Color1}"
 												   FontSize="134" />
 											<templateWin:HighlightView Clicked="NuovaOperaMostraPhoto_Clicked"
 																	   Tag="Photo"
@@ -887,7 +887,7 @@
 											</Style>
 											<Style TargetType="template:RoundedEntryView">
 												<Setter Property="Color"
-														Value="{StaticResource Color1}" />
+														Value="{DynamicResource Color1}" />
 												<Setter Property="WidthRequest"
 														Value="230" />
 												<Setter Property="HorizontalOptions"
@@ -940,13 +940,13 @@
 																	<VisualState x:Name="Normal">
 																		<VisualState.Setters>
 																			<Setter Property="TextColor"
-																					Value="{StaticResource Color6}" />
+																					Value="{DynamicResource Color6}" />
 																		</VisualState.Setters>
 																	</VisualState>
 																	<VisualState x:Name="Selected">
 																		<VisualState.Setters>
 																			<Setter Property="TextColor"
-																					Value="{StaticResource Color1}" />
+																					Value="{DynamicResource Color1}" />
 																		</VisualState.Setters>
 																	</VisualState>
 																</VisualStateGroup>
@@ -993,13 +993,13 @@
 																	<VisualState x:Name="Normal">
 																		<VisualState.Setters>
 																			<Setter Property="TextColor"
-																					Value="{StaticResource Color6}" />
+																					Value="{DynamicResource Color6}" />
 																		</VisualState.Setters>
 																	</VisualState>
 																	<VisualState x:Name="Selected">
 																		<VisualState.Setters>
 																			<Setter Property="TextColor"
-																					Value="{StaticResource Color1}" />
+																					Value="{DynamicResource Color1}" />
 																		</VisualState.Setters>
 																	</VisualState>
 																</VisualStateGroup>
@@ -1013,7 +1013,7 @@
 
 									<!--Descrizione-->
 									<Frame Style="{StaticResource FrameRoundedWin}"
-										   BackgroundColor="{StaticResource Color5}"
+										   BackgroundColor="{DynamicResource Color5}"
 										   HeightRequest="460"
 										   Margin="60,40,60,30">
 										<Editor Placeholder="Descrizione"
@@ -1024,7 +1024,7 @@
 
 									<BoxView HeightRequest="20" />
 									<template:RoundedButtonView Text="Salva opera"
-																Color="{StaticResource Color1}"
+																Color="{DynamicResource Color1}"
 																WidthRequest="180"
 																Clicked="SalvaNuovaOperaMostra_Clicked" />
 									<BoxView HeightRequest="30" />
@@ -1040,7 +1040,7 @@
 													 Spacing="2"
 													 x:DataType="model:Mostra">
 									<VerticalStackLayout Padding="36"
-														 BackgroundColor="{StaticResource Color5}"
+														 BackgroundColor="{DynamicResource Color5}"
 														 Spacing="8"
 														 Margin="1,0,1,0">
 
@@ -1062,7 +1062,7 @@
 										   HeightRequest="300"
 										   WidthRequest="400"
 										   Padding="0"
-										   BackgroundColor="{StaticResource Color4}">
+										   BackgroundColor="{DynamicResource Color4}">
 										<Grid>
 											<!--Foto-->
 											<Image x:Name="MostraPhotoImage"
@@ -1075,7 +1075,7 @@
 												   Text="{Static material:IconFont.Upload}"
 												   HorizontalOptions="Center"
 												   VerticalOptions="Center"
-												   TextColor="{StaticResource Color1}"
+												   TextColor="{DynamicResource Color1}"
 												   FontSize="134" />
 											<templateWin:HighlightView Clicked="NuovaOperaMostraPhoto_Clicked"
 																	   Tag="MostraPhoto"
@@ -1106,7 +1106,7 @@
 											</Style>
 											<Style TargetType="template:RoundedEntryView">
 												<Setter Property="Color"
-														Value="{StaticResource Color1}" />
+														Value="{DynamicResource Color1}" />
 												<Setter Property="WidthRequest"
 														Value="230" />
 												<Setter Property="HorizontalOptions"
@@ -1178,7 +1178,7 @@
 
 									<!--Descrizione-->
 									<Frame Style="{StaticResource FrameRoundedWin}"
-										   BackgroundColor="{StaticResource Color5}"
+										   BackgroundColor="{DynamicResource Color5}"
 										   HeightRequest="460"
 										   Margin="60,40,60,30">
 										<Editor Placeholder="Descrizione"
@@ -1189,7 +1189,7 @@
 
 									<BoxView HeightRequest="20" />
 									<template:RoundedButtonView Text="Salva mostra"
-																Color="{StaticResource Color1}"
+																Color="{DynamicResource Color1}"
 																WidthRequest="180"
 																Clicked="SalvaNuovaOperaMostra_Clicked" />
 									<BoxView HeightRequest="30" />
@@ -1207,7 +1207,7 @@
 								   FontSize="32"
 								   VerticalOptions="Center"
 								   HorizontalOptions="Center"
-								   TextColor="{StaticResource Color1}"
+								   TextColor="{DynamicResource Color1}"
 								   Text="{Static material:IconFont.Close}" />
 							<templateWin:HighlightView x:Name="ExitButtonAggiungi"
 													   Clicked="CardViewAggiungiClose_Clicked"
