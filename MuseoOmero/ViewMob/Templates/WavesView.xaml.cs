@@ -1,4 +1,4 @@
-namespace MuseoOmero.View.Templates;
+namespace MuseoOmero.ViewMob.Templates;
 
 public partial class WavesView : ContentView
 {

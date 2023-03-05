@@ -4,7 +4,7 @@
    height="300"
    version="1.1"
    id="svg38"
-   sodipodi:docname="wave2.svg"
+   sodipodi:docname="top_wave.svg"
    inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -20,13 +20,13 @@
      inkscape:pagecheckerboard="1"
      inkscape:deskcolor="#505050"
      showgrid="false"
-     inkscape:zoom="0.5"
-     inkscape:cx="543"
-     inkscape:cy="345"
+     inkscape:zoom="64"
+     inkscape:cx="1435.3594"
+     inkscape:cy="109.625"
      inkscape:window-width="1920"
-     inkscape:window-height="991"
-     inkscape:window-x="-9"
-     inkscape:window-y="-9"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:current-layer="surface1" />
   <defs
@@ -67,7 +67,7 @@
          id="svg_5-0"
          clip-rule="nonzero"
          clip-path="url(#clip2-6)"
-         transform="matrix(-1.0084034,0,0,-1,1440,384.91084)"
+         transform="matrix(-1.0084034,0,0,-1,1440.9259,389.10351)"
          style="display:inline;fill:#000000">
         <path
            id="svg_6-7"
@@ -80,15 +80,14 @@
            id="svg_5"
            clip-rule="nonzero"
            clip-path="url(#clip2)"
-           style="display:inline"
-           transform="rotate(160,714.00003,201.38169)">
+           style="display:inline">
           <path
              id="svg_6"
              fill="#137040"
              fill-rule="nonzero"
-             d="m 2.2812445,94.064419 c 0,0 17.9961915,-3.005081 39.7457255,17.549141 35.293825,32.84721 84.717,73.83175 143.67164,74.12863 58.95077,-0.29688 117.90541,-73.66016 176.86004,-63.44922 58.95464,10.60547 117.90928,105.78125 176.86392,116.39062 58.95464,10.21094 117.90928,-63.15234 176.86392,-84.66796 58.95463,-21.11719 117.90927,10.60937 176.86391,31.72656 58.95464,21.51172 124.7294,52.07914 183.684,57.73148 58.9547,5.25391 144.1199,13.10365 199.596,-12.38114 116.2875,-53.41186 89.276,-137.108549 149.2884,-137.028111 v 51.881711 162.90665 0 H 1246.8744 1070.0143 892.27668 716.46123 539.42257 363.0529 183.72161 39.794763 2.2812445 Z"
+             d="m 1426.637,308.69895 c 0,0 -18.0078,3.00508 -39.7714,-17.54914 -35.3166,-32.84721 -84.7716,-73.83175 -143.7643,-74.12863 -58.9888,0.29688 -117.9815,73.66016 -176.9741,63.44922 C 1007.1346,269.86493 948.14183,174.68915 889.14917,164.07978 830.1565,153.86884 771.16383,227.23212 712.17116,248.74774 653.1785,269.86493 594.18584,238.13837 535.19317,217.02118 476.2005,195.50946 410.38331,164.94204 351.39069,159.2897 292.39797,154.03579 207.17783,146.18605 151.66595,171.67084 35.303436,225.0827 62.332358,308.77939 2.2812437,308.69895 v -51.88171 -162.906647 0 H 181.241 h 176.97418 177.85228 175.92885 177.15286 176.48343 179.4469 144.0198 37.5377 z"
              sodipodi:nodetypes="ccccccccccccccccccccccc"
-             style="stroke-width:0.995407" />
+             style="fill:#1c4832;fill-opacity:1;stroke-width:0.995728" />
         </g>
       </g>
       <circle

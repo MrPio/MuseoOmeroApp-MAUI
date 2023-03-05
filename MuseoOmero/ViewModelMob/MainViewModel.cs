@@ -1,8 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using MuseoOmero.Managers;
-using MuseoOmero.ViewModel.Templates;
-
-namespace MuseoOmero.ViewModel;
+﻿namespace MuseoOmero.ViewModelMob;
 
 public partial class MainViewModel : ObservableObject
 {
@@ -48,8 +44,7 @@ public partial class MainViewModel : ObservableObject
 	[ObservableProperty]
 	double _wavesTranslation = 0;
 
-	[ObservableProperty]
-	double _waves2Translation = DeviceManager.Instance.Width;
+	public double Waves2Translation => DeviceManager.Instance.Width;
 
 	[ObservableProperty]
 	TopBarViewModel topBarViewModel = new();

@@ -1,4 +1,4 @@
-namespace MuseoOmero.View.Templates;
+namespace MuseoOmero.ViewMob.Templates;
 
 public partial class TopBarView : ContentView
 {
@@ -6,12 +6,12 @@ public partial class TopBarView : ContentView
     {
         InitializeComponent();
     }
-    private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+    private async void Logout_Tapped(object sender, EventArgs e)
     {
         if (await Application.Current.MainPage.DisplayAlert("Vuoi davvero uscire?", "Dovrai eseguire  di nuovo il login per rientrare.", "Yes", "No"))
         {
-            Preferences.Remove("username");
-            Preferences.Remove("access_token");
+            //Preferences.Remove("username");
+            //Preferences.Remove("access_token");
             //Application.Current.MainPage = new LoginPage();
         }
     }

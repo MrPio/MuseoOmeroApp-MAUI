@@ -1,6 +1,4 @@
-using MuseoOmero.ViewModel.Templates;
-
-namespace MuseoOmero.View.Templates;
+namespace MuseoOmero.ViewMob.Templates;
 
 public partial class BigliettoView : ContentView
 {

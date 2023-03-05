@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels="clr-namespace:MuseoOmero.ViewModel.Templates"
-             xmlns:tabs="http://sharpnado.com"             
-             x:Class="MuseoOmero.View.Templates.BigliettoView"
+             xmlns:viewModels="clr-namespace:MuseoOmero.ViewModelMob.Templates"
+             xmlns:tabs="http://sharpnado.com"
+			 x:Class="MuseoOmero.ViewMob.Templates.BigliettoView"
              x:DataType="viewModels:BigliettoViewModel">
 
     <Grid

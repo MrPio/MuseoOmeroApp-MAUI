@@ -1,11 +1,6 @@
 ﻿using Firebase.Database;
 using Firebase.Database.Query;
 using Firebase.Database.Streaming;
-using MuseoOmero.Model.Enums;
-using MuseoOmero.Model;
-using MuseoOmero.ViewModel.Templates;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace MuseoOmero.Managers;
 public class DatabaseManager

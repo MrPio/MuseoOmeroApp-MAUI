@@ -1,8 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using MuseoOmero.Managers;
-using MuseoOmero.Resources.Material;
-
-namespace MuseoOmero.ViewModel.Templates
+﻿namespace MuseoOmero.ViewModelMob.Templates
 {
     public partial class TopBarViewModel : ObservableObject
     {

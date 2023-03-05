@@ -131,14 +131,17 @@
 		<Compile Update="Resources\Styles\BlackTheme.xaml.cs">
 		  <DependentUpon>BlackTheme.xaml</DependentUpon>
 		</Compile>
-		<Compile Update="View\IMieiTitoliView.xaml.cs">
+		<Compile Update="ViewMob\IMieiTitoliView.xaml.cs">
 		  <DependentUpon>IMieiTitoliView.xaml</DependentUpon>
 		</Compile>
-		<Compile Update="View\MainView.xaml.cs">
+		<Compile Update="ViewMob\MainView.xaml.cs">
 			<DependentUpon>MainView.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="View\HomeViewWin.xaml.cs">
 		  <DependentUpon>HomeViewWin.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="ViewMob\Templates\RoundedEntryViewMob.xaml.cs">
+		  <DependentUpon>RoundedEntryViewMob.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="View\Templates\RoundedEntryView.xaml.cs">
 			<DependentUpon>RoundedEntryView.xaml</DependentUpon>
@@ -146,10 +149,10 @@
 		<Compile Update="View\Templates\RoundedButtonView.xaml.cs">
 		  <DependentUpon>RoundedButtonView.xaml</DependentUpon>
 		</Compile>
-		<Compile Update="View\Templates\WavesView.xaml.cs">
+		<Compile Update="ViewMob\Templates\WavesView.xaml.cs">
 			<DependentUpon>WavesView.xaml</DependentUpon>
 		</Compile>
-		<Compile Update="View\Templates\TopBarView.xaml.cs">
+		<Compile Update="ViewMob\Templates\TopBarView.xaml.cs">
 			<DependentUpon>TopBarView.xaml</DependentUpon>
 		</Compile>
 	</ItemGroup>
@@ -164,6 +167,9 @@
 		<MauiXaml Update="Resources\Styles\BlackTheme.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="ViewMob\SignInUpView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="View\AccountViewWin.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -176,7 +182,7 @@
 		<MauiXaml Update="View\ChatViewWin.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="View\IMieiTitoliView.xaml">
+		<MauiXaml Update="ViewMob\IMieiTitoliView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="View\HomeViewWin.xaml">
@@ -197,13 +203,16 @@
 		<MauiXaml Update="View\StatisticheViewWin.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="View\Templates\BigliettoView.xaml">
+		<MauiXaml Update="ViewMob\Templates\BigliettoView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="View\Templates\HighlightView.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="View\Templates\LoadingView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="ViewMob\Templates\RoundedEntryViewMob.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="View\Templates\RoundedEntryView.xaml">
@@ -218,10 +227,10 @@
 		<MauiXaml Update="View\Templates\TopMenu.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="View\Templates\WavesView.xaml">
+		<MauiXaml Update="ViewMob\Templates\WavesView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="View\Templates\TopBarView.xaml">
+		<MauiXaml Update="ViewMob\Templates\TopBarView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 	</ItemGroup>

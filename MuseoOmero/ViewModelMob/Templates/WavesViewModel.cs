@@ -1,7 +1,4 @@
-﻿
-using CommunityToolkit.Mvvm.ComponentModel;
-
-namespace MuseoOmero.ViewModel.Templates
+﻿namespace MuseoOmero.ViewModelMob.Templates
 {
     public partial class WavesViewModel : ObservableObject
     {

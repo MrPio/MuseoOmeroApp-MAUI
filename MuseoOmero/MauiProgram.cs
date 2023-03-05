@@ -47,17 +47,16 @@ public static class MauiProgram
 				{
 					//activity.Window.SetFlags(Android.Views.WindowManagerFlags.LayoutNoLimits, Android.Views.WindowManagerFlags.LayoutNoLimits);
 					//activity.Window.ClearFlags(Android.Views.WindowManagerFlags.TranslucentStatus);
-					activity.Window.SetStatusBarColor(Android.Graphics.Color.Rgb(8, 112, 59));
-					activity.Window.SetNavigationBarColor(Android.Graphics.Color.Rgb(8, 112, 59));
+					activity.Window.SetStatusBarColor(Android.Graphics.Color.Rgb(33, 33, 33));
+					activity.Window.SetNavigationBarColor(Android.Graphics.Color.Rgb(33, 33, 33));
 				}
 #endif
 			});
 
-
-#if WINDOWS
+		// WINDOWS
 		builder.Services.AddTransient<SignInUpViewModelWin>();
 		builder.Services.AddSingleton<ShellViewModelWin>();
-        builder.Services.AddSingleton<HomeViewWin>();
+		builder.Services.AddSingleton<HomeViewWin>();
 		builder.Services.AddSingleton<HomeViewModelWin>();
 		builder.Services.AddSingleton<OpereViewModelWin>();
 		builder.Services.AddSingleton<OpereViewWin>();
@@ -69,10 +68,14 @@ public static class MauiProgram
 		builder.Services.AddSingleton<AccountViewModelWin>();
 		builder.Services.AddSingleton<StatisticheViewWin>();
 		builder.Services.AddSingleton<StatisticheViewModelWin>();
-#endif
-
 		builder.Services.AddSingleton<IMediaPicker, CustomMediaPicker>();
 		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+		// ANDROID
+		builder.Services.AddSingleton<SignInUpView>();
+		builder.Services.AddSingleton<MainView>();
+		builder.Services.AddSingleton<MainViewModel>();
+
 
 		return builder.Build();
 	}

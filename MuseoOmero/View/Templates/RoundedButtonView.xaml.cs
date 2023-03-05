@@ -1,4 +1,3 @@
-using MuseoOmero.ViewModel.Templates;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 

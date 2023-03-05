@@ -1,14 +1,12 @@
-namespace MuseoOmero.ViewWin;
+namespace MuseoOmero.ViewMob;
 
-public partial class SignInUpViewWin : ContentPage
+public partial class SignInUpView : ContentPage
 {
-	private readonly SignInUpViewModelWin _viewModel;
-	private readonly ShellViewModelWin _shellViewModelWin;
-	public SignInUpViewWin(SignInUpViewModelWin viewModel, ShellViewModelWin shellViewModelWin)
+	private readonly MainViewModel _mainViewModel;
+
+	public SignInUpView(MainViewModel mainViewModel)
 	{
-		_viewModel = viewModel;
-		_shellViewModelWin = shellViewModelWin;
-		BindingContext = _viewModel;
+		_mainViewModel = mainViewModel;
 		InitializeComponent();
 	}
 
@@ -31,7 +29,7 @@ public partial class SignInUpViewWin : ContentPage
 		Loading.IsVisible = true;
 		if (await AccountManager.Instance.CacheSignIn())
 		{
-			App.Current.MainPage = new ShellViewWin(_shellViewModelWin);
+			App.Current.MainPage = new MainView(_mainViewModel);
 		}
 		else
 		{
@@ -70,7 +68,7 @@ public partial class SignInUpViewWin : ContentPage
 		{
 			Loading.IsVisible = false;
 		}
-		App.Current.MainPage = new ShellViewWin(_shellViewModelWin);
+		App.Current.MainPage = new MainView(_mainViewModel);
 	}
 
 	private void HighlightView_Pressed(object sender, EventArgs e)

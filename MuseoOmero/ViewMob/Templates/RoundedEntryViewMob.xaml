@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 xmlns:view="clr-namespace:MuseoOmero.ViewMob"
+			 xmlns:templates="clr-namespace:MuseoOmero.ViewMob.Templates"
+			 xmlns:viewModel="clr-namespace:MuseoOmero.ViewModelMob"
+			 xmlns:templatesViewModel="clr-namespace:MuseoOmero.ViewMobModel.Templates"
+			 x:Class="MuseoOmero.ViewMob.Templates.RoundedEntryViewMob"
+			 x:DataType="templates:RoundedEntryViewMob">
+
+	<ContentView.Content>
+		<Grid ColumnDefinitions="16,auto,*"
+			  BindingContext="{Binding Source={RelativeSource AncestorType={x:Type templates:RoundedEntryViewMob}}}">
+			<Border x:Name="Border"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					Padding="0"
+					StrokeThickness="{Binding BorderUnfocused}"
+					StrokeShape="RoundRectangle 999"
+					Stroke="{Binding UnfocusedColor}"
+					HeightRequest="{Binding HeightRequest}">
+				<Grid>
+					<Entry IsVisible="{Binding IsDate,Converter={toolkit:InvertedBoolConverter}}"
+						   Placeholder="{Binding Placeholder}"
+						   Text="{Binding Text,Mode=TwoWay}"
+						   VerticalOptions="Center"
+						   VerticalTextAlignment="Center"
+						   FontFamily="LatoLight"
+						   HorizontalOptions="Center"
+						   HorizontalTextAlignment="Center"
+						   WidthRequest="300"
+						   HeightRequest="60"
+						   IsPassword="{Binding IsPassword}"
+						   FontSize="16"
+						   TextColor="{AppThemeBinding Light={StaticResource Color1}, Dark={StaticResource Color5}}"
+						   Focused="Entry_Focused"
+						   Unfocused="Entry_Unfocused">
+					</Entry>
+
+					<DatePicker IsVisible="{Binding IsDate}"
+								Date="{Binding Date,Mode=TwoWay}"
+								FontFamily="LatoLight"
+								FontSize="16"
+								TextColor="{AppThemeBinding Light={StaticResource Color1}, Dark={StaticResource Color5}}"
+								HorizontalOptions="Center"
+								Focused="DatePicker_Focused"
+								Unfocused="DatePicker_Unfocused">
+					</DatePicker>
+				</Grid>
+			</Border>
+			<Label x:Name="IconLabel"
+				   Grid.Column="1"
+				   VerticalOptions="Center"
+				   TextColor="{Binding Color}"
+				   Style="{StaticResource FontIconLabel}"
+				   Text="{Binding Icon}">
+			</Label>
+		</Grid>
+	</ContentView.Content>
+</ContentView>

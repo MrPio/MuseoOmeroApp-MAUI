@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1440"
+   height="300"
+   version="1.1"
+   id="svg38"
+   sodipodi:docname="top_wave.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview40"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="64"
+     inkscape:cx="1435.3594"
+     inkscape:cy="109.625"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="surface1" />
+  <defs
+     id="defs26">
+    <clipPath
+       id="clip1">
+      <path
+         id="svg_1"
+         d="M -6,-9 H 1434 V 666.75 H -6 Z m 0,0" />
+    </clipPath>
+    <clipPath
+       id="clip2">
+      <path
+         id="svg_2"
+         d="M 0,28 H 1428 V 314.25 H 0 Z m 0,0" />
+    </clipPath>
+    <clipPath
+       id="clip2-0">
+      <path
+         id="svg_2-5"
+         d="M 0,28 H 1428 V 314.25 H 0 Z m 0,0" />
+    </clipPath>
+    <clipPath
+       id="clip2-6">
+      <path
+         id="svg_2-2"
+         d="M 0,28 H 1428 V 314.25 H 0 Z m 0,0" />
+    </clipPath>
+  </defs>
+  <g
+     id="g36">
+    <title
+       id="title28">Layer 1</title>
+    <g
+       id="surface1"
+       transform="matrix(-1.0032052,0,0,-1.0119172,1442.3077,296.35428)">
+      <g
+         id="svg_5-0"
+         clip-rule="nonzero"
+         clip-path="url(#clip2-6)"
+         transform="matrix(-1.0084034,0,0,-1,1440.9259,389.10351)"
+         style="display:inline;fill:#000000">
+        <path
+           id="svg_6-7"
+           fill="#137040"
+           fill-rule="nonzero"
+           d="m 2.2812445,94.064419 c 0,0 17.3115675,-2.746081 32.3611595,10.860911 30.873117,28.31556 92.101566,80.51998 151.056206,80.81686 58.95077,-0.29688 117.90541,-73.66016 176.86004,-63.44922 58.95464,10.60547 117.90928,105.78125 176.86392,116.39062 58.95464,10.21094 117.90928,-63.15234 176.86392,-84.66796 58.95463,-21.11719 117.90927,10.60937 176.86391,31.72656 58.95464,21.51172 117.9093,31.42578 176.8639,37.07812 58.9547,5.25391 110.492,8.21858 169.4467,-7.6447 58.9546,-15.85938 156.5559,-67.53999 186.2578,-83.0646 v 0 176.74177 0 H 1246.8744 1070.0143 892.27668 716.46123 539.42257 363.0529 183.72161 39.794763 2.2812445 Z"
+           sodipodi:nodetypes="cccccccccsccccccccccccc"
+           style="display:none;fill:#000000;stroke-width:0.995407" />
+        <g
+           id="svg_5"
+           clip-rule="nonzero"
+           clip-path="url(#clip2)"
+           style="display:inline">
+          <path
+             id="svg_6"
+             fill="#137040"
+             fill-rule="nonzero"
+             d="m 1426.637,308.69895 c 0,0 -18.0078,3.00508 -39.7714,-17.54914 -35.3166,-32.84721 -84.7716,-73.83175 -143.7643,-74.12863 -58.9888,0.29688 -117.9815,73.66016 -176.9741,63.44922 C 1007.1346,269.86493 948.14183,174.68915 889.14917,164.07978 830.1565,153.86884 771.16383,227.23212 712.17116,248.74774 653.1785,269.86493 594.18584,238.13837 535.19317,217.02118 476.2005,195.50946 410.38331,164.94204 351.39069,159.2897 292.39797,154.03579 207.17783,146.18605 151.66595,171.67084 35.303436,225.0827 62.332358,308.77939 2.2812437,308.69895 v -51.88171 -162.906647 0 H 181.241 h 176.97418 177.85228 175.92885 177.15286 176.48343 179.4469 144.0198 37.5377 z"
+             sodipodi:nodetypes="ccccccccccccccccccccccc"
+             style="fill:#212121;fill-opacity:1;stroke-width:0.995728" />
+        </g>
+      </g>
+      <circle
+         id="path268"
+         style="fill:#000000;stroke:#000000"
+         cx="669.23077"
+         cy="280.38461"
+         r="0.58088011" />
+    </g>
+  </g>
+</svg>

@@ -1,8 +1,4 @@
-using Microsoft.Maui.Controls;
-using MuseoOmero.ViewModel;
-using System.Collections.ObjectModel;
-
-namespace MuseoOmero.View;
+namespace MuseoOmero.ViewMob;
 
 public partial class IMieiTitoliView : ContentView
 {

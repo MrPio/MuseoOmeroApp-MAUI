@@ -4,7 +4,7 @@
    height="300"
    version="1.1"
    id="svg38"
-   sodipodi:docname="wave.svg"
+   sodipodi:docname="top_wave.svg"
    inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -21,14 +21,14 @@
      inkscape:deskcolor="#505050"
      showgrid="false"
      inkscape:zoom="0.35355339"
-     inkscape:cx="264.45793"
-     inkscape:cy="219.2031"
+     inkscape:cx="264.45794"
+     inkscape:cy="220.61732"
      inkscape:window-width="1920"
-     inkscape:window-height="991"
-     inkscape:window-x="-9"
-     inkscape:window-y="-9"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg_5-0" />
+     inkscape:current-layer="svg_5" />
   <defs
      id="defs26">
     <clipPath
@@ -87,7 +87,7 @@
              fill-rule="nonzero"
              d="m 2.2812445,94.064419 c 0,0 17.9961915,-3.005081 39.7457255,17.549141 35.293825,32.84721 84.717,73.83175 143.67164,74.12863 58.95077,-0.29688 117.90541,-73.66016 176.86004,-63.44922 58.95464,10.60547 117.90928,105.78125 176.86392,116.39062 58.95464,10.21094 117.90928,-63.15234 176.86392,-84.66796 58.95463,-21.11719 117.90927,10.60937 176.86391,31.72656 58.95464,21.51172 124.7294,52.07914 183.684,57.73148 58.9547,5.25391 144.1199,13.10365 199.596,-12.38114 116.2875,-53.41186 89.276,-137.108549 149.2884,-137.028111 v 51.881711 162.90665 0 H 1246.8744 1070.0143 892.27668 716.46123 539.42257 363.0529 183.72161 39.794763 2.2812445 Z"
              sodipodi:nodetypes="ccccccccccccccccccccccc"
-             style="stroke-width:0.995407" />
+             style="stroke-width:0.995407;fill:#1c4832;fill-opacity:1" />
         </g>
       </g>
       <circle

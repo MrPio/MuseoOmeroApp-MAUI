@@ -1,9 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using MuseoOmero.Model;
-using MuseoOmero.View.Templates;
-
-namespace MuseoOmero.ViewModel.Templates
+﻿namespace MuseoOmero.ViewModelMob.Templates
 {
     public partial class BigliettoViewModel : ObservableObject
     {

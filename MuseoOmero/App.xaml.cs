@@ -13,7 +13,7 @@ namespace MuseoOmero;
 
 public partial class App : Application
 {
-	public App(SignInUpViewModelWin signInUpViewModelWin, ShellViewModelWin shellViewModelWin)
+	public App(SignInUpViewModelWin signInUpViewModelWin, ShellViewModelWin shellViewModelWin, MainViewModel mainViewModel)
 	{
 		InitializeComponent();
 		var width = 1360;
@@ -34,19 +34,10 @@ public partial class App : Application
 #endif
 		});
 
-		var loggedIn = true;
-		if (loggedIn)
-		{
 			if (DeviceInfo.Platform == DevicePlatform.Android || DeviceInfo.Platform == DevicePlatform.iOS)
-				MainPage = new MainView();
+				MainPage = new SignInUpView(mainViewModel);
 			else if (DeviceInfo.Platform == DevicePlatform.WinUI || DeviceInfo.Platform == DevicePlatform.MacCatalyst)
-				//MainPage = new ShellViewWin(shellViewModelWin);
 				MainPage = new SignInUpViewWin(signInUpViewModelWin, shellViewModelWin);
-		}
-		else
-		{
-			//MainPage = new LoginPage();
-		}
 
 		LiveCharts.Configure(config =>
 				config

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 xmlns:viewModels="clr-namespace:MuseoOmero.ViewModel.Templates"
-			 x:Class="MuseoOmero.View.Templates.WavesView"
+			 xmlns:viewModels="clr-namespace:MuseoOmero.ViewModelMob.Templates"
+			 x:Class="MuseoOmero.ViewMob.Templates.WavesView"
 			 x:DataType="viewModels:WavesViewModel">
 
 	<Grid x:Name="WavesGrid">
@@ -17,7 +17,7 @@
 		</Grid.RowDefinitions>
 
 		<Rectangle Grid.Row="0"
-				   BackgroundColor="{StaticResource Color2}"
+				   BackgroundColor="{StaticResource Color7}"
 				   TranslationY="-112">
 		</Rectangle>
 
@@ -25,12 +25,12 @@
 			   Grid.Row="1"
 			   Grid.RowSpan="2"
 			   ScaleX="1.02"
-			   Source="wave2.png"
+			   Source="top_wave.png"
 			   HorizontalOptions="Fill"
 			   TranslationY="{Binding TopWaveTranslationY}" />
 		<Rectangle Grid.Row="0"
 				   Grid.RowSpan="2"
-				   BackgroundColor="{StaticResource Color2}"
+				   BackgroundColor="{StaticResource Color7}"
 				   TranslationY="{Binding TopWaveTranslationY}">
 		</Rectangle>
 
@@ -38,12 +38,12 @@
 			   Grid.Row="4"
 			   Grid.RowSpan="2"
 			   ScaleX="1.02"
-			   Source="wave.png"
+			   Source="bottom_wave.png"
 			   HorizontalOptions="Fill"
 			   TranslationY="{Binding BottomWaveTranslationY}" />
 		<Rectangle Grid.Row="5"
 				   Grid.RowSpan="2"
-				   BackgroundColor="{StaticResource Color2}"
+				   BackgroundColor="{StaticResource Color7}"
 				   TranslationY="{Binding BottomWaveTranslationY}">
 		</Rectangle>
 	</Grid>

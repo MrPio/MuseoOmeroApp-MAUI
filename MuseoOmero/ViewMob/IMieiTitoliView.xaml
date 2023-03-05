@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 x:Class="MuseoOmero.View.IMieiTitoliView"
+			 x:Class="MuseoOmero.ViewMob.IMieiTitoliView"
 			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
-			 xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
-			 xmlns:viewmodel="clr-namespace:MuseoOmero.ViewModel"
+			 xmlns:templates="clr-namespace:MuseoOmero.ViewMob.Templates"
+			 xmlns:viewmodel="clr-namespace:MuseoOmero.ViewModelMob"
 			 xmlns:tabs="http://sharpnado.com"
 			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
 			 x:DataType="viewmodel:IMieiTitoliViewModel"
@@ -34,27 +34,27 @@
 							Grid.ColumnSpan="2"
 							HeightRequest="32"
 							Margin="0,0,2,0"
-							CornerRadius="16"
+							CornerRadius="99"
 							BackgroundColor="{StaticResource Color5}"
-							BorderColor="{StaticResource Color3}"
+							BorderColor="{StaticResource Color1}"
 							Padding="34,0,22,0"
 							TextColor="{StaticResource Color1}"
 							FontFamily="Lato"
 							FontSize="17.4"
 							Text="Aggiorna"
-							BorderWidth="4.0">
+							BorderWidth="1.0">
 					</Button>
 					<Label FontFamily="MaterialDesignIcons"
 						   FontSize="24"
 						   HorizontalOptions="Center"
 						   VerticalOptions="Center"
-						   TextColor="{StaticResource Color3}"
+						   TextColor="{StaticResource Color1}"
 						   Text="{Static material:IconFont.Refresh}" />
 
-					<!-- NOT WORKING ON WINDOWS
+					<!-- NOT WORKING ON WINDOWS-->
 					<tabs:TouchEffect.Color>
 						#54F4F4F4
-					</tabs:TouchEffect.Color>-->
+					</tabs:TouchEffect.Color>
 				</Grid>
 			</Grid>
 
@@ -64,8 +64,9 @@
 			<Line X1="0"
 				  X2="130"
 				  HorizontalOptions="Center"
-				  Stroke="{StaticResource Color3}"
-				  StrokeThickness="4"
+				  Stroke="{StaticResource Color1}"
+				  Opacity="0.95"
+				  StrokeThickness="2"
 				  StrokeLineCap="Round" />
 			<BoxView HeightRequest="10"
 					 Color="Transparent" />

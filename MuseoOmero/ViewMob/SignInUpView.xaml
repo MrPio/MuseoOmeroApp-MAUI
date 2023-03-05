@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="MuseoOmero.ViewMob.SignInUpView"
+			 xmlns:tabs="http://sharpnado.com"
+			 xmlns:viewModels="clr-namespace:MuseoOmero.ViewModelMob"
+			 xmlns:templatesMob="clr-namespace:MuseoOmero.ViewMob.Templates"
+			 xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
+			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+			 xmlns:views="clr-namespace:MuseoOmero.ViewMob"
+			 Title="SignInUpView">
+	<Grid>
+		<Grid RowDefinitions="0.2*,auto,*"
+			  BackgroundColor="{StaticResource Color4}">
+
+			<Rectangle BackgroundColor="{StaticResource Color1}" />
+			<Image Grid.Row="1"
+				   VerticalOptions="Start"
+				   
+				   ScaleX="1.02"
+				   Source="top_wave_black.png"
+				   HorizontalOptions="Fill" />
+
+			<Image Aspect="AspectFit"
+				   WidthRequest="200"
+				   Margin="0,20,0,0"
+				   Source="https://i.ibb.co/98gwc6x/logo-museoomero.png" />
+
+			<!--Login Frame-->
+			<Grid Grid.Row="2"
+				  RowDefinitions="0.25*,*"
+				  Margin="40,0,40,0">
+
+				<!--Accedi al portale-->
+				<VerticalStackLayout VerticalOptions="Center">
+
+					<Label Style="{StaticResource LabelBold}"
+						   Text="Accedi all'app"
+						   FontFamily="LatoBlack"
+						   HorizontalOptions="Center"
+						   TextColor="{StaticResource Color1}"
+						   FontSize="32" />
+				</VerticalStackLayout>
+
+				<!--<Bottom Grid-->
+				<Grid Grid.Row="1"
+					  RowDefinitions="auto,auto,auto, auto,auto,auto"
+					  RowSpacing="12">
+
+					<!--Email-->
+					<Label Text="Email:"
+						   HorizontalOptions="Center"
+						   Style="{StaticResource LabelNormal}" />
+					<templatesMob:RoundedEntryViewMob x:Name="EmailEntry"
+													  Grid.Row="1"
+													  Placeholder="email@example.com"
+													  HeightRequest="48"
+													  Color="{StaticResource Color1}"
+													  UnfocusedColor="{StaticResource Color6}"
+													  Icon="{Static material:IconFont.Email}" />
+
+					<!--Password-->
+					<Label Grid.Row="2"
+						   Text="Password:"
+						   Margin="0,10,0,0"
+						   HorizontalOptions="Center"
+						   Style="{StaticResource LabelNormal}" />
+					<templatesMob:RoundedEntryViewMob x:Name="PasswordEntry"
+													  Grid.Row="3"
+													  Placeholder="•••••••"
+													  HeightRequest="48"
+													  Color="{StaticResource Color1}"
+													  UnfocusedColor="{StaticResource Color6}"
+													  Icon="{Static material:IconFont.Key}"
+													  IsPassword="true" />
+
+					<!--Accedi Button-->
+					<templates:RoundedButtonView Grid.Row="4"
+												 Text="Accedi"
+												 WidthRequest="180"
+												 Margin="0,30,0,0"
+												 Color="{StaticResource Color1}"
+												 Clicked="Accedi_Clicked" />
+
+					<Grid Grid.Row="5"
+						  Margin="0,10,0,0">
+						<Label x:Name="PwdDimenticataLabel"
+							   Style="{StaticResource LabelBold}"
+							   HorizontalOptions="Center"
+							   FontSize="18"
+							   Text="Password dimenticata" />
+						<templatesWin:HighlightView Alpha="0"
+													Pressed="HighlightView_Pressed"
+													Released="HighlightView_Released"
+													Clicked="HighlightView_Clicked" />
+
+					</Grid>
+				</Grid>
+			</Grid>
+		</Grid>
+
+		<Image VerticalOptions="End"
+			   ScaleX="1.02"
+			   Rotation="180"
+			   Source="top_wave_black.png"
+			   HorizontalOptions="Fill" />
+
+		<!-- Loading screen -->
+		<templatesWin:LoadingView x:Name="Loading"
+								  IsVisible="false" />
+	</Grid>
+</ContentPage>
