@@ -9,13 +9,15 @@ public partial class RoundedButtonView : ContentView
 
 	public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(RoundedButtonView), string.Empty);
 	public static readonly BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(RoundedButtonView), Dev.Colors[1]);
+	public static readonly BindableProperty ReleasedTextColorProperty = BindableProperty.Create(nameof(ReleasedTextColor), typeof(Color), typeof(RoundedButtonView), Dev.Colors[4]);
+	public static readonly BindableProperty PressedBackgroundColorProperty = BindableProperty.Create(nameof(PressedBackgroundColor), typeof(Color), typeof(RoundedButtonView), Dev.Colors[4]);
 	public static readonly BindableProperty NewHeightProperty = BindableProperty.Create(nameof(Height), typeof(double), typeof(RoundedButtonView), 50d);
 	public static readonly BindableProperty NewFontSizeProperty = BindableProperty.Create(nameof(NewFontSize), typeof(double), typeof(RoundedButtonView), 18d);
 	public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(RoundedButtonView), null);
 	public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(RoundedButtonView), null);
 	public static readonly BindableProperty StyleInvertProperty = BindableProperty.Create(nameof(StyleInvert), typeof(bool), typeof(RoundedButtonView), false);
 	public static readonly BindableProperty BorderWidthProperty = BindableProperty.Create(nameof(BorderWidth), typeof(double), typeof(RoundedButtonView), 2d);
-	public static readonly BindableProperty ColorAlphaProperty = BindableProperty.Create(nameof(Height), typeof(double), typeof(RoundedButtonView), 1d);
+	public static readonly BindableProperty ReleasedColorAlphaProperty = BindableProperty.Create(nameof(ReleasedColorAlpha), typeof(double), typeof(RoundedButtonView), 1d);
 
 
 	public event EventHandler Clicked;
@@ -29,6 +31,16 @@ public partial class RoundedButtonView : ContentView
 	{
 		get => (Color)GetValue(ColorProperty);
 		set => SetValue(ColorProperty, value);
+	}
+	public Color ReleasedTextColor
+	{
+		get => (Color)GetValue(ReleasedTextColorProperty);
+		set => SetValue(ReleasedTextColorProperty, value);
+	}
+	public Color PressedBackgroundColor
+	{
+		get => (Color)GetValue(PressedBackgroundColorProperty);
+		set => SetValue(PressedBackgroundColorProperty, value);
 	}
 	public double NewHeight
 	{
@@ -61,10 +73,10 @@ public partial class RoundedButtonView : ContentView
 		get => (double)GetValue(BorderWidthProperty);
 		set => SetValue(BorderWidthProperty, value);
 	}
-	public double ColorAlpha
+	public double ReleasedColorAlpha
 	{
-		get => (double)GetValue(ColorAlphaProperty);
-		set => SetValue(ColorAlphaProperty, value);
+		get => (double)GetValue(ReleasedColorAlphaProperty);
+		set => SetValue(ReleasedColorAlphaProperty, value);
 	}
 	public RoundedButtonView()
 	{
@@ -79,7 +91,7 @@ public partial class RoundedButtonView : ContentView
 			if (StyleInvert)
 			{
 				Button.RemoveBinding(BackgroundColorProperty);
-				Button.BackgroundColor = Dev.Colors[4];
+				Button.BackgroundColor = PressedBackgroundColor;
 
 				Button.BorderWidth = BorderWidth;
 				Button.SetBinding(BorderWidthProperty, nameof(BorderWidth));
@@ -96,7 +108,7 @@ public partial class RoundedButtonView : ContentView
 				Button.RemoveBinding(BorderWidthProperty);
 				Button.BorderWidth = 0;
 
-				Button.TextColor = Colors.White;
+				Button.TextColor = ReleasedTextColor;
 
 				Button.FontFamily = "Lato";
 			}
@@ -106,15 +118,9 @@ public partial class RoundedButtonView : ContentView
 
 	private void RoundedButton_Pressed(object sender, EventArgs e)
 	{
-		if (StyleInvert)
+		if (!StyleInvert)
 		{
-			//((Button)sender).BackgroundColor = Color.WithAlpha((float)ColorAlpha);
-			//((Button)sender).TextColor = Color;
-
-		}
-		else
-		{
-			((Button)sender).BackgroundColor = Colors.White;
+			((Button)sender).BackgroundColor = PressedBackgroundColor;
 			((Button)sender).TextColor = Color;
 			((Button)sender).BorderWidth = BorderWidth;
 		}
@@ -122,15 +128,10 @@ public partial class RoundedButtonView : ContentView
 
 	private void RoundedButton_Released(object sender, EventArgs e)
 	{
-		if (StyleInvert)
+		if (!StyleInvert)
 		{
-			//((Button)sender).BackgroundColor = Colors.White;
-			//((Button)sender).TextColor = Color;
-		}
-		else
-		{
-			((Button)sender).BackgroundColor = Color.WithAlpha((float)ColorAlpha);
-			((Button)sender).TextColor = Colors.White;
+			((Button)sender).BackgroundColor = Color.WithAlpha((float)ReleasedColorAlpha);
+			((Button)sender).TextColor = ReleasedTextColor;
 			((Button)sender).BorderWidth = 0;
 		}
 	}

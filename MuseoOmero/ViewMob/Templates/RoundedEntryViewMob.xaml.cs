@@ -5,9 +5,11 @@ public partial class RoundedEntryViewMob : ContentView
 	public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(RoundedEntryViewMob), string.Empty);
 	public static readonly BindableProperty PlaceholderProperty = BindableProperty.Create(nameof(Placeholder), typeof(string), typeof(RoundedEntryViewMob), string.Empty);
 	public static readonly BindableProperty IconProperty = BindableProperty.Create(nameof(Icon), typeof(string), typeof(RoundedEntryViewMob), string.Empty);
-	public static readonly BindableProperty IsPasswordProperty = BindableProperty.Create(nameof(IsDate), typeof(bool), typeof(RoundedEntryViewMob), false);
-	public static readonly BindableProperty IsDateProperty = BindableProperty.Create(nameof(IsPassword), typeof(bool), typeof(RoundedEntryViewMob), false);
+	public static readonly BindableProperty IsPasswordProperty = BindableProperty.Create(nameof(IsPassword), typeof(bool), typeof(RoundedEntryViewMob), false);
+	public static readonly BindableProperty IsDateProperty = BindableProperty.Create(nameof(IsDate), typeof(bool), typeof(RoundedEntryViewMob), false);
 	public static readonly BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(RoundedEntryViewMob), DeviceManager.Instance.Colors[0]);
+	public static readonly BindableProperty PlaceholderColorProperty = BindableProperty.Create(nameof(PlaceholderColor), typeof(Color), typeof(RoundedEntryViewMob), DeviceManager.Instance.Colors[5]);
+
 	public static readonly BindableProperty UnfocusedColorProperty = BindableProperty.Create(nameof(UnfocusedColor), typeof(Color), typeof(RoundedEntryViewMob), DeviceManager.Instance.Colors[5]);
 	public static readonly BindableProperty MyBackgroundColorProperty = BindableProperty.Create(nameof(MyBackgroundColor), typeof(Color), typeof(RoundedEntryViewMob), DeviceManager.Instance.Colors[4]);
 	public static readonly BindableProperty BorderFocusedProperty = BindableProperty.Create(nameof(BorderFocused), typeof(double), typeof(RoundedEntryViewMob), 2d);
@@ -47,6 +49,11 @@ public partial class RoundedEntryViewMob : ContentView
 	{
 		get => (Color)GetValue(ColorProperty);
 		set => SetValue(ColorProperty, value);
+	}
+	public Color PlaceholderColor
+	{
+		get => (Color)GetValue(PlaceholderColorProperty);
+		set => SetValue(PlaceholderColorProperty, value);
 	}
 	//The color of the icon and the text when there is no focus
 	public Color UnfocusedColor
@@ -90,7 +97,7 @@ public partial class RoundedEntryViewMob : ContentView
 
 	private void Entry_Focused(object sender, FocusEventArgs e)
 	{
-		((Entry)sender).SetAppThemeColor(Entry.TextColorProperty, _devM.Colors[0], _devM.Colors[4]);
+		((Entry)sender).TextColor = Color;
 		IconLabel.TextColor = Color;
 		Border.Stroke = Color;
 		Border.StrokeThickness = BorderFocused;

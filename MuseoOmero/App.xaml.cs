@@ -5,6 +5,7 @@ using Windows.Graphics;
 #endif
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
+using Mopups.Interfaces;
 using MuseoOmero.Messages;
 using MuseoOmero.View;
 using MuseoOmero.ViewWin;
@@ -13,7 +14,7 @@ namespace MuseoOmero;
 
 public partial class App : Application
 {
-	public App(SignInUpViewModelWin signInUpViewModelWin, ShellViewModelWin shellViewModelWin, MainViewModel mainViewModel)
+	public App(SignInUpViewModelWin signInUpViewModelWin, ShellViewModelWin shellViewModelWin, MainViewModel mainViewModel, IPopupNavigation popupNavigation)
 	{
 		InitializeComponent();
 		var width = 1360;
@@ -35,7 +36,7 @@ public partial class App : Application
 		});
 
 			if (DeviceInfo.Platform == DevicePlatform.Android || DeviceInfo.Platform == DevicePlatform.iOS)
-				MainPage = new SignInUpView(mainViewModel);
+				MainPage = new SignInUpView(mainViewModel, popupNavigation);
 			else if (DeviceInfo.Platform == DevicePlatform.WinUI || DeviceInfo.Platform == DevicePlatform.MacCatalyst)
 				MainPage = new SignInUpViewWin(signInUpViewModelWin, shellViewModelWin);
 

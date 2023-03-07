@@ -2,6 +2,9 @@
 using CommunityToolkit.Maui;
 using MauiSampleCamera;
 using Microsoft.Maui.LifecycleEvents;
+using Mopups.Hosting;
+using Mopups.Interfaces;
+using Mopups.Services;
 using MuseoOmero.View.TemplatesWin;
 using Sharpnado.Tabs;
 using SkiaSharp.Views.Maui.Controls.Hosting;
@@ -33,6 +36,7 @@ public static class MauiProgram
 			.UseSharpnadoTabs(loggerEnable: false)
 			.UseSkiaSharp(true)
 			.UseBarcodeReader()
+			.ConfigureMopups()
 			.ConfigureMauiHandlers(handlers =>
 			{
 				// Add the handlers
@@ -75,6 +79,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<SignInUpView>();
 		builder.Services.AddSingleton<MainView>();
 		builder.Services.AddSingleton<MainViewModel>();
+		builder.Services.AddSingleton<IPopupNavigation>(MopupService.Instance);
 
 
 		return builder.Build();

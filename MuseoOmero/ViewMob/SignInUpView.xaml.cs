@@ -1,33 +1,33 @@
+using Mopups.Interfaces;
+using MuseoOmero.ViewMob.Popups;
+
 namespace MuseoOmero.ViewMob;
 
 public partial class SignInUpView : ContentPage
 {
 	private readonly MainViewModel _mainViewModel;
+	private readonly IPopupNavigation _popupNavigation;
 
-	public SignInUpView(MainViewModel mainViewModel)
+	public SignInUpView(MainViewModel mainViewModel, IPopupNavigation popupNavigation)
 	{
 		_mainViewModel = mainViewModel;
+		_popupNavigation = popupNavigation;
 		InitializeComponent();
 	}
 
 	protected override void OnAppearing()
 	{
 		base.OnAppearing();
-		new Task(CheckCached).RunSynchronously();
+		//new Task(CheckCached).RunSynchronously();
 	}
 
 	private async void CheckCached()
 	{
-		await Task.Delay(2000); //TODO!
-
-		//await DbPopulatorManager.Instance.PopulateUtentiBigliettiQuestionariChats();
-		//await DbPopulatorManager.Instance.populateChats();
-		//await DbPopulatorManager.Instance.populateDipendenti();
 		if (String.IsNullOrEmpty(await SecureStorage.Default.GetAsync("uid")))
 			return;
 
 		Loading.IsVisible = true;
-		if (await AccountManager.Instance.CacheSignIn())
+		if (await AccountManager.Instance.CacheSignIn(false))
 		{
 			App.Current.MainPage = new MainView(_mainViewModel);
 		}
@@ -69,6 +69,13 @@ public partial class SignInUpView : ContentPage
 			Loading.IsVisible = false;
 		}
 		App.Current.MainPage = new MainView(_mainViewModel);
+	}
+	private void Registrati_Clicked(object sender, EventArgs e)
+	{
+		var popup = new SignUpView(_mainViewModel,_popupNavigation);
+		popup.Email = EmailEntry.Text;	
+		popup.Password = PasswordEntry.Text;
+		_popupNavigation.PushAsync(popup);
 	}
 
 	private void HighlightView_Pressed(object sender, EventArgs e)

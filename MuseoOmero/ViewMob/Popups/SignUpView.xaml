@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+				  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+				  xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+				  xmlns:tabs="http://sharpnado.com"
+				  xmlns:viewModels="clr-namespace:MuseoOmero.ViewModelMob"
+				  xmlns:templatesMob="clr-namespace:MuseoOmero.ViewMob.Templates"
+				  xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
+				  xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
+				  xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+				  xmlns:views="clr-namespace:MuseoOmero.ViewMob"
+				  xmlns:popups="clr-namespace:MuseoOmero.ViewMob.Popups"
+				  x:Class="MuseoOmero.ViewMob.Popups.SignUpView"
+				  Title="Registrazione"
+				  Background="#80000000"
+				  CloseWhenBackgroundIsClicked="True"
+				  x:DataType="popups:SignUpView">
+
+	<mopups:PopupPage.Resources>
+		<Style TargetType="templatesMob:RoundedEntryViewMob">
+			<Setter Property="HeightRequest"
+					Value="45" />
+			<Setter Property="MyBackgroundColor"
+					Value="#38ffffff" />
+			<Setter Property="Color"
+					Value="{AppThemeBinding Light={StaticResource Color1},
+												  Dark={StaticResource Color5}}" />
+			<Setter Property="UnfocusedColor"
+					Value="{StaticResource Color6}" />
+			<Setter Property="PlaceholderColor"
+					Value="{AppThemeBinding Dark= '#70ffffff', Light={StaticResource Color6}}" />
+		</Style>
+	</mopups:PopupPage.Resources>
+
+	<Grid>
+		<ScrollView HorizontalOptions="Center"
+					VerticalOptions="Center"
+					Margin="30,0,30,0">
+			<Border StrokeShape="RoundRectangle 32,16,16,32"
+					Stroke="Transparent"
+					BackgroundColor="{AppThemeBinding Light={StaticResource Color4},
+												  Dark={StaticResource Color1}}">
+				<Grid>
+					<VerticalStackLayout Margin="20,30,20,0"
+										 HorizontalOptions='Center'
+										 Spacing="6">
+						<Label Style="{StaticResource LabelBold}"
+							   Text="Nuovo utente"
+							   HorizontalOptions="Center" />
+						<Label Style="{StaticResource LabelThin}"
+							   Text="Per favore, compila i seguenti campi&#10;(* = campo obbligatorio)"
+							   HorizontalOptions="Center"
+							   HorizontalTextAlignment="Center"
+							   LineBreakMode="WordWrap" />
+						<Label x:Name="ErrorLabel"
+							   Style="{StaticResource LabelNormal}"
+							   TextColor="Red"
+							   HorizontalOptions="Center"
+							   HorizontalTextAlignment="Center"
+							   LineBreakMode="WordWrap" />
+						<BoxView HeightRequest="4" />
+
+						<Grid ColumnDefinitions="*,auto,4"
+							  ColumnSpacing="4">
+							<templatesMob:RoundedEntryViewMob x:Name="EmailEntry"
+															  Placeholder="Email"
+															  Keyboard="Email"
+															  Icon="{Static material:IconFont.Email}"
+															  Text="{Binding Email,Mode=TwoWay}" />
+							<Label Grid.Column="1"
+								   Style="{StaticResource LabelBold}"
+								   Text="*"
+								   VerticalOptions="Center" />
+						</Grid>
+						<Grid ColumnDefinitions="*,auto,4"
+							  ColumnSpacing="4">
+							<templatesMob:RoundedEntryViewMob x:Name="UsernameEntry"
+															  Placeholder="Username"
+															  Icon="{Static material:IconFont.Account}"
+															  Text="{Binding Username,Mode=TwoWay}" />
+							<Label Grid.Column="1"
+								   Style="{StaticResource LabelBold}"
+								   Text="*"
+								   VerticalOptions="Center" />
+						</Grid>
+						<Grid ColumnDefinitions="*,auto,4"
+							  ColumnSpacing="4">
+							<templatesMob:RoundedEntryViewMob x:Name="PasswordEntry"
+															  Placeholder="Password"
+															  Icon="{Static material:IconFont.Key}"
+															  Text="{Binding Password,Mode=TwoWay}"
+															  IsPassword="true" />
+							<Label Grid.Column="1"
+								   Style="{StaticResource LabelBold}"
+								   Text="*"
+								   VerticalOptions="Center" />
+						</Grid>
+						<Grid ColumnDefinitions="*,auto,4"
+							  ColumnSpacing="4">
+							<templatesMob:RoundedEntryViewMob x:Name="ConfermaPasswordEntry"
+															  Placeholder="Conferma password"
+															  Icon="{Static material:IconFont.KeyAlert}"
+															  IsPassword="true"
+															  Text="{Binding ConfermaPassword,Mode=TwoWay}" />
+							<Label Grid.Column="1"
+								   Style="{StaticResource LabelBold}"
+								   Text="*"
+								   VerticalOptions="Center" />
+						</Grid>
+
+						<Line Style="{StaticResource HRule}"
+							  HeightRequest="10"
+							  WidthRequest="180"
+							  StrokeThickness="3" />
+						<templatesMob:RoundedEntryViewMob x:Name="NomeEntry"
+														  Placeholder="Nome"
+														  Icon="{Static material:IconFont.Pen}"
+														  Text="{Binding Nome,Mode=TwoWay}" />
+						<templatesMob:RoundedEntryViewMob x:Name="CognomeEntry"
+														  Placeholder="Cognome"
+														  Icon="{Static material:IconFont.Pencil}"
+														  Text="{Binding Cognome,Mode=TwoWay}" />
+						<templatesMob:RoundedEntryViewMob x:Name="CellulareEntry"
+														  Placeholder="Cellullare"
+														  Icon="{Static material:IconFont.Cellphone}"
+														  Keyboard="Telephone"
+														  Text="{Binding Cellulare,Mode=TwoWay}" />
+						<BoxView HeightRequest="16" />
+
+						<templates:RoundedButtonView  Text="Conferma"
+													  NewFontSize="16"
+													  Color="{AppThemeBinding Light={StaticResource Color1},
+							Dark={StaticResource Color5}}"
+													  PressedBackgroundColor="#55ffffff"
+													  WidthRequest="180"
+													  ReleasedTextColor="{AppThemeBinding Light={StaticResource Color5},
+							Dark={StaticResource Color1}}"
+													  Clicked="Conferma_Clicked" />
+						<BoxView HeightRequest="16" />
+					</VerticalStackLayout>
+
+					<!--Bottom-left Abstract-->
+					<Image Source="{Static material:ImagesOnline.Abstract1}"
+						   VerticalOptions="End"
+						   HorizontalOptions="Start"
+						   Opacity="0.35"
+						   WidthRequest="260" />
+				</Grid>
+			</Border>
+		</ScrollView>
+		<templatesWin:LoadingView x:Name="Loading"
+								  IsVisible="false" />
+	</Grid>
+</mopups:PopupPage>

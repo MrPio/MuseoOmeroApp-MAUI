@@ -620,7 +620,7 @@
 																Color="OrangeRed"
 																WidthRequest="200"
 																Clicked="EliminaOperaMostra_Clicked"
-																ColorAlpha="0"
+																ReleasedColorAlpha="0"
 																BorderWidth="2"
 																StyleInvert="True" />
 									<BoxView HeightRequest="30" />
@@ -746,7 +746,7 @@
 																Color="{DynamicResource Color1}"
 																WidthRequest="200"
 																Clicked="AggiungiOperaAMostra_Clicked"
-																ColorAlpha="0"
+																ReleasedColorAlpha="0"
 																BorderWidth="2"
 																StyleInvert="True" />
 
@@ -773,7 +773,7 @@
 																Color="OrangeRed"
 																WidthRequest="200"
 																Clicked="EliminaOperaMostra_Clicked"
-																ColorAlpha="0"
+																ReleasedColorAlpha="0"
 																BorderWidth="2"
 																StyleInvert="True" />
 									<BoxView HeightRequest="30" />

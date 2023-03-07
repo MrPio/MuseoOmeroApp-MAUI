@@ -13,17 +13,12 @@
 				 Shell.NavBarIsVisible="false"
 				 Title="SignInUpView">
 
-	<Grid RowDefinitions="1*,auto,*"
+	<Grid RowDefinitions="*,auto,*"
 		  BackgroundColor="{StaticResource Color5}">
 
 		<Rectangle BackgroundColor="{StaticResource Color1}" />
 
-		<!--Top Wave-->
-		<!--<Image Grid.Row="1"
-			   VerticalOptions="Start"
-			   ScaleX="1.02"
-			   Source="top_wave_black.png"
-			   HorizontalOptions="Fill" />-->
+		<!--Mole Vanvitelliana image-->
 		<Image Source="{Static material:ImagesOnline.MoleVanvitelliana}"
 			   Aspect="AspectFill" />
 
@@ -31,12 +26,12 @@
 		<Image Aspect="AspectFit"
 			   VerticalOptions="Start"
 			   Margin="0,40,0,0"
-			   Opacity="0.88"
+			   Opacity="0.9"
 			   WidthRequest="160"
 			   Source="https://i.ibb.co/98gwc6x/logo-museoomero.png" />
 
 		<!--Vignette-->
-		<BoxView >
+		<BoxView>
 			<BoxView.Background>
 				<RadialGradientBrush>
 					<GradientStop Color="Transparent"
@@ -47,11 +42,13 @@
 			</BoxView.Background>
 		</BoxView>
 
+		<!--White Wave-->
 		<Image VerticalOptions="End"
 			   ScaleX="1.02"
 			   Source="wave_inverse_white.png"
 			   HorizontalOptions="Fill" />
 
+		<!--Top-right Abstract-->
 		<Image Grid.Row="1"
 			   Grid.RowSpan="2"
 			   Source="{Static material:ImagesOnline.Abstract2Cut}"
@@ -61,6 +58,7 @@
 			   HorizontalOptions="Fill"
 			   Opacity="0.4" />
 
+		<!--Bottom-left Abstract-->
 		<Image Grid.Row="2"
 			   Source="{Static material:ImagesOnline.Abstract1}"
 			   VerticalOptions="End"
@@ -68,9 +66,11 @@
 			   Opacity="0.35"
 			   WidthRequest="260" />
 
-		<ScrollView Grid.Row="2">
-			<VerticalStackLayout Margin="50,0,50,0">
-				<!--Login Frame-->
+		<!--Login Frame-->
+		<ScrollView Grid.Row="2"
+					Margin="0,-16,0,0">
+			<VerticalStackLayout Margin="44,0,44,0"
+								 Padding="0,16,0,0">
 
 				<!--Accedi al portale-->
 				<VerticalStackLayout VerticalOptions="Center"
@@ -100,6 +100,7 @@
 					<!--Email-->
 					<templatesMob:RoundedEntryViewMob x:Name="EmailEntry"
 													  Grid.Row="1"
+													  Keyboard="Email"
 													  Placeholder="email@example.com"
 													  HeightRequest="46"
 													  MyBackgroundColor="#55ffffff"
@@ -119,17 +120,32 @@
 													  IsPassword="true" />
 
 					<!--Accedi Button-->
-					<templates:RoundedButtonView Grid.Row="4"
-												 Text="Accedi"
-												 WidthRequest="180"
-												 Margin="0,26,0,0"
-												 Color="{StaticResource Color1}"
-												 Clicked="Accedi_Clicked" />
+					<Grid Grid.Row="4"
+						  ColumnDefinitions="*,*"
+						  ColumnSpacing="10">
+
+						<templates:RoundedButtonView Text="Registrati"
+													 Margin="0,26,0,0"
+													 NewFontSize="16"
+													 Color="{StaticResource Color1}"
+													 PressedBackgroundColor="#55ffffff"
+													 Clicked="Registrati_Clicked"
+													 BorderWidth="1"
+													 StyleInvert="True" />
+						<templates:RoundedButtonView Grid.Column="1"
+													 Text="Accedi"
+													 NewFontSize="16"
+													 Margin="0,26,0,0"
+													 PressedBackgroundColor="{StaticResource Color5}"
+													 Color="{StaticResource Color1}"
+													 Clicked="Accedi_Clicked" />
+					</Grid>
 
 					<Grid Grid.Row="5"
 						  Margin="0,8,0,0">
 						<Label x:Name="PwdDimenticataLabel"
 							   Style="{StaticResource LabelBold}"
+							   TextColor="{StaticResource Color1}"
 							   HorizontalOptions="Center"
 							   FontSize="18"
 							   Text="Password dimenticata" />

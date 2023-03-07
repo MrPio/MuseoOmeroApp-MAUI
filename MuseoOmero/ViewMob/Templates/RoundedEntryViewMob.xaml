@@ -5,7 +5,7 @@
 			 xmlns:view="clr-namespace:MuseoOmero.ViewMob"
 			 xmlns:templates="clr-namespace:MuseoOmero.ViewMob.Templates"
 			 xmlns:viewModel="clr-namespace:MuseoOmero.ViewModelMob"
-			 xmlns:templatesViewModel="clr-namespace:MuseoOmero.ViewMobModel.Templates"
+			 xmlns:templatesViewModel="clr-namespace:MuseoOmero.ViewModelMob.Templates"
 			 x:Class="MuseoOmero.ViewMob.Templates.RoundedEntryViewMob"
 			 x:DataType="templates:RoundedEntryViewMob">
 
@@ -32,9 +32,11 @@
 						   HorizontalTextAlignment="Center"
 						   WidthRequest="300"
 						   HeightRequest="60"
+						   PlaceholderColor="{Binding PlaceholderColor}"
+						   Keyboard="{Binding Keyboard}"
 						   IsPassword="{Binding IsPassword}"
 						   FontSize="16"
-						   TextColor="{AppThemeBinding Light={StaticResource Color1}, Dark={StaticResource Color5}}"
+						   TextColor="{Binding Color}"
 						   Focused="Entry_Focused"
 						   Unfocused="Entry_Unfocused">
 					</Entry>
