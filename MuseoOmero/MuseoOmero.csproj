@@ -113,6 +113,7 @@
 		<PackageReference Include="Microcharts" Version="0.9.5.9" />
 		<PackageReference Include="Mopups" Version="1.1.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+		<PackageReference Include="Sharpnado.CollectionView.Maui" Version="3.0.0" />
 		<PackageReference Include="Sharpnado.Tabs.Maui" Version="3.0.1" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />
 		<PackageReference Include="System.Drawing.Common" Version="7.0.0" />

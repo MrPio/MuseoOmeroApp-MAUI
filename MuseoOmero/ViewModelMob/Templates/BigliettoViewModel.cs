@@ -10,13 +10,18 @@
         [ObservableProperty]
         string tipologiaBiglietto, turnoGuida, icon;
 
+        [ObservableProperty]
+        Biglietto biglietto;
+
         public BigliettoViewModel(Biglietto biglietto)
         {
+            Biglietto=biglietto;
             Data = biglietto.DataValidita;
-            TipologiaBiglietto = nameof(biglietto.Tipologia);
+            TipologiaBiglietto = Enum.GetName(biglietto.Tipologia);
             TurnoGuida = biglietto.OrarioGuida == null ? "No turno guida." : "Guida alle " +
-            biglietto.OrarioGuida?.ToString("HH:mm");
+            biglietto.OrarioGuida?.ToString(@"hh\:mm");
             Icon = IconeBiglietto.Values[(int)biglietto.Tipologia];
+
         }
 
 

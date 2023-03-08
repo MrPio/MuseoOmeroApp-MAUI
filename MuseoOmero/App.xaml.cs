@@ -14,7 +14,9 @@ namespace MuseoOmero;
 
 public partial class App : Application
 {
-	public App(SignInUpViewModelWin signInUpViewModelWin, ShellViewModelWin shellViewModelWin, MainViewModel mainViewModel, IPopupNavigation popupNavigation)
+
+#if WINDOWS
+	public App(SignInUpViewModelWin signInUpViewModelWin, ShellViewModelWin shellViewModelWin)
 	{
 		InitializeComponent();
 		var width = 1360;
@@ -22,23 +24,18 @@ public partial class App : Application
 
 		Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping(nameof(IWindow), (handler, view) =>
 		{
-#if WINDOWS
 			var mauiWindow = handler.VirtualView;
-            var nativeWindow = handler.PlatformView;
-            nativeWindow.Activate();
-            IntPtr windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(nativeWindow);
-            WindowId windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(windowHandle);
-            AppWindow appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
-            var display=DeviceDisplay.Current.MainDisplayInfo;
-            appWindow.MoveAndResize(new RectInt32((int)(display.Width/2-width/2),(int)(display.Height/2-height/2),width,height));
-            appWindow.TitleBar.ExtendsContentIntoTitleBar=true;
-#endif
+			var nativeWindow = handler.PlatformView;
+			nativeWindow.Activate();
+			IntPtr windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(nativeWindow);
+			WindowId windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(windowHandle);
+			AppWindow appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
+			var display = DeviceDisplay.Current.MainDisplayInfo;
+			appWindow.MoveAndResize(new RectInt32((int)(display.Width / 2 - width / 2), (int)(display.Height / 2 - height / 2), width, height));
+			appWindow.TitleBar.ExtendsContentIntoTitleBar = true;
 		});
 
-			if (DeviceInfo.Platform == DevicePlatform.Android || DeviceInfo.Platform == DevicePlatform.iOS)
-				MainPage = new SignInUpView(mainViewModel, popupNavigation);
-			else if (DeviceInfo.Platform == DevicePlatform.WinUI || DeviceInfo.Platform == DevicePlatform.MacCatalyst)
-				MainPage = new SignInUpViewWin(signInUpViewModelWin, shellViewModelWin);
+		MainPage = new SignInUpViewWin(signInUpViewModelWin, shellViewModelWin);
 
 		LiveCharts.Configure(config =>
 				config
@@ -78,4 +75,20 @@ public partial class App : Application
 		if (dictionary != null)
 			Resources.MergedDictionaries.Add(dictionary);
 	}
+
+#elif ANDROID || IOS
+public App(MainViewModel mainViewModel, IPopupNavigation popupNavigation)
+	{
+		InitializeComponent();
+
+				MainPage = new SignInUpView(mainViewModel, popupNavigation);
+
+		LiveCharts.Configure(config =>
+				config
+					.AddSkiaSharp()
+					.AddDefaultMappers()
+					.AddLightTheme()
+				);
+	}
+#endif
 }

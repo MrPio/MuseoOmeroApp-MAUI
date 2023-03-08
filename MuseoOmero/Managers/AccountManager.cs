@@ -60,6 +60,8 @@ public class AccountManager
 			throw new Exception("Account rimosso");
 
 		await SecureStorage.Default.SetAsync("uid", Uid);
+		Utente.LastOnline = DateTime.Now;
+		await DatabaseManager.Instance.Put($"utenti/{Uid}/last_online", Utente.LastOnline);
 		return UserCredential;
 	}
 	public async Task<UserCredential> SignInWithGoogle(string email, string password)
@@ -80,7 +82,6 @@ public class AccountManager
 		await SecureStorage.Default.SetAsync("uid", Uid);
 		return UserCredential;
 	}
-
 
 
 	public void DeleteCache()
@@ -106,6 +107,8 @@ public class AccountManager
 					Utente = await DatabaseManager.Instance.LoadJsonObject<Utente>($"utenti/{uid}");
 					if (Utente is null)
 						return false;
+					Utente.LastOnline = DateTime.Now;
+					await DatabaseManager.Instance.Put($"utenti/{uid}/last_online", Utente.LastOnline);
 				}
 				Uid = uid;
 			}

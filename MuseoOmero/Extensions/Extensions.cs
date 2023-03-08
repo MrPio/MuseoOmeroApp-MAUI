@@ -46,12 +46,19 @@ public static class ArrayExtensions
 		return Array.IndexOf(array, value);
 	}
 }
-
 public static class DateTimeExtension
 {
 	public static bool IsBetween(this DateTime datetime, DateTime start, DateTime end)
 	{
 		return datetime < end && datetime > start;
+	}
+}
+
+public static class IListExtension
+{
+	public static IList<T> Clone<T>(this IList<T> listToClone) where T : ICloneable
+	{
+		return listToClone.Select(item => (T)item.Clone()).ToList();
 	}
 }
 
@@ -65,3 +72,4 @@ public class Metadata
 	public static void SetTag(BindableObject bindable, string value)
 		=> bindable.SetValue(TagProperty, value);
 }
+

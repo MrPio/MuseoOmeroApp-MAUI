@@ -25,12 +25,12 @@
 			   Grid.Row="1"
 			   Grid.RowSpan="2"
 			   ScaleX="1.02"
-			   Source="top_wave.png"
+			   Source="wave_black.png"
 			   HorizontalOptions="Fill"
 			   TranslationY="{Binding TopWaveTranslationY}" />
 		<Rectangle Grid.Row="0"
 				   Grid.RowSpan="2"
-				   BackgroundColor="{StaticResource Color7}"
+				   BackgroundColor="{StaticResource Color1}"
 				   TranslationY="{Binding TopWaveTranslationY}">
 		</Rectangle>
 
@@ -38,12 +38,13 @@
 			   Grid.Row="4"
 			   Grid.RowSpan="2"
 			   ScaleX="1.02"
-			   Source="bottom_wave.png"
+			   Rotation="180"
+			   Source="wave_black.png"
 			   HorizontalOptions="Fill"
 			   TranslationY="{Binding BottomWaveTranslationY}" />
 		<Rectangle Grid.Row="5"
 				   Grid.RowSpan="2"
-				   BackgroundColor="{StaticResource Color7}"
+				   BackgroundColor="{StaticResource Color1}"
 				   TranslationY="{Binding BottomWaveTranslationY}">
 		</Rectangle>
 	</Grid>

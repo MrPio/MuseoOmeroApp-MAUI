@@ -19,7 +19,7 @@
 				<Setter Property="SelectedTabColor"
 						Value="{StaticResource Color5}" />
 				<Setter Property="UnselectedLabelColor"
-						Value="{StaticResource Color1}" />
+						Value="#38ffffff" />
 				<Setter Property="FontFamily"
 						Value="MaterialDesignIcons" />
 			</Style>
@@ -36,7 +36,7 @@
 							   SelectedIndex="{Binding SelectedViewModelIndex, Mode=TwoWay}"
 							   PropertyChanging="Switcher_PropertyChanging"
 							   PropertyChanged="Switcher_PropertyChanged">
-				<tabs:LazyView x:TypeArguments="views:IMieiTitoliView"
+				<tabs:DelayedView x:TypeArguments="views:IMieiTitoliView"
 								  AccentColor="{StaticResource Primary}"
 								  BindingContext="{Binding IMieiTitoliViewModel}"
 								  Animate="True"
@@ -58,8 +58,7 @@
 				   Source="wave2.png"
 				   HorizontalOptions="Fill">
 			</Image>
-			<Label 
-				   Grid.Row="0"
+			<Label Grid.Row="0"
 				   Grid.RowSpan="2"
 				   Padding="6"
 				   TextColor="{StaticResource Color5}"
@@ -69,7 +68,7 @@
 				   Text="I miei titoli">
 			</Label>
 		</Grid>
-		
+
 		<!--UnderBottomBar-->
 		<Grid RowDefinitions="*,auto">
 			<Image TranslationY="1"
@@ -90,7 +89,7 @@
 							 TranslationX="{Binding Waves2Translation}" />
 
 		<!-- TopBar-->
-		<templates:TopBarView BindingContext="{Binding TopBarViewModel}"/>
+		<templates:TopBarView BindingContext="{Binding TopBarViewModel}" />
 
 		<!-- BottomBar-->
 		<Grid RowDefinitions="*,auto"
@@ -127,11 +126,11 @@
 
 		<!-- Loading screen -->
 		<Grid x:Name="Loading"
-			  IsVisible="{Binding Loading}">
+			  IsVisible="{Binding IsBusy}">
 			<ActivityIndicator IsRunning="true"
 							   Color="{StaticResource Color1}"
 							   WidthRequest="70"
-							   HeightRequest="70"/>
+							   HeightRequest="70" />
 			<BoxView Color="Black"
 					 Opacity="0.3" />
 		</Grid>

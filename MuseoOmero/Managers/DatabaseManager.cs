@@ -61,6 +61,7 @@ public class DatabaseManager
 	}
 	public async Task<T> LoadJsonObject<T>(string resource)
 	{
+		
 		var collection = await GetChild(resource).OnceAsJsonAsync();
 		var obj = JsonConvert.DeserializeObject<T>(collection);
 		if (obj is { })

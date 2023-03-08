@@ -49,8 +49,6 @@ public partial class SignUpView: Mopups.Pages.PopupPage
 
 	private async void Conferma_Clicked(object sender, EventArgs e)
 	{
-		await _popupNavigation.PopAllAsync();
-		return;
 		var am = AccountManager.Instance;
 		var color = DeviceManager.Instance.Colors[0];
 		if (App.Current.PlatformAppTheme == AppTheme.Dark)
@@ -102,6 +100,7 @@ public partial class SignUpView: Mopups.Pages.PopupPage
 			DisplayAlert("Errore generico", "Spiacente, si è verificato un errore generico, si prega di riprovare", "Ok");
 			return;
 		}
+		await _popupNavigation.PopAllAsync();
 		App.Current.MainPage = new MainView(_mainViewModel);
 		ErrorLabel.IsVisible = true;
 		Loading.IsVisible = false;

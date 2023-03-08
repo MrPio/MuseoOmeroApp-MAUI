@@ -43,6 +43,7 @@
 
 		<templates:RoundedEntryViewMob Grid.Row="1"
 									   Grid.ColumnSpan="2"
+									   HeightRequest="40"
 									   WidthRequest="240"
 									   UnfocusedColor="{StaticResource Color7}"
 									   Placeholder="Ricerca"

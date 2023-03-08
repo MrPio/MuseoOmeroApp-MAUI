@@ -32,15 +32,24 @@
 		</Style>
 	</mopups:PopupPage.Resources>
 
-	<Grid>
-		<ScrollView HorizontalOptions="Center"
-					VerticalOptions="Center"
-					Margin="30,0,30,0">
-			<Border StrokeShape="RoundRectangle 32,16,16,32"
-					Stroke="Transparent"
-					BackgroundColor="{AppThemeBinding Light={StaticResource Color4},
+	<Grid RowDefinitions="0.15*,*,0.15*">
+		<Border  Grid.Row="1"
+				 HorizontalOptions="Center"
+				 VerticalOptions="Center"
+				 Margin="30,0,30,0"
+				 StrokeShape="RoundRectangle 32,16,16,32"
+				 Stroke="Transparent"
+				 BackgroundColor="{AppThemeBinding Light={StaticResource Color4},
 												  Dark={StaticResource Color1}}">
-				<Grid>
+			<Grid>
+				<!--Bottom-left Abstract-->
+				<Image Source="{Static material:ImagesOnline.Abstract1}"
+					   VerticalOptions="End"
+					   HorizontalOptions="Start"
+					   Opacity="0.35"
+					   WidthRequest="260" />
+
+				<ScrollView>
 					<VerticalStackLayout Margin="20,30,20,0"
 										 HorizontalOptions='Center'
 										 Spacing="6">
@@ -137,18 +146,14 @@
 							Dark={StaticResource Color1}}"
 													  Clicked="Conferma_Clicked" />
 						<BoxView HeightRequest="16" />
+						<BoxView HeightRequest="50" />
 					</VerticalStackLayout>
+				</ScrollView>
 
-					<!--Bottom-left Abstract-->
-					<Image Source="{Static material:ImagesOnline.Abstract1}"
-						   VerticalOptions="End"
-						   HorizontalOptions="Start"
-						   Opacity="0.35"
-						   WidthRequest="260" />
-				</Grid>
-			</Border>
-		</ScrollView>
+			</Grid>
+		</Border>
 		<templatesWin:LoadingView x:Name="Loading"
+								  Grid.RowSpan="3"
 								  IsVisible="false" />
 	</Grid>
 </mopups:PopupPage>

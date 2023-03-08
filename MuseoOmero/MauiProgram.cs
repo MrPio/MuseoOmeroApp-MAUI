@@ -6,6 +6,7 @@ using Mopups.Hosting;
 using Mopups.Interfaces;
 using Mopups.Services;
 using MuseoOmero.View.TemplatesWin;
+using Sharpnado.CollectionView;
 using Sharpnado.Tabs;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using System.Text;
@@ -21,6 +22,7 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
 			.UseMauiCommunityToolkit()
+			.UseSharpnadoCollectionView(false)
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("Lato-Regular.ttf", "Lato");
@@ -76,10 +78,14 @@ public static class MauiProgram
 		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
 		// ANDROID
+#if ANDROID
 		builder.Services.AddSingleton<SignInUpView>();
 		builder.Services.AddSingleton<MainView>();
 		builder.Services.AddSingleton<MainViewModel>();
+		builder.Services.AddSingleton<IMieiTitoliView>();
+		builder.Services.AddSingleton<IMieiTitoliViewModel>();
 		builder.Services.AddSingleton<IPopupNavigation>(MopupService.Instance);
+#endif
 
 
 		return builder.Build();

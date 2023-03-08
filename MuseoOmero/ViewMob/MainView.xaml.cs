@@ -12,13 +12,14 @@ public partial class MainView : ContentPage
     int _previousIndex = -1;
     public MainView(MainViewModel viewModel)
     {
-		_viewModel=_viewModel;
+		_viewModel= viewModel;
 		BindingContext = _viewModel;
         InitializeComponent();
         TouchEffect.SetColor(tab1, Colors.Transparent);
         TouchEffect.SetColor(tab2, Colors.Transparent);
         TouchEffect.SetColor(tab3, Colors.Transparent);
         TouchEffect.SetColor(tab4, Colors.Transparent);
+        _viewModel.Initialize();    
     }
 
     private void Switcher_PropertyChanging(object sender, PropertyChangingEventArgs e)

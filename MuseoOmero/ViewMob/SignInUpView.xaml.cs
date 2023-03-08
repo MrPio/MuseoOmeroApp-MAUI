@@ -18,7 +18,7 @@ public partial class SignInUpView : ContentPage
 	protected override void OnAppearing()
 	{
 		base.OnAppearing();
-		//new Task(CheckCached).RunSynchronously();
+		new Task(CheckCached).RunSynchronously();
 	}
 
 	private async void CheckCached()
@@ -51,7 +51,7 @@ public partial class SignInUpView : ContentPage
 
 		try
 		{
-			var credential = await AccountManager.Instance.SignIn(EmailEntry.Text, PasswordEntry.Text);
+			var credential = await AccountManager.Instance.SignInCliente(EmailEntry.Text, PasswordEntry.Text);
 		}
 		catch (Exception ex)
 		{

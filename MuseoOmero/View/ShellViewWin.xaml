@@ -402,63 +402,25 @@
 	<FlyoutItem Route="home">
 		<ShellContent ContentTemplate="{DataTemplate views:HomeViewWin}" />
 	</FlyoutItem>
-
 	<FlyoutItem Route="statistiche">
 		<ShellContent ContentTemplate="{DataTemplate views:StatisticheViewWin}" />
 	</FlyoutItem>
-
 	<FlyoutItem Route="biglietteria">
 		<ShellContent ContentTemplate="{DataTemplate views:BiglietteriaViewWin}" />
 	</FlyoutItem>
-
 	<FlyoutItem Route="opere">
 		<ShellContent ContentTemplate="{DataTemplate views:OpereViewWin}" />
 	</FlyoutItem>
-
 	<FlyoutItem Route="chat">
 		<ShellContent ContentTemplate="{DataTemplate views:ChatViewWin}" />
 	</FlyoutItem>
-
 	<FlyoutItem Route="account">
 		<ShellContent ContentTemplate="{DataTemplate views:AccountViewWin}" />
 	</FlyoutItem>
-
 	<FlyoutItem Route="impostazioni">
 		<ShellContent ContentTemplate="{DataTemplate views:ImpostazioniViewWin}" />
 	</FlyoutItem>
-
 	<FlyoutItem Route="blank">
 		<ShellContent ContentTemplate="{DataTemplate views:BlankView}" />
 	</FlyoutItem>
-
-	<!--<FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-
-		<ShellContent Title="Dashboard"
-					  Icon="home_empty.png"
-					  Style="{StaticResource HomeStyle}"
-					  ContentTemplate="{DataTemplate views:MainViewWin}">
-		</ShellContent>
-
-		<ShellContent Title="I miei Titoli"
-					  Style="{StaticResource IMieiTitoliStyle}"
-					  ContentTemplate="{DataTemplate views:IMieiTitoliViewWin}" />
-
-		<ShellContent Title="Negozio"
-					  Style="{StaticResource NegozioStyle}"
-					  ContentTemplate="{DataTemplate views:NegozioViewWin}" />
-
-		<ShellContent Title="Opere"
-					  Style="{StaticResource OpereStyle}"
-					  ContentTemplate="{DataTemplate views:OpereViewWin}" />
-
-		<ShellContent Title="Appuntamenti"
-					  Style="{StaticResource AppuntamentiStyle}"
-					  ContentTemplate="{DataTemplate views:AppuntamentiViewWin}" />
-
-	</FlyoutItem>-->
-
-	<!--<MenuItem Text="Help"
-			  IconImageSource="shield.png" />
-	<MenuItem Text="Logout"
-			  IconImageSource="shield.png" />-->
 </Shell>

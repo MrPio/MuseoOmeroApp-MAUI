@@ -13,9 +13,7 @@ public partial class MainViewModel : ObservableObject
 	int _fontSize3 = UNSELECTED_FONT_SIZE;
 	[ObservableProperty]
 	int _fontSize4 = UNSELECTED_FONT_SIZE;
-
 	int _selectedViewModelIndex;
-
 	public int SelectedViewModelIndex
 	{
 		get => _selectedViewModelIndex;
@@ -34,27 +32,19 @@ public partial class MainViewModel : ObservableObject
 			}
 		}
 	}
-
-	//[ObservableProperty]
-	//HomeViewModel _homeViewModel = new();
-
 	[ObservableProperty]
 	IMieiTitoliViewModel _iMieiTitoliViewModel = new();
-
 	[ObservableProperty]
 	double _wavesTranslation = 0;
-
 	public double Waves2Translation => DeviceManager.Instance.Width;
-
 	[ObservableProperty]
 	TopBarViewModel topBarViewModel = new();
-
 	[ObservableProperty]
 	WavesViewModel wavesViewModel = new();
-
 	[ObservableProperty]
 	double bottomBarTranslationX, bottomBarOpacity = 1;
-
+	[ObservableProperty]
+	bool isBusy = false;
 	double wavesExpandFactor = 0;
 	public double WavesExpandFactor
 	{
@@ -74,6 +64,14 @@ public partial class MainViewModel : ObservableObject
 		}
 	}
 
-	[ObservableProperty]
-	bool loading = false;
+	public List<Opera> Opere = new();
+	public List<Mostra> Mostre = new();
+
+	public async void Initialize()
+	{
+		IsBusy = true;
+		Opere = await DatabaseManager.Instance.LoadJsonArray<Opera>("opere/");
+		Mostre = await DatabaseManager.Instance.LoadJsonArray<Mostra>("mostre/");
+		IsBusy = false;
+	}
 }

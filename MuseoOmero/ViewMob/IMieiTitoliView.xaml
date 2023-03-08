@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 xmlns:sharpando="http://sharpnado.com"
 			 x:Class="MuseoOmero.ViewMob.IMieiTitoliView"
 			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
 			 xmlns:templates="clr-namespace:MuseoOmero.ViewMob.Templates"
 			 xmlns:viewmodel="clr-namespace:MuseoOmero.ViewModelMob"
 			 xmlns:tabs="http://sharpnado.com"
-			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
 			 x:DataType="viewmodel:IMieiTitoliViewModel"
 			 BackgroundColor="{StaticResource Color4}">
 
-	<!-- Screen content-->
-	<ScrollView Scrolled="ScrollView_Scrolled"
-				Padding="0,50,0,0"
-				Margin="6,0,6,0">
-		
-		<VerticalStackLayout Margin="24,0,24,0">
-			
-			<BoxView HeightRequest="130"
-					 Color="Transparent" />
+	<Grid RowDefinitions="auto,*"
+		  Margin="24,176,24,84">
+		<VerticalStackLayout>
 
 			<!--Aggiorna Button-->
 			<Grid ColumnDefinitions="2*,auto">
@@ -29,8 +24,7 @@
 
 				<Grid Grid.Column="1"
 					  ColumnDefinitions="38,*">
-					<Button Command="{Binding AggiornaClickedCommand}"
-							Grid.Column="0"
+					<Button Grid.Column="0"
 							Grid.ColumnSpan="2"
 							HeightRequest="32"
 							Margin="0,0,2,0"
@@ -47,14 +41,18 @@
 					<Label FontFamily="MaterialDesignIcons"
 						   FontSize="24"
 						   HorizontalOptions="Center"
+						   InputTransparent="True"
 						   VerticalOptions="Center"
 						   TextColor="{StaticResource Color1}"
 						   Text="{Static material:IconFont.Refresh}" />
 
 					<!-- NOT WORKING ON WINDOWS-->
 					<tabs:TouchEffect.Color>
-						#54F4F4F4
+						#64F4F4F4
 					</tabs:TouchEffect.Color>
+					<tabs:Commands.Tap>
+						<Binding Path="AggiornaClickedCommand" />
+					</tabs:Commands.Tap>
 				</Grid>
 			</Grid>
 
@@ -68,42 +66,48 @@
 				  Opacity="0.95"
 				  StrokeThickness="2"
 				  StrokeLineCap="Round" />
-			<BoxView HeightRequest="10"
-					 Color="Transparent" />
-
-			<!--Lista biglietti posseduti-->
-			<!--<VerticalStackLayout
-            BindableLayout.ItemsSource="{Binding Biglietti}">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <templates:BigliettoView/>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </VerticalStackLayout>-->
-
-			<!--CON COLLECT-->
-			<CollectionView ItemsSource="{Binding Biglietti}">
-				<CollectionView.ItemTemplate>
-					<DataTemplate>
-						<templates:BigliettoView />
-					</DataTemplate>
-				</CollectionView.ItemTemplate>
-			</CollectionView>
-
-			<!--<CollectionView
-                    ItemsSource="{Binding Biglietti}">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout 
-                            Orientation="Vertical"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <templates:BigliettoView/>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>-->
-			<BoxView HeightRequest="80"
+			<BoxView HeightRequest="6"
 					 Color="Transparent" />
 		</VerticalStackLayout>
-	</ScrollView>
+		
+		<CollectionView Grid.Row="1" ItemsSource="{Binding Biglietti}"
+						MinimumHeightRequest="200">
+			<CollectionView.ItemTemplate>
+				<DataTemplate>
+					<templates:BigliettoView />
+				</DataTemplate>
+			</CollectionView.ItemTemplate>
+
+			<CollectionView.EmptyView>
+				<ContentView>
+					<Grid RowDefinitions="34,20"
+						  VerticalOptions="Center">
+						<Label Text="Non possiedi alcun biglietto."
+							   Style="{StaticResource LabelNormal}"
+							   TextColor="{AppThemeBinding Light={StaticResource Color1}, Dark={StaticResource Color5}}"
+							   FontSize="24"
+							   Opacity="0.35"
+							   LineBreakMode="WordWrap"
+							   HorizontalOptions="Fill"
+							   HorizontalTextAlignment="Center" />
+						<Label Grid.Row="1"
+							   Text="Acquistane uno nella pagina dedicata!"
+							   Style="{StaticResource LabelThin}"
+							   TextColor="{AppThemeBinding Light={StaticResource Color1}, Dark={StaticResource Color5}}"
+							   FontSize="16"
+							   Opacity="0.6"
+							   HorizontalOptions="Fill"
+							   HorizontalTextAlignment="Center" />
+					</Grid>
+				</ContentView>
+			</CollectionView.EmptyView>
+		</CollectionView>
+	</Grid>
+	<!-- Screen content-->
+
+	<!--<ScrollView x:Name="ScrollView" Scrolled="ScrollView_Scrolled"
+				Padding="0,50,0,0"
+				Margin="6,0,6,0">-->
+
+	<!--</ScrollView>-->
 </ContentView>

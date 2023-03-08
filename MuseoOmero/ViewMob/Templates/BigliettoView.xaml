@@ -1,92 +1,118 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels="clr-namespace:MuseoOmero.ViewModelMob.Templates"
-             xmlns:tabs="http://sharpnado.com"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 xmlns:viewModels="clr-namespace:MuseoOmero.ViewModelMob.Templates"
+			 xmlns:tabs="http://sharpnado.com"
+			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
 			 x:Class="MuseoOmero.ViewMob.Templates.BigliettoView"
-             x:DataType="viewModels:BigliettoViewModel">
+			 x:DataType="viewModels:BigliettoViewModel">
+	<ContentView.Resources>
+		<converters:BoolToObjectConverter x:Key="TextDecorationsConverter"
+										  x:TypeArguments="TextDecorations"
+										  TrueObject="None"
+										  FalseObject="Strikethrough" />
+	</ContentView.Resources>
+	
+	<Grid Margin="0,8,0,8"
+		  RowDefinitions="auto,22,22">
 
-    <Grid
-        Margin="0,8,0,8"
-        RowDefinitions="auto,22,22">
-        <Border
-            Grid.Row="0"
-            Grid.RowSpan="2"
-            BackgroundColor="{StaticResource Color3}"
-            Padding="0,0,4,0"
-            Stroke="Transparent"
-            StrokeShape="RoundRectangle 34,34,34,0">
-            <Grid
-                ColumnDefinitions="4,*,6,3*">
-                <Rectangle
-                    IsVisible="False"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    HeightRequest="111"
-                    BackgroundColor="{StaticResource Color4}"></Rectangle>
-                <Label 
-                    IsVisible="true"
-                    Grid.Column="1"
-                    FontFamily="MaterialDesignIcons" 
-                    Text="{Binding Icon}"
-                    TextColor="{StaticResource Color1}"
-                    FontSize="58"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center">
-                </Label>
-                <Line
-                    Grid.Column="2"
-                    Stroke="White"
-                    Y1="0"
-                    Y2="106"
-                    StrokeDashArray="1,1"
-                    StrokeThickness="3.5">
-                </Line>
-                <Grid
-                    Grid.Column="3"
-                    Margin="6,0,0,0"
-                    RowDefinitions="auto,auto,auto,22"
-                    RowSpacing="6">
-                    <Label
-                        HorizontalOptions="End"
-                        Margin="0,4,20,0"
-                        FontSize="16"
-                        FontAttributes="Italic"
-                        Text="{Binding TipologiaBiglietto}"></Label>
-                    <Label
-                        Grid.Row="1"
-                        FontSize="22"
-                        FontFamily="Lato"
-                        Text="{Binding Data, StringFormat='{0:dd MMM yyyy}'}"></Label>
-                    <Label
-                        Grid.Row="2"
-                        FontSize="20"
-                        Text="{Binding TurnoGuida}"></Label>
-                </Grid>
-            </Grid>
-        </Border>
+		<!--Opacity State-->
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup Name="ValidoStato">
+				<VisualState Name="Valido">
+					<VisualState.StateTriggers>
+						<StateTrigger IsActive="{Binding Biglietto.IsValido}" />
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Property="Opacity"
+								Value="1" />
+					</VisualState.Setters>
+				</VisualState>
+				<VisualState Name="Invalido">
+					<VisualState.StateTriggers>
+						<StateTrigger IsActive="{Binding Biglietto.IsValido, Converter={converters:BoolNagationConverter}}" />
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Property="Opacity"
+								Value="0.6" />
+					</VisualState.Setters>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
 
-        <!--Vai al biglietto-->
-        <Button 
-            tabs:Commands.Tap="{Binding VaiAlBigliettoClickedCommand}"
-            Grid.Row="1"
-            Grid.RowSpan="2"
-            HorizontalOptions="End"
-            Margin="0,0,1,0"
-            Grid.Column="1"
-            CornerRadius="20"
-            BackgroundColor="White"
-            BorderColor="{StaticResource Color3}"
-            Padding="46,0,46,0"
-            TextColor="{StaticResource Color1}"
-            FontFamily="Lato"
-            FontSize="17.4"
-            Text="Vai al biglietto" 
-            BorderWidth="6">
-        </Button>
-        
-        <tabs:TouchEffect.Color>
-            #54F4F4F4
-        </tabs:TouchEffect.Color>
-    </Grid>
+		<Border Grid.Row="0"
+				Grid.RowSpan="2"
+				Padding="0,0,4,0"
+				BackgroundColor="{AppThemeBinding Light={StaticResource Color3}, Dark={StaticResource Color1}}"
+				Stroke="Transparent"
+				StrokeShape="RoundRectangle 34,34,34,0">
+
+			<!--Content-->
+			<Grid ColumnDefinitions="4,*,6,3*">
+				<Rectangle IsVisible="False"
+						   Grid.Column="0"
+						   Grid.ColumnSpan="2"
+						   HeightRequest="111"
+						   BackgroundColor="{AppThemeBinding Light={StaticResource Color4}, Dark='#000000'}"></Rectangle>
+				<Label IsVisible="true"
+					   Grid.Column="1"
+					   FontFamily="MaterialDesignIcons"
+					   Text="{Binding Icon}"
+					   TextColor="{AppThemeBinding Light={StaticResource Color1}, Dark={StaticResource Color5}}"
+					   FontSize="56"
+					   VerticalOptions="Center"
+					   HorizontalOptions="Center">
+				</Label>
+				<Line Grid.Column="2"
+					  Stroke="White"
+					  Y1="0"
+					  Y2="106"
+					  StrokeDashArray="1,1"
+					  StrokeThickness="3.5">
+				</Line>
+				<Grid Grid.Column="3"
+					  Margin="6,0,0,0"
+					  RowDefinitions="auto,auto,auto,22"
+					  RowSpacing="6">
+					<Label HorizontalOptions="End"
+						   Margin="0,4,20,0"
+						   FontSize="16"
+						   FontAttributes="Italic"
+						   Text="{Binding TipologiaBiglietto}"></Label>
+					<Label Grid.Row="1"
+						   FontSize="22"
+						   FontFamily="Lato"
+						   TextDecorations="{Binding Biglietto.IsValido,
+						Converter={StaticResource TextDecorationsConverter}}"
+						   Text="{Binding Data, StringFormat='{0:dd MMM yyyy}'}"></Label>
+					<Label Grid.Row="2"
+						   FontSize="20"
+						   Text="{Binding TurnoGuida}"></Label>
+				</Grid>
+			</Grid>
+		</Border>
+
+		<!--Vai al biglietto-->
+		<Button tabs:Commands.Tap="{Binding VaiAlBigliettoClickedCommand}"
+				Grid.Row="1"
+				Grid.RowSpan="2"
+				HorizontalOptions="End"
+				Margin="0,0,1,0"
+				Grid.Column="1"
+				CornerRadius="20"
+				BackgroundColor="White"
+				BorderColor="{AppThemeBinding Light={StaticResource Color3}, Dark={StaticResource Color1}}"
+				Padding="46,0,46,0"
+				TextColor="{AppThemeBinding Light={StaticResource Color1}, Dark={StaticResource Color5}}"
+				FontFamily="Lato"
+				FontSize="17.4"
+				Text="Vai al biglietto"
+				BorderWidth="6">
+		</Button>
+
+		<tabs:TouchEffect.Color>
+			#54F4F4F4
+		</tabs:TouchEffect.Color>
+	</Grid>
 </ContentView>
