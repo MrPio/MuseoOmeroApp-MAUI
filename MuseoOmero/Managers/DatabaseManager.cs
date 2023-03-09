@@ -1,4 +1,5 @@
-﻿using Firebase.Database;
+﻿using Firebase.Auth;
+using Firebase.Database;
 using Firebase.Database.Query;
 using Firebase.Database.Streaming;
 
@@ -15,7 +16,15 @@ public class DatabaseManager
 			return _instance;
 		}
 	}
-	public FirebaseClient FirebaseClient = new("https://museoomero-ca8aa-default-rtdb.europe-west1.firebasedatabase.app/");
+	public FirebaseClient FirebaseClient =
+		new(
+			"https://museoomero-ca8aa-default-rtdb.europe-west1.firebasedatabase.app/",
+			new FirebaseOptions
+			{
+				AuthTokenAsyncFactory = () => {
+					return AccountManager.Instance.FirebaseAuthClient.User.GetIdTokenAsync(); 
+				}
+			});
 	public List<IDisposable> Subscribers = new();
 
 	/* • Append -> Put($"utenti/{utenti[0].Id}/biglietti/{utenti[0].Biglietti.Count}/", biglietto);
@@ -61,8 +70,8 @@ public class DatabaseManager
 	}
 	public async Task<T> LoadJsonObject<T>(string resource)
 	{
-		
-		var collection = await GetChild(resource).OnceAsJsonAsync();
+		var child = GetChild(resource);
+		var collection = await child.OnceAsJsonAsync();
 		var obj = JsonConvert.DeserializeObject<T>(collection);
 		if (obj is { })
 		{

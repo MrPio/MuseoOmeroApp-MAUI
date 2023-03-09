@@ -9,6 +9,7 @@
 			 xmlns:viewmodel="clr-namespace:MuseoOmero.ViewModelMob"
 			 xmlns:model="clr-namespace:MuseoOmero.Model"
 			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
+			 xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
 			 x:DataType="viewmodel:IMieiTitoliViewModel"
 			 x:Class="MuseoOmero.ViewMob.IMieiTitoliView"
 			 BackgroundColor="{AppThemeBinding Light={StaticResource Color4}, Dark={StaticResource Color6}}">
@@ -46,34 +47,6 @@
 				  StrokeLineCap="Round" />
 			<BoxView HeightRequest="6"
 					 Color="Transparent" />
-
-			<ContentView BindingContext="{Binding Tmp}">
-				<ScrollView x:DataType="model:Biglietto">
-					<VerticalStackLayout Spacing="8">
-						<Grid ColumnDefinitions="*,*"
-							  ColumnSpacing="14">
-							<Label Style="{StaticResource LabelBold}"
-								   Text="Data acquisto:"
-								   HorizontalOptions="End"
-								   FontSize="20"/>
-							<Label Grid.Column="1"
-								   Style="{StaticResource LabelNormal}"
-								   Text="{Binding DataAcquisto,StringFormat='{0:HH:mm - dd MMM yy}'}" />
-						</Grid>
-
-						<Grid ColumnDefinitions="*,*"
-							  ColumnSpacing="14">
-							<Label Style="{StaticResource LabelBold}"
-								   Text="Giorno validità:"
-								   FontSize="20"
-								   HorizontalOptions="End"/>
-							<Label Grid.Column="1"
-								   Style="{StaticResource LabelNormal}"
-								   Text="{Binding DataValidita,StringFormat='{0:dd MMMM}'}" />
-						</Grid>
-					</VerticalStackLayout>
-				</ScrollView>
-			</ContentView>
 		</VerticalStackLayout>
 
 		<CollectionView Grid.Row="1"

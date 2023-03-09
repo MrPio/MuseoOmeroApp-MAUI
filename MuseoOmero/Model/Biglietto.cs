@@ -17,18 +17,18 @@ public class Biglietto
 	{
 		Uid = (DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond).ToString();
 		DataAcquisto = dataAcquisto;
-		DataValidita = dataValidita;
+		DataValidita = dataValidita.Date.AddHours(12).Date;//PER PROBLEMI DI FUSO ORARIO +-1GMT;
 		Tipologia = tipologia;
 		DataConvalida = dataConvalida;
 		OrarioGuida = dataGuida;
 	}
 
 	[JsonConstructor]
-	public Biglietto(string uid, DateTime dataAcquisto, DateTime dataValidita, DateTime? dataConvalida, TipoBiglietto tipologia, TimeSpan? dataGuida)
+	public Biglietto(string uid, DateTime dataAcquisto, DateTime dataValidita, TipoBiglietto tipologia, DateTime? dataConvalida, TimeSpan? dataGuida)
 	{
 		Uid = uid;
 		DataAcquisto = dataAcquisto;
-		DataValidita = dataValidita.AddHours(12).Date;//PER PROBLEMI DI FUSO ORARIO +-1GMT
+		DataValidita = dataValidita.Date.AddHours(12).Date;//PER PROBLEMI DI FUSO ORARIO +-1GMT
 		DataConvalida = dataConvalida;
 		Tipologia = tipologia;
 		OrarioGuida = dataGuida;

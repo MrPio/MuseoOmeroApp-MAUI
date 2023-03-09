@@ -7,7 +7,7 @@ public partial class IMieiTitoliViewModel : ObservableObject
 	[ObservableProperty]
 	ObservableCollection<BigliettoViewModel> biglietti = new();
 
-	public Biglietto Tmp => new(DateTime.Now, DateTime.Now.AddDays(1), TipoBiglietto.Mostra, DateTime.Now.AddHours(32), TimeSpan.FromHours(14.24));
+	public Biglietto Tmp => new("85293e2dewcdewds3ewdsqewds3rewd3rfwed852",DateTime.Now, DateTime.Now.AddDays(1), TipoBiglietto.Mostra, DateTime.Now.AddHours(32), TimeSpan.FromHours(14.24));
 
 	public bool NoBiglietti
 	{
@@ -26,7 +26,6 @@ public partial class IMieiTitoliViewModel : ObservableObject
 		_mainViewModel.IsBusy = false;
 	}
 
-
 	public void FetchBiglietti()
 	{
 		Biglietti.Clear();
@@ -34,7 +33,6 @@ public partial class IMieiTitoliViewModel : ObservableObject
 			.ToList().ForEach(b => Biglietti.Add(new(b)));
 		OnPropertyChanged(nameof(NoBiglietti));
 	}
-
 	public void ObserveBiglietti()
 	{
 		// LA LISTA SI AGGIORNA, MA OVVIAMENTE LA COLLECTIONVIEW NO

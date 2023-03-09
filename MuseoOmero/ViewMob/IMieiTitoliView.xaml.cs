@@ -14,7 +14,8 @@ public partial class IMieiTitoliView : ContentView
 		// QUALSIASI TENTATIVO FALLISCE, LA COLLECTION VIEW NON SI AGGIORNA
 		// SOLUZIONE ATTRAVERSO SHARPNADO IO RI-ASSEGNAVO IL BINDING CONTEXT DOPO QUESTO COSTRUTTORE!
 		_viewModel.FetchBiglietti();
-		_viewModel.ObserveBiglietti();
+		Task.Run(_viewModel.ObserveBiglietti);
+
 	}
 
 	private void CollectionView_Scrolled(object sender, ItemsViewScrolledEventArgs e)

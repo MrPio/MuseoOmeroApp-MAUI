@@ -581,4 +581,32 @@
 				Value="8,0,8,0" />
 	</Style>
 
+	<!--FRAME-->
+	<Style x:Key="FrameRoundedWin"
+		   TargetType="Frame">
+		<Setter Property="Padding"
+				Value="26" />
+		<Setter Property="BorderColor"
+				Value="Transparent" />
+		<Setter Property="CornerRadius"
+				Value="32" />
+	</Style>
+	<Style x:Key="FrameForIconMob"
+		   TargetType="Frame">
+		<Setter Property="Padding"
+				Value="0" />
+		<Setter Property="BorderColor"
+				Value="Transparent" />
+		<Setter Property="CornerRadius"
+				Value="999" />
+		<Setter Property="BackgroundColor"
+				Value="Transparent" />
+		<Setter Property="Margin"
+				Value="0,0,2,0" />
+		<Setter Property="WidthRequest"
+				Value="70" />
+		<Setter Property="HeightRequest"
+				Value="34" />
+	</Style>
+
 </ResourceDictionary>

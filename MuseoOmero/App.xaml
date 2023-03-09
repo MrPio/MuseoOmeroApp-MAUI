@@ -54,17 +54,6 @@
 
 				</Grid>
 			</DataTemplate>
-
-			<Style x:Key="FrameRoundedWin"
-				   TargetType="Frame">
-				<Setter Property="Padding"
-						Value="26" />
-				<Setter Property="BorderColor"
-						Value="Transparent" />
-				<Setter Property="CornerRadius"
-						Value="32" />
-			</Style>
-
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

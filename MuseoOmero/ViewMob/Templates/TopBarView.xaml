@@ -23,13 +23,7 @@
 		</Label>
 
 		<Frame Grid.Column="1"
-			   Padding="0"
-			   Margin="0,0,2,0"
-			   BackgroundColor="Transparent"
-			   BorderColor="Transparent"
-			   HeightRequest="34"
-			   WidthRequest="70"
-			   CornerRadius="999">
+			   Style="{StaticResource FrameForIconMob}">
 			<Grid>
 				<Label Style="{StaticResource FontIconLabel}"
 					   Text="{x:Static material:IconFont.LogoutVariant}"
@@ -45,10 +39,10 @@
 									   Grid.ColumnSpan="2"
 									   HeightRequest="40"
 									   WidthRequest="240"
-									   UnfocusedColor="{StaticResource Color7}"
+									   UnfocusedColor="{StaticResource Color1}"
 									   Placeholder="Ricerca"
 									   Icon="{Static material:IconFont.Magnify}"
-									   Color="{StaticResource Color7}"
+									   Color="{StaticResource Color1}"
 									   Opacity="{Binding RicercaOpacity}" />
 	</Grid>
 </ContentView>

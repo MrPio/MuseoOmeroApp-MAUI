@@ -380,7 +380,7 @@
 									<Label Text="{Binding SelectedBiglietto.DataAcquisto,StringFormat='{0:HH:mm - dd MMMM yyyy}'}" />
 									<Label Text="{Binding SelectedBiglietto.DataConvalida,StringFormat='{0:HH:mm - dd MMMM yyyy}'}" />
 									<Label Text="{Binding SelectedBiglietto.DataValidita,StringFormat='{0:dd MMMM yyyy}'}" />
-									<Label Text="{Binding SelectedBiglietto.OrarioGuida,StringFormat='{0:HH:mm}'}" />
+									<Label Text="{Binding SelectedBiglietto.OrarioGuida,StringFormat='\{0:h\\:mm\}'}" />
 								</VerticalStackLayout>
 							</Grid>
 

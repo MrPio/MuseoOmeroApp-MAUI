@@ -50,13 +50,12 @@
 					   HeightRequest="30"
 					   BackgroundColor="{StaticResource Color1}">
 			</Rectangle>
-			<Image TranslationY="-4"
-				   InputTransparent="False"
-				   Grid.Row="1"
-				   Grid.RowSpan="2"
-				   ScaleX="1.02"
-				   Source="wave2.png"
-				   HorizontalOptions="Fill">
+			<Image  Grid.Row="1"
+					TranslationY="-4"
+					InputTransparent="False"
+					ScaleX="1.02"
+					Source="wave_black.png"
+					HorizontalOptions="Fill">
 			</Image>
 			<Label Grid.Row="0"
 				   Grid.RowSpan="2"
@@ -75,7 +74,8 @@
 				   InputTransparent="False"
 				   Grid.Row="1"
 				   ScaleX="1.02"
-				   Source="wave.png"
+				   Rotation="180"
+				   Source="wave_black.png"
 				   HorizontalOptions="Fill">
 			</Image>
 		</Grid>

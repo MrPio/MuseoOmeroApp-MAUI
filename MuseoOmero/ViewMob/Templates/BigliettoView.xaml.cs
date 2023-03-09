@@ -14,9 +14,4 @@ public partial class BigliettoView : ContentView
             return;
         ((BigliettoViewModel)BindingContext).View = this;
     }
-
-    public void Button_Clicked()
-    {
-        return;
-    }
 }

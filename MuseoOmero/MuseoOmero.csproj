@@ -138,6 +138,9 @@
 		<Compile Update="ViewMob\MainView.xaml.cs">
 			<DependentUpon>MainView.xaml</DependentUpon>
 		</Compile>
+		<Compile Update="ViewMob\Popups\BigliettoPopupView.xaml.cs">
+		  <DependentUpon>BigliettoPopupView.xaml</DependentUpon>
+		</Compile>
 		<Compile Update="View\HomeViewWin.xaml.cs">
 		  <DependentUpon>HomeViewWin.xaml</DependentUpon>
 		</Compile>
@@ -166,6 +169,9 @@
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Resources\Styles\BlackTheme.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="ViewMob\Popups\BigliettoPopupView.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="ViewMob\Popups\SignUpView.xaml">

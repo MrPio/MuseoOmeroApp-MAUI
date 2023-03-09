@@ -122,17 +122,14 @@ public class AccountManager
 	{
 		await FirebaseAuthClient.ResetEmailPasswordAsync(email);
 	}
-
 	public async Task SignUp(string email, string password, string username)
 	{
 		UserCredential = await FirebaseAuthClient.CreateUserWithEmailAndPasswordAsync(email, password, username);
 	}
-
 	public async Task LoadDipendente()
 	{
 		Dipendente = await DatabaseManager.Instance.LoadJsonObject<Dipendente>($"dipendenti/{Uid}");
 	}
-
 	public async Task ResetPassword()
 	{
 		var main = App.Current.MainPage;
