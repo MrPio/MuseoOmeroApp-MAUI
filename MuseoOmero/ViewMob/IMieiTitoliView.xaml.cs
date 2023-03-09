@@ -20,6 +20,12 @@ public partial class IMieiTitoliView : ContentView
 
 	private void CollectionView_Scrolled(object sender, ItemsViewScrolledEventArgs e)
 	{
+		AggiornaRow.TranslationY = - e.VerticalOffset;
 		_mainViewModel.WavesExpandFactor = e.VerticalOffset / 160d;
+		//MainGrid.Margin=new(
+		//	24,
+		//	Math.Max(0,176 - e.VerticalOffset),
+		//	24,
+		//	Math.Max(0,84- e.VerticalOffset));
 	}
 }

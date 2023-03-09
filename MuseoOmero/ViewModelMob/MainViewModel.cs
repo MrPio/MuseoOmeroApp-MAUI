@@ -13,6 +13,10 @@ public partial class MainViewModel : ObservableObject
 	int _fontSize3 = UNSELECTED_FONT_SIZE;
 	[ObservableProperty]
 	int _fontSize4 = UNSELECTED_FONT_SIZE;
+	[ObservableProperty]
+	int _fontSize5 = UNSELECTED_FONT_SIZE;
+	[ObservableProperty]
+	int _fontSize6 = UNSELECTED_FONT_SIZE;
 	int _selectedViewModelIndex;
 	public int SelectedViewModelIndex
 	{
@@ -21,14 +25,15 @@ public partial class MainViewModel : ObservableObject
 		{
 			_selectedViewModelIndex = value;
 			OnPropertyChanged(nameof(SelectedViewModelIndex));
-			FontSize1 = UNSELECTED_FONT_SIZE; FontSize2 = UNSELECTED_FONT_SIZE;
-			FontSize3 = UNSELECTED_FONT_SIZE; FontSize4 = UNSELECTED_FONT_SIZE;
+			FontSize1 = FontSize2 = FontSize3 = FontSize4 = FontSize5 = FontSize6 = UNSELECTED_FONT_SIZE;
 			switch (value)
 			{
 				case 0: FontSize1 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "I miei titoli"; break;
-				case 1: FontSize2 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "Account"; break;
-				case 2: FontSize3 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "Biglietteria"; break;
-				case 3: FontSize4 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "Prenotazioni"; break;
+				case 1: FontSize2 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "Biglietteria"; break;
+				case 2: FontSize3 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "Chat"; break;
+				case 3: FontSize4 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "Esplora"; break;
+				case 4: FontSize5 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "Questionari"; break;
+				case 5: FontSize6 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "Statistiche"; break;
 			}
 		}
 	}
@@ -66,6 +71,29 @@ public partial class MainViewModel : ObservableObject
 	public List<Opera> Opere = new();
 	public List<Mostra> Mostre = new();
 
+	private DateTime _topBarDate = DateTime.Now;
+	public DateTime TopBarDate
+	{
+		get
+		{
+			return _topBarDate;
+		}
+		set
+		{
+			_topBarDate = value;
+			OnPropertyChanged();
+			if (TopBarViewModel.Title == "I miei titoli")
+			{
+				IMieiTitoliViewModel.FiltraBiglietti(value);
+			}
+		}
+	}
+
+	[RelayCommand]
+	void FilterState(bool filterState)
+	{
+		IMieiTitoliViewModel.FiltraBiglietti(filterState ? TopBarDate : null);
+	}
 	public async void Initialize()
 	{
 		IsBusy = true;

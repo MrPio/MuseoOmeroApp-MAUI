@@ -22,78 +22,60 @@
 			Stroke="Transparent"
 			BackgroundColor="{AppThemeBinding Light={StaticResource Color4},
 												  Dark={StaticResource Color1}}">
-		<Grid>
-			<!--Content-->
-			<VerticalStackLayout Spacing="8"
-								 x:DataType="model:Biglietto">
+		<VerticalStackLayout Spacing="8"
+							 x:DataType="model:Biglietto">
 
-				<!--QRCode-->
-				<Grid ColumnDefinitions="200"
-					  RowDefinitions="200"
-					  HorizontalOptions="Center"
-					  Margin="0,70,0,0"
-					  VerticalOptions="Center">
-					<zxing:BarcodeGeneratorView Format="QrCode"
-												Value="{Binding Uid}"
-												BackgroundColor="Transparent"
-												ForegroundColor="{AppThemeBinding 
+			<!--QRCode-->
+			<Grid ColumnDefinitions="200"
+				  RowDefinitions="200"
+				  HorizontalOptions="Center"
+				  Margin="0,70,0,0"
+				  VerticalOptions="Center">
+				<zxing:BarcodeGeneratorView Format="QrCode"
+											Value="{Binding Uid}"
+											BackgroundColor="Transparent"
+											ForegroundColor="{AppThemeBinding 
 								Light={StaticResource Color1},Dark={StaticResource Color5}}" />
-				</Grid>
+			</Grid>
 
-				<Grid Grid.Row="1"
-					  ColumnDefinitions="*,*"
-					  ColumnSpacing="16"
-					  Margin="0,0,0,30">
-					<VerticalStackLayout Grid.Column="0"
-										 HorizontalOptions="End">
-						<VerticalStackLayout.Resources>
-							<Style TargetType="Label"
-								   BasedOn="{StaticResource LabelNormal}">
-								<Setter Property="FontSize"
-										Value="18" />
-								<Setter Property="HorizontalTextAlignment"
-										Value="End" />
-							</Style>
-						</VerticalStackLayout.Resources>
-						<Label Text="Tipologia:" />
-						<Label Text="Data Acquisto:" />
-						<Label Text="Data Convalida:" />
-						<Label Text="Data Validita:" />
-						<Label Text="Data Guida:" />
-					</VerticalStackLayout>
+			<Grid Grid.Row="1"
+				  ColumnDefinitions="*,*"
+				  ColumnSpacing="16"
+				  Margin="0,0,0,30">
+				<VerticalStackLayout Grid.Column="0"
+									 HorizontalOptions="End">
+					<VerticalStackLayout.Resources>
+						<Style TargetType="Label"
+							   BasedOn="{StaticResource LabelNormal}">
+							<Setter Property="FontSize"
+									Value="18" />
+							<Setter Property="HorizontalTextAlignment"
+									Value="End" />
+						</Style>
+					</VerticalStackLayout.Resources>
+					<Label Text="Tipologia:" />
+					<Label Text="Data Acquisto:" />
+					<Label Text="Data Convalida:" />
+					<Label Text="Data Validita:" />
+					<Label Text="Data Guida:" />
+				</VerticalStackLayout>
 
-					<VerticalStackLayout Grid.Column="1"
-										 HorizontalOptions="Start">
-						<VerticalStackLayout.Resources>
-							<Style TargetType="Label"
-								   BasedOn="{StaticResource LabelThin}">
-								<Setter Property="FontSize"
-										Value="18" />
-							</Style>
-						</VerticalStackLayout.Resources>
-						<Label Text="{Binding Tipologia}" />
-						<Label Text="{Binding DataAcquisto,StringFormat='{0:HH:mm - dd MMMM yy}'}" />
-						<Label Text="{Binding DataConvalida,StringFormat='{0:HH:mm - dd MMMM}'}" />
-						<Label Text="{Binding DataValidita,StringFormat='{0:dd MMMM}'}" />
-						<Label Text="{Binding OrarioGuida,StringFormat='\{0:h\\:mm\}'}" />
-					</VerticalStackLayout>
-				</Grid>
-			</VerticalStackLayout>
-
-			<!--ExitButton-->
-			<!--<Frame Style="{StaticResource FrameForIconMob}">
-				<Grid>-->
-					<Label Style="{StaticResource FontIconLabel}"
-						   HorizontalOptions="End"
-						   Margin="20"
-						   Text="{Static material:IconFont.Close}">
-					</Label>
-					<templatesWin:HighlightView Clicked="ExitLabel_Tapped"
-												HeightRequest="34"
-												WidthRequest="50"/>
-				<!--</Grid>
-			</Frame>-->
-
-		</Grid>
+				<VerticalStackLayout Grid.Column="1"
+									 HorizontalOptions="Start">
+					<VerticalStackLayout.Resources>
+						<Style TargetType="Label"
+							   BasedOn="{StaticResource LabelThin}">
+							<Setter Property="FontSize"
+									Value="18" />
+						</Style>
+					</VerticalStackLayout.Resources>
+					<Label Text="{Binding Tipologia}" />
+					<Label Text="{Binding DataAcquisto,StringFormat='{0:HH:mm - dd MMMM yy}'}" />
+					<Label Text="{Binding DataConvalida,StringFormat='{0:HH:mm - dd MMMM}'}" />
+					<Label Text="{Binding DataValidita,StringFormat='{0:dd MMMM}'}" />
+					<Label Text="{Binding OrarioGuida,StringFormat='\{0:h\\:mm\}'}" />
+				</VerticalStackLayout>
+			</Grid>
+		</VerticalStackLayout>
 	</Border>
 </mopups:PopupPage>

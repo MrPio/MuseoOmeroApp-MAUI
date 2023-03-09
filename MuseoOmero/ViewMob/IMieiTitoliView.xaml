@@ -14,9 +14,32 @@
 			 x:Class="MuseoOmero.ViewMob.IMieiTitoliView"
 			 BackgroundColor="{AppThemeBinding Light={StaticResource Color4}, Dark={StaticResource Color6}}">
 
-	<Grid RowDefinitions="auto,*"
-		  Margin="24,176,24,84">
-		<VerticalStackLayout>
+	<Grid x:Name="MainGrid"
+		  Margin="24,0,24,0">
+
+		<!--Biglietti-->
+		<CollectionView ItemsSource="{Binding Biglietti}"
+						Scrolled="CollectionView_Scrolled"
+						MinimumHeightRequest="200">
+
+			<CollectionView.Header>
+				<BoxView HeightRequest="230" />
+			</CollectionView.Header>
+
+			<CollectionView.ItemTemplate>
+				<DataTemplate>
+					<templatesMob:BigliettoView />
+				</DataTemplate>
+			</CollectionView.ItemTemplate>
+
+			<CollectionView.Footer>
+				<BoxView HeightRequest="84" />
+			</CollectionView.Footer>
+		</CollectionView>
+
+		<!--AggiornaRow-->
+		<VerticalStackLayout x:Name="AggiornaRow"
+							 Margin="0,176,0,0">
 
 			<Grid ColumnDefinitions="2*,auto">
 				<Label Text="Da convalidare e scaduti"
@@ -32,7 +55,8 @@
 												BackgroundColor="{AppThemeBinding Light={StaticResource Color5},
 					Dark={StaticResource Color1}}"
 												Icon="{Static material:IconFont.Refresh}"
-												Command="{Binding AggiornaClickedCommand}" />
+												Command="{Binding AggiornaClickedCommand}">
+				</templatesMob:SmallIconedButton>
 			</Grid>
 
 			<!--Linea-->
@@ -49,17 +73,7 @@
 					 Color="Transparent" />
 		</VerticalStackLayout>
 
-		<CollectionView Grid.Row="1"
-						ItemsSource="{Binding Biglietti}"
-						Scrolled="CollectionView_Scrolled"
-						MinimumHeightRequest="200">
-			<CollectionView.ItemTemplate>
-				<DataTemplate>
-					<templatesMob:BigliettoView />
-				</DataTemplate>
-			</CollectionView.ItemTemplate>
-		</CollectionView>
-
+		<!--EmptyView-->
 		<Grid Grid.Row="1"
 			  RowDefinitions="34,20"
 			  Margin="0,0,0,40"
@@ -83,11 +97,4 @@
 				   HorizontalTextAlignment="Center" />
 		</Grid>
 	</Grid>
-	<!-- Screen content-->
-
-	<!--<ScrollView x:Name="ScrollView" Scrolled="ScrollView_Scrolled"
-				Padding="0,50,0,0"
-				Margin="6,0,6,0">-->
-
-	<!--</ScrollView>-->
 </ContentView>

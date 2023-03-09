@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
 			 xmlns:templates="clr-namespace:MuseoOmero.ViewMob.Templates"
 			 xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
 			 xmlns:viewModels="clr-namespace:MuseoOmero.ViewModelMob.Templates"
@@ -9,9 +10,9 @@
 			 x:DataType="viewModels:TopBarViewModel">
 
 	<Grid TranslationY="{Binding TranslationY}"
-		  Opacity="{Binding Opacity}"
 		  ColumnDefinitions="*,auto"
 		  RowDefinitions="auto,auto,*"
+		  Opacity="{Binding Opacity}"
 		  Padding="0,24,0,0"
 		  RowSpacing="10">
 		<Label Grid.ColumnSpan="2"
@@ -35,15 +36,42 @@
 			</Grid>
 		</Frame>
 
-		<templates:RoundedEntryViewMob Grid.Row="1"
+		<templates:RoundedEntryViewMob x:Name="RoundedEntryViewMob"
+									   Grid.Row="1"
 									   Grid.ColumnSpan="2"
 									   HeightRequest="40"
 									   WidthRequest="240"
 									   UnfocusedColor="{StaticResource Color1}"
 									   Placeholder="Ricerca"
+									   IsDate="True"
+									   Date="{Binding Source={RelativeSource AncestorType=
+			{x:Type templates:TopBarView}},Path=Date,Mode=TwoWay}"
+									   FilterCommand="{Binding Source={RelativeSource AncestorType=
+			{x:Type templates:TopBarView}},Path=FilterCommand}"
 									   Icon="{Static material:IconFont.Magnify}"
 									   Color="{StaticResource Color1}"
-									   Opacity="{Binding RicercaOpacity}" />
+									   Opacity="{Binding RicercaOpacity}"
+									   InputTransparent="{Binding Source={RelativeSource AncestorType=
+			{x:Type templates:TopBarView}},Path=IsFilterOn,Converter={toolkit:InvertedBoolConverter}}"
+									   MyBackgroundColor="{StaticResource Color6}" />
+
+		<!--DeleteFilter-->
+		<Grid Grid.Row="1"
+			  Grid.Column="1"
+			  Opacity="{Binding RicercaOpacity}"
+			  HorizontalOptions="End"
+			  Margin="0,0,10,0">
+			<Label x:Name="CloseIcon"
+				   VerticalOptions="Center"
+				   HorizontalOptions="Center"
+				   Style="{StaticResource FontIconLabel}"
+				   Text="{Static material:IconFont.FilterOff}"
+				   FontSize="26"
+				   TextColor="{StaticResource Color6}" />
+			<templatesWin:HighlightView WidthRequest="70"
+										Clicked="DeleteFilter_Pressed"
+										CornerRadius="99" />
+		</Grid>
 	</Grid>
 </ContentView>
     

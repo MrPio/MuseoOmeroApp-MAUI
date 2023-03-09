@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:tabs="http://sharpnado.com"
+			 xmlns:viewModels="clr-namespace:MuseoOmero.ViewModelMob"
+			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+			 xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 xmlns:templatesMob="clr-namespace:MuseoOmero.ViewMob.Templates"
+			 xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
+			 xmlns:views="clr-namespace:MuseoOmero.ViewMob"
+			 x:Class="MuseoOmero.ViewMob.BiglietteriaView"
+			 Title="BiglietteriaView">
+
+	<!-- Screen content-->
+	<Grid RowDefinitions="64,*,28">
+		<ScrollView x:Name="NegozioScrollView"
+					Grid.Row="1">
+			<VerticalStackLayout Margin="10,0,10,0"
+								 Spacing="10">
+
+				<templates:NegozioItem BindingContext="{Binding BigliettoMuseo}" />
+				<templates:NegozioItem BindingContext="{Binding BigliettoMostra}" />
+				<templates:NegozioItem BindingContext="{Binding BigliettoLaboratorio}" />
+			</VerticalStackLayout>
+		</ScrollView>
+	</Grid>
+</ContentPage>

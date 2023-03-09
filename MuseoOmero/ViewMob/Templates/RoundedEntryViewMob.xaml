@@ -6,14 +6,17 @@
 			 xmlns:templates="clr-namespace:MuseoOmero.ViewMob.Templates"
 			 xmlns:viewModel="clr-namespace:MuseoOmero.ViewModelMob"
 			 xmlns:templatesViewModel="clr-namespace:MuseoOmero.ViewModelMob.Templates"
+			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+			 xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
 			 x:Class="MuseoOmero.ViewMob.Templates.RoundedEntryViewMob"
 			 x:DataType="templates:RoundedEntryViewMob">
 
 	<ContentView.Content>
 		<Grid ColumnDefinitions="16,auto,*"
 			  BindingContext="{Binding Source={RelativeSource AncestorType={x:Type templates:RoundedEntryViewMob}}}">
+
+			<!--Entry/Date-->
 			<Border x:Name="Border"
-					Grid.Column="0"
 					Grid.ColumnSpan="3"
 					Padding="0"
 					BackgroundColor="{Binding MyBackgroundColor}"
@@ -22,7 +25,7 @@
 					Stroke="{Binding UnfocusedColor}"
 					HeightRequest="{Binding HeightRequest}">
 				<Grid>
-					<Entry IsVisible="{Binding IsDate,Converter={toolkit:InvertedBoolConverter}}"
+					<Entry x:Name="Entry" IsVisible="{Binding IsDate,Converter={toolkit:InvertedBoolConverter}}"
 						   Placeholder="{Binding Placeholder}"
 						   Text="{Binding Text,Mode=TwoWay}"
 						   VerticalOptions="Center"
@@ -41,17 +44,23 @@
 						   Unfocused="Entry_Unfocused">
 					</Entry>
 
-					<DatePicker IsVisible="{Binding IsDate}"
+					<DatePicker x:Name="DatePicker"
+								IsVisible="{Binding IsDate}"
 								Date="{Binding Date,Mode=TwoWay}"
+								Format="MMMM yyyy"
 								FontFamily="LatoLight"
-								FontSize="16"
+								FontSize="18"
+								HeightRequest="60"
 								TextColor="{AppThemeBinding Light={StaticResource Color1}, Dark={StaticResource Color5}}"
 								HorizontalOptions="Center"
 								Focused="DatePicker_Focused"
 								Unfocused="DatePicker_Unfocused">
 					</DatePicker>
+
 				</Grid>
 			</Border>
+
+			<!--Icona-->
 			<Label x:Name="IconLabel"
 				   Grid.Column="1"
 				   VerticalOptions="Center"

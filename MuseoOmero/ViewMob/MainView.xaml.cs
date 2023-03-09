@@ -1,5 +1,4 @@
-﻿using MuseoOmero.ViewModelMob;
-using Sharpnado.Tabs;
+﻿using Sharpnado.Tabs;
 using Sharpnado.Tabs.Effects;
 
 namespace MuseoOmero.ViewMob;
@@ -16,11 +15,13 @@ public partial class MainView : ContentPage
 		_viewModel= viewModel;
 		BindingContext = _viewModel;
         InitializeComponent();
-        TouchEffect.SetColor(tab1, Colors.Transparent);
-        TouchEffect.SetColor(tab2, Colors.Transparent);
-        TouchEffect.SetColor(tab3, Colors.Transparent);
-        TouchEffect.SetColor(tab4, Colors.Transparent);
-        _viewModel.Initialize();    
+        TouchEffect.SetColor(Tab1, Colors.Transparent);
+        TouchEffect.SetColor(Tab2, Colors.Transparent);
+        TouchEffect.SetColor(Tab3, Colors.Transparent);
+		TouchEffect.SetColor(Tab4, Colors.Transparent);
+		TouchEffect.SetColor(Tab5, Colors.Transparent);
+		TouchEffect.SetColor(Tab6, Colors.Transparent);
+		_viewModel.Initialize();    
     }
 
     private void Switcher_PropertyChanging(object sender, PropertyChangingEventArgs e)
@@ -40,16 +41,13 @@ public partial class MainView : ContentPage
                 OnIMieiTitoliAppearing();
             else
             {
-                //Skia.IsVisible = false;
-                //Skia.IsAnimationEnabled = false;
-
-                //var animation = new Animation
-                //{
-                //    {0,1,new Animation(v =>_viewModel.Waves_viewModel.TopWave = new GridLength(v), _viewModel.Waves_viewModel.  TopWave.Value, 56,Easing.CubicInOut)},
-                //    { 0,0.5,new Animation(v => _viewModel.TopBar_viewModel.RicercaOpacity = v, _viewModel.TopBar_viewModel.RicercaOpacity, 0,Easing.CubicInOut )}
-                //};
-                //var c = DeviceDisplay.MainDisplayInfo;
-                //animation.Commit(this, "TopAnimation", 16, 850, null, null);
+                var animation = new Animation
+                {
+                    {0,1,new Animation(v =>_viewModel.WavesViewModel.TopWave = new GridLength(v), _viewModel.WavesViewModel.  TopWave.Value, 56,Easing.CubicInOut)},
+                    { 0,0.5,new Animation(v => _viewModel.TopBarViewModel.RicercaOpacity = v, _viewModel.TopBarViewModel.RicercaOpacity, 0,Easing.CubicInOut )}
+                };
+                var c = DeviceDisplay.MainDisplayInfo;
+                animation.Commit(this, "TopAnimation", 16, 850, null, null);
             }
 
             if (currentIndex != _previousIndex)
@@ -64,10 +62,6 @@ public partial class MainView : ContentPage
 
     private void OnIMieiTitoliAppearing()
     {
-        //Skia.IsAnimationEnabled = true;
-        //Skia.Source = new SKFileLottieImageSource { File = "air_ticket.json" };
-        //Skia.IsVisible = true;
-
         var animation = new Animation
         {
             {0,1,new Animation(v =>_viewModel.WavesViewModel.TopWave =

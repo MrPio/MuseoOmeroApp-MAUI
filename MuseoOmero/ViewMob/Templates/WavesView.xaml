@@ -18,7 +18,7 @@
 
 		<Rectangle Grid.Row="0"
 				   BackgroundColor="{StaticResource Color1}"
-				   TranslationY="-112">
+				   TranslationY="{Binding TopWaveTranslationY}">
 		</Rectangle>
 
 		<Image InputTransparent="False"

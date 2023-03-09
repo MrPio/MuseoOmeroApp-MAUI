@@ -4,8 +4,10 @@
 			 x:Class="MuseoOmero.ViewMob.MainView"
 			 xmlns:tabs="http://sharpnado.com"
 			 xmlns:viewModels="clr-namespace:MuseoOmero.ViewModelMob"
-			 xmlns:templates="clr-namespace:MuseoOmero.ViewMob.Templates"
 			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+			 xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 xmlns:templatesMob="clr-namespace:MuseoOmero.ViewMob.Templates"
+			 xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
 			 xmlns:views="clr-namespace:MuseoOmero.ViewMob"
 			 x:DataType="viewModels:MainViewModel"
 			 BackgroundColor="{StaticResource Color4}"
@@ -40,7 +42,7 @@
 								  AccentColor="{StaticResource Primary}"
 								  BindingContext="{Binding IMieiTitoliViewModel}"
 								  Animate="True"
-								  UseActivityIndicator="True" />
+								  UseActivityIndicator="False" />
 			</tabs:ViewSwitcher>
 		</Grid>
 
@@ -81,15 +83,21 @@
 		</Grid>
 
 		<!-- Top & Bottom Waves-->
-		<templates:WavesView x:Name="TopAndBottomWaves"
-							 BindingContext="{Binding WavesViewModel}"
-							 TranslationX="{Binding WavesTranslation}" />
-		<templates:WavesView x:Name="TopAndBottomWaves2"
-							 BindingContext="{Binding WavesViewModel}"
-							 TranslationX="{Binding Waves2Translation}" />
+		<templatesMob:WavesView x:Name="TopAndBottomWaves"
+								BindingContext="{Binding WavesViewModel}"
+								TranslationX="{Binding Source={RelativeSource AncestorType=
+			{x:Type viewModels:MainViewModel}}, Path=WavesTranslation,  Mode=TwoWay}" />
+		<templatesMob:WavesView x:Name="TopAndBottomWaves2"
+								BindingContext="{Binding WavesViewModel}"
+								TranslationX="{Binding Source={RelativeSource AncestorType=
+			{x:Type viewModels:MainViewModel}}, Path=Waves2Translation,  Mode=TwoWay}" />
 
 		<!-- TopBar-->
-		<templates:TopBarView BindingContext="{Binding TopBarViewModel}" />
+		<templatesMob:TopBarView Date="{Binding Source={RelativeSource AncestorType=
+			{x:Type viewModels:MainViewModel}}, Path=TopBarDate,  Mode=TwoWay}"
+								 FilterCommand="{Binding Source={RelativeSource AncestorType=
+			{x:Type viewModels:MainViewModel}}, Path=FilterStateCommand}"
+								 BindingContext="{Binding TopBarViewModel}" />
 
 		<!-- BottomBar-->
 		<Grid RowDefinitions="*,auto"
@@ -105,35 +113,35 @@
 							  CornerRadius="30"
 							  Orientation="Horizontal"
 							  SelectedIndex="{Binding Source={x:Reference Switcher}, Path=SelectedIndex, Mode=TwoWay}">
-				<tabs:BottomTabItem x:Name="tab1"
+				<tabs:BottomTabItem x:Name="Tab1"
+									Style="{StaticResource BottomTab}"
+									Label="{x:Static material:IconFont.Ticket}"
+									LabelSize="{Binding FontSize1}" />
+				<tabs:BottomTabItem x:Name="Tab2"
 									Style="{StaticResource BottomTab}"
 									Label="{x:Static material:IconFont.Cart}"
-									LabelSize="{Binding FontSize1}" />
-				<tabs:BottomTabItem x:Name="tab2"
-									Style="{StaticResource BottomTab}"
-									Label="{x:Static material:IconFont.Account}"
 									LabelSize="{Binding FontSize2}" />
-				<tabs:BottomTabItem x:Name="tab3"
-									Style="{StaticResource BottomTab}"
-									Label="{x:Static material:IconFont.Navigation}"
-									LabelSize="{Binding FontSize3}" />
-				<tabs:BottomTabItem x:Name="tab4"
+				<tabs:BottomTabItem x:Name="Tab3"
 									Style="{StaticResource BottomTab}"
 									Label="{x:Static material:IconFont.Comment}"
+									LabelSize="{Binding FontSize3}" />
+				<tabs:BottomTabItem x:Name="Tab4"
+									Style="{StaticResource BottomTab}"
+									Label="{x:Static material:IconFont.Compass}"
 									LabelSize="{Binding FontSize4}" />
+				<tabs:BottomTabItem x:Name="Tab5"
+									Style="{StaticResource BottomTab}"
+									Label="{x:Static material:IconFont.FileDocument}"
+									LabelSize="{Binding FontSize5}" />
+				<tabs:BottomTabItem x:Name="Tab6"
+									Style="{StaticResource BottomTab}"
+									Label="{x:Static material:IconFont.ChartTimeline}"
+									LabelSize="{Binding FontSize6}" />
 			</tabs:TabHostView>
 		</Grid>
 
 		<!-- Loading screen -->
-		<Grid x:Name="Loading"
-			  IsVisible="{Binding IsBusy}">
-			<ActivityIndicator IsRunning="true"
-							   Color="{StaticResource Color1}"
-							   WidthRequest="70"
-							   HeightRequest="70" />
-			<BoxView Color="Black"
-					 Opacity="0.3" />
-		</Grid>
+		<templatesWin:LoadingView IsVisible="{Binding IsBusy}" />
 	</Grid>
 
 </ContentPage>

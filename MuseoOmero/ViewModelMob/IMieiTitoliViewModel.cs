@@ -9,6 +9,7 @@ public partial class IMieiTitoliViewModel : ObservableObject
 
 	public Biglietto Tmp => new("85293e2dewcdewds3ewdsqewds3rewd3rfwed852",DateTime.Now, DateTime.Now.AddDays(1), TipoBiglietto.Mostra, DateTime.Now.AddHours(32), TimeSpan.FromHours(14.24));
 
+	private DateTime? _dataFiltro=null;
 	public bool NoBiglietti
 	{
 		get
@@ -29,8 +30,12 @@ public partial class IMieiTitoliViewModel : ObservableObject
 	public void FetchBiglietti()
 	{
 		Biglietti.Clear();
-		AccountManager.Instance.Utente.Biglietti.OrderByDescending(b => b.DataValidita)
-			.ToList().ForEach(b => Biglietti.Add(new(b)));
+		AccountManager.Instance.Utente.Biglietti
+			.Where(b=> _dataFiltro is null || (b.DataValidita.Month== _dataFiltro?.Month && b.DataValidita.Year == _dataFiltro?.Year))
+			.OrderByDescending(b => b.DataValidita)
+			.ToList()
+			.ForEach(b => Biglietti.Add(new(b)));
+
 		OnPropertyChanged(nameof(NoBiglietti));
 	}
 	public void ObserveBiglietti()
@@ -52,5 +57,10 @@ public partial class IMieiTitoliViewModel : ObservableObject
 				FetchBiglietti();
 			}
 		);
+	}
+	public void FiltraBiglietti(DateTime? value)
+	{
+		_dataFiltro = value;
+		FetchBiglietti();
 	}
 }
