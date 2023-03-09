@@ -32,8 +32,7 @@ public partial class MainViewModel : ObservableObject
 			}
 		}
 	}
-	[ObservableProperty]
-	IMieiTitoliViewModel _iMieiTitoliViewModel = new();
+	public IMieiTitoliViewModel IMieiTitoliViewModel => App.Current.Handler.MauiContext.Services.GetService<IMieiTitoliViewModel>();
 	[ObservableProperty]
 	double _wavesTranslation = 0;
 	public double Waves2Translation => DeviceManager.Instance.Width;

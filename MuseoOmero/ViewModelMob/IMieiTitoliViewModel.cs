@@ -7,23 +7,32 @@ public partial class IMieiTitoliViewModel : ObservableObject
 	[ObservableProperty]
 	ObservableCollection<BigliettoViewModel> biglietti = new();
 
+	public Biglietto Tmp => new(DateTime.Now, DateTime.Now.AddDays(1), TipoBiglietto.Mostra, DateTime.Now.AddHours(32), TimeSpan.FromHours(14.24));
+
+	public bool NoBiglietti
+	{
+		get
+		{
+			return Biglietti.Count == 0;
+		}
+	}
+
 	[RelayCommand]
 	public async void AggiornaClicked()
 	{
 		_mainViewModel.IsBusy = true;
 		AccountManager.Instance.Utente = await DatabaseManager.Instance.LoadJsonObject<Utente>($"utenti/{AccountManager.Instance.Uid}");
-		Initialize();
+		FetchBiglietti();
 		_mainViewModel.IsBusy = false;
 	}
 
 
-	public void Initialize()
+	public void FetchBiglietti()
 	{
-		Biglietti = new();
-		AccountManager.Instance.Utente.Biglietti.ForEach(b => Biglietti.Add(new(b)));
-		if (Biglietti.Count == 0)
-			Biglietti = null;
-		Debug.Print(Biglietti.Count.ToString());
+		Biglietti.Clear();
+		AccountManager.Instance.Utente.Biglietti.OrderByDescending(b => b.DataValidita)
+			.ToList().ForEach(b => Biglietti.Add(new(b)));
+		OnPropertyChanged(nameof(NoBiglietti));
 	}
 
 	public void ObserveBiglietti()
@@ -42,7 +51,7 @@ public partial class IMieiTitoliViewModel : ObservableObject
 					utente.Biglietti[utente.Biglietti.IndexOf(b)] = msg;
 				else
 					utente.Biglietti.Add(msg);
-				Initialize();
+				FetchBiglietti();
 			}
 		);
 	}

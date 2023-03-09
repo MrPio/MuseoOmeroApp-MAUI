@@ -2,58 +2,36 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-			 xmlns:sharpando="http://sharpnado.com"
-			 x:Class="MuseoOmero.ViewMob.IMieiTitoliView"
 			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
-			 xmlns:templates="clr-namespace:MuseoOmero.ViewMob.Templates"
+			 xmlns:templatesMob="clr-namespace:MuseoOmero.ViewMob.Templates"
+			 xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
 			 xmlns:viewmodel="clr-namespace:MuseoOmero.ViewModelMob"
-			 xmlns:tabs="http://sharpnado.com"
+			 xmlns:model="clr-namespace:MuseoOmero.Model"
+			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
 			 x:DataType="viewmodel:IMieiTitoliViewModel"
-			 BackgroundColor="{StaticResource Color4}">
+			 x:Class="MuseoOmero.ViewMob.IMieiTitoliView"
+			 BackgroundColor="{AppThemeBinding Light={StaticResource Color4}, Dark={StaticResource Color6}}">
 
 	<Grid RowDefinitions="auto,*"
 		  Margin="24,176,24,84">
 		<VerticalStackLayout>
 
-			<!--Aggiorna Button-->
 			<Grid ColumnDefinitions="2*,auto">
 				<Label Text="Da convalidare e scaduti"
 					   FontSize="18"
 					   FontFamily="Lato"
 					   VerticalOptions="Center" />
 
-				<Grid Grid.Column="1"
-					  ColumnDefinitions="38,*">
-					<Button Grid.Column="0"
-							Grid.ColumnSpan="2"
-							HeightRequest="32"
-							Margin="0,0,2,0"
-							CornerRadius="99"
-							BackgroundColor="{StaticResource Color5}"
-							BorderColor="{StaticResource Color1}"
-							Padding="34,0,22,0"
-							TextColor="{StaticResource Color1}"
-							FontFamily="Lato"
-							FontSize="17.4"
-							Text="Aggiorna"
-							BorderWidth="1.0">
-					</Button>
-					<Label FontFamily="MaterialDesignIcons"
-						   FontSize="24"
-						   HorizontalOptions="Center"
-						   InputTransparent="True"
-						   VerticalOptions="Center"
-						   TextColor="{StaticResource Color1}"
-						   Text="{Static material:IconFont.Refresh}" />
-
-					<!-- NOT WORKING ON WINDOWS-->
-					<tabs:TouchEffect.Color>
-						#64F4F4F4
-					</tabs:TouchEffect.Color>
-					<tabs:Commands.Tap>
-						<Binding Path="AggiornaClickedCommand" />
-					</tabs:Commands.Tap>
-				</Grid>
+				<!--Aggiorna Button-->
+				<templatesMob:SmallIconedButton Grid.Column="1"
+												Text="Aggiorna"
+												Color="{AppThemeBinding Light={StaticResource Color1},
+					Dark={StaticResource Color5}}"
+												BackgroundColor="{AppThemeBinding Light={StaticResource Color5},
+					Dark={StaticResource Color1}}"
+												Icon="{Static material:IconFont.Refresh}"
+												Command="{Binding AggiornaClickedCommand}" />
 			</Grid>
 
 			<!--Linea-->
@@ -68,40 +46,69 @@
 				  StrokeLineCap="Round" />
 			<BoxView HeightRequest="6"
 					 Color="Transparent" />
+
+			<ContentView BindingContext="{Binding Tmp}">
+				<ScrollView x:DataType="model:Biglietto">
+					<VerticalStackLayout Spacing="8">
+						<Grid ColumnDefinitions="*,*"
+							  ColumnSpacing="14">
+							<Label Style="{StaticResource LabelBold}"
+								   Text="Data acquisto:"
+								   HorizontalOptions="End"
+								   FontSize="20"/>
+							<Label Grid.Column="1"
+								   Style="{StaticResource LabelNormal}"
+								   Text="{Binding DataAcquisto,StringFormat='{0:HH:mm - dd MMM yy}'}" />
+						</Grid>
+
+						<Grid ColumnDefinitions="*,*"
+							  ColumnSpacing="14">
+							<Label Style="{StaticResource LabelBold}"
+								   Text="Giorno validità:"
+								   FontSize="20"
+								   HorizontalOptions="End"/>
+							<Label Grid.Column="1"
+								   Style="{StaticResource LabelNormal}"
+								   Text="{Binding DataValidita,StringFormat='{0:dd MMMM}'}" />
+						</Grid>
+					</VerticalStackLayout>
+				</ScrollView>
+			</ContentView>
 		</VerticalStackLayout>
-		
-		<CollectionView Grid.Row="1" ItemsSource="{Binding Biglietti}"
+
+		<CollectionView Grid.Row="1"
+						ItemsSource="{Binding Biglietti}"
+						Scrolled="CollectionView_Scrolled"
 						MinimumHeightRequest="200">
 			<CollectionView.ItemTemplate>
 				<DataTemplate>
-					<templates:BigliettoView />
+					<templatesMob:BigliettoView />
 				</DataTemplate>
 			</CollectionView.ItemTemplate>
-
-			<CollectionView.EmptyView>
-				<ContentView>
-					<Grid RowDefinitions="34,20"
-						  VerticalOptions="Center">
-						<Label Text="Non possiedi alcun biglietto."
-							   Style="{StaticResource LabelNormal}"
-							   TextColor="{AppThemeBinding Light={StaticResource Color1}, Dark={StaticResource Color5}}"
-							   FontSize="24"
-							   Opacity="0.35"
-							   LineBreakMode="WordWrap"
-							   HorizontalOptions="Fill"
-							   HorizontalTextAlignment="Center" />
-						<Label Grid.Row="1"
-							   Text="Acquistane uno nella pagina dedicata!"
-							   Style="{StaticResource LabelThin}"
-							   TextColor="{AppThemeBinding Light={StaticResource Color1}, Dark={StaticResource Color5}}"
-							   FontSize="16"
-							   Opacity="0.6"
-							   HorizontalOptions="Fill"
-							   HorizontalTextAlignment="Center" />
-					</Grid>
-				</ContentView>
-			</CollectionView.EmptyView>
 		</CollectionView>
+
+		<Grid Grid.Row="1"
+			  RowDefinitions="34,20"
+			  Margin="0,0,0,40"
+			  IsVisible="{Binding NoBiglietti}"
+			  VerticalOptions="Center">
+			<Label Text="Non possiedi alcun biglietto."
+				   Style="{StaticResource LabelNormal}"
+				   TextColor="{AppThemeBinding Light={StaticResource Color1}, Dark={StaticResource Color5}}"
+				   FontSize="24"
+				   Opacity="0.35"
+				   LineBreakMode="WordWrap"
+				   HorizontalOptions="Fill"
+				   HorizontalTextAlignment="Center" />
+			<Label Grid.Row="1"
+				   Text="Acquistane uno nella pagina dedicata!"
+				   Style="{StaticResource LabelThin}"
+				   TextColor="{AppThemeBinding Light={StaticResource Color1}, Dark={StaticResource Color5}}"
+				   FontSize="16"
+				   Opacity="0.6"
+				   HorizontalOptions="Fill"
+				   HorizontalTextAlignment="Center" />
+		</Grid>
 	</Grid>
 	<!-- Screen content-->
 

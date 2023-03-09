@@ -28,11 +28,12 @@ public class Biglietto
 	{
 		Uid = uid;
 		DataAcquisto = dataAcquisto;
-		DataValidita = dataValidita;
+		DataValidita = dataValidita.AddHours(12).Date;//PER PROBLEMI DI FUSO ORARIO +-1GMT
 		DataConvalida = dataConvalida;
 		Tipologia = tipologia;
 		OrarioGuida = dataGuida;
 	}
 
-	public bool IsValido => DataValidita.Date == DateTime.Today;
+	public bool IsValido => DataValidita.Date >= DateTime.Today;
+	public bool IsConvalidabile => DataValidita.Date == DateTime.Today;
 }

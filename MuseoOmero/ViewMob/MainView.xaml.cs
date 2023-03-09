@@ -1,4 +1,5 @@
-﻿using Sharpnado.Tabs;
+﻿using MuseoOmero.ViewModelMob;
+using Sharpnado.Tabs;
 using Sharpnado.Tabs.Effects;
 
 namespace MuseoOmero.ViewMob;
@@ -74,7 +75,6 @@ public partial class MainView : ContentPage
             { 0.5,1,new Animation(v => _viewModel.TopBarViewModel.RicercaOpacity =
             v, _viewModel.TopBarViewModel.RicercaOpacity, 1,Easing.CubicInOut )}
         };
-        var c = DeviceDisplay.MainDisplayInfo;
         animation.Commit(this, "TopAnimation", 16, 850, null, null);
     }
     private void ResetTopBarAndWaves()
