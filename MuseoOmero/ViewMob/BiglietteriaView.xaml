@@ -13,8 +13,7 @@
 
 	<!-- Screen content-->
 	<ScrollView x:Name="NegozioScrollView"
-				Padding="0,120,0,0"
-				Grid.Row="1">
+				Padding="0,120,0,0">
 		<VerticalStackLayout Margin="20,0,20,0"
 							 Spacing="20">
 			<VerticalStackLayout.Resources>
@@ -32,6 +31,8 @@
 			</VerticalStackLayout.Resources>
 
 			<Label Style="{StaticResource LabelBold}"
+				   FontSize="26"
+				   FontFamily="LatoBlack"
 				   Text="Acquista un biglietto" />
 			<Label Style="{StaticResource LabelThin}"
 				   Margin="0,-12,0,0"

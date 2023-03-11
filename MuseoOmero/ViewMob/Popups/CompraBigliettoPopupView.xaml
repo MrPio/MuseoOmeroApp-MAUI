@@ -12,8 +12,8 @@
 				  xmlns:converters="clr-namespace:MuseoOmero.Converters"
 				  xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
 				  xmlns:popup="clr-namespace:MuseoOmero.ViewMob.Popups"
-				  x:Class="MuseoOmero.ViewMob.Popups.CompraBigliettoPopupView"
 				  xmlns:enums="clr-namespace:MuseoOmero.Model.Enums"
+				  x:Class="MuseoOmero.ViewMob.Popups.CompraBigliettoPopupView"
 				  Background="#80000000"
 				  CloseWhenBackgroundIsClicked="True">
 

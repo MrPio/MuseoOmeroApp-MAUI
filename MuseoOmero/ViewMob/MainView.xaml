@@ -1,14 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 x:Class="MuseoOmero.ViewMob.MainView"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
 			 xmlns:tabs="http://sharpnado.com"
-			 xmlns:viewModels="clr-namespace:MuseoOmero.ViewModelMob"
-			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
-			 xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
-			 xmlns:templatesMob="clr-namespace:MuseoOmero.ViewMob.Templates"
-			 xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
 			 xmlns:views="clr-namespace:MuseoOmero.ViewMob"
+			 xmlns:viewModels="clr-namespace:MuseoOmero.ViewModelMob"
+			 xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+			 xmlns:templatesMob="clr-namespace:MuseoOmero.ViewMob.Templates"
+			 xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
+			 xmlns:viewmodel="clr-namespace:MuseoOmero.ViewModelMob"
+			 xmlns:model="clr-namespace:MuseoOmero.Model"
+			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
+			 xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+			 xmlns:popup="clr-namespace:MuseoOmero.ViewMob.Popups"
+			 xmlns:enums="clr-namespace:MuseoOmero.Model.Enums"
+			 
+			 x:Class="MuseoOmero.ViewMob.MainView"
 			 x:DataType="viewModels:MainViewModel"
 			 BackgroundColor="{StaticResource Color4}"
 			 tabs:TouchEffect.Color="{StaticResource Color1}"
@@ -38,11 +47,16 @@
 							   SelectedIndex="{Binding SelectedViewModelIndex, Mode=TwoWay}"
 							   PropertyChanging="Switcher_PropertyChanging"
 							   PropertyChanged="Switcher_PropertyChanged">
+				<tabs:DelayedView x:TypeArguments="views:HomeView"
+								  AccentColor="{StaticResource Color1}"
+								  BindingContext="{Binding HomeViewModel}"
+								  Animate="True"
+								  UseActivityIndicator="False" />
 				<tabs:DelayedView x:TypeArguments="views:IMieiTitoliView"
 								  AccentColor="{StaticResource Color1}"
 								  BindingContext="{Binding IMieiTitoliViewModel}"
 								  Animate="True"
-								  UseActivityIndicator="False" />
+								  UseActivityIndicator="True" />
 				<tabs:DelayedView x:TypeArguments="views:BiglietteriaView"
 								  AccentColor="{StaticResource Color1}"
 								  BindingContext="{Binding BiglietteriaViewModel}"
@@ -91,11 +105,11 @@
 		<templatesMob:WavesView x:Name="TopAndBottomWaves"
 								BindingContext="{Binding WavesViewModel}"
 								TranslationX="{Binding Source={RelativeSource AncestorType=
-			{x:Type viewModels:MainViewModel}}, Path=WavesTranslation,  Mode=TwoWay}" />
+				{x:Type viewModels:MainViewModel}}, Path=WavesTranslation,  Mode=TwoWay}" />
 		<templatesMob:WavesView x:Name="TopAndBottomWaves2"
 								BindingContext="{Binding WavesViewModel}"
 								TranslationX="{Binding Source={RelativeSource AncestorType=
-			{x:Type viewModels:MainViewModel}}, Path=Waves2Translation,  Mode=TwoWay}" />
+				{x:Type viewModels:MainViewModel}}, Path=Waves2Translation,  Mode=TwoWay}" />
 
 		<!-- TopBar-->
 		<templatesMob:TopBarView Date="{Binding Source={RelativeSource AncestorType=
@@ -120,28 +134,24 @@
 							  SelectedIndex="{Binding Source={x:Reference Switcher}, Path=SelectedIndex, Mode=TwoWay}">
 				<tabs:BottomTabItem x:Name="Tab1"
 									Style="{StaticResource BottomTab}"
-									Label="{x:Static material:IconFont.Ticket}"
+									Label="{x:Static material:IconFont.Home}"
 									LabelSize="{Binding FontSize1}" />
 				<tabs:BottomTabItem x:Name="Tab2"
 									Style="{StaticResource BottomTab}"
-									Label="{x:Static material:IconFont.Cart}"
+									Label="{x:Static material:IconFont.Ticket}"
 									LabelSize="{Binding FontSize2}" />
 				<tabs:BottomTabItem x:Name="Tab3"
 									Style="{StaticResource BottomTab}"
-									Label="{x:Static material:IconFont.Comment}"
+									Label="{x:Static material:IconFont.Cart}"
 									LabelSize="{Binding FontSize3}" />
 				<tabs:BottomTabItem x:Name="Tab4"
 									Style="{StaticResource BottomTab}"
-									Label="{x:Static material:IconFont.Compass}"
+									Label="{x:Static material:IconFont.Comment}"
 									LabelSize="{Binding FontSize4}" />
 				<tabs:BottomTabItem x:Name="Tab5"
 									Style="{StaticResource BottomTab}"
-									Label="{x:Static material:IconFont.FileDocument}"
+									Label="{x:Static material:IconFont.ChartBox}"
 									LabelSize="{Binding FontSize5}" />
-				<tabs:BottomTabItem x:Name="Tab6"
-									Style="{StaticResource BottomTab}"
-									Label="{x:Static material:IconFont.ChartTimeline}"
-									LabelSize="{Binding FontSize6}" />
 			</tabs:TabHostView>
 		</Grid>
 

@@ -14,11 +14,19 @@
 			 x:Class="MuseoOmero.ViewMob.IMieiTitoliView"
 			 BackgroundColor="{AppThemeBinding Light={StaticResource Color4}, Dark={StaticResource Color6}}">
 
-	<Grid x:Name="MainGrid"
-		  Margin="24,0,24,0">
+	<Grid x:Name="MainGrid">
+		<Grid.Background>
+			<LinearGradientBrush>
+				<GradientStop Color="#C0b5e8be"
+							  Offset="0" />
+				<GradientStop Color="Transparent"
+							  Offset="0.6" />
+			</LinearGradientBrush>
+		</Grid.Background>
 
 		<!--Biglietti-->
 		<CollectionView ItemsSource="{Binding Biglietti}"
+						Margin="24,0,24,0"
 						Scrolled="CollectionView_Scrolled"
 						MinimumHeightRequest="200">
 
@@ -39,7 +47,7 @@
 
 		<!--AggiornaRow-->
 		<VerticalStackLayout x:Name="AggiornaRow"
-							 Margin="0,176,0,0">
+							 Margin="24,176,24,0">
 
 			<Grid ColumnDefinitions="2*,auto">
 				<Label Text="Da convalidare e scaduti"

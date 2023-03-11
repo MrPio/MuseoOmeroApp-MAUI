@@ -30,17 +30,17 @@ public partial class MainViewModel : ObservableObject
 			FontSize1 = FontSize2 = FontSize3 = FontSize4 = FontSize5 = FontSize6 = UNSELECTED_FONT_SIZE;
 			switch (value)
 			{
-				case 0: FontSize1 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "I miei titoli"; break;
-				case 1: FontSize2 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "Biglietteria"; break;
-				case 2: FontSize3 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "Chat"; break;
-				case 3: FontSize4 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "Esplora"; break;
-				case 4: FontSize5 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "Questionari"; break;
-				case 5: FontSize6 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "Statistiche"; break;
+				case 0: FontSize1 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "Home"; break;
+				case 1: FontSize2 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "I miei titoli"; break;
+				case 2: FontSize3 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "Biglietteria"; break;
+				case 3: FontSize4 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "Chat"; break;
+				case 4: FontSize5 = SELECTED_FONT_SIZE; TopBarViewModel.Title = "Statistiche"; break;
 			}
 		}
 	}
 	public IMieiTitoliViewModel IMieiTitoliViewModel => Service.Get<IMieiTitoliViewModel>();
 	public BiglietteriaViewModel BiglietteriaViewModel => Service.Get<BiglietteriaViewModel>();
+	public HomeViewModel HomeViewModel => Service.Get<HomeViewModel>();
 	[ObservableProperty]
 	double _wavesTranslation = 0;
 	public double Waves2Translation => DeviceManager.Instance.Width;
@@ -92,11 +92,14 @@ public partial class MainViewModel : ObservableObject
 	{
 		IMieiTitoliViewModel.FiltraBiglietti(filterState ? TopBarDate : null);
 	}
-	public async void Initialize()
+	public async Task Initialize()
 	{
 		IsBusy = true;
 		Opere = await DatabaseManager.Instance.LoadJsonArray<Opera>("opere/");
 		Mostre = await DatabaseManager.Instance.LoadJsonArray<Mostra>("mostre/");
+
+		HomeViewModel.FetchOpere();
+		HomeViewModel.FetchMostre();
 		IsBusy = false;
 	}
 }

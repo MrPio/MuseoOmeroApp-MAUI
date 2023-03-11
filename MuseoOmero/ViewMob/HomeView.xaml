@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 xmlns:tabs="http://sharpnado.com"
+			 xmlns:views="clr-namespace:MuseoOmero.ViewMob"
+			 xmlns:viewModels="clr-namespace:MuseoOmero.ViewModelMob"
+			 xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+			 xmlns:templatesMob="clr-namespace:MuseoOmero.ViewMob.Templates"
+			 xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
+			 xmlns:viewmodel="clr-namespace:MuseoOmero.ViewModelMob"
+			 xmlns:model="clr-namespace:MuseoOmero.Model"
+			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
+			 xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+			 xmlns:popup="clr-namespace:MuseoOmero.ViewMob.Popups"
+			 xmlns:enums="clr-namespace:MuseoOmero.Model.Enums"
+			 xmlns:extensions="clr-namespace:MuseoOmero.Extensions"
+			 x:Class="MuseoOmero.ViewMob.HomeView"
+			 x:DataType="viewmodel:HomeViewModel">
+
+	<RefreshView Margin="0,120,0,0"
+				 BackgroundColor="{StaticResource Color12}"
+				 RefreshColor="{StaticResource Color5}"
+				 Command="{Binding RefreshCommand}"
+				 IsRefreshing="{Binding IsRefreshing}">
+
+		<ScrollView Padding="0,0,0,120">
+			<VerticalStackLayout Spacing="20"
+								 Padding="20,0,20,0">
+
+				<!--Titolo e sottotitolo-->
+				<Label Style="{StaticResource LabelBold}"
+					   FontSize="26"
+					   FontFamily="LatoBlack"
+					   LineBreakMode="WordWrap"
+					   Text="Esplora le opere&#x0a;dei più grandi artisti" />
+				<Label Style="{StaticResource LabelThin}"
+					   Margin="0,-12,0,0"
+					   FontSize="18"
+					   LineBreakMode="WordWrap"
+					   Text="Trova lo stile perfetto per te nella vasta collezione del Museo Omero." />
+
+				<!--Sala Selector-->
+				<Grid RowDefinitions="46"
+					  Margin="-20,14,-20,0">
+					<CollectionView ItemsLayout="HorizontalList"
+									ItemsSource="{Static enums:Sala.Values }"
+									SelectedItem="{Binding CurrentSala, Mode=TwoWay}"
+									SelectionMode="Single">
+						<CollectionView.Header>
+							<BoxView WidthRequest="16" />
+						</CollectionView.Header>
+						<CollectionView.Footer>
+							<BoxView WidthRequest="16" />
+						</CollectionView.Footer>
+
+						<CollectionView.ItemTemplate>
+							<DataTemplate x:DataType="x:String">
+								<Border StrokeThickness="0"
+										StrokeShape="RoundRectangle 99"
+										Margin="4,0,4,0"
+										Padding="10,14,10,14">
+
+									<VisualStateManager.VisualStateGroups>
+										<VisualStateGroupList>
+											<VisualStateGroup>
+												<VisualState x:Name="Normal">
+													<VisualState.Setters>
+														<Setter Property="BackgroundColor"
+																Value="{StaticResource Color5}" />
+														<Setter Property="Content">
+															<Setter.Value>
+																<Label Style="{StaticResource LabelNormal}"
+																	   FontSize="14"
+																	   VerticalOptions="Center"
+																	   Text="{Binding .}" />
+															</Setter.Value>
+														</Setter>
+													</VisualState.Setters>
+												</VisualState>
+												<VisualState x:Name="Selected">
+													<VisualState.Setters>
+														<Setter Property="BackgroundColor"
+																Value="{StaticResource Color12}" />
+														<Setter Property="Content">
+															<Setter.Value>
+																<Label Style="{StaticResource LabelNormal}"
+																	   FontSize="14"
+																	   TextColor="{StaticResource Color5}"
+																	   VerticalOptions="Center"
+																	   Text="{Binding .}" />
+															</Setter.Value>
+														</Setter>
+													</VisualState.Setters>
+												</VisualState>
+											</VisualStateGroup>
+										</VisualStateGroupList>
+									</VisualStateManager.VisualStateGroups>
+								</Border>
+							</DataTemplate>
+						</CollectionView.ItemTemplate>
+					</CollectionView>
+				</Grid>
+
+				<!--Opere-->
+				<Grid RowDefinitions="360"
+					  Margin="-20,10,-20,0">
+					<CarouselView ItemsSource="{Binding OpereFiltrate}"
+								  ItemsLayout="HorizontalList">
+						<CarouselView.ItemTemplate>
+							<DataTemplate x:DataType="model:Opera">
+								<Border Stroke="transparent"
+										Margin="26,0,26,0"
+										Background="Transparent"
+										StrokeShape="RoundRectangle 28">
+									<Grid RowDefinitions="*,62">
+
+										<!--Foto-->
+										<Image Aspect="AspectFit"
+											   Source="{Binding Foto}" />
+
+										<!--Dettagli-->
+										<Grid Grid.Row="1"
+											  RowDefinitions="*,*"
+											  BackgroundColor="{StaticResource Color5}">
+
+											<!--Titolo-->
+											<Label Style="{StaticResource LabelNormal}"
+												   Text="{Binding Nome}"
+												   FontSize="18"
+												   VerticalOptions="End"
+												   HorizontalOptions="Center" />
+
+											<!--Autore-->
+											<Label Grid.Row="1"
+												   Style="{StaticResource LabelThin}"
+												   Text="{Binding Autore}"
+												   FontSize="16"
+												   VerticalOptions="Start"
+												   HorizontalOptions="Center" />
+
+											<!--Visualizzazioni-->
+											<Grid Grid.Row="1"
+												  ColumnDefinitions="auto,auto"
+												  ColumnSpacing="4"
+												  Margin="0,0,24,4"
+												  HorizontalOptions="End">
+												<Label Style="{StaticResource FontIconLabel}"
+													   Text="{Static material:IconFont.TrendingUp}"
+													   FontSize="18"
+													   VerticalOptions="Center"
+													   HorizontalOptions="Center" />
+												<Label Grid.Column="1"
+													   Style="{StaticResource LabelThin}"
+													   Text="{Binding Visualizzazioni}"
+													   FontSize="16"
+													   VerticalOptions="Center"
+													   HorizontalOptions="Center" />
+											</Grid>
+										</Grid>
+
+										<!--Vignette-->
+										<BoxView>
+											<BoxView.Background>
+												<RadialGradientBrush>
+													<GradientStop Color="Transparent"
+																  Offset="0.55" />
+													<GradientStop Color="#06000000"
+																  Offset="1" />
+												</RadialGradientBrush>
+											</BoxView.Background>
+										</BoxView>
+
+										<templatesWin:HighlightView Grid.RowSpan="2"
+																	Color="{StaticResource Color11}"
+																	Alpha="0.16" />
+									</Grid>
+								</Border>
+							</DataTemplate>
+						</CarouselView.ItemTemplate>
+					</CarouselView>
+				</Grid>
+
+				<Line Style="{StaticResource HRuleMob}" />
+
+				<!--Titolo e sottotitolo-->
+				<Label Style="{StaticResource LabelBold}"
+					   FontSize="26"
+					   FontFamily="LatoBlack"
+					   LineBreakMode="WordWrap"
+					   Text="Partecipa alle&#x0a;mostre più ricche di sempre" />
+				<Label Style="{StaticResource LabelThin}"
+					   Margin="0,-12,0,0"
+					   FontSize="18"
+					   LineBreakMode="WordWrap"
+					   Text="Organizziamo periodicamente nuove mostre per offrirvi la migliore esperienza." />
+
+				<!--Mostre-->
+				<Grid RowDefinitions="230"
+					  Margin="-20,10,-20,0">
+					<CarouselView ItemsSource="{Binding Mostre}"
+								  ItemsLayout="HorizontalList">
+						<CarouselView.ItemTemplate>
+							<DataTemplate x:DataType="model:Mostra">
+								<Border Stroke="transparent"
+										Margin="26,0,26,0"
+										Background="Transparent"
+										StrokeShape="RoundRectangle 28">
+									<Grid RowDefinitions="*,62">
+
+										<!--Foto-->
+										<Image Aspect="AspectFill"
+											   Source="{Binding Foto}" />
+
+										<!--Dettagli-->
+										<Grid Grid.Row="1"
+											  RowDefinitions="*,*"
+											  BackgroundColor="{StaticResource Color5}">
+
+											<!--Titolo-->
+											<Label Style="{StaticResource LabelNormal}"
+												   Text="{Binding Titolo}"
+												   FontSize="18"
+												   VerticalOptions="End"
+												   HorizontalOptions="Center" />
+
+											<!--Date Inizio/Fine-->
+											<extensions:RichLabel Grid.Row="1"
+																  Style="{StaticResource LabelThin}"
+																  FontSize="16"
+																  VerticalOptions="Start"
+																  BoldFontFamily="Lato"
+																  HorizontalOptions="Center">
+												<extensions:RichLabel.Markdown>
+													<MultiBinding StringFormat="{} Dal **{0}** al **{1}**">
+														<Binding Path="DataInizio"
+																 StringFormat="{}{0:dd MMM}" />
+														<Binding Path="DataFine"
+																 StringFormat="{}{0:dd MMM yyyy}" />
+													</MultiBinding>
+												</extensions:RichLabel.Markdown>
+											</extensions:RichLabel>
+										</Grid>
+										<templatesWin:HighlightView Grid.RowSpan="2"
+																	Color="{StaticResource Color11}"
+																	Alpha="0.16" />
+									</Grid>
+								</Border>
+							</DataTemplate>
+						</CarouselView.ItemTemplate>
+					</CarouselView>
+				</Grid>
+			</VerticalStackLayout>
+		</ScrollView>
+	</RefreshView>
+
+</ContentView>

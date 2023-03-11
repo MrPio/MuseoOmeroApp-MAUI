@@ -84,6 +84,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<IMieiTitoliViewModel>();
 		builder.Services.AddSingleton<BiglietteriaView>();
 		builder.Services.AddSingleton<BiglietteriaViewModel>();
+		builder.Services.AddSingleton<HomeViewModel>();
 		builder.Services.AddSingleton<IPopupNavigation>(MopupService.Instance);
 #endif
 
