@@ -17,7 +17,7 @@ public class Biglietto
 	{
 		Uid = (DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond).ToString();
 		DataAcquisto = dataAcquisto;
-		DataValidita = dataValidita.Date.AddHours(12).Date;//PER PROBLEMI DI FUSO ORARIO +-1GMT;
+		DataValidita = dataValidita.AddHours(12).Date;//PER PROBLEMI DI FUSO ORARIO +-1GMT;
 		Tipologia = tipologia;
 		DataConvalida = dataConvalida;
 		OrarioGuida = dataGuida;
@@ -28,12 +28,12 @@ public class Biglietto
 	{
 		Uid = uid;
 		DataAcquisto = dataAcquisto;
-		DataValidita = dataValidita.Date.AddHours(12).Date;//PER PROBLEMI DI FUSO ORARIO +-1GMT
+		DataValidita = dataValidita.AddHours(12).Date;//PER PROBLEMI DI FUSO ORARIO +-1GMT
 		DataConvalida = dataConvalida;
 		Tipologia = tipologia;
 		OrarioGuida = dataGuida;
 	}
 
 	public bool IsValido => DataValidita.Date >= DateTime.Today;
-	public bool IsConvalidabile => DataValidita.Date == DateTime.Today;
+	public bool IsConvalidabile => DataValidita.Date == DateTime.Today && DataConvalida is null;
 }

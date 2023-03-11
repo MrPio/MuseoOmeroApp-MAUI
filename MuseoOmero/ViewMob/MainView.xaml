@@ -39,10 +39,15 @@
 							   PropertyChanging="Switcher_PropertyChanging"
 							   PropertyChanged="Switcher_PropertyChanged">
 				<tabs:DelayedView x:TypeArguments="views:IMieiTitoliView"
-								  AccentColor="{StaticResource Primary}"
+								  AccentColor="{StaticResource Color1}"
 								  BindingContext="{Binding IMieiTitoliViewModel}"
 								  Animate="True"
 								  UseActivityIndicator="False" />
+				<tabs:DelayedView x:TypeArguments="views:BiglietteriaView"
+								  AccentColor="{StaticResource Color1}"
+								  BindingContext="{Binding BiglietteriaViewModel}"
+								  Animate="True"
+								  UseActivityIndicator="True" />
 			</tabs:ViewSwitcher>
 		</Grid>
 

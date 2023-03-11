@@ -25,11 +25,16 @@
 		<VerticalStackLayout Spacing="8"
 							 x:DataType="model:Biglietto">
 
+			<Label Style="{StaticResource LabelBold}"
+				   Margin="30,30,30,0"
+				   Text="Presenta il codice QR all'accoglienza per la convalida." 
+				   LineBreakMode="WordWrap"/>
+
 			<!--QRCode-->
-			<Grid ColumnDefinitions="200"
-				  RowDefinitions="200"
+			<Grid ColumnDefinitions="192"
+				  RowDefinitions="192"
 				  HorizontalOptions="Center"
-				  Margin="0,70,0,0"
+				  Margin="0,26,0,0"
 				  VerticalOptions="Center">
 				<zxing:BarcodeGeneratorView Format="QrCode"
 											Value="{Binding Uid}"
@@ -41,7 +46,7 @@
 			<Grid Grid.Row="1"
 				  ColumnDefinitions="*,*"
 				  ColumnSpacing="16"
-				  Margin="0,0,0,30">
+				  Margin="0,20,0,30">
 				<VerticalStackLayout Grid.Column="0"
 									 HorizontalOptions="End">
 					<VerticalStackLayout.Resources>

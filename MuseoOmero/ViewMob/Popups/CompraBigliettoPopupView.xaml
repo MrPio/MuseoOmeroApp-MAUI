@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+				  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+				  xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+				  xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+				  xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+				  xmlns:templatesMob="clr-namespace:MuseoOmero.ViewMob.Templates"
+				  xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
+				  xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
+				  xmlns:viewmodel="clr-namespace:MuseoOmero.ViewModelMob"
+				  xmlns:model="clr-namespace:MuseoOmero.Model"
+				  xmlns:converters="clr-namespace:MuseoOmero.Converters"
+				  xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+				  xmlns:popup="clr-namespace:MuseoOmero.ViewMob.Popups"
+				  x:Class="MuseoOmero.ViewMob.Popups.CompraBigliettoPopupView"
+				  xmlns:enums="clr-namespace:MuseoOmero.Model.Enums"
+				  Background="#80000000"
+				  CloseWhenBackgroundIsClicked="True">
+
+	<Border HorizontalOptions="FillAndExpand"
+			VerticalOptions="Center"
+			Margin="30,0,30,0"
+			StrokeShape="RoundRectangle 32,16,16,32"
+			Stroke="Transparent"
+			BackgroundColor="{AppThemeBinding Light={StaticResource Color4},
+												  Dark={StaticResource Color1}}">
+		<Grid>
+			<VerticalStackLayout Spacing="8"
+								 x:DataType="model:Biglietto">
+
+				<Grid ColumnDefinitions="auto,*"
+					  ColumnSpacing="10"
+					  Margin="30,30,30,0">
+					<Label Style="{StaticResource FontIconLabel}"
+						   FontSize="36"
+						   Text="{Binding Tipologia,
+											Converter={converters:IndexToArrayItemConverter},
+											ConverterParameter={Static enums:IconeBiglietto.Values}}" />
+					<Label  Grid.Column="1"
+							Style="{StaticResource LabelBold}"
+							Text="{Binding Tipologia,StringFormat='Biglietto per {0}'}"
+							LineBreakMode="WordWrap" />
+				</Grid>
+				<Label Style="{StaticResource LabelNormal}"
+					   Margin="30,10,30,0"
+					   FontSize="17"
+					   Text="Compila i seguenti campi per procedere all'acquisto del biglietto."
+					   LineBreakMode="WordWrap" />
+
+				<!--QRCode-->
+				<Grid ColumnDefinitions="160"
+					  RowDefinitions="160"
+					  HorizontalOptions="Center"
+					  Margin="0,10,0,0"
+					  VerticalOptions="Center">
+					<zxing:BarcodeGeneratorView Format="QrCode"
+												Value="{Binding Uid}"
+												BackgroundColor="Transparent"
+												ForegroundColor="{AppThemeBinding 
+								Light={StaticResource Color1},Dark={StaticResource Color5}}" />
+				</Grid>
+
+				<!--Campi da compilare-->
+				<Grid Grid.Row="1"
+					  ColumnDefinitions="*,*"
+					  ColumnSpacing="16"
+					  Margin="0,20,0,30">
+					<VerticalStackLayout Grid.Column="0"
+										 HorizontalOptions="End">
+						<VerticalStackLayout.Resources>
+							<Style TargetType="Label"
+								   BasedOn="{StaticResource LabelNormal}">
+								<Setter Property="FontSize"
+										Value="17" />
+								<Setter Property="HorizontalTextAlignment"
+										Value="End" />
+								<Setter Property="VerticalOptions"
+										Value="End" />
+								<Setter Property="HeightRequest"
+										Value="40" />
+							</Style>
+						</VerticalStackLayout.Resources>
+						<Label Text="Per il giorno:" />
+						<Label Text="Orario guida:"
+							   IsVisible="{Binding Source={RelativeSource AncestorType={x:Type popup:CompraBigliettoPopupView}},
+							Path=ConGuida}" />
+					</VerticalStackLayout>
+
+					<VerticalStackLayout Grid.Column="1"
+										 HorizontalOptions="Start">
+						<DatePicker Date="{Binding DataValidita,Mode=TwoWay}"
+									Format="dd MMM yyyy"
+									HorizontalOptions="Start" />
+						<TimePicker Time="{Binding OrarioGuida,Mode=TwoWay}"
+									IsVisible="{Binding Source={RelativeSource AncestorType={x:Type popup:CompraBigliettoPopupView}},
+							Path=ConGuida}" />
+					</VerticalStackLayout>
+				</Grid>
+
+				<!--AcquistaButton-->
+				<templates:RoundedButtonView Text="Acquista"
+											 VerticalOptions="End"
+											 Color="{AppThemeBinding Light={StaticResource Color9},
+					Dark={StaticResource Color10}}"
+											 WidthRequest="160"
+											 Margin="0,0,0,30"
+											 NewFontSize="16"
+											 PressedBackgroundColor="#55ffffff"
+											 BorderWidth="1"
+											 Clicked="AcquistaBiglietto_Clicked" />
+			</VerticalStackLayout>
+
+			<templatesWin:LoadingView x:Name="IsBusy"
+									  IsVisible="false" />
+		</Grid>
+	</Border>
+</mopups:PopupPage>

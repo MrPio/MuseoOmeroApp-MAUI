@@ -8,104 +8,205 @@
 			 xmlns:templatesMob="clr-namespace:MuseoOmero.ViewMob.Templates"
 			 xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
 			 xmlns:views="clr-namespace:MuseoOmero.ViewMob"
-			 x:Class="MuseoOmero.ViewMob.Templates.BiglietteriaItemView">
+			 x:Class="MuseoOmero.ViewMob.Templates.BiglietteriaItemView"
+			 x:DataType="templatesMob:BiglietteriaItemView">
 
-	<Grid RowDefinitions="auto,*"
-		  Margin="0,13,0,0"
-		  ColumnDefinitions="124,*">
+	<ContentView.Resources>
+		<ResourceDictionary>
+			<Style x:Key="IconStyle"
+				   TargetType="Label"
+				   BasedOn="{StaticResource FontIconLabel}">
+				<Setter Property="FontSize"
+						Value="Large" />
+				<Setter Property="TextColor"
+						Value="{Binding ForegroundColor}"></Setter>
+				<Setter Property="VerticalOptions"
+						Value="Center"></Setter>
+			</Style>
+		</ResourceDictionary>
+	</ContentView.Resources>
 
-		TODOOOOOOOO
-		
-		<!--Contenuto Esterno-->
-		<Grid Grid.Column="1"
-			  RowDefinitions="2*,auto,auto,0.5*,auto,*"
-			  ColumnDefinitions="auto,auto,auto,*,60,30">
-			
-			<!--Titolo-->
-			<Label Grid.Row="1"
-				   Grid.ColumnSpan="99"
-				   Text="{Binding Title}"
-				   TextColor="{Binding TextColor}"
-				   FontFamily="Lato"
-				   FontSize="Large">
-			</Label>
-			<!--Sottotitolo-->
-			<Label Grid.Row="2"
-				   Grid.ColumnSpan="99"
-				   Text="{Binding Subtitle}"
-				   LineBreakMode="TailTruncation"
-				   MaxLines="2"
-				   TextColor="{Binding TextColor}"
-				   FontSize="Medium">
-			</Label>
+	<Frame x:Name="Frame"
+		   BindingContext="{Binding Source={RelativeSource AncestorType={x:Type templatesMob:BiglietteriaItemView}}}"
+		   Padding="0"
+		   CornerRadius="40"
+		   HeightRequest="120"
+		   BorderColor="Transparent"
+		   BackgroundColor="{Binding BackgroundColor}">
 
-			<!--Euro1-->
-			<Grid Grid.Row="4"
-				  Grid.Column="0">
-				<Label Text="{x:Static helpers:IconFont.CurrencyEurOff}"
-					   IsVisible="{Binding MoneyIcon0Visible}"
-					   Style="{StaticResource IconStyle}">
-				</Label>
-				<Label Text="{x:Static helpers:IconFont.CurrencyEur}"
-					   IsVisible="{Binding MoneyIcon1Visible}"
-					   Style="{StaticResource IconStyle}">
-				</Label>
-			</Grid>
-			<!--Euro2-->
-			<Label Grid.Row="4"
-				   Grid.Column="1"
-				   Text="{x:Static helpers:IconFont.CurrencyEur}"
-				   IsVisible="{Binding MoneyIcon2Visible}"
-				   Style="{StaticResource IconStyle}">
-			</Label>
-			<!--Euro3-->
-			<Label Grid.Row="4"
-				   Grid.Column="2"
-				   Text="{x:Static helpers:IconFont.CurrencyEur}"
-				   IsVisible="{Binding MoneyIcon3Visible}"
-				   Style="{StaticResource IconStyle}">
-			</Label>
+		<Grid RowDefinitions="auto,*"
+			  ColumnDefinitions="120,*"
+			  Padding="0,14,0,0">
 
-			<!--Stella-->
-			<Frame Grid.Row="4"
-				   Grid.Column="4"
+			<!--Icona-->
+			<Frame x:Name="IconFrame"
+				   Grid.Column="0"
+				   CornerRadius="99"
 				   Padding="0"
-				   Margin="0"
+				   Margin="12,0,16,0"
 				   BorderColor="Transparent"
-				   BackgroundColor="Transparent"
-				   CornerRadius="999">
-				<effectsView:SfEffectsView TouchDownEffects="Ripple"
-										   FadeOutRipple="True"
-										   RippleAnimationDuration="300"
-										   RippleBackground="Black"
-										   TouchUp="TapGestureRecognizer_Tapped">
-					<Label Text="{Binding StarIconText}"
-						   Style="{StaticResource IconStyle}"
-						   FontSize="26"
-						   VerticalOptions="Center"
-						   HorizontalOptions="Center">
-					</Label>
-
-				</effectsView:SfEffectsView>
+				   HeightRequest="96"
+				   WidthRequest="96"
+				   BackgroundColor="{AppThemeBinding Light={StaticResource Color4},
+						Dark=#000000}">
+				<Label FontFamily="MaterialDesignIcons"
+					   Text="{Binding ItemIcon}"
+					   TextColor="{Binding ForegroundColor}"
+					   FontSize="58"
+					   VerticalOptions="Center"
+					   HorizontalOptions="Center">
+				</Label>
 			</Frame>
-		</Grid>
 
-		<!--Contenuto Interno-->
-		<Grid Grid.Row="1"
-			  Grid.ColumnSpan="2"
-			  Margin="0,13,0,0"
-			  RowDefinitions="auto,*">
-			<Image Grid.Row="0"
-				   Source="dotted_line"
-				   HorizontalOptions="Fill">
-			</Image>
+			<!--HighlightView-->
+			<templatesWin:HighlightView Grid.RowSpan="2"
+										Margin="0,-14,0,0"
+										Grid.ColumnSpan="2"
+										Clicked="Item_Clicked" />
+
+			<!--Contenuto Esterno-->
+			<Grid Grid.Column="1"
+				  RowDefinitions="2*,auto,auto,0.5*,auto,*"
+				  ColumnDefinitions="auto,auto,auto,*,60,30">
+
+				<!--Titolo-->
+				<Label Grid.Row="1"
+					   Grid.ColumnSpan="5"
+					   Style="{StaticResource LabelBold}"
+					   Text="{Binding Title}"
+					   FontSize="20"
+					   TextColor="{Binding ForegroundColor}">
+				</Label>
+				<!--Sottotitolo-->
+				<Label Grid.Row="2"
+					   Style="{StaticResource FontIconLabel}"
+					   Text="{Static material:IconFont.ArrowTopRight}"
+					   FontSize="24" />
+				<Label Grid.Row="2"
+					   Grid.Column="1"
+					   Grid.ColumnSpan="4"
+					   Margin="4,0,0,0"
+					   Style="{StaticResource LabelThin}"
+					   Text="{Binding Subtitle}"
+					   FontSize="18"
+					   TextColor="{Binding ForegroundColor}" />
+
+				<!--Euro1-->
+				<Label x:Name="Euro0"
+					   Grid.Row="4"
+					   Text="{x:Static material:IconFont.CurrencyEurOff}"
+					   Style="{StaticResource IconStyle}" />
+				<!--Euro2-->
+				<Label x:Name="Euro1"
+					   Grid.Row="4"
+					   Grid.Column="1"
+					   Text="{x:Static material:IconFont.CurrencyEur}"
+					   Style="{StaticResource IconStyle}" />
+				<!--Euro3-->
+				<Label x:Name="Euro2"
+					   Grid.Row="4"
+					   Grid.Column="2"
+					   Text="{x:Static material:IconFont.CurrencyEur}"
+					   Style="{StaticResource IconStyle}" />
+
+				<!--Stella-->
+				<Grid Grid.Row="4"
+					  Grid.Column="4">
+					<Label x:Name="StarIcon"
+						   Text="{Static material:IconFont.StarOutline}"
+						   Style="{StaticResource IconStyle}"
+						   FontSize="30"
+						   VerticalOptions="Center"
+						   HorizontalOptions="Center" />
+					<templatesWin:HighlightView Clicked="Stella_Clicked"
+												CornerRadius="99"
+												Margin="-10,0,-10,0" />
+				</Grid>
+			</Grid>
+
+			<!--Contenuto Interno-->
+			<Grid x:Name="GridInside"
+				  Grid.Row="1"
+				  Grid.ColumnSpan="2"
+				  RowDefinitions="auto,1.2*,*"
+				  ColumnDefinitions="*,0.78*,*"
+				  Opacity="0"
+				  Margin="0,13,0,0">
+				<Grid.Resources>
+					<Style x:Key="Icona"
+						   TargetType="Label"
+						   BasedOn="{StaticResource FontIconLabel}">
+						<Setter Property="Grid.Row"
+								Value="1" />
+						<Setter Property="FontSize"
+								Value="32" />
+						<Setter Property="HorizontalOptions"
+								Value="Center" />
+						<Setter Property="VerticalOptions"
+								Value="End" />
+					</Style>
+					<Style x:Key="Testo"
+						   TargetType="Label"
+						   BasedOn="{StaticResource LabelNormal}">
+						<Setter Property="Grid.Row"
+								Value="2" />
+						<Setter Property="FontSize"
+								Value="18" />
+						<Setter Property="HorizontalOptions"
+								Value="Center" />
+						<Setter Property="VerticalOptions"
+								Value="Start" />
+					</Style>
+					<Style TargetType="templatesWin:HighlightView">
+						<Setter Property="Grid.Row"
+								Value="1" />
+						<Setter Property="Grid.RowSpan"
+								Value="2" />
+						<Setter Property="CornerRadius"
+								Value="99" />
+						<Setter Property="Alpha"
+								Value="0.36" />
+						<Setter Property="Color"
+								Value="{StaticResource Color5}" />
+					</Style>
+				</Grid.Resources>
+				<Line Grid.ColumnSpan="3"
+					  Stroke="White"
+					  X1="0"
+					  X2="999"
+					  StrokeDashArray="1,1.2"
+					  StrokeThickness="3.5">
+				</Line>
+
+				<Label Style="{StaticResource Icona}"
+					   Text="{Static material:IconFont.DramaMasks}" />
+				<Label Style="{StaticResource Testo}"
+					   Text="Con Guida" />
+				<templatesWin:HighlightView Clicked="SmallItem_Clicked"
+											Tag="Con Guida"/>
+
+				<Label Grid.Column="1"
+					   Style="{StaticResource Icona}"
+					   Text="{Static material:IconFont.AccountOutline}" />
+				<Label Grid.Column="1"
+					   Style="{StaticResource Testo}"
+					   Text="Solo" />
+				<templatesWin:HighlightView Grid.Column="1"
+											Clicked="SmallItem_Clicked"
+											Tag="Solo"/>
+
+				<Label Grid.Column="2"
+					   Style="{StaticResource Icona}"
+					   Text="{Static material:IconFont.AccountMultipleOutline}" />
+				<Label Grid.Column="2"
+					   Style="{StaticResource Testo}"
+					   Text="Con Gruppo" />
+				<templatesWin:HighlightView Grid.Column="2"
+											Clicked="SmallItem_Clicked"
+											Tag="Con Gruppo"/>
+
+			</Grid>
+
 		</Grid>
-		<!--<Line Grid.Column="2" TODO
-			  Stroke="White"
-			  Y1="0"
-			  Y2="106"
-			  StrokeDashArray="1,1"
-			  StrokeThickness="3.5">
-		</Line>-->
-	</Grid>
+	</Frame>
 </ContentView>

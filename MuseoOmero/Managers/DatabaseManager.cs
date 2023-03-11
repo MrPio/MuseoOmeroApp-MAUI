@@ -77,6 +77,9 @@ public class DatabaseManager
 		{
 			if (typeof(T) == typeof(Dipendente))
 				(obj as Dipendente).Uid = resource.Split('/', StringSplitOptions.RemoveEmptyEntries).Last();
+			if (typeof(T) == typeof(Utente))
+				(obj as Utente).Uid = resource.Split('/', StringSplitOptions.RemoveEmptyEntries).Last();
+
 		}
 		return obj;
 	}

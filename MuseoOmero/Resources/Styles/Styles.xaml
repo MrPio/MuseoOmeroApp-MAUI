@@ -580,6 +580,24 @@
 		<Setter Property="Margin"
 				Value="8,0,8,0" />
 	</Style>
+	<!--LINE-->
+	<Style TargetType="Line"
+		   x:Key="HRuleMob">
+		<Setter Property="Stroke"
+				Value="{AppThemeBinding Light={StaticResource Color1}, Dark={StaticResource Color5}}" />
+		<Setter Property="StrokeLineCap"
+				Value="Round" />
+		<Setter Property="X1"
+				Value="0" />
+		<Setter Property="X2"
+				Value="130" />
+		<Setter Property="Opacity"
+				Value="0.95" />
+		<Setter Property="StrokeThickness"
+				Value="2" />
+		<Setter Property="HorizontalOptions"
+				Value="Center" />
+	</Style>
 
 	<!--FRAME-->
 	<Style x:Key="FrameRoundedWin"

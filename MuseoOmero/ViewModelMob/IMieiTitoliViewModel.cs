@@ -1,15 +1,13 @@
 ﻿namespace MuseoOmero.ViewModelMob;
 public partial class IMieiTitoliViewModel : ObservableObject
 {
-	private MainViewModel _mainViewModel => App.Current.Handler.MauiContext.Services.GetService<MainViewModel>();
+	private MainViewModel _mainViewModel => Service.Get<MainViewModel>();
 	private IDisposable _bigliettiObserver;
 
 	[ObservableProperty]
 	ObservableCollection<BigliettoViewModel> biglietti = new();
 
-	public Biglietto Tmp => new("85293e2dewcdewds3ewdsqewds3rewd3rfwed852",DateTime.Now, DateTime.Now.AddDays(1), TipoBiglietto.Mostra, DateTime.Now.AddHours(32), TimeSpan.FromHours(14.24));
-
-	private DateTime? _dataFiltro=null;
+	private DateTime? _dataFiltro = null;
 	public bool NoBiglietti
 	{
 		get
@@ -17,6 +15,7 @@ public partial class IMieiTitoliViewModel : ObservableObject
 			return Biglietti.Count == 0;
 		}
 	}
+
 
 	[RelayCommand]
 	public async void AggiornaClicked()
@@ -31,7 +30,7 @@ public partial class IMieiTitoliViewModel : ObservableObject
 	{
 		Biglietti.Clear();
 		AccountManager.Instance.Utente.Biglietti
-			.Where(b=> _dataFiltro is null || (b.DataValidita.Month== _dataFiltro?.Month && b.DataValidita.Year == _dataFiltro?.Year))
+			.Where(b => _dataFiltro is null || (b.DataValidita.Month == _dataFiltro?.Month && b.DataValidita.Year == _dataFiltro?.Year))
 			.OrderByDescending(b => b.DataValidita)
 			.ToList()
 			.ForEach(b => Biglietti.Add(new(b)));
@@ -40,7 +39,9 @@ public partial class IMieiTitoliViewModel : ObservableObject
 	}
 	public void ObserveBiglietti()
 	{
-		// LA LISTA SI AGGIORNA, MA OVVIAMENTE LA COLLECTIONVIEW NO
+		if (_bigliettiObserver is { })
+			_bigliettiObserver.Dispose();
+
 		_bigliettiObserver = DatabaseManager.Instance.Observe<Biglietto>(
 			resource: $"utenti/{AccountManager.Instance.Uid}/biglietti",
 			callback: (o) =>

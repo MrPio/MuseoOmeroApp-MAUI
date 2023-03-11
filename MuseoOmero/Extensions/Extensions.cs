@@ -53,7 +53,13 @@ public static class DateTimeExtension
 		return datetime < end && datetime > start;
 	}
 }
-
+public static class BoolExtension
+{
+	public static void Swap(this ref bool boolean)
+	{
+		boolean = !boolean;
+	}
+}
 public static class IListExtension
 {
 	public static IList<T> Clone<T>(this IList<T> listToClone) where T : ICloneable
@@ -61,7 +67,13 @@ public static class IListExtension
 		return listToClone.Select(item => (T)item.Clone()).ToList();
 	}
 }
-
+public static class Service
+{
+	public static T Get<T>()
+	{
+		return App.Current.Handler.MauiContext.Services.GetService<T>();
+	}
+}
 public class Metadata
 {
 	public static readonly BindableProperty TagProperty = BindableProperty.Create("Tag", typeof(string), typeof(Metadata), null);

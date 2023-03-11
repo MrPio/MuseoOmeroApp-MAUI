@@ -9,7 +9,6 @@ public partial class BigliettoPopupView : Mopups.Pages.PopupPage
 	public BigliettoPopupView(IPopupNavigation popupNavigation)
 	{
 		_popupNavigation = popupNavigation;
-		BindingContext = this;
 		InitializeComponent();
 	}
 

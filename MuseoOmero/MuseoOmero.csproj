@@ -177,6 +177,9 @@
 		<MauiXaml Update="ViewMob\Popups\BigliettoPopupView.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="ViewMob\Popups\CompraBigliettoPopupView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="ViewMob\Popups\SignUpView.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

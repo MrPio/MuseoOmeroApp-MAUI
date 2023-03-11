@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:tabs="http://sharpnado.com"
 			 xmlns:viewModels="clr-namespace:MuseoOmero.ViewModelMob"
@@ -8,20 +8,59 @@
 			 xmlns:templatesMob="clr-namespace:MuseoOmero.ViewMob.Templates"
 			 xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
 			 xmlns:views="clr-namespace:MuseoOmero.ViewMob"
-			 x:Class="MuseoOmero.ViewMob.BiglietteriaView"
-			 Title="BiglietteriaView">
+			 xmlns:enums="clr-namespace:MuseoOmero.Model.Enums"
+			 x:Class="MuseoOmero.ViewMob.BiglietteriaView">
 
 	<!-- Screen content-->
-	<Grid RowDefinitions="64,*,28">
-		<ScrollView x:Name="NegozioScrollView"
-					Grid.Row="1">
-			<VerticalStackLayout Margin="10,0,10,0"
-								 Spacing="10">
+	<ScrollView x:Name="NegozioScrollView"
+				Padding="0,120,0,0"
+				Grid.Row="1">
+		<VerticalStackLayout Margin="20,0,20,0"
+							 Spacing="20">
+			<VerticalStackLayout.Resources>
+				<Style TargetType="templatesMob:BiglietteriaItemView">
+					<Setter Property="BackgroundColor"
+							Value="{AppThemeBinding Light={StaticResource Color5},
+						Dark={StaticResource Color1}}" />
+					<Setter Property="ForegroundColor"
+							Value="{AppThemeBinding Light={StaticResource Color1},
+						Dark={StaticResource Color5}}" />
+					<Setter Property="BackgroundFocusedColor"
+							Value="{AppThemeBinding Light={StaticResource Color10},
+						Dark={StaticResource Color9}}" />
+				</Style>
+			</VerticalStackLayout.Resources>
 
-				<templates:NegozioItem BindingContext="{Binding BigliettoMuseo}" />
-				<templates:NegozioItem BindingContext="{Binding BigliettoMostra}" />
-				<templates:NegozioItem BindingContext="{Binding BigliettoLaboratorio}" />
-			</VerticalStackLayout>
-		</ScrollView>
-	</Grid>
-</ContentPage>
+			<Label Style="{StaticResource LabelBold}"
+				   Text="Acquista un biglietto" />
+			<Label Style="{StaticResource LabelThin}"
+				   Margin="0,-12,0,0"
+				   FontSize="18"
+				   LineBreakMode="WordWrap"
+				   Text="Scegli di seguito la tipologia del biglietto che desideri acquistare acqusitare" />
+
+			<!--Linea-->
+			<Line Style="{StaticResource HRuleMob}"/>
+
+			<templatesMob:BiglietteriaItemView x:Name="MuseoAperto" Title="Museo Aperto"
+											   Subtitle="Ingresso gratuito."
+											   ItemIcon="{x:Static material:IconFont.Ticket}"
+											   Price="0"
+											   OnItemExpanding="BiglietteriaItemView_OnItemExpanding"
+											   OnOptionClicked="BiglietteriaItemView_OnOptionClicked"/>
+			<templatesMob:BiglietteriaItemView x:Name="Mostra" Title="Mostra"
+											   Subtitle="Ingresso a pagamento."
+											   ItemIcon="{x:Static material:IconFont.Paw}"
+											   Price="1"
+											   OnItemExpanding="BiglietteriaItemView_OnItemExpanding"
+											   OnOptionClicked="BiglietteriaItemView_OnOptionClicked"/>
+			<templatesMob:BiglietteriaItemView x:Name="Laboratorio" Title="Laboratorio"
+											   Subtitle="Ingresso a pagamento."
+											   ItemIcon="{x:Static material:IconFont.Puzzle}"
+											   OnItemExpanding="BiglietteriaItemView_OnItemExpanding"
+											   OnOptionClicked="BiglietteriaItemView_OnOptionClicked"
+											   Price="3" />
+			<BoxView HeightRequest="100"/>
+		</VerticalStackLayout>
+	</ScrollView>
+</ContentView>

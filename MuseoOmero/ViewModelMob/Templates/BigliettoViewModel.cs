@@ -27,7 +27,7 @@ public partial class BigliettoViewModel : ObservableObject
 		TurnoGuida = biglietto.OrarioGuida == null ? "No turno guida." : "Guida alle " +
 		biglietto.OrarioGuida?.ToString(@"hh\:mm");
 		Icon = IconeBiglietto.Values[(int)biglietto.Tipologia];
-		_popupNavigation = App.Current.Handler.MauiContext.Services.GetService<IPopupNavigation>();
+		_popupNavigation = Service.Get<IPopupNavigation>();
 	}
 
 

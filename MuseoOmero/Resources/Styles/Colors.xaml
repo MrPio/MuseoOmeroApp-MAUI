@@ -15,8 +15,9 @@
 	<Color x:Key="Color6">#8c8c8c</Color>
 	<Color x:Key="Color7">#1c4832</Color>
 	<Color x:Key="Color8">#40ffffff</Color>
+	<Color x:Key="Color9">#d0b132</Color>
+	<Color x:Key="Color10">#FCD63D</Color>
 
-	
 	<Color x:Key="White">White</Color>
 	<Color x:Key="Black">Black</Color>
 	<Color x:Key="Gray100">#E1E1E1</Color>

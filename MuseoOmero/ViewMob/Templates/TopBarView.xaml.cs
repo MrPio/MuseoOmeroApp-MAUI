@@ -38,8 +38,8 @@ public partial class TopBarView : ContentView
 		{
 			AccountManager.Instance.DeleteCache();
 
-			var mainViewModel = App.Current.Handler.MauiContext.Services.GetService<MainViewModel>();
-			var popup = App.Current.Handler.MauiContext.Services.GetService<IPopupNavigation>();
+			var mainViewModel = Service.Get<MainViewModel>();
+			var popup = Service.Get<IPopupNavigation>();
 			Application.Current.MainPage = new SignInUpView(mainViewModel, popup);
 		}
 	}

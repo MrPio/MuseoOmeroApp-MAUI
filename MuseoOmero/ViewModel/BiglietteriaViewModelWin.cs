@@ -123,6 +123,14 @@ public partial class BiglietteriaViewModelWin : ObservableObject
 		IsBusy = true;
 		if (!AcquistoConGuida)
 			NuovoBiglietto.OrarioGuida = null;
+
+		if (NuovoBiglietto.DataValidita < DateTime.Today)
+		{
+			IsBusy = false;
+			await App.Current.MainPage.DisplayAlert("Acquisto non effettuato", "Per favore inserisci un giorno di validità del biglietto valido.", "Ok");
+			return;
+		}
+
 		var buyer = this.HomeViewModelWin.Utenti.Find(u => u.Uid == BuyerUid);
 		buyer.Biglietti.Add(NuovoBiglietto);
 		await DatabaseManager.Instance.Put($"utenti/{buyer.Uid}/biglietti/{buyer.Biglietti.Count - 1}", NuovoBiglietto);

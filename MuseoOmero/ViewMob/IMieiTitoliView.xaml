@@ -62,14 +62,8 @@
 			<!--Linea-->
 			<BoxView HeightRequest="16"
 					 Color="Transparent" />
-			<Line X1="0"
-				  X2="130"
-				  HorizontalOptions="Center"
-				  Stroke="{StaticResource Color1}"
-				  Opacity="0.95"
-				  StrokeThickness="2"
-				  StrokeLineCap="Round" />
-			<BoxView HeightRequest="6"
+			<Line Style="{StaticResource HRuleMob}" />
+			<BoxView HeightRequest="10"
 					 Color="Transparent" />
 		</VerticalStackLayout>
 

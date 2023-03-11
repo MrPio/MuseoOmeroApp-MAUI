@@ -1,4 +1,6 @@
-﻿namespace MuseoOmero.ViewModelMob;
+﻿using MuseoOmero.Extensions;
+
+namespace MuseoOmero.ViewModelMob;
 
 public partial class MainViewModel : ObservableObject
 {
@@ -37,7 +39,8 @@ public partial class MainViewModel : ObservableObject
 			}
 		}
 	}
-	public IMieiTitoliViewModel IMieiTitoliViewModel => App.Current.Handler.MauiContext.Services.GetService<IMieiTitoliViewModel>();
+	public IMieiTitoliViewModel IMieiTitoliViewModel => Service.Get<IMieiTitoliViewModel>();
+	public BiglietteriaViewModel BiglietteriaViewModel => Service.Get<BiglietteriaViewModel>();
 	[ObservableProperty]
 	double _wavesTranslation = 0;
 	public double Waves2Translation => DeviceManager.Instance.Width;
@@ -74,18 +77,13 @@ public partial class MainViewModel : ObservableObject
 	private DateTime _topBarDate = DateTime.Now;
 	public DateTime TopBarDate
 	{
-		get
-		{
-			return _topBarDate;
-		}
+		get =>_topBarDate;
 		set
 		{
 			_topBarDate = value;
 			OnPropertyChanged();
 			if (TopBarViewModel.Title == "I miei titoli")
-			{
 				IMieiTitoliViewModel.FiltraBiglietti(value);
-			}
 		}
 	}
 

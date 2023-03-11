@@ -129,8 +129,8 @@
 													 NewFontSize="16"
 													 Color="{StaticResource Color1}"
 													 PressedBackgroundColor="#55ffffff"
-													 Clicked="Registrati_Clicked"
 													 BorderWidth="1"
+													 Clicked="Registrati_Clicked"
 													 StyleInvert="True" />
 						<templates:RoundedButtonView Grid.Column="1"
 													 Text="Accedi"
