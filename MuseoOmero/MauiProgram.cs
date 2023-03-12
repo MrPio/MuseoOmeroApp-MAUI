@@ -5,7 +5,6 @@ using Microsoft.Maui.LifecycleEvents;
 using Mopups.Hosting;
 using Mopups.Interfaces;
 using Mopups.Services;
-using MuseoOmero.View.TemplatesWin;
 using Sharpnado.Tabs;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using System.Text;
@@ -85,6 +84,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<BiglietteriaView>();
 		builder.Services.AddSingleton<BiglietteriaViewModel>();
 		builder.Services.AddSingleton<HomeViewModel>();
+		builder.Services.AddSingleton<ChatViewModel>();
 		builder.Services.AddSingleton<IPopupNavigation>(MopupService.Instance);
 #endif
 

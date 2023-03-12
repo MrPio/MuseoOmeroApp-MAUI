@@ -8,6 +8,7 @@ public partial class TopBarView : ContentView
 	private DeviceManager _devM => DeviceManager.Instance;
 
 	public static readonly BindableProperty DateProperty = BindableProperty.Create(nameof(Date), typeof(DateTime), typeof(TopBarView), DateTime.Today.AddDays(2));
+	public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(TopBarView), string.Empty);
 	public static readonly BindableProperty FilterCommandProperty = BindableProperty.Create(nameof(FilterCommand), typeof(ICommand), typeof(TopBarView), null);
 
 	private bool _isFilterOn = false;
@@ -28,6 +29,12 @@ public partial class TopBarView : ContentView
 		set => SetValue(FilterCommandProperty, value);
 
 	}
+	public string Text
+	{
+		get => (string)GetValue(TextProperty);
+		set => SetValue(TextProperty, value);
+	}
+
 	public TopBarView()
 	{
 		InitializeComponent();
@@ -63,6 +70,7 @@ public partial class TopBarView : ContentView
 			RoundedEntryViewMob.Entry_Focused(null, null);
 			RoundedEntryViewMob.DatePicker_Focused(null, null);
 		}
+
 		if (FilterCommand is { })
 			FilterCommand.Execute(IsFilterOn);
 	}

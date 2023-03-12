@@ -112,10 +112,10 @@ public partial class HomeViewModelWin : ObservableObject
 			if (user.Chat is { } && user.Chat?.MessaggiUtente is { })
 			{
 				messaggiNonLetti.AddRange(from m in user.Chat?.MessaggiUtente
-										  where !m.Letto
+										  where m is { } && !m.Letto
 										  select m);
 				++chatTotali;
-				chatNonLetteTotali += user.Chat.MessaggiUtente.Any(m => !m.Letto) ? 1 : 0;
+				chatNonLetteTotali += user.Chat.MessaggiUtente.Any(m => m is { } && !m.Letto) ? 1 : 0;
 			}
 		}
 

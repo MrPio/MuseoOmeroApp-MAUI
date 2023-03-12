@@ -40,7 +40,7 @@ public partial class ChatViewWin : ContentPage
 
 	private void ScrollChat()
 	{
-		ChatCollectionView.ScrollTo(_viewModel.Messaggi.Count - 1);
+		ChatCollectionView.ScrollTo(Math.Max(0,_viewModel.Messaggi.Count + 2));
 	}
 
 	private void HighlightView_Clicked(object sender, EventArgs e)

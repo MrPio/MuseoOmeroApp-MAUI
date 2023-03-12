@@ -10,13 +10,11 @@
 			 xmlns:templatesMob="clr-namespace:MuseoOmero.ViewMob.Templates"
 			 xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
 			 xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
-			 xmlns:viewmodel="clr-namespace:MuseoOmero.ViewModelMob"
 			 xmlns:model="clr-namespace:MuseoOmero.Model"
 			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
 			 xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
 			 xmlns:popup="clr-namespace:MuseoOmero.ViewMob.Popups"
 			 xmlns:enums="clr-namespace:MuseoOmero.Model.Enums"
-			 
 			 x:Class="MuseoOmero.ViewMob.MainView"
 			 x:DataType="viewModels:MainViewModel"
 			 BackgroundColor="{StaticResource Color4}"
@@ -47,19 +45,24 @@
 							   SelectedIndex="{Binding SelectedViewModelIndex, Mode=TwoWay}"
 							   PropertyChanging="Switcher_PropertyChanging"
 							   PropertyChanged="Switcher_PropertyChanged">
-				<tabs:DelayedView x:TypeArguments="views:HomeView"
+				<tabs:LazyView x:TypeArguments="views:HomeView"
 								  AccentColor="{StaticResource Color1}"
 								  BindingContext="{Binding HomeViewModel}"
 								  Animate="True"
 								  UseActivityIndicator="False" />
-				<tabs:DelayedView x:TypeArguments="views:IMieiTitoliView"
+				<tabs:LazyView x:TypeArguments="views:IMieiTitoliView"
 								  AccentColor="{StaticResource Color1}"
 								  BindingContext="{Binding IMieiTitoliViewModel}"
 								  Animate="True"
 								  UseActivityIndicator="True" />
-				<tabs:DelayedView x:TypeArguments="views:BiglietteriaView"
+				<tabs:LazyView x:TypeArguments="views:BiglietteriaView"
 								  AccentColor="{StaticResource Color1}"
 								  BindingContext="{Binding BiglietteriaViewModel}"
+								  Animate="True"
+								  UseActivityIndicator="True" />
+				<tabs:LazyView x:TypeArguments="views:ChatView"
+								  AccentColor="{StaticResource Color1}"
+								  BindingContext="{Binding ChatViewModel}"
 								  Animate="True"
 								  UseActivityIndicator="True" />
 			</tabs:ViewSwitcher>
@@ -112,8 +115,11 @@
 				{x:Type viewModels:MainViewModel}}, Path=Waves2Translation,  Mode=TwoWay}" />
 
 		<!-- TopBar-->
-		<templatesMob:TopBarView Date="{Binding Source={RelativeSource AncestorType=
+		<templatesMob:TopBarView x:Name="TopBar"
+								 Date="{Binding Source={RelativeSource AncestorType=
 			{x:Type viewModels:MainViewModel}}, Path=TopBarDate,  Mode=TwoWay}"
+								 Text="{Binding Source={RelativeSource AncestorType=
+			{x:Type viewModels:MainViewModel}}, Path=ChatViewModel.Filtro,  Mode=TwoWay}"
 								 FilterCommand="{Binding Source={RelativeSource AncestorType=
 			{x:Type viewModels:MainViewModel}}, Path=FilterStateCommand}"
 								 BindingContext="{Binding TopBarViewModel}" />
@@ -156,7 +162,7 @@
 		</Grid>
 
 		<!-- Loading screen -->
-		<templatesWin:LoadingView IsVisible="{Binding IsBusy}" />
+		<templatesWin:LoadingView IsVisible="{Binding IsBusy}" InputTransparent="False" />
 	</Grid>
 
 </ContentPage>

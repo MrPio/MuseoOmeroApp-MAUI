@@ -28,6 +28,7 @@
 						Dark={StaticResource Color9}}" />
 				</Style>
 			</VerticalStackLayout.Resources>
+			
 			<VerticalStackLayout.Background>
 				<LinearGradientBrush>
 					<GradientStop Color="#10fcd63d"

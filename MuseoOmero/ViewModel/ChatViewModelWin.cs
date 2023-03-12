@@ -63,9 +63,19 @@ public partial class ChatViewModelWin : ObservableObject
 				if (Messaggi.ToList().Find(m => m.Messaggio.Data == msg.Data) is { } m)
 					m.Messaggio = msg;
 				else
+				{
 					Messaggi.Add(new(msg, true));
-				//CollectionViewCallback.Invoke();
+					CurrentUtente.Chat.MessaggiUtente.Add(msg);
 
+					//segno il messaggio ricevuto come letto
+					if (!msg.Letto)
+					{
+						msg.Letto = true;
+						DatabaseManager.Instance.Put($"utenti/{CurrentUtente.Uid}/chat/messaggi_utente/{CurrentUtente.Chat.MessaggiUtente.Count - 1}/letto", true);
+					}
+					
+					Task.Delay(500).ContinueWith(_ => MainThread.BeginInvokeOnMainThread(() => CollectionViewCallback()));
+				}
 			}
 		);
 
@@ -73,26 +83,27 @@ public partial class ChatViewModelWin : ObservableObject
 			_miaChatObserver.Dispose();
 
 		_miaChatObserver = DatabaseManager.Instance.Observe<Messaggio>(
-	resource: $"utenti/{CurrentUtente.Uid}/chat/messaggi_museo",
-	callback: (o) =>
-	{
-		//HomeViewModel.LoadUtenti();
-		var msg = o.Object;
-		if (o.Object is null)
-			return;
-		if (Messaggi.ToList().Find(m => m.Messaggio.Data == msg.Data) is { } m)
-			m.Messaggio = msg;
-		else
-			Messaggi.Add(new(msg, true));
-
-		//CollectionViewCallback.Invoke();
-	}
-);
+			resource: $"utenti/{CurrentUtente.Uid}/chat/messaggi_museo",
+			callback: (o) =>
+			{
+				//HomeViewModel.LoadUtenti();
+				var msg = o.Object;
+				if (o.Object is null)
+					return;
+				if (Messaggi.ToList().Find(m => m.Messaggio.Data == msg.Data) is { } m)
+					Messaggi[Messaggi.IndexOf(m)] = new(msg, false);
+				else
+				{
+					Messaggi.Add(new(msg, true));
+					Task.Delay(500).ContinueWith(_ => MainThread.BeginInvokeOnMainThread(() => CollectionViewCallback()));
+				}
+			}
+		);
 
 
 		// segno come letti i messaggi ricevuti
 		var changes = false;
-		foreach (var m in chat.MessaggiUtente.Where(m => !m.Letto))
+		foreach (var m in chat.MessaggiUtente.Where(m => m is { } && !m.Letto))
 			m.Letto = changes = true;
 		if (changes)
 			DatabaseManager.Instance.Put($"utenti/{CurrentUtente.Uid}/chat/", CurrentUtente.Chat);

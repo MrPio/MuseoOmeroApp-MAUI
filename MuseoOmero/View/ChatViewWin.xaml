@@ -25,6 +25,7 @@
 			  Padding="60,40,60,40"
 			  BackgroundColor="{StaticResource Color4}">
 
+			<!--Lista Utenti-->
 			<Frame Style="{StaticResource FrameRoundedWin}"
 				   BackgroundColor="{StaticResource Color1}"
 				   Padding="0">
@@ -105,12 +106,15 @@
 				</Grid>
 			</Frame>
 
+			<!--Chat Corrente-->
 			<Frame Grid.Column="1"
 				   Style="{StaticResource FrameRoundedWin}"
 				   BackgroundColor="{StaticResource Color5}"
 				   Padding="0">
 
 				<Frame.Resources>
+					
+					<!--Converter [LettoNonLetto]-->
 					<converters:BoolToObjectConverter x:Key="LettoNonLetto"
 													  x:TypeArguments="x:String"
 													  TrueObject="{Static material:IconFont.CheckAll}"
@@ -192,11 +196,20 @@
 				</Frame.Resources>
 
 				<Grid>
+					
+					<!--Messaggi in chat-->
 					<CollectionView x:Name="ChatCollectionView"
 									ItemsSource="{Binding Messaggi}"
-									Margin="0,10,0,90"
-									ItemTemplate="{StaticResource ChatSelector}" />
+									ItemTemplate="{StaticResource ChatSelector}">
+						<CollectionView.Header>
+							<BoxView HeightRequest="10" />
+						</CollectionView.Header>
+						<CollectionView.Footer>
+							<BoxView HeightRequest="90" />
+						</CollectionView.Footer>
+					</CollectionView>
 
+					<!--Bottom of chat screen-->
 					<Grid ColumnDefinitions="*,auto,auto,*"
 						  ColumnSpacing="10"
 						  Margin="0,0,0,20">

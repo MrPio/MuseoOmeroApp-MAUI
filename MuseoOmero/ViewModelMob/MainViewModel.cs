@@ -38,9 +38,14 @@ public partial class MainViewModel : ObservableObject
 			}
 		}
 	}
+
+	//Tabs viewModel(s)
+	public HomeViewModel HomeViewModel => Service.Get<HomeViewModel>();
 	public IMieiTitoliViewModel IMieiTitoliViewModel => Service.Get<IMieiTitoliViewModel>();
 	public BiglietteriaViewModel BiglietteriaViewModel => Service.Get<BiglietteriaViewModel>();
-	public HomeViewModel HomeViewModel => Service.Get<HomeViewModel>();
+	public ChatViewModel ChatViewModel => Service.Get<ChatViewModel>();
+
+
 	[ObservableProperty]
 	double _wavesTranslation = 0;
 	public double Waves2Translation => DeviceManager.Instance.Width;
@@ -77,7 +82,7 @@ public partial class MainViewModel : ObservableObject
 	private DateTime _topBarDate = DateTime.Now;
 	public DateTime TopBarDate
 	{
-		get =>_topBarDate;
+		get => _topBarDate;
 		set
 		{
 			_topBarDate = value;
@@ -91,6 +96,8 @@ public partial class MainViewModel : ObservableObject
 	void FilterState(bool filterState)
 	{
 		IMieiTitoliViewModel.FiltraBiglietti(filterState ? TopBarDate : null);
+		if (!filterState)
+			ChatViewModel.Filtro = string.Empty;
 	}
 	public async Task Initialize()
 	{

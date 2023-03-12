@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 xmlns:tabs="http://sharpnado.com"
+			 xmlns:view="clr-namespace:MuseoOmero.ViewMob"
+			 xmlns:viewWin="clr-namespace:MuseoOmero.ViewWin"
+			 xmlns:viewModelMob="clr-namespace:MuseoOmero.ViewModelMob"
+			 xmlns:viewModelWin="clr-namespace:MuseoOmero.ViewModelWin"
+			 xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+			 xmlns:templatesMob="clr-namespace:MuseoOmero.ViewMob.Templates"
+			 xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
+			 xmlns:model="clr-namespace:MuseoOmero.Model"
+			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
+			 xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+			 xmlns:popup="clr-namespace:MuseoOmero.ViewMob.Popups"
+			 xmlns:enums="clr-namespace:MuseoOmero.Model.Enums"
+			 xmlns:extensions="clr-namespace:MuseoOmero.Extensions"
+			 xmlns:selector="clr-namespace:MuseoOmero.Selectors"
+			 x:Class="MuseoOmero.ViewMob.ChatView"
+			 x:DataType="viewModelMob:ChatViewModel">
+
+	<ContentView.Resources>
+
+		<!--Converter [LettoNonLetto]-->
+		<converters:BoolToObjectConverter x:Key="LettoNonLetto"
+										  x:TypeArguments="x:String"
+										  TrueObject="{Static material:IconFont.CheckAll}"
+										  FalseObject="{Static material:IconFont.Check}" />
+
+		<!--SentMessage Template-->
+		<DataTemplate x:Key="SentMessage"
+					  x:DataType="viewModelWin:MessaggioConMittente">
+
+			<Grid RowDefinitions="auto,20"
+				  ColumnDefinitions="*,auto"
+				  RowSpacing="6"
+				  Margin="4,4,10,4"
+				  Padding="16">
+				<Border Grid.RowSpan="2"
+						Grid.Column="1"
+						BackgroundColor="{StaticResource Color1}"
+						StrokeThickness="0"
+						Margin="-18,-12,-16,-12"
+						StrokeShape="RoundRectangle 20,	30,30,0">
+				</Border>
+				<extensions:RichLabel Style="{StaticResource LabelNormal}"
+									  Grid.Column="1"
+									  LineBreakMode="WordWrap"
+									  MaximumWidthRequest="250"
+									  BoldFontFamily="LatoBlack"
+									  TextColor="{StaticResource Color5}"
+									  Markdown="{Binding Messaggio.Testo}" />
+				<Grid Grid.Row="1"
+					  Grid.Column="1"
+					  ColumnDefinitions="auto,auto"
+					  HorizontalOptions="End"
+					  ColumnSpacing="10">
+					<Label Style="{StaticResource LabelThin}"
+						   TextColor="{StaticResource Color5}"
+						   HorizontalOptions="End"
+						   Opacity="0.8"
+						   Text="{Binding Messaggio.Data,StringFormat='{0: HH:mm - dd MMM}'}" />
+					<Label Grid.Column="1"
+						   Style="{StaticResource FontIconLabel}"
+						   TextColor="{StaticResource Color5}"
+						   HorizontalOptions="End"
+						   VerticalOptions="End"
+						   FontSize="20"
+						   Text="{Binding Messaggio.Letto,Converter={StaticResource LettoNonLetto}}" />
+				</Grid>
+			</Grid>
+		</DataTemplate>
+
+		<!--ReceivedMessage Template-->
+		<DataTemplate x:Key="ReceivedMessage"
+					  x:DataType="viewModelWin:MessaggioConMittente">
+			<Grid RowDefinitions="auto,20"
+				  ColumnDefinitions="auto"
+				  RowSpacing="6"
+				  Margin="10,4,4,4"
+				  Padding="16">
+				<Border Grid.RowSpan="2"
+						BackgroundColor="{StaticResource Color13}"
+						StrokeThickness="0"
+						Margin="-16,-12,-18,-12"
+						StrokeShape="RoundRectangle 30,	20,0,30">
+				</Border>
+				<extensions:RichLabel Style="{StaticResource LabelNormal}"
+									  LineBreakMode="WordWrap"
+									  MaximumWidthRequest="250"
+									  BoldFontFamily="LatoBlack"
+									  TextColor="{StaticResource Color5}"
+									  Markdown="{Binding Messaggio.Testo}" />
+				<Label Grid.Row="1"
+					   Style="{StaticResource LabelThin}"
+					   TextColor="{StaticResource Color5}"
+					   Opacity="0.8"
+					   HorizontalOptions="End"
+					   Text="{Binding Messaggio.Data,StringFormat='{0: HH:mm - dd MMM}'}" />
+			</Grid>
+		</DataTemplate>
+
+		<!--DataTemplateSelector-->
+		<selector:ChatSelector x:Key="ChatSelector"
+							   SentTemplate="{StaticResource SentMessage}"
+							   ReceivedTemplate="{StaticResource ReceivedMessage}"
+							   Inverted="True" />
+	</ContentView.Resources>
+
+	<Grid x:Name="MainGrid"
+		  Padding="10,50">
+		<Grid.Background>
+			<LinearGradientBrush>
+				<GradientStop Color="#00D54041"
+							  Offset="0" />
+				<GradientStop Color="#BAD54041"
+							  Offset="0.0" />
+				<GradientStop Color="Transparent"
+							  Offset="0.5" />
+			</LinearGradientBrush>
+		</Grid.Background>
+
+		<!--NoMessaggi-->
+		<VerticalStackLayout IsVisible="{Binding NoMessaggi}"
+							 VerticalOptions="Center"
+							 Opacity="0.75">
+			<Label Style="{StaticResource LabelBold}"
+				   FontSize="26"
+				   Text="{Binding EmptyViewTitle}"
+				   LineBreakMode="WordWrap"
+				   HorizontalOptions="Center" />
+			<Label Style="{StaticResource LabelThin}"
+				   FontSize="18"
+				   Text="{Binding EmptyView}"
+				   LineBreakMode="WordWrap"
+				   HorizontalOptions="Center" />
+		</VerticalStackLayout>
+
+		<!--Messaggi in chat-->
+		<CollectionView x:Name="ChatCollectionView"
+						ItemsSource="{Binding Messaggi}"
+						ItemTemplate="{StaticResource ChatSelector}"
+						Scrolled="ChatCollectionView_Scrolled">
+			<CollectionView.Header>
+				<BoxView HeightRequest="120" />
+			</CollectionView.Header>
+			<CollectionView.Footer>
+				<BoxView HeightRequest="120" />
+			</CollectionView.Footer>
+		</CollectionView>
+
+		<!--Bottom of chat screen-->
+		<Grid ColumnDefinitions="*,auto"
+			  ColumnSpacing="8"
+			  Margin="20,0,10,50">
+
+			<templatesMob:RoundedEntryViewMob x:Name="SendEntry"
+											  HeightRequest="48"
+											  VerticalOptions="End"
+											  HorizontalOptions="End"
+											  Color="{StaticResource Color1}"
+											  BorderFocused="2"
+											  BorderUnfocused="1"
+											  Keyboard="Chat"
+											  MyBackgroundColor="{StaticResource Color5}"
+											  UnfocusedColor="{StaticResource Color1}" />
+			<Border x:Name="SendBorder"
+					Grid.Column="1"
+					BackgroundColor="{StaticResource Color1}"
+					StrokeShape="Ellipse"
+					StrokeThickness="0"
+					VerticalOptions="End"
+					HeightRequest="48"
+					WidthRequest="48"
+					HorizontalOptions="Start">
+				<Grid>
+					<Label x:Name="SendIcon"
+						   Style="{StaticResource FontIconLabel}"
+						   Text="{Static material:IconFont.Send}"
+						   HorizontalOptions="Center"
+						   VerticalOptions="Center"
+						   Padding="6"
+						   FontSize="22"
+						   TextColor="{StaticResource Color5}" />
+					<templatesWin:HighlightView Alpha="0"
+												Clicked="Send_Clicked" />
+				</Grid>
+			</Border>
+		</Grid>
+
+	</Grid>
+</ContentView>

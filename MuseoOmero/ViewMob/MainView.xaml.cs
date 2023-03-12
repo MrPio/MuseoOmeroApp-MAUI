@@ -26,7 +26,7 @@ public partial class MainView : ContentPage
 
 	private void Switcher_PropertyChanging(object _, PropertyChangingEventArgs e)
 	{
-		if (Switcher is{ } && e.PropertyName == "SelectedIndex")
+		if (Switcher is { } && e.PropertyName == "SelectedIndex")
 			_previousIndex = Switcher.SelectedIndex;
 	}
 	private void Switcher_PropertyChanged(object _, System.ComponentModel.PropertyChangedEventArgs e)
@@ -35,8 +35,31 @@ public partial class MainView : ContentPage
 		{
 			var currentIndex = Switcher.SelectedIndex;
 
-			//Some tabs want filter on the tob bar
-			TopBarFilterShowHide(new[] { 1 }.Contains(currentIndex));
+			//Binding filter entry on the tob bar
+			/*if (currentIndex == 3)
+				TopBar.SetBinding(
+					targetProperty: TopBarView.TextProperty,
+					binding: new Binding(
+						path: nameof(_viewModel.ChatViewModel.Filtro),
+						source: _viewModel.ChatViewModel,
+						mode: BindingMode.TwoWay
+					)
+				);
+			else if(currentIndex == 1)
+				TopBar.SetBinding(
+					targetProperty: TopBarView.DateProperty,
+					binding: new Binding(
+						path: nameof(_viewModel.IMieiTitoliViewModel.),
+						source: _viewModel.IMieiTitoliViewModel,
+						mode: BindingMode.TwoWay
+					)
+				);*/
+
+			//Some tabs want filter on the tob bar and some othe these want the date picker
+			TopBarFilterShowHide(
+				show: new[] { 1, 3 }.Contains(currentIndex),
+				isDate: new[] { 1 }.Contains(currentIndex)
+			);
 
 			if (currentIndex != _previousIndex)
 				ResetTopBarAndWaves();
@@ -48,10 +71,12 @@ public partial class MainView : ContentPage
 		}
 	}
 
-	private void TopBarFilterShowHide(bool show)
+	private void TopBarFilterShowHide(bool show, bool isDate = false)
 	{
 		var waves = _viewModel.WavesViewModel;
 		var topBar = _viewModel.TopBarViewModel;
+
+		topBar.IsDate = isDate;
 		var anim = new[]
 		{
 			new[]{ 56d, 114d},
