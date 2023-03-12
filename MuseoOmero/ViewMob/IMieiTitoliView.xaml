@@ -17,7 +17,7 @@
 	<Grid x:Name="MainGrid">
 		<Grid.Background>
 			<LinearGradientBrush>
-				<GradientStop Color="#C0b5e8be"
+				<GradientStop Color="#D0b5e8be"
 							  Offset="0" />
 				<GradientStop Color="Transparent"
 							  Offset="0.6" />

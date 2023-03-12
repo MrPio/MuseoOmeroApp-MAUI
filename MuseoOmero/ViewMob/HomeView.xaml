@@ -20,15 +20,25 @@
 			 x:Class="MuseoOmero.ViewMob.HomeView"
 			 x:DataType="viewmodel:HomeViewModel">
 
-	<RefreshView Margin="0,120,0,0"
+	<RefreshView Margin="0,70,0,0"
 				 BackgroundColor="{StaticResource Color12}"
 				 RefreshColor="{StaticResource Color5}"
 				 Command="{Binding RefreshCommand}"
 				 IsRefreshing="{Binding IsRefreshing}">
 
-		<ScrollView Padding="0,0,0,120">
+		<ScrollView>
 			<VerticalStackLayout Spacing="20"
-								 Padding="20,0,20,0">
+								 Padding="20,50,20,120">
+				<VerticalStackLayout.Background>
+					<LinearGradientBrush>
+						<GradientStop Color="#2692caf4"
+									  Offset="0" />
+						<GradientStop Color="#6092caf4"
+									  Offset="0.36" />
+						<GradientStop Color="Transparent"
+									  Offset="0.36" />
+					</LinearGradientBrush>
+				</VerticalStackLayout.Background>
 
 				<!--Titolo e sottotitolo-->
 				<Label Style="{StaticResource LabelBold}"
@@ -175,7 +185,8 @@
 
 										<templatesWin:HighlightView Grid.RowSpan="2"
 																	Color="{StaticResource Color11}"
-																	Alpha="0.16" />
+																	Alpha="0.16"
+																	Clicked="Opera_Clicked"/>
 									</Grid>
 								</Border>
 							</DataTemplate>
@@ -243,9 +254,11 @@
 												</extensions:RichLabel.Markdown>
 											</extensions:RichLabel>
 										</Grid>
+										
 										<templatesWin:HighlightView Grid.RowSpan="2"
 																	Color="{StaticResource Color11}"
-																	Alpha="0.16" />
+																	Alpha="0.16"
+																	Clicked="Mostra_Clicked"/>
 									</Grid>
 								</Border>
 							</DataTemplate>

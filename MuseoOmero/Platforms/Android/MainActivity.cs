@@ -5,7 +5,7 @@ using Android.Views;
 
 namespace MuseoOmero;
 
-[Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
+[Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize |  ConfigChanges.UiMode  | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density| ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
 public class MainActivity : MauiAppCompatActivity
 {
 	protected override void OnCreate(Bundle savedInstanceState)
@@ -14,5 +14,12 @@ public class MainActivity : MauiAppCompatActivity
 		Platform.Init(this, savedInstanceState);
 
 		this.Window?.AddFlags(WindowManagerFlags.Fullscreen);
+		this.Window?.AddFlags(WindowManagerFlags.BlurBehind);
+		this.Window?.AddFlags(WindowManagerFlags.DimBehind);
+		//this.Window?.AddFlags(WindowManagerFlags.TranslucentNavigation);
+		this.Window?.AddFlags(WindowManagerFlags.TranslucentStatus);
+		this.Window?.AddFlags(WindowManagerFlags.HardwareAccelerated);
+		//this.Window?.AddFlags(WindowManagerFlags.ShowWhenLocked);
+
 	}
 }

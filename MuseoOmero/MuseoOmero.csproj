@@ -177,6 +177,12 @@
 		<MauiXaml Update="ViewMob\HomeView.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="ViewMob\MostraView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="ViewMob\OperaView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="ViewMob\Popups\BigliettoPopupView.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+				  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+				  xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+				  xmlns:tabs="http://sharpnado.com"
+				  xmlns:views="clr-namespace:MuseoOmero.ViewMob"
+				  xmlns:viewModels="clr-namespace:MuseoOmero.ViewModelMob"
+				  xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+				  xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+				  xmlns:templatesMob="clr-namespace:MuseoOmero.ViewMob.Templates"
+				  xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
+				  xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
+				  xmlns:viewmodel="clr-namespace:MuseoOmero.ViewModelMob"
+				  xmlns:model="clr-namespace:MuseoOmero.Model"
+				  xmlns:converters="clr-namespace:MuseoOmero.Converters"
+				  xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+				  xmlns:popup="clr-namespace:MuseoOmero.ViewMob.Popups"
+				  xmlns:enums="clr-namespace:MuseoOmero.Model.Enums"
+				  xmlns:extensions="clr-namespace:MuseoOmero.Extensions"
+				  x:Class="MuseoOmero.ViewMob.MostraView"
+				  x:DataType="model:Mostra"
+				  Title="MostraView">
+
+	<ScrollView>
+		<VerticalStackLayout>
+			<VerticalStackLayout.Background>
+				<LinearGradientBrush>
+					<GradientStop Color="Transparent"
+								  Offset="0.5" />
+					<GradientStop Color="#291f3997"
+								  Offset="1" />
+				</LinearGradientBrush>
+			</VerticalStackLayout.Background>
+
+			<!--Titolo, Foto-->
+			<Grid RowDefinitions="auto,*"
+				  BackgroundColor="{StaticResource Color1}">
+
+				<!--Opera.Titolo-->
+				<Label Style="{StaticResource LabelBold}"
+					   Margin="20,30,20,0"
+					   FontFamily="LatoBlack"
+					   Text="{Binding Titolo,StringFormat='Mostra: {0}'}"
+					   LineBreakMode="WordWrap"
+					   TextColor="{StaticResource Color5}"
+					   FontSize="26"
+					   HorizontalOptions="Center" />
+
+				<!--Opera.Foto-->
+				<Image Grid.Row="1"
+					   Source="{Binding Foto}"
+					   Aspect="AspectFill"
+					   HorizontalOptions="FillAndExpand"
+					   HeightRequest="240"
+					   Margin="0,20,0,0" />
+
+				<!--Vignette-->
+				<BoxView Grid.RowSpan="2">
+					<BoxView.Background>
+						<RadialGradientBrush>
+							<GradientStop Color="Transparent"
+										  Offset="0.74" />
+							<GradientStop Color="#10000000"
+										  Offset="1.85" />
+						</RadialGradientBrush>
+					</BoxView.Background>
+				</BoxView>
+
+				<!--White Wave-->
+				<Image Grid.Row="1"
+					   VerticalOptions="End"
+					   ScaleX="1.02"
+					   Source="wave_inverse_white.png"
+					   HorizontalOptions="Fill" />
+			</Grid>
+
+			<!--Dettagli-->
+			<Grid ColumnDefinitions="*,*"
+				  ColumnSpacing="10">
+				<VerticalStackLayout Grid.Column="0"
+									 HorizontalOptions="End"
+									 VerticalOptions="Center">
+					<VerticalStackLayout.Resources>
+						<Style TargetType="Label"
+							   BasedOn="{StaticResource LabelBold}">
+							<Setter Property="FontSize"
+									Value="16" />
+							<Setter Property="HorizontalTextAlignment"
+									Value="End" />
+						</Style>
+					</VerticalStackLayout.Resources>
+					<Label Text="DataAggiunta:" />
+					<Label Text="DataInizio:" />
+					<Label Text="DataFine:" />
+				</VerticalStackLayout>
+
+				<VerticalStackLayout Grid.Column="1"
+									 VerticalOptions="Center"
+									 HorizontalOptions="Start">
+					<VerticalStackLayout.Resources>
+						<Style TargetType="Label"
+							   BasedOn="{StaticResource LabelThin}">
+							<Setter Property="FontSize"
+									Value="16" />
+							<Setter Property="HorizontalTextAlignment"
+									Value="Start" />
+						</Style>
+					</VerticalStackLayout.Resources>
+
+					<Label Text="{Binding DataAggiunta,StringFormat='{0:dd MMMM, yyyy}'}" />
+					<Label Text="{Binding DataInizio,StringFormat='{0:dd MMMM, yyyy}'}" />
+					<Label Text="{Binding DataFine,StringFormat='{0:dd MMMM, yyyy}'}" />
+				</VerticalStackLayout>
+			</Grid>
+
+			<!--Line-->
+			<Line Style="{StaticResource HRuleMob}"
+				  Margin="0,20,0,0" />
+
+			<!--Descrizione-->
+			<Label Style="{StaticResource LabelBold}"
+				   Text="Descrizione:"
+				   FontSize="16"
+				   Margin="0,20,0,0"
+				   HorizontalOptions="Center" />
+			<extensions:RichLabel Margin="20,6,20,0"
+								  FontFamily="Lato"
+								  FontSize="16"
+								  Text="{Binding Descrizione}" />
+
+			<!--Black Wave-->
+			<Image Grid.Row="1"
+				   VerticalOptions="End"
+				   ScaleX="1.02"
+				   Margin="0,-10,0,0"
+				   Rotation="180"
+				   Source="wave_black.png"
+				   HorizontalOptions="Fill" />
+			<BoxView Color="{StaticResource Color1}"
+					 HeightRequest="30"
+					 ScaleY="1.04" />
+
+		</VerticalStackLayout>
+	</ScrollView>
+</mopups:PopupPage>
