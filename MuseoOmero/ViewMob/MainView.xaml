@@ -46,25 +46,30 @@
 							   PropertyChanging="Switcher_PropertyChanging"
 							   PropertyChanged="Switcher_PropertyChanged">
 				<tabs:LazyView x:TypeArguments="views:HomeView"
-								  AccentColor="{StaticResource Color1}"
-								  BindingContext="{Binding HomeViewModel}"
-								  Animate="True"
-								  UseActivityIndicator="False" />
+							   AccentColor="{StaticResource Color1}"
+							   BindingContext="{Binding HomeViewModel}"
+							   Animate="True"
+							   UseActivityIndicator="False" />
 				<tabs:LazyView x:TypeArguments="views:IMieiTitoliView"
-								  AccentColor="{StaticResource Color1}"
-								  BindingContext="{Binding IMieiTitoliViewModel}"
-								  Animate="True"
-								  UseActivityIndicator="True" />
+							   AccentColor="{StaticResource Color1}"
+							   BindingContext="{Binding IMieiTitoliViewModel}"
+							   Animate="True"
+							   UseActivityIndicator="True" />
 				<tabs:LazyView x:TypeArguments="views:BiglietteriaView"
-								  AccentColor="{StaticResource Color1}"
-								  BindingContext="{Binding BiglietteriaViewModel}"
-								  Animate="True"
-								  UseActivityIndicator="True" />
+							   AccentColor="{StaticResource Color1}"
+							   BindingContext="{Binding BiglietteriaViewModel}"
+							   Animate="True"
+							   UseActivityIndicator="True" />
 				<tabs:LazyView x:TypeArguments="views:ChatView"
-								  AccentColor="{StaticResource Color1}"
-								  BindingContext="{Binding ChatViewModel}"
-								  Animate="True"
-								  UseActivityIndicator="True" />
+							   AccentColor="{StaticResource Color1}"
+							   BindingContext="{Binding ChatViewModel}"
+							   Animate="True"
+							   UseActivityIndicator="True" />
+				<tabs:LazyView x:TypeArguments="views:StatisticheView"
+							   AccentColor="{StaticResource Color1}"
+							   BindingContext="{Binding StatisticheViewModel}"
+							   Animate="True"
+							   UseActivityIndicator="True" />
 			</tabs:ViewSwitcher>
 		</Grid>
 
@@ -162,7 +167,8 @@
 		</Grid>
 
 		<!-- Loading screen -->
-		<templatesWin:LoadingView IsVisible="{Binding IsBusy}" InputTransparent="False" />
+		<templatesWin:LoadingView IsVisible="{Binding IsBusy}"
+								  InputTransparent="False" />
 	</Grid>
 
 </ContentPage>

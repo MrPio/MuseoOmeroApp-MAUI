@@ -39,7 +39,11 @@ public partial class ChatView : ContentView
 	{
 		var offset = e.VerticalOffset;
 
-		if (offset < lastOffset-50 && !wavesRestricted || offset > lastOffset+50 && wavesRestricted)
+		if (this.AnimationIsRunning("mainGrid"))
+			return;
+		wavesRestricted = _mainViewModel.WavesExpandFactor > 1;
+
+		if (offset < lastOffset && !wavesRestricted || offset > lastOffset && wavesRestricted)
 		{
 			var anim = new[]{
 				new[] { 0, 2 } ,
@@ -51,9 +55,7 @@ public partial class ChatView : ContentView
 				anim[1] = anim[1].Reverse().ToArray();
 			}
 
-			if (this.AnimationIsRunning("waves"))
-				return;
-			this.Animate("waves", new Animation(v => _mainViewModel.WavesExpandFactor = v, anim[0][0], anim[0][1], easing: Easing.CubicOut), length: 600);
+			this.Animate("waves", new Animation(v => _mainViewModel.WavesExpandFactor = v, anim[0][0], anim[0][1], easing: Easing.CubicOut), length: 1200);
 			this.Animate("mainGrid", new Animation(v => MainGrid.Padding=new(10,v), anim[1][0], anim[1][1], easing: Easing.CubicOut), length: 400);
 			wavesRestricted.Swap();
 			lastOffset = offset;

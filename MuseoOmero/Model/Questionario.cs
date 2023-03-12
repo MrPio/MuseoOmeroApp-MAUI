@@ -11,8 +11,9 @@ public class Questionario
 	[JsonProperty("valutazione_esperienza")] public int ValutazioneEsperienza { get; set; }
 	[JsonProperty("valutazione_struttura")] public int ValutazioneStruttura { get; set; }
 	[JsonProperty("data_compilazione")] public DateTime DataCompilazione { get; set; }
+	[JsonProperty("data_visita")] public DateTime? DataVisita { get; set; }
 
-	public Questionario(string tipologiaVisita, string accompagnatoriVisita, string motivazioneVisita, string titoloStudi, int numeroVisite, string ritorno, int valutazioneVisita, int valutazioneEsperienza, int valutazioneStruttura, DateTime dataCompilazione)
+	public Questionario(string tipologiaVisita, string accompagnatoriVisita, string motivazioneVisita, string titoloStudi, int numeroVisite, string ritorno, int valutazioneVisita, int valutazioneEsperienza, int valutazioneStruttura, DateTime dataCompilazione, DateTime? dataVisita=null)
 	{
 		TipologiaVisita = tipologiaVisita;
 		AccompagnatoriVisita = accompagnatoriVisita;
@@ -20,9 +21,10 @@ public class Questionario
 		TitoloStudi = titoloStudi;
 		NumeroVisite = numeroVisite;
 		Ritorno = ritorno;
-		ValutazioneVisita = Math.Min(10,valutazioneVisita);
+		ValutazioneVisita = Math.Min(10, valutazioneVisita);
 		ValutazioneEsperienza = Math.Min(10, valutazioneEsperienza);
 		ValutazioneStruttura = Math.Min(10, valutazioneStruttura);
 		DataCompilazione = dataCompilazione;
+		DataVisita = dataVisita;
 	}
 }

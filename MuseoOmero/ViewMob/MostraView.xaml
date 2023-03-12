@@ -21,13 +21,13 @@
 				  x:DataType="model:Mostra"
 				  Title="MostraView">
 
-	<ScrollView>
+	<ScrollView > 
 		<VerticalStackLayout>
 			<VerticalStackLayout.Background>
 				<LinearGradientBrush>
 					<GradientStop Color="Transparent"
 								  Offset="0.5" />
-					<GradientStop Color="#291f3997"
+					<GradientStop Color="#351f3997"
 								  Offset="1" />
 				</LinearGradientBrush>
 			</VerticalStackLayout.Background>
@@ -137,7 +137,8 @@
 				   Source="wave_black.png"
 				   HorizontalOptions="Fill" />
 			<BoxView Color="{StaticResource Color1}"
-					 HeightRequest="30"
+					 VerticalOptions="End"
+					 HeightRequest="230"
 					 ScaleY="1.04" />
 
 		</VerticalStackLayout>

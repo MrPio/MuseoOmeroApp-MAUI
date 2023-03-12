@@ -36,4 +36,5 @@ public class Biglietto
 
 	public bool IsValido => DataValidita.Date >= DateTime.Today;
 	public bool IsConvalidabile => DataValidita.Date == DateTime.Today && DataConvalida is null;
+	public bool IsConvalidato => DataConvalida is{ };
 }

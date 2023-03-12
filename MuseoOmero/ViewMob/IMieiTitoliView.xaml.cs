@@ -5,6 +5,7 @@ public partial class IMieiTitoliView : ContentView
 	private IMieiTitoliViewModel _viewModel;
 	private MainViewModel _mainViewModel;
 	private bool wavesRestricted;
+	double lastOffset;
 	public IMieiTitoliView()
 	{
 		_viewModel = Service.Get<IMieiTitoliViewModel>();
@@ -23,16 +24,22 @@ public partial class IMieiTitoliView : ContentView
 		var offset = e.VerticalOffset;
 		AggiornaRow.TranslationY = -offset;
 
+		if (offset > 50 || !wavesRestricted)
+			if (this.AnimationIsRunning("waves"))
+				return;
+		wavesRestricted = _mainViewModel.WavesExpandFactor > 1;
 		var anim = new[] { 0, 2 };
 		if (wavesRestricted)
 			anim = anim.Reverse().ToArray();
 
-		if (offset > 100 && !wavesRestricted || offset < 100 && wavesRestricted)
+		if (offset > lastOffset + 30 && !wavesRestricted || offset < lastOffset - 30 && wavesRestricted)
 		{
-			if (this.AnimationIsRunning("waves"))
-				return;
-			this.Animate("waves", new Animation(v => _mainViewModel.WavesExpandFactor = v, anim[0], anim[1], easing: Easing.CubicOut), length: 1100);
+			this.Animate("waves", new Animation(v => _mainViewModel.WavesExpandFactor = v, anim[0], anim[1], easing: Easing.CubicOut), length: 1200);
 			wavesRestricted.Swap();
 		}
+
+		if (offset < lastOffset && !wavesRestricted || offset > lastOffset && wavesRestricted)
+			lastOffset = offset;
+
 	}
 }

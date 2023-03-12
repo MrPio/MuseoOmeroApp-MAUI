@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 xmlns:tabs="http://sharpnado.com"
+			 xmlns:view="clr-namespace:MuseoOmero.ViewMob"
+			 xmlns:viewWin="clr-namespace:MuseoOmero.ViewWin"
+			 xmlns:viewModelMob="clr-namespace:MuseoOmero.ViewModelMob"
+			 xmlns:viewModelWin="clr-namespace:MuseoOmero.ViewModelWin"
+			 xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+			 xmlns:templatesMob="clr-namespace:MuseoOmero.ViewMob.Templates"
+			 xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
+			 xmlns:model="clr-namespace:MuseoOmero.Model"
+			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
+			 xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+			 xmlns:popup="clr-namespace:MuseoOmero.ViewMob.Popups"
+			 xmlns:enums="clr-namespace:MuseoOmero.Model.Enums"
+			 xmlns:extensions="clr-namespace:MuseoOmero.Extensions"
+			 xmlns:selector="clr-namespace:MuseoOmero.Selectors"
+			 x:Class="MuseoOmero.ViewMob.QuestionarioView"
+			 Title="QuestionarioView"
+			 x:DataType="model:Questionario">
+
+	<ScrollView>
+		<VerticalStackLayout>
+			<VerticalStackLayout.Background>
+				<LinearGradientBrush>
+					<GradientStop Color="Transparent"
+								  Offset="0.38" />
+					<GradientStop Color="#3D9E4BB0"
+								  Offset="0.8" />
+				</LinearGradientBrush>
+			</VerticalStackLayout.Background>
+
+			<!--Titolo, Foto-->
+			<Grid RowDefinitions="auto,*"
+				  BackgroundColor="{StaticResource Color1}">
+
+				<!--Titolo-->
+				<Label Style="{StaticResource LabelBold}"
+					   Margin="20,30,20,0"
+					   FontFamily="LatoBlack"
+					   Text="{Binding DataVisita,StringFormat='Visita del {0:dd MMMM}'}"
+					   LineBreakMode="WordWrap"
+					   TextColor="{StaticResource Color5}"
+					   FontSize="26"
+					   HorizontalOptions="Center" />
+
+				<!--Foto-->
+				<Image Grid.Row="1"
+					   Source="{Static material:ImagesOnline.museoOmeroInterno1}"
+					   Aspect="AspectFill"
+					   HorizontalOptions="FillAndExpand"
+					   HeightRequest="240"
+					   Margin="0,20,0,0" />
+
+				<!--Vignette-->
+				<BoxView Grid.RowSpan="2">
+					<BoxView.Background>
+						<RadialGradientBrush>
+							<GradientStop Color="Transparent"
+										  Offset="0.74" />
+							<GradientStop Color="#10000000"
+										  Offset="1.85" />
+						</RadialGradientBrush>
+					</BoxView.Background>
+				</BoxView>
+
+				<!--White Wave-->
+				<Image Grid.Row="1"
+					   VerticalOptions="End"
+					   ScaleX="1.02"
+					   Source="wave_inverse_white.png"
+					   HorizontalOptions="Fill" />
+			</Grid>
+
+			<!--Descrizione-->
+			<Label Style="{StaticResource LabelBold}"
+				   Text="Per favore compila i seguenti campi"
+				   FontSize="16"
+				   Margin="20,20" />
+
+			<Line Style="{StaticResource HRuleMob}" />
+
+			<!--Dettagli-->
+			<VerticalStackLayout Margin="20,20">
+				<VerticalStackLayout.Resources>
+					<Style TargetType="Label"
+						   BasedOn="{StaticResource LabelBold}">
+						<Setter Property="FontSize"
+								Value="16" />
+					</Style>
+					<Style TargetType="Picker">
+						<Setter Property="FontFamily"
+								Value="Lato" />
+						<Setter Property="FontSize"
+								Value="20" />
+						<Setter Property="Margin"
+								Value="30,0,30,20" />
+					</Style>
+					<Style TargetType="CollectionView">
+						<Setter Property="ItemsSource"
+								Value="{Static enums:Valutazione.Values }" />
+						<Setter Property="ItemsLayout"
+								Value="HorizontalList" />
+						<Setter Property="Margin"
+								Value="-20,10,-20,20" />
+						<Setter Property="SelectionMode"
+								Value="Single" />
+						<Setter Property="Header">
+							<Setter.Value>
+								<BoxView WidthRequest="16" />
+							</Setter.Value>
+						</Setter>
+						<Setter Property="Footer">
+							<Setter.Value>
+								<BoxView WidthRequest="16" />
+							</Setter.Value>
+						</Setter>
+						<Setter Property="ItemTemplate">
+							<Setter.Value>
+								<DataTemplate x:DataType="x:String">
+									<Border StrokeThickness="0"
+											StrokeShape="RoundRectangle 10"
+											Margin="2,0"
+											WidthRequest="38"
+											Padding="0,10">
+
+										<VisualStateManager.VisualStateGroups>
+											<VisualStateGroupList>
+												<VisualStateGroup>
+													<VisualState x:Name="Normal">
+														<VisualState.Setters>
+															<Setter Property="BackgroundColor"
+																	Value="{StaticResource Color5}" />
+															<Setter Property="Content">
+																<Setter.Value>
+																	<Label Style="{StaticResource LabelThin}"
+																		   FontSize="18"
+																		   HorizontalOptions="Center"
+																		   TextColor="{StaticResource Color1}"
+																		   VerticalOptions="Center"
+																		   Text="{Binding .}" />
+																</Setter.Value>
+															</Setter>
+														</VisualState.Setters>
+													</VisualState>
+													<VisualState x:Name="Selected">
+														<VisualState.Setters>
+															<Setter Property="BackgroundColor"
+																	Value="{StaticResource Color16}" />
+															<Setter Property="Content">
+																<Setter.Value>
+																	<Label Style="{StaticResource LabelNormal}"
+																		   FontSize="18"
+																		   HorizontalOptions="Center"
+																		   TextColor="{StaticResource Color5}"
+																		   VerticalOptions="Center"
+																		   Text="{Binding .}" />
+																</Setter.Value>
+															</Setter>
+														</VisualState.Setters>
+													</VisualState>
+												</VisualStateGroup>
+											</VisualStateGroupList>
+										</VisualStateManager.VisualStateGroups>
+									</Border>
+								</DataTemplate>
+							</Setter.Value>
+						</Setter>
+					</Style>
+				</VerticalStackLayout.Resources>
+
+				<Label Text="Tipologia:" />
+				<Picker ItemsSource="{Static enums:TipologiaVisita.Values}"
+						SelectedItem="{Binding TipologiaVisita,Mode=TwoWay}" />
+
+				<Label Text="Sei venuto in compagnia?" />
+				<Picker ItemsSource="{Static enums:AccompagnatoriVisita.Values}"
+						SelectedItem="{Binding AccompagnatoriVisita,Mode=TwoWay}" />
+
+				<Label Text="Qual é il motivo della tua visita?" />
+				<Picker ItemsSource="{Static enums:MotivazioneVisita.Values}"
+						SelectedItem="{Binding MotivazioneVisita,Mode=TwoWay}" />
+
+				<Label Text="Qual é il tuo titolo studi?" />
+				<Picker ItemsSource="{Static enums:TitoloStudi.Values}"
+						SelectedItem="{Binding TitoloStudi,Mode=TwoWay}" />
+
+				<Label Text="Tornerai al museo?" />
+				<Picker ItemsSource="{Static enums:Ritorno.Values}"
+						SelectedItem="{Binding Ritorno,Mode=TwoWay}" />
+
+				<Label Text="Quanto valuteresti la visita?" />
+				<CollectionView SelectedItem="{Binding ValutazioneVisita, Mode=TwoWay}" />
+
+				<Label Text="Quanto valuteresti la esperienza?" />
+				<CollectionView SelectedItem="{Binding ValutazioneEsperienza, Mode=TwoWay}" />
+
+				<Label Text="Quanto valuteresti la struttura?" />
+				<CollectionView SelectedItem="{Binding ValutazioneStruttura, Mode=TwoWay}" />
+
+			</VerticalStackLayout>
+
+			<!--ConfermaButton-->
+			<templates:RoundedButtonView Text="Conferma"
+										 VerticalOptions="End"
+										 Color="{AppThemeBinding Light={StaticResource Color15},
+					Dark={StaticResource Color16}}"
+										 WidthRequest="160"
+										 Margin="0,20,0,10"
+										 NewFontSize="16"
+										 PressedBackgroundColor="#55ffffff"
+										 BorderWidth="1"
+										 Clicked="ConfermaButton_Clicked" />
+
+			<!--Black Wave-->
+			<Image Grid.Row="1"
+				   VerticalOptions="End"
+				   ScaleX="1.02"
+				   Margin="0,-10,0,0"
+				   Rotation="180"
+				   Source="wave_black.png"
+				   HorizontalOptions="Fill" />
+			<BoxView Color="{StaticResource Color1}"
+					 HeightRequest="30"
+					 ScaleY="1.04" />
+		</VerticalStackLayout>
+	</ScrollView>
+</mopups:PopupPage>

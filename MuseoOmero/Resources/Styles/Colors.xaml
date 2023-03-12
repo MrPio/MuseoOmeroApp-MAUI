@@ -21,6 +21,8 @@
 	<Color x:Key="Color12">#569cd6</Color>
 	<Color x:Key="Color13">#D54041</Color>
 	<Color x:Key="Color14">#F05E3B</Color>
+	<Color x:Key="Color15">#9E4BB0</Color>
+	<Color x:Key="Color16">#34265C</Color>
 
 	<Color x:Key="White">White</Color>
 	<Color x:Key="Black">Black</Color>

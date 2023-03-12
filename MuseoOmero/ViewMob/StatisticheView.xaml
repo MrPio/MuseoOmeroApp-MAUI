@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 xmlns:tabs="http://sharpnado.com"
+			 xmlns:view="clr-namespace:MuseoOmero.ViewMob"
+			 xmlns:viewWin="clr-namespace:MuseoOmero.ViewWin"
+			 xmlns:viewModelMob="clr-namespace:MuseoOmero.ViewModelMob"
+			 xmlns:viewModelWin="clr-namespace:MuseoOmero.ViewModelWin"
+			 xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+			 xmlns:templatesMob="clr-namespace:MuseoOmero.ViewMob.Templates"
+			 xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
+			 xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
+			 xmlns:model="clr-namespace:MuseoOmero.Model"
+			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
+			 xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+			 xmlns:popup="clr-namespace:MuseoOmero.ViewMob.Popups"
+			 xmlns:enums="clr-namespace:MuseoOmero.Model.Enums"
+			 xmlns:extensions="clr-namespace:MuseoOmero.Extensions"
+			 xmlns:selector="clr-namespace:MuseoOmero.Selectors"
+			 x:Class="MuseoOmero.ViewMob.StatisticheView"
+			 x:DataType="viewModelMob:StatisticheViewModel">
+
+	<ScrollView Margin="0,70,0,0">
+		<VerticalStackLayout Spacing="20"
+							 Padding="20,50,20,120">
+			<VerticalStackLayout.Background>
+				<LinearGradientBrush>
+					<GradientStop Color="#009E4BB0"
+								  Offset="0" />
+					<GradientStop Color="#3D9E4BB0"
+								  Offset="0.44" />
+					<GradientStop Color="Transparent"
+								  Offset="0.44" />
+				</LinearGradientBrush>
+			</VerticalStackLayout.Background>
+
+			<VerticalStackLayout.Resources>
+				<DataTemplate x:Key="VisitaSenzaQuestionario"
+							  x:DataType="viewModelMob:Visita">
+					<Border BackgroundColor="{StaticResource Color15}"
+							StrokeShape="RoundRectangle 10">
+						<Grid>
+							<HorizontalStackLayout Margin="20,10"
+												   Spacing="6">
+								<Label Style="{StaticResource FontIconLabel}"
+									   IsVisible="{Binding ConGuida}"
+									   Text="{Static material:IconFont.DramaMasks}"
+									   FontSize="24"
+									   TextColor="{StaticResource Color5}" />
+								<Label Style="{StaticResource LabelNormal}"
+									   FontSize="18"
+									   Text="{Binding Data, StringFormat='{0:dd MMM yyyy}'}"
+									   TextColor="{StaticResource Color5}" />
+							</HorizontalStackLayout>
+
+							<!--IconaBiglietto-->
+							<Label Style="{StaticResource FontIconLabel}"
+								   HorizontalOptions="End"
+								   Text="{Binding Tipologia, 
+							Converter={converters:IndexToArrayItemConverter},
+							ConverterParameter={Static enums:IconeBiglietto.Values}}"
+								   FontSize="24"
+								   VerticalOptions="Center"
+								   Margin="0,0,18,0"
+								   TextColor="{StaticResource Color5}" />
+							
+							<templatesWin:HighlightView Clicked="VisitaSenzaQuestionario_Clicked"/>
+						</Grid>
+					</Border>
+				</DataTemplate>
+				<DataTemplate x:Key="VisitaConQuestionario"
+							  x:DataType="viewModelMob:Visita">
+					<Grid>
+						<Border BackgroundColor="{StaticResource Color16}"
+								StrokeShape="RoundRectangle 10">
+							<HorizontalStackLayout Margin="20,10"
+												   Spacing="6">
+								<Label Style="{StaticResource FontIconLabel}"
+									   IsVisible="{Binding ConGuida}"
+									   Text="{Static material:IconFont.DramaMasks}"
+									   FontSize="24"
+									   TextColor="{StaticResource Color5}" />
+								<Label Style="{StaticResource LabelNormal}"
+									   FontSize="18"
+									   TextDecorations="Strikethrough"
+									   Text="{Binding Data, StringFormat='{0:dd MMM yyyy}'}"
+									   TextColor="{StaticResource Color5}" />
+							</HorizontalStackLayout>
+						</Border>
+						
+						<!--IconaBiglietto-->
+						<Label Style="{StaticResource FontIconLabel}"
+							   HorizontalOptions="End"
+							   Text="{Binding Tipologia, 
+							Converter={converters:IndexToArrayItemConverter},
+							ConverterParameter={Static enums:IconeBiglietto.Values}}"
+							   FontSize="24"
+							   VerticalOptions="Center"
+							   Margin="0,0,18,0"
+							   TextColor="{StaticResource Color5}" />
+						
+						<templatesWin:HighlightView Clicked="VisitaConQuestionario_Clicked"/>
+					</Grid>
+				</DataTemplate>
+				<selector:VisitaSelector x:Key="VisitaSelector"
+										 VisitaConQuestionario="{StaticResource VisitaConQuestionario}"
+										 VisitaSenzaQuestionario="{StaticResource VisitaSenzaQuestionario}" />
+			</VerticalStackLayout.Resources>
+
+			<!--Titolo e sottotitolo-->
+			<Label Style="{StaticResource LabelBold}"
+				   FontSize="26"
+				   FontFamily="LatoBlack"
+				   LineBreakMode="WordWrap"
+				   Text="Dicci la tua!" />
+			<Label Style="{StaticResource LabelThin}"
+				   Margin="0,-12,0,0"
+				   FontSize="18"
+				   LineBreakMode="WordWrap"
+				   Text="Ti chiediamo qualche minuto per compilare dei questionari in base alle tue visite." />
+
+			<!--Visite CollectionView-->
+			<Grid RowDefinitions="300">
+				<CollectionView ItemsSource="{Binding Visite}"
+							Margin="0,-10,0,0"
+							ItemTemplate="{StaticResource VisitaSelector}"
+							HeightRequest="300">
+				<CollectionView.Header>
+					<BoxView HeightRequest="10" />
+				</CollectionView.Header>
+				<CollectionView.Footer>
+					<BoxView HeightRequest="10" />
+				</CollectionView.Footer>
+			</CollectionView>
+				<Label Style="{StaticResource LabelThin}"
+					   Text="Ancora nessuna visita"
+					   IsVisible="{Binding NoVisite}"
+					   FontSize="24"
+					   VerticalOptions="Center"
+					   HorizontalOptions="Center" 
+					   TextColor="{StaticResource Color1}"
+					   Opacity="0.75"/>
+				<!--Vignette-->
+				<Border StrokeShape="RoundRectangle 20"
+						IsVisible="{Binding NoVisite}"
+						Opacity="0.55">
+					<Border.Background>
+						<RadialGradientBrush>
+							<GradientStop Color="Transparent"
+										  Offset="0.55" />
+							<GradientStop Color="#0B000000"
+										  Offset="1" />
+						</RadialGradientBrush>
+					</Border.Background>
+				</Border>
+			</Grid>
+		</VerticalStackLayout>
+	</ScrollView>
+</ContentView>

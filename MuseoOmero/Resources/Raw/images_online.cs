@@ -15,4 +15,5 @@ static class ImagesOnline
 
 	public const string Abstract2Cut = "https://firebasestorage.googleapis.com/v0/b/museoomero-ca8aa.appspot.com/o/src%2Fabstract_2_cut.png?alt=media&token=66a7a6db-2406-4da3-afb0-dcad8980292f";
 
+	public const string museoOmeroInterno1 = "https://firebasestorage.googleapis.com/v0/b/museoomero-ca8aa.appspot.com/o/src%2Fsala-dedicata-al-rinascimento.jpg?alt=media&token=61d760c8-5ec0-491e-9217-bfd912e97783";
 }

@@ -195,7 +195,13 @@
 		<MauiXaml Update="ViewMob\Popups\SignUpView.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="ViewMob\QuestionarioView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="ViewMob\SignInUpView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="ViewMob\StatisticheView.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="ViewMob\Templates\BiglietteriaItemView.xaml">

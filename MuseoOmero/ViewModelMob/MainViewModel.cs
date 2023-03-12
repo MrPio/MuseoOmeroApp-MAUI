@@ -44,6 +44,7 @@ public partial class MainViewModel : ObservableObject
 	public IMieiTitoliViewModel IMieiTitoliViewModel => Service.Get<IMieiTitoliViewModel>();
 	public BiglietteriaViewModel BiglietteriaViewModel => Service.Get<BiglietteriaViewModel>();
 	public ChatViewModel ChatViewModel => Service.Get<ChatViewModel>();
+	public StatisticheViewModel StatisticheViewModel => Service.Get<StatisticheViewModel>();
 
 
 	[ObservableProperty]
