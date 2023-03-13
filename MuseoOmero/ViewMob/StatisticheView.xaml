@@ -37,6 +37,8 @@
 			</VerticalStackLayout.Background>
 
 			<VerticalStackLayout.Resources>
+
+				<!-- selector per Questionari -->
 				<DataTemplate x:Key="VisitaSenzaQuestionario"
 							  x:DataType="viewModelMob:Visita">
 					<Border BackgroundColor="{StaticResource Color15}"
@@ -65,8 +67,8 @@
 								   VerticalOptions="Center"
 								   Margin="0,0,18,0"
 								   TextColor="{StaticResource Color5}" />
-							
-							<templatesWin:HighlightView Clicked="VisitaSenzaQuestionario_Clicked"/>
+
+							<templatesWin:HighlightView Clicked="VisitaSenzaQuestionario_Clicked" />
 						</Grid>
 					</Border>
 				</DataTemplate>
@@ -89,7 +91,7 @@
 									   TextColor="{StaticResource Color5}" />
 							</HorizontalStackLayout>
 						</Border>
-						
+
 						<!--IconaBiglietto-->
 						<Label Style="{StaticResource FontIconLabel}"
 							   HorizontalOptions="End"
@@ -100,8 +102,8 @@
 							   VerticalOptions="Center"
 							   Margin="0,0,18,0"
 							   TextColor="{StaticResource Color5}" />
-						
-						<templatesWin:HighlightView Clicked="VisitaConQuestionario_Clicked"/>
+
+						<templatesWin:HighlightView Clicked="VisitaConQuestionario_Clicked" />
 					</Grid>
 				</DataTemplate>
 				<selector:VisitaSelector x:Key="VisitaSelector"
@@ -109,6 +111,7 @@
 										 VisitaSenzaQuestionario="{StaticResource VisitaSenzaQuestionario}" />
 			</VerticalStackLayout.Resources>
 
+			<!--Questionari ==========================================================-->
 			<!--Titolo e sottotitolo-->
 			<Label Style="{StaticResource LabelBold}"
 				   FontSize="26"
@@ -124,24 +127,24 @@
 			<!--Visite CollectionView-->
 			<Grid RowDefinitions="300">
 				<CollectionView ItemsSource="{Binding Visite}"
-							Margin="0,-10,0,0"
-							ItemTemplate="{StaticResource VisitaSelector}"
-							HeightRequest="300">
-				<CollectionView.Header>
-					<BoxView HeightRequest="10" />
-				</CollectionView.Header>
-				<CollectionView.Footer>
-					<BoxView HeightRequest="10" />
-				</CollectionView.Footer>
-			</CollectionView>
+								Margin="0,-10,0,0"
+								ItemTemplate="{StaticResource VisitaSelector}"
+								HeightRequest="300">
+					<CollectionView.Header>
+						<BoxView HeightRequest="10" />
+					</CollectionView.Header>
+					<CollectionView.Footer>
+						<BoxView HeightRequest="10" />
+					</CollectionView.Footer>
+				</CollectionView>
 				<Label Style="{StaticResource LabelThin}"
 					   Text="Ancora nessuna visita"
 					   IsVisible="{Binding NoVisite}"
 					   FontSize="24"
 					   VerticalOptions="Center"
-					   HorizontalOptions="Center" 
+					   HorizontalOptions="Center"
 					   TextColor="{StaticResource Color1}"
-					   Opacity="0.75"/>
+					   Opacity="0.75" />
 				<!--Vignette-->
 				<Border StrokeShape="RoundRectangle 20"
 						IsVisible="{Binding NoVisite}"
@@ -156,6 +159,22 @@
 					</Border.Background>
 				</Border>
 			</Grid>
+
+			<!--Statistiche ==========================================================-->
+			<Line Style="{StaticResource HRuleMob}" />
+
+			<!--Titolo e sottotitolo-->
+			<Label Style="{StaticResource LabelBold}"
+				   FontSize="26"
+				   FontFamily="LatoBlack"
+				   LineBreakMode="WordWrap"
+				   Text="Le tue&#x0a;statistiche" />
+			<Label Style="{StaticResource LabelThin}"
+				   Margin="0,-12,0,0"
+				   FontSize="18"
+				   LineBreakMode="WordWrap"
+				   Text="In base alle tue interazioni, abbiamo realizzato le seguenti statistiche." />
+
 		</VerticalStackLayout>
 	</ScrollView>
 </ContentView>

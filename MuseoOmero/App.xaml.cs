@@ -36,6 +36,8 @@ public partial class App : Application
 		});
 
 		MainPage = new SignInUpViewWin(signInUpViewModelWin, shellViewModelWin);
+		//MainPage=new BlankView();
+		//load(shellViewModelWin);
 
 		LiveCharts.Configure(config =>
 				config
@@ -91,4 +93,10 @@ public App(MainViewModel mainViewModel, IPopupNavigation popupNavigation)
 				);
 	}
 #endif
+
+	//async void load(ShellViewModelWin shellViewModelWin)
+	//{
+	//	if (await AccountManager.Instance.CacheSignIn())
+	//		MainPage = new ShellViewWin(shellViewModelWin);
+	//}
 }

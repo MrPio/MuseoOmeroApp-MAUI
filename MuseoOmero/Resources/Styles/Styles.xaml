@@ -569,10 +569,11 @@
 				Value="Black" />
 		<Setter Property="StrokeLineCap"
 				Value="Round" />
+		<!--!!!!! FIX AL BUG System.Runtime.InteropServices.COMException !!!!!!!
 		<Setter Property="Aspect"
-				Value="Fill" />
+				Value="Fill" />-->
 		<Setter Property="X2"
-				Value="1" />
+				Value="1400" />
 		<Setter Property="Opacity"
 				Value="0.08" />
 		<Setter Property="StrokeThickness"

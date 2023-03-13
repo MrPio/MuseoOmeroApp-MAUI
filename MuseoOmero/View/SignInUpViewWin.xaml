@@ -35,27 +35,28 @@
 			   BackgroundColor="#DFFFFFFF"
 			   WidthRequest="460">
 			<Grid RowDefinitions="*,1.3*">
-				
 
 				<!--Accedi al portale-->
-				<VerticalStackLayout VerticalOptions="Center">
-					<Image Aspect="AspectFill"
-						   WidthRequest="160"
-						   Source="https://i.ibb.co/HtKjCsF/logo-museoomero.png" />
+				<ScrollView>
+					<VerticalStackLayout VerticalOptions="Center">
+						<Image Aspect="AspectFill"
+							   WidthRequest="160"
+							   Source="https://i.ibb.co/HtKjCsF/logo-museoomero.png" />
 
-					<BoxView HeightRequest="30"
-							 Color="Transparent" />
-					<Line Style="{StaticResource HRule}" />
-					<BoxView HeightRequest="40"
-							 Color="Transparent" />
+						<BoxView HeightRequest="30"
+								 Color="Transparent" />
+						<Line Style="{StaticResource HRule}" />
+						<BoxView HeightRequest="40"
+								 Color="Transparent" />
 
-					<Label Style="{StaticResource LabelBold}"
-						   Text="Accedi al portale"
-						   FontFamily="LatoBlack"
-						   HorizontalOptions="Center"
-						   TextColor="{StaticResource Color1}"
-						   FontSize="40" />
-				</VerticalStackLayout>
+						<Label Style="{StaticResource LabelBold}"
+							   Text="Accedi al portale"
+							   FontFamily="LatoBlack"
+							   HorizontalOptions="Center"
+							   TextColor="{StaticResource Color1}"
+							   FontSize="40" />
+					</VerticalStackLayout>
+				</ScrollView>
 
 				<!--<Bottom Grid-->
 				<Grid Grid.Row="1"
@@ -99,14 +100,15 @@
 
 					<Grid Grid.Row="5"
 						  Margin="0,10,0,0">
-						<Label x:Name="PwdDimenticataLabel" Style="{StaticResource LabelBold}"
+						<Label x:Name="PwdDimenticataLabel"
+							   Style="{StaticResource LabelBold}"
 							   HorizontalOptions="Center"
 							   FontSize="18"
 							   Text="Password dimenticata" />
 						<templatesWin:HighlightView Alpha="0"
 													Pressed="HighlightView_Pressed"
 													Released="HighlightView_Released"
-													Clicked="HighlightView_Clicked"/>
+													Clicked="HighlightView_Clicked" />
 
 					</Grid>
 				</Grid>
