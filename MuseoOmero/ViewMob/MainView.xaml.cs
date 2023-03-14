@@ -68,6 +68,18 @@ public partial class MainView : ContentPage
 				TabsTransition(true);
 			else if (currentIndex < _previousIndex)
 				TabsTransition(false);
+
+			// AGGIORNARE LE COLLECTION VIEW è DISPENDIOSO
+			//var dict = new Dictionary<int, Action>()
+			//{
+			//	{ 0,_viewModel.HomeViewModel.FetchOpere},
+			//	{ 1,_viewModel.IMieiTitoliViewModel.FetchBiglietti},
+			//	{ 2,null},
+			//	{ 3,_viewModel.ChatViewModel.Initialize},
+			//	{ 4,_viewModel.StatisticheViewModel.Initialize},
+			//};
+			//if (dict[currentIndex] is { } a)
+			//	Task.Run(a);
 		}
 	}
 
@@ -80,18 +92,22 @@ public partial class MainView : ContentPage
 		var anim = new[]
 		{
 			new[]{ 56d, 114d},
-			new[]{ 0d, 1d},
 			new[]{ 0+(show?0.5:0), 0.5 +( show ? 0.5 : 0 )}
 		};
+		topBar.RicercaEnabled = true;
 
 		var animation = new Animation
 		{
 			{0,1,new Animation(v =>waves.TopWave =
 			new GridLength(v), waves.TopWave.Value, anim[0][show?1:0],Easing.CubicOut)},
-			{ anim[2][0],anim[2][1],new Animation(v => topBar.RicercaOpacity =
-			v, topBar.RicercaOpacity, anim[1][show?1:0],Easing.CubicOut )}
+			{ anim[1][0],anim[1][1],new Animation(v => topBar.RicercaOpacity =
+			v, topBar.RicercaOpacity, show?1:0,Easing.CubicOut )}
 		};
-		animation.Commit(this, "TopAnimation", 16, 850, null, null);
+		animation.Commit(this, "TopAnimation", 16, 850,Easing.CubicOut,
+			(v,b)=>{
+				if(!show)
+					topBar.RicercaEnabled = false;
+			});
 	}
 	private void ResetTopBarAndWaves()
 	{

@@ -12,7 +12,8 @@
 			 xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
 			 x:DataType="viewmodel:IMieiTitoliViewModel"
 			 x:Class="MuseoOmero.ViewMob.IMieiTitoliView"
-			 BackgroundColor="{AppThemeBinding Light={StaticResource Color4}, Dark={StaticResource Color6}}">
+			 BackgroundColor="{AppThemeBinding Light={StaticResource Color4},
+	Dark=#595959}">
 
 	<Grid x:Name="MainGrid">
 		<Grid.Background>

@@ -51,7 +51,8 @@
 								FontFamily="LatoLight"
 								FontSize="18"
 								HeightRequest="60"
-								TextColor="{AppThemeBinding Light={StaticResource Color1}, Dark={StaticResource Color5}}"
+								TextColor="{AppThemeBinding Light={StaticResource Color1},
+						Dark={StaticResource Color5}}"
 								HorizontalOptions="Center"
 								Focused="DatePicker_Focused"
 								Unfocused="DatePicker_Unfocused">

@@ -22,7 +22,8 @@
 				  BackgroundColor="{StaticResource Color1}"
 				  Title="MostraView">
 
-	<ScrollView BackgroundColor="{StaticResource Color5}" > 
+	<ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource Color5},
+															Dark=black}">
 		<VerticalStackLayout>
 			<VerticalStackLayout.Background>
 				<LinearGradientBrush>
@@ -71,7 +72,7 @@
 				<Image Grid.Row="1"
 					   VerticalOptions="End"
 					   ScaleX="1.02"
-					   Source="wave_inverse_white.png"
+					   Source="{AppThemeBinding Light=wave_inverse_white.png,Dark= wave_inverse_black.png}"
 					   HorizontalOptions="Fill" />
 			</Grid>
 

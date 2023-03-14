@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1440"
+   height="300"
+   version="1.1"
+   id="svg38"
+   sodipodi:docname="wave_inverse_black.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview40"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="1"
+     inkscape:cx="553.5"
+     inkscape:cy="-64.5"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g36" />
+  <defs
+     id="defs26">
+    <clipPath
+       id="clip1">
+      <path
+         id="svg_1"
+         d="M -6,-9 H 1434 V 666.75 H -6 Z m 0,0" />
+    </clipPath>
+    <clipPath
+       id="clip2">
+      <path
+         id="svg_2"
+         d="M 0,28 H 1428 V 314.25 H 0 Z m 0,0" />
+    </clipPath>
+    <clipPath
+       id="clip2-0">
+      <path
+         id="svg_2-5"
+         d="M 0,28 H 1428 V 314.25 H 0 Z m 0,0" />
+    </clipPath>
+    <clipPath
+       id="clip2-6">
+      <path
+         id="svg_2-2"
+         d="M 0,28 H 1428 V 314.25 H 0 Z m 0,0" />
+    </clipPath>
+  </defs>
+  <g
+     id="g36">
+    <title
+       id="title28">Layer 1</title>
+    <g
+       inkscape:groupmode="layer"
+       id="layer1"
+       inkscape:label="Layer 1"
+       transform="translate(2.520439,63.63961)" />
+    <path
+       id="rect548"
+       style="fill:#010101;fill-opacity:1"
+       d="m 245.02344,114.89063 c -36.45176,0.58 -72.4577,5.09272 -100.86328,18.14062 C 25.074137,187.72368 52.733983,273.42807 -8.722655,273.3457 -8.722655,288.1121 -12.99307,300 0,300 h 1440 c 12.9931,0 8.9727,-11.8879 8.9727,-26.6543 0,0 -18.4283,3.07631 -40.7012,-17.9707 -36.1432,-33.63474 -86.7574,-75.6003 -147.1308,-75.9043 -60.3695,0.304 -120.7419,75.4245 -181.1153,64.96875 C 1019.6521,233.57971 959.27773,136.1235 898.9043,125.25977 838.53096,114.80402 778.15665,189.92557 717.78321,211.95703 657.40976,233.58052 597.0375,201.09419 536.66407,179.4707 476.29065,157.44324 408.93196,126.14137 348.5586,120.35352 c -30.18673,-2.68994 -67.08339,-6.0429 -103.53516,-5.46289 z"
+       sodipodi:nodetypes="sccssccccccccs" />
+  </g>
+</svg>

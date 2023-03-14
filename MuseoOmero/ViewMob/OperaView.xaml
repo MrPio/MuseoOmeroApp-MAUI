@@ -22,7 +22,8 @@
 			 x:DataType="model:Opera"
 			 BackgroundColor="{StaticResource Color1}">
 
-	<ScrollView BackgroundColor="{StaticResource Color5}">
+	<ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource Color5},
+															Dark=black}">
 		<VerticalStackLayout>
 			<VerticalStackLayout.Background>
 				<LinearGradientBrush>
@@ -69,9 +70,10 @@
 					<BoxView.Background>
 						<RadialGradientBrush>
 							<GradientStop Color="Transparent"
-										  Offset="0.74" />
-							<GradientStop Color="#10000000"
-										  Offset="1.85" />
+										  Offset="{AppThemeBinding Light=0.74,Dark=0}" />
+							<GradientStop Color="{AppThemeBinding Light=#10000000,
+								Dark=#1Affffff}"
+										  Offset="1.3" />
 						</RadialGradientBrush>
 					</BoxView.Background>
 				</BoxView>
@@ -80,7 +82,7 @@
 				<Image Grid.Row="1"
 					   VerticalOptions="End"
 					   ScaleX="1.02"
-					   Source="wave_inverse_white.png"
+					   Source="{AppThemeBinding Light=wave_inverse_white.png,Dark= wave_inverse_black.png}"
 					   HorizontalOptions="Fill" />
 			</Grid>
 

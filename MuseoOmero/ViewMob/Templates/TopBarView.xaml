@@ -35,14 +35,16 @@
 				<templatesWin:HighlightView Clicked="Logout_Tapped" />
 			</Grid>
 		</Frame>
-
 		<templates:RoundedEntryViewMob x:Name="RoundedEntryViewMob"
 									   Grid.Row="1"
 									   Grid.ColumnSpan="2"
 									   HeightRequest="40"
 									   WidthRequest="240"
-									   UnfocusedColor="{StaticResource Color1}"
+									   IsEnabled="{Binding RicercaEnabled}"
+									   IsVisible="{Binding RicercaEnabled}"
 									   Placeholder="Ricerca"
+									   Color="{StaticResource Color1}"
+									   UnfocusedColor="{StaticResource Color1}"
 									   IsDate="{Binding IsDate}"
 									   Date="{Binding Source={RelativeSource AncestorType=
 			{x:Type templates:TopBarView}},Path=Date,Mode=TwoWay}"
@@ -51,7 +53,6 @@
 									   FilterCommand="{Binding Source={RelativeSource AncestorType=
 			{x:Type templates:TopBarView}},Path=FilterCommand}"
 									   Icon="{Static material:IconFont.Magnify}"
-									   Color="{StaticResource Color1}"
 									   Opacity="{Binding RicercaOpacity}"
 									   InputTransparent="{Binding Source={RelativeSource AncestorType=
 			{x:Type templates:TopBarView}},Path=IsFilterOn,Converter={toolkit:InvertedBoolConverter}}"
@@ -71,6 +72,8 @@
 				   FontSize="26"
 				   TextColor="{StaticResource Color6}" />
 			<templatesWin:HighlightView WidthRequest="70"
+										IsEnabled="{Binding RicercaEnabled}"
+										IsVisible="{Binding RicercaEnabled}"
 										Clicked="DeleteFilter_Pressed"
 										CornerRadius="99" />
 		</Grid>

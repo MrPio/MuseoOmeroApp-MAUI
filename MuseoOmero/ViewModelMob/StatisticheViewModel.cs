@@ -8,7 +8,17 @@ public partial class StatisticheViewModel : ObservableObject
 	ObservableCollection<Visita> visite = new();
 
 	[ObservableProperty]
-	bool noVisite = true;
+	bool noVisite = true, isRefreshing;
+
+	[RelayCommand]
+	async void Refresh()
+	{
+		mainViewModel.IsBusy = true;
+		await DatabaseManager.Instance.ReloadUtente();
+		Initialize();
+		mainViewModel.IsBusy = false;
+		IsRefreshing = false;
+	}
 
 	public void Initialize()
 	{

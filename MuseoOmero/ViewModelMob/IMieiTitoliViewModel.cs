@@ -1,4 +1,6 @@
-﻿namespace MuseoOmero.ViewModelMob;
+﻿using System.Collections.Generic;
+
+namespace MuseoOmero.ViewModelMob;
 public partial class IMieiTitoliViewModel : ObservableObject
 {
 	private MainViewModel _mainViewModel => Service.Get<MainViewModel>();
@@ -21,21 +23,22 @@ public partial class IMieiTitoliViewModel : ObservableObject
 	public async void AggiornaClicked()
 	{
 		_mainViewModel.IsBusy = true;
-		AccountManager.Instance.Utente = await DatabaseManager.Instance.LoadJsonObject<Utente>($"utenti/{AccountManager.Instance.Uid}");
+		await DatabaseManager.Instance.ReloadUtente();
 		FetchBiglietti();
 		_mainViewModel.IsBusy = false;
 	}
 
 	public void FetchBiglietti()
 	{
-		Biglietti.Clear();
+		var biglietti = new List<BigliettoViewModel>();
 		AccountManager.Instance.Utente.Biglietti
 			.Where(b => _dataFiltro is null || (b.DataValidita.Month == _dataFiltro?.Month && b.DataValidita.Year == _dataFiltro?.Year))
 			.OrderByDescending(b => b.DataValidita)
 			.ToList()
-			.ForEach(b => Biglietti.Add(new(b)));
-
+			.ForEach(b => biglietti.Add(new(b)));
+		Biglietti = new(biglietti);
 		OnPropertyChanged(nameof(NoBiglietti));
+		//took about ~500us in debug-mode
 	}
 	public void ObserveBiglietti()
 	{

@@ -9,6 +9,6 @@
         double ricercaOpacity = 1, translationY = 0, opacity = 1;
 
         [ObservableProperty]
-        bool isDate;
+        bool isDate, ricercaEnabled;
     }
 }

@@ -9,7 +9,6 @@ public partial class HomeViewModel : ObservableObject
 		set { _currentSala = value; OnPropertyChanged(nameof(CurrentSala)); FetchOpere(); }
 	}
 
-
 	[ObservableProperty]
 	ObservableCollection<Opera> opereFiltrate = new();
 	[ObservableProperty]

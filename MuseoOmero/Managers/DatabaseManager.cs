@@ -91,8 +91,15 @@ public class DatabaseManager
 	}
 
 	// High-Level
-	public async Task SaveAccount(Utente account)
+	public async Task SaveUtente(Utente utente)
 	{
-		await Put($"utenti/{AccountManager.Instance.Uid}/", account);
+		await Put($"utenti/{utente.Uid}/", utente);
 	}
+	public async Task ReloadUtente()
+	{
+		var utente = AccountManager.Instance.Utente;
+		if(utente is { })
+			AccountManager.Instance.Utente = await LoadJsonObject<Utente>($"utenti/{utente.Uid}");
+	}
+
 }

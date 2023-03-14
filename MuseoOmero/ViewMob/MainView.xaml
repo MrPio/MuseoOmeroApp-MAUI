@@ -17,7 +17,7 @@
 			 xmlns:enums="clr-namespace:MuseoOmero.Model.Enums"
 			 x:Class="MuseoOmero.ViewMob.MainView"
 			 x:DataType="viewModels:MainViewModel"
-			 BackgroundColor="{StaticResource Color4}"
+			 BackgroundColor="{AppThemeBinding Light={StaticResource Color4}, Dark=Black}"
 			 tabs:TouchEffect.Color="{StaticResource Color1}"
 			 Title="MuseoOmeroApp">
 

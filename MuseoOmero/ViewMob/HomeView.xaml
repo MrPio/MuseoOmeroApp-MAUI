@@ -79,7 +79,8 @@
 												<VisualState x:Name="Normal">
 													<VisualState.Setters>
 														<Setter Property="BackgroundColor"
-																Value="{StaticResource Color5}" />
+																Value="{AppThemeBinding Light={StaticResource Color5},
+															Dark={StaticResource Color1}}" />
 														<Setter Property="Content">
 															<Setter.Value>
 																<Label Style="{StaticResource LabelNormal}"
@@ -134,7 +135,8 @@
 										<!--Dettagli-->
 										<Grid Grid.Row="1"
 											  RowDefinitions="*,*"
-											  BackgroundColor="{StaticResource Color5}">
+											  BackgroundColor="{AppThemeBinding Light={StaticResource Color5},
+															Dark={StaticResource Color1}}">
 
 											<!--Titolo-->
 											<Label Style="{StaticResource LabelNormal}"
@@ -228,7 +230,8 @@
 										<!--Dettagli-->
 										<Grid Grid.Row="1"
 											  RowDefinitions="*,*"
-											  BackgroundColor="{StaticResource Color5}">
+											  BackgroundColor="{AppThemeBinding Light={StaticResource Color5},
+															Dark={StaticResource Color1}}">
 
 											<!--Titolo-->
 											<Label Style="{StaticResource LabelNormal}"
