@@ -20,9 +20,9 @@
 			 x:Class="MuseoOmero.ViewMob.OperaView"
 			 Title="OperaView"
 			 x:DataType="model:Opera"
-			 BackgroundColor="{StaticResource Color5}">
+			 BackgroundColor="{StaticResource Color1}">
 
-	<ScrollView>
+	<ScrollView BackgroundColor="{StaticResource Color5}">
 		<VerticalStackLayout>
 			<VerticalStackLayout.Background>
 				<LinearGradientBrush>

@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-			 xmlns:tabs="http://sharpnado.com"
-			 xmlns:view="clr-namespace:MuseoOmero.ViewMob"
-			 xmlns:viewWin="clr-namespace:MuseoOmero.ViewWin"
-			 xmlns:viewModelMob="clr-namespace:MuseoOmero.ViewModelMob"
-			 xmlns:viewModelWin="clr-namespace:MuseoOmero.ViewModelWin"
-			 xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
-			 xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
-			 xmlns:templatesMob="clr-namespace:MuseoOmero.ViewMob.Templates"
-			 xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
-			 xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
-			 xmlns:model="clr-namespace:MuseoOmero.Model"
-			 xmlns:converters="clr-namespace:MuseoOmero.Converters"
-			 xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
-			 xmlns:popup="clr-namespace:MuseoOmero.ViewMob.Popups"
-			 xmlns:enums="clr-namespace:MuseoOmero.Model.Enums"
-			 xmlns:extensions="clr-namespace:MuseoOmero.Extensions"
-			 xmlns:selector="clr-namespace:MuseoOmero.Selectors"
-			 x:Class="MuseoOmero.ViewMob.QuestionarioView"
-			 Title="QuestionarioView"
-			 x:DataType="model:Questionario">
+				  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+				  xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+				  xmlns:tabs="http://sharpnado.com"
+				  xmlns:view="clr-namespace:MuseoOmero.ViewMob"
+				  xmlns:viewWin="clr-namespace:MuseoOmero.ViewWin"
+				  xmlns:viewModelMob="clr-namespace:MuseoOmero.ViewModelMob"
+				  xmlns:viewModelWin="clr-namespace:MuseoOmero.ViewModelWin"
+				  xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+				  xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+				  xmlns:templatesMob="clr-namespace:MuseoOmero.ViewMob.Templates"
+				  xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
+				  xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
+				  xmlns:model="clr-namespace:MuseoOmero.Model"
+				  xmlns:converters="clr-namespace:MuseoOmero.Converters"
+				  xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+				  xmlns:popup="clr-namespace:MuseoOmero.ViewMob.Popups"
+				  xmlns:enums="clr-namespace:MuseoOmero.Model.Enums"
+				  xmlns:extensions="clr-namespace:MuseoOmero.Extensions"
+				  xmlns:selector="clr-namespace:MuseoOmero.Selectors"
+				  x:Class="MuseoOmero.ViewMob.QuestionarioView"
+				  Title="QuestionarioView"
+				  BackgroundColor="{StaticResource Color1}"
+				  x:DataType="model:Questionario">
 
-	<ScrollView>
+	<ScrollView BackgroundColor="{StaticResource Color5}">
 		<VerticalStackLayout>
 			<VerticalStackLayout.Background>
 				<LinearGradientBrush>

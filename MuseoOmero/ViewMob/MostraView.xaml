@@ -19,9 +19,10 @@
 				  xmlns:extensions="clr-namespace:MuseoOmero.Extensions"
 				  x:Class="MuseoOmero.ViewMob.MostraView"
 				  x:DataType="model:Mostra"
+				  BackgroundColor="{StaticResource Color1}"
 				  Title="MostraView">
 
-	<ScrollView > 
+	<ScrollView BackgroundColor="{StaticResource Color5}" > 
 		<VerticalStackLayout>
 			<VerticalStackLayout.Background>
 				<LinearGradientBrush>
