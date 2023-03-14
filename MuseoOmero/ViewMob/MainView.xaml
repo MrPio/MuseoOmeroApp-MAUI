@@ -50,26 +50,26 @@
 							   BindingContext="{Binding HomeViewModel}"
 							   Animate="True"
 							   UseActivityIndicator="False" />
-				<tabs:LazyView x:TypeArguments="views:IMieiTitoliView"
-							   AccentColor="{StaticResource Color1}"
-							   BindingContext="{Binding IMieiTitoliViewModel}"
-							   Animate="True"
-							   UseActivityIndicator="True" />
-				<tabs:LazyView x:TypeArguments="views:BiglietteriaView"
-							   AccentColor="{StaticResource Color1}"
-							   BindingContext="{Binding BiglietteriaViewModel}"
-							   Animate="True"
-							   UseActivityIndicator="True" />
-				<tabs:LazyView x:TypeArguments="views:ChatView"
-							   AccentColor="{StaticResource Color1}"
-							   BindingContext="{Binding ChatViewModel}"
-							   Animate="True"
-							   UseActivityIndicator="True" />
+				<tabs:DelayedView x:TypeArguments="views:IMieiTitoliView"
+								  AccentColor="{StaticResource Color1}"
+								  BindingContext="{Binding IMieiTitoliViewModel}"
+								  Animate="True"
+								  UseActivityIndicator="True" />
+				<tabs:DelayedView x:TypeArguments="views:BiglietteriaView"
+								  AccentColor="{StaticResource Color1}"
+								  BindingContext="{Binding BiglietteriaViewModel}"
+								  Animate="True"
+								  UseActivityIndicator="True" />
+				<tabs:DelayedView x:TypeArguments="views:ChatView"
+								  AccentColor="{StaticResource Color1}"
+								  BindingContext="{Binding ChatViewModel}"
+								  Animate="True"
+								  UseActivityIndicator="True" />
 				<tabs:LazyView x:TypeArguments="views:StatisticheView"
-							   AccentColor="{StaticResource Color1}"
-							   BindingContext="{Binding StatisticheViewModel}"
-							   Animate="True"
-							   UseActivityIndicator="True" />
+								  AccentColor="{StaticResource Color1}"
+								  BindingContext="{Binding StatisticheViewModel}"
+								  Animate="True"
+								  UseActivityIndicator="True" />
 			</tabs:ViewSwitcher>
 		</Grid>
 
@@ -164,6 +164,26 @@
 									Label="{x:Static material:IconFont.ChartBox}"
 									LabelSize="{Binding FontSize5}" />
 			</tabs:TabHostView>
+		</Grid>
+
+		<!--Avatar-->
+		<Grid RowDefinitions="56"
+			  ColumnDefinitions="56"
+			  Margin="24,12,0,0">
+			<Border StrokeShape="RoundRectangle 99"
+					StrokeDashArray="1,1.2"
+					StrokeThickness="2"
+				   Padding="0">
+				<Image x:Name="Avatar"
+					   HeightRequest="56"
+					   WidthRequest="56"
+					   Source="{Binding FotoProfilo}"
+					   Aspect="AspectFit" />
+			</Border>
+			<templatesWin:HighlightView  Margin="-20"
+										 Color="{StaticResource Color5}"
+										 CornerRadius="99"
+										 Clicked="Avatar_Clicked"/>
 		</Grid>
 
 		<!-- Loading screen -->

@@ -58,6 +58,7 @@ public partial class MainViewModel : ObservableObject
 	double bottomBarTranslationX, bottomBarOpacity = 1;
 	[ObservableProperty]
 	bool isBusy = false;
+
 	double wavesExpandFactor = 0;
 	public double WavesExpandFactor
 	{
@@ -76,6 +77,9 @@ public partial class MainViewModel : ObservableObject
 			TopBarViewModel.RicercaOpacity = 1 - easingValue * 1.5;
 		}
 	}
+
+	[ObservableProperty]
+	string fotoProfilo;
 
 	public List<Opera> Opere = new();
 	public List<Mostra> Mostre = new();
@@ -103,6 +107,7 @@ public partial class MainViewModel : ObservableObject
 	public async Task Initialize()
 	{
 		IsBusy = true;
+		FotoProfilo = AccountManager.Instance.Utente.FotoProfilo;
 		Opere = await DatabaseManager.Instance.LoadJsonArray<Opera>("opere/");
 		Mostre = await DatabaseManager.Instance.LoadJsonArray<Mostra>("mostre/");
 

@@ -19,6 +19,8 @@
 			 xmlns:enums="clr-namespace:MuseoOmero.Model.Enums"
 			 xmlns:extensions="clr-namespace:MuseoOmero.Extensions"
 			 xmlns:selector="clr-namespace:MuseoOmero.Selectors"
+			 xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+			 xmlns:lvcore="clr-namespace:LiveChartsCore;assembly=LiveChartsCore"
 			 x:Class="MuseoOmero.ViewMob.StatisticheView"
 			 x:DataType="viewModelMob:StatisticheViewModel">
 
@@ -184,6 +186,33 @@
 					   LineBreakMode="WordWrap"
 					   Text="In base alle tue interazioni, abbiamo realizzato le seguenti statistiche." />
 
+				<Label Style="{StaticResource LabelNormal}"
+					   FontSize="16"
+					   HorizontalOptions="Center"
+					   LineBreakMode="WordWrap"
+					   Text="Rapporto visite/questionari compilati" />
+				<!--Visite/Compilazioni HorizontalBarChart-->
+				<lvc:CartesianChart Series="{Binding VisiteConvalideSeries}"
+									HeightRequest="120"
+									LegendPosition="Top"
+									LegendTextSize="36"
+									TooltipTextSize="40" />
+
+				<Line Style="{StaticResource HRuleMob}" />
+
+			
+				<Label Style="{StaticResource LabelNormal}"
+					   FontSize="16"
+					   HorizontalOptions="Center"
+					   LineBreakMode="WordWrap"
+					   Text="Tipologie biglietti acquistati" />
+				<!--TipologiaBiglietti-->
+				<lvc:PieChart Series="{Binding TipologiaBigliettiSeries}"
+							  HeightRequest="220"
+							  TooltipTextSize="46"
+							  LegendTextSize="36"
+							  LegendPosition="Bottom"
+							  EasingFunction="{Binding Source={x:Static lvcore:EasingFunctions.CubicOut}}" />
 			</VerticalStackLayout>
 		</ScrollView>
 	</RefreshView>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+				  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+				  xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+				  xmlns:tabs="http://sharpnado.com"
+				  xmlns:views="clr-namespace:MuseoOmero.ViewMob"
+				  xmlns:viewModels="clr-namespace:MuseoOmero.ViewModelMob"
+				  xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+				  xmlns:material="clr-namespace:MuseoOmero.Resources.Material"
+				  xmlns:templatesMob="clr-namespace:MuseoOmero.ViewMob.Templates"
+				  xmlns:templatesWin="clr-namespace:MuseoOmero.View.TemplatesWin"
+				  xmlns:templates="clr-namespace:MuseoOmero.View.Templates"
+				  xmlns:model="clr-namespace:MuseoOmero.Model"
+				  xmlns:converters="clr-namespace:MuseoOmero.Converters"
+				  xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+				  xmlns:popup="clr-namespace:MuseoOmero.ViewMob.Popups"
+				  xmlns:enums="clr-namespace:MuseoOmero.Model.Enums"
+				  x:Class="MuseoOmero.ViewMob.AccountView"
+				  Title="Account"
+				  BackgroundColor="{StaticResource Color1}"
+				  x:DataType="model:Utente">
+	<Grid>
+		<ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource Color5},Dark=black}">
+			<VerticalStackLayout>
+				<VerticalStackLayout.Background>
+					<LinearGradientBrush>
+						<GradientStop Color="Transparent"
+									  Offset="0.5" />
+						<GradientStop Color="#55fcd63d"
+									  Offset="1" />
+					</LinearGradientBrush>
+				</VerticalStackLayout.Background>
+
+				<!--Titolo, Foto-->
+				<Grid RowDefinitions="auto,*"
+					  BackgroundColor="{StaticResource Color1}">
+
+					<!--Titolo-->
+					<Label Style="{StaticResource LabelBold}"
+						   Margin="20,30,20,0"
+						   FontFamily="LatoBlack"
+						   LineBreakMode="WordWrap"
+						   TextColor="{StaticResource Color5}"
+						   FontSize="26"
+						   HorizontalOptions="Center">
+						<Label.Text>
+							<MultiBinding StringFormat="{}Ciao {0} {1}!">
+								<Binding Path="Nome" />
+								<Binding Path="Cognome" />
+							</MultiBinding>
+						</Label.Text>
+					</Label>
+
+					<!--Foto-->
+					<Image x:Name="FotoProfilo" Grid.Row="1"
+						   Source="{Binding FotoProfilo}"
+						   Aspect="AspectFit"
+						   HorizontalOptions="FillAndExpand"
+						   HeightRequest="260"
+						   Margin="0,10,0,0" />
+
+					<!--Vignette-->
+					<BoxView Grid.RowSpan="2">
+						<BoxView.Background>
+							<RadialGradientBrush>
+								<GradientStop Color="Transparent"
+											  Offset="0.74" />
+								<GradientStop Color="#10000000"
+											  Offset="1.85" />
+							</RadialGradientBrush>
+						</BoxView.Background>
+					</BoxView>
+
+					<!--White Wave-->
+					<Image Grid.Row="1"
+						   VerticalOptions="End"
+						   ScaleX="1.02"
+						   Source="{AppThemeBinding Light=wave_inverse_white.png,Dark= wave_inverse_black.png}"
+						   HorizontalOptions="Fill" />
+
+					<templatesWin:HighlightView Grid.Row="1"
+												CornerRadius="0"
+												Color="{StaticResource Color5}"
+												Clicked="FotoProfilo_Clicked" />
+				</Grid>
+
+				<Label Style="{StaticResource LabelThin}"
+					   HorizontalOptions="Center"
+					   Margin="0,10"
+					   Text="Clicca sull'immagine per cambiarla."
+					   FontSize="18" />
+				<Line Style="{StaticResource HRuleMob}" />
+				<BoxView HeightRequest="10" />
+
+				<!--Dettagli-->
+				<VerticalStackLayout>
+					<VerticalStackLayout.Resources>
+						<Style TargetType="Label"
+							   BasedOn="{StaticResource LabelBold}">
+							<Setter Property="FontSize"
+									Value="18" />
+							<Setter Property="HorizontalTextAlignment"
+									Value="Center" />
+						</Style>
+						<Style TargetType="templatesMob:RoundedEntryViewMob">
+							<Setter Property="HeightRequest"
+									Value="46" />
+							<Setter Property="Margin"
+									Value="30,4" />
+						</Style>
+					</VerticalStackLayout.Resources>
+
+					<Label Text="Username:" />
+					<templatesMob:RoundedEntryViewMob Icon="{Static material:IconFont.Account}"
+													  Text="{Binding Username,Mode=TwoWay}" />
+					<Label Text="Nome:" />
+					<templatesMob:RoundedEntryViewMob Icon="{Static material:IconFont.Pen}"
+													  Text="{Binding Nome,Mode=TwoWay}" />
+					<Label Text="Cognome:" />
+					<templatesMob:RoundedEntryViewMob Icon="{Static material:IconFont.Pencil}"
+													  Text="{Binding Cognome,Mode=TwoWay}" />
+					<Label Text="Cellulare:" />
+					<templatesMob:RoundedEntryViewMob Icon="{Static material:IconFont.Cellphone}"
+													  Text="{Binding Cellulare,Mode=TwoWay}"
+													  Keyboard="Telephone" />
+				</VerticalStackLayout>
+
+				<!--Line-->
+				<BoxView HeightRequest="20" />
+				<Line Style="{StaticResource HRuleMob}" />
+
+				<!--Descrizione-->
+				<Label Style="{StaticResource LabelBold}"
+					   Text="{Binding Biglietti.Count, StringFormat='{}Hai acquistato {0} biglietti/o.'}"
+					   FontSize="18"
+					   Margin="20,30,20,0" />
+				<Label Style="{StaticResource LabelBold}"
+					   Text="{Binding Questionari.Count, StringFormat='{}Hai compilato {0} questionari/o.'}"
+					   FontSize="18"
+					   Margin="20,10,20,0" />
+				<Label Style="{StaticResource LabelBold}"
+					   Text="{Binding Chat.MessaggiUtente.Count, StringFormat='{}Hai mandato {0} messaggi/o al museo.'}"
+					   FontSize="18"
+					   Margin="20,10,20,0" />
+				<BoxView HeightRequest="40" />
+
+				<templates:RoundedButtonView Text="Salva e chiudi"
+											 WidthRequest="200"
+											 PressedBackgroundColor="#70ffffff"
+											 Color="{StaticResource Color12}"
+											 ReleasedTextColor="{StaticResource Color5}"
+											 Clicked="SalvaEChiudi_Clicked" />
+				<BoxView HeightRequest="10" />
+
+				<!--Black Wave-->
+				<Image Grid.Row="1"
+					   VerticalOptions="End"
+					   ScaleX="1.02"
+					   Margin="0,-10,0,0"
+					   Rotation="180"
+					   Source="wave_black.png"
+					   HorizontalOptions="Fill" />
+				<BoxView Color="{StaticResource Color1}"
+						 VerticalOptions="End"
+						 HeightRequest="40"
+						 ScaleY="1.04" />
+
+			</VerticalStackLayout>
+		</ScrollView>
+
+		<!-- Loading screen -->
+		<templatesWin:LoadingView x:Name="Loading"
+								  IsVisible="False" />
+	</Grid>
+</mopups:PopupPage>

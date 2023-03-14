@@ -66,7 +66,7 @@ public partial class StatisticheViewModelWin : ObservableObject
 		_homeViewModelWin = homeViewModelWin;
 	}
 
-	public async void Initialize()
+	public void Initialize()
 	{
 		var utenti = _homeViewModelWin.Utenti;
 		var bigliettiTot = utenti.SelectMany(u => u.Biglietti);

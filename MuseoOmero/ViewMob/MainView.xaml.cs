@@ -1,4 +1,6 @@
-﻿using Sharpnado.Tabs;
+﻿using Mopups.Interfaces;
+using MuseoOmero.Extensions;
+using Sharpnado.Tabs;
 using Sharpnado.Tabs.Effects;
 
 namespace MuseoOmero.ViewMob;
@@ -94,20 +96,23 @@ public partial class MainView : ContentPage
 			new[]{ 56d, 114d},
 			new[]{ 0+(show?0.5:0), 0.5 +( show ? 0.5 : 0 )}
 		};
-		topBar.RicercaEnabled = true;
+		//topBar.RicercaEnabled = true;
 
 		var animation = new Animation
 		{
 			{0,1,new Animation(v =>waves.TopWave =
 			new GridLength(v), waves.TopWave.Value, anim[0][show?1:0],Easing.CubicOut)},
-			{ anim[1][0],anim[1][1],new Animation(v => topBar.RicercaOpacity =
+			{ 0,1,new Animation(v => topBar.RicercaOpacity =
 			v, topBar.RicercaOpacity, show?1:0,Easing.CubicOut )}
 		};
-		animation.Commit(this, "TopAnimation", 16, 850,Easing.CubicOut,
-			(v,b)=>{
-				if(!show)
-					topBar.RicercaEnabled = false;
-			});
+		animation.Commit(this, "TopAnimation", 16, 850, Easing.CubicOut);
+
+		//if (!show)
+		//	MainThread.InvokeOnMainThreadAsync(async () =>
+		//	{
+		//		await Task.Delay(1000);
+		//		topBar.RicercaEnabled = false;
+		//	});
 	}
 	private void ResetTopBarAndWaves()
 	{
@@ -134,6 +139,13 @@ public partial class MainView : ContentPage
 				};
 		var c = DeviceDisplay.MainDisplayInfo;
 		animation.Commit(this, "WavesAnimation", 16, 500, null, null);
+	}
+
+	private void Avatar_Clicked(object sender, EventArgs e)
+	{
+		var clone = AccountManager.Instance.Utente.Clone();
+		clone.Uid = AccountManager.Instance.Uid;
+		Service.Get<IPopupNavigation>().PushAsync(new AccountView() { BindingContext = clone });
 	}
 }
 

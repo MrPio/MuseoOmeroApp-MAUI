@@ -171,6 +171,9 @@
 		<MauiXaml Update="Resources\Styles\BlackTheme.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="ViewMob\AccountView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="ViewMob\BiglietteriaView.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
