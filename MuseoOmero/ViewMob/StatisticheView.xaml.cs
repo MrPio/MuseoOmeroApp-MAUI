@@ -15,9 +15,9 @@ public partial class StatisticheView : ContentView
 
 	private void VisitaConQuestionario_Clicked(object sender, EventArgs e)
 	{
-		var questionario = ((VisualElement)sender).BindingContext as Questionario;
+		var visita = ((VisualElement)sender).BindingContext as Visita;
 		App.Current.MainPage.DisplayAlert("Questionario già compilato", "Spiacente, " +
-			$"hai già compilato il questionario per questa visita in data {questionario.DataCompilazione:dd MMMM yyyy}.", "Ok");
+			$"hai già compilato il questionario per questa visita in data {visita.Questionario.DataCompilazione:dd MMMM yyyy}.", "Ok");
 	}
 
 	private void VisitaSenzaQuestionario_Clicked(object sender, EventArgs e)

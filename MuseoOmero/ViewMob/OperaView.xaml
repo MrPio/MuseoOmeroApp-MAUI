@@ -162,7 +162,7 @@
 				   HorizontalOptions="Fill" />
 			<Grid>
 				<BoxView Color="{StaticResource Color1}"
-						 HeightRequest="250"
+						 HeightRequest="40"
 						 ScaleY="1.04" />
 				<!--Visualizzazioni-->
 				<Grid Grid.Row="1"

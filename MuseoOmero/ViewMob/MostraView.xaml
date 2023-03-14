@@ -138,7 +138,7 @@
 				   HorizontalOptions="Fill" />
 			<BoxView Color="{StaticResource Color1}"
 					 VerticalOptions="End"
-					 HeightRequest="230"
+					 HeightRequest="40"
 					 ScaleY="1.04" />
 
 		</VerticalStackLayout>
