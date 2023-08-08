@@ -4,14 +4,15 @@ namespace MuseoOmero.ViewWin;
 
 public partial class ShellViewWin : Shell
 {
+	private ShellViewModelWin _viewModel;
 	private bool _shellExpanded = false;
 	private float _shellMaxWidth = 246;
 	private float _shellMinWidth = 80;
 	public ShellViewWin(ShellViewModelWin viewModel)
 	{
 		//DeviceManager.Instance.ResizeWin(1330, 850);
-
-		BindingContext = viewModel;
+		_viewModel = viewModel;
+		BindingContext = _viewModel;
 		InitializeComponent();
 		InitRoutes();
 		var t = Task.Run(async delegate

@@ -1,4 +1,4 @@
-﻿namespace MuseoOmero.Model;
+﻿namespace MuseoOmero.Model{
 public class Chat
 {
 	//[JsonIgnore] public string Utente { get; set; }
@@ -13,4 +13,5 @@ public class Chat
 		MessaggiUtente = messaggiUtente ??= new();
 		DataInizio = dataInizio;
 	}
+}
 }

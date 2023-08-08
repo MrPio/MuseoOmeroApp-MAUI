@@ -1,4 +1,4 @@
-﻿namespace MuseoOmero.Model;
+﻿namespace MuseoOmero.Model{
 public class Messaggio
 {
 	[JsonProperty("data")] public DateTime Data { get; set; }
@@ -20,4 +20,5 @@ public class Messaggio
 		Data = data;
 		Testo = testo;
 	}
+}
 }

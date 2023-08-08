@@ -1,4 +1,4 @@
-﻿namespace MuseoOmero.Model;
+﻿namespace MuseoOmero.Model{
 public class Mostra
 {
 	public string Id { get; set; }
@@ -21,4 +21,4 @@ public class Mostra
 		Descrizione = descrizione;
 		Opere = opere;
 	}
-}
+}}

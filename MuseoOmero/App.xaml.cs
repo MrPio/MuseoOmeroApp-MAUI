@@ -15,7 +15,7 @@ namespace MuseoOmero;
 public partial class App : Application
 {
 
-#if WINDOWS
+#if WINDOWS || MACCATALYST
 	public App(SignInUpViewModelWin signInUpViewModelWin, ShellViewModelWin shellViewModelWin)
 	{
 		InitializeComponent();

@@ -75,7 +75,7 @@ public static class MauiProgram
 		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
 		// ANDROID
-#if ANDROID
+#if ANDROID 
 		builder.Services.AddSingleton<SignInUpView>();
 		builder.Services.AddSingleton<MainView>();
 		builder.Services.AddSingleton<MainViewModel>();

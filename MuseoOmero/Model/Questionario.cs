@@ -1,4 +1,4 @@
-﻿namespace MuseoOmero.Model;
+﻿namespace MuseoOmero.Model{
 public class Questionario
 {
 	[JsonProperty("tipologia_visita")] public string TipologiaVisita { get; set; }
@@ -27,4 +27,4 @@ public class Questionario
 		DataCompilazione = dataCompilazione;
 		DataVisita = dataVisita;
 	}
-}
+}}

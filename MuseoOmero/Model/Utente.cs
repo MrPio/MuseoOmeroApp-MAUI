@@ -1,4 +1,4 @@
-﻿namespace MuseoOmero.Model;
+﻿namespace MuseoOmero.Model{
 
 public class Utente
 {
@@ -40,4 +40,4 @@ public class Utente
 		LastOnline = lastOnline;
 		FotoProfilo = fotoProfilo is { } ? fotoProfilo : ImagesOnline.Anonymous;
 	}
-}
+}}

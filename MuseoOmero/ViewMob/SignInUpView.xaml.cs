@@ -75,6 +75,7 @@ public partial class SignInUpView : ContentPage
 		var popup = new SignUpView(_mainViewModel,_popupNavigation);
 		popup.Email = EmailEntry.Text;	
 		popup.Password = PasswordEntry.Text;
+		//App.Current.MainPage = popup;
 		_popupNavigation.PushAsync(popup);
 	}
 

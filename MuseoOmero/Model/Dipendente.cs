@@ -1,4 +1,4 @@
-﻿namespace MuseoOmero.Model;
+﻿namespace MuseoOmero.Model{
 public class Dipendente
 {
 	[JsonIgnore] public string Uid { get; set; }
@@ -31,4 +31,5 @@ public class Dipendente
 		Ruolo = ruolo;
 		LastOnline = lastOnline;
 	}
+}
 }

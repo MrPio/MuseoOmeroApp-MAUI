@@ -5,7 +5,7 @@ namespace MuseoOmero.ViewMob;
 public partial class QuestionarioView
 {
 	IPopupNavigation popupNavigation => Service.Get<IPopupNavigation>();
-	StatisticheViewModel statisticheViewModels => Service.Get<StatisticheViewModel>();
+	StatisticheViewModel statisticheViewModel => Service.Get<StatisticheViewModel>();
 
 	public Visita Visita { get; set; }
 
@@ -22,7 +22,7 @@ public partial class QuestionarioView
 		DatabaseManager.Instance.Put($"utenti/{utente.Uid}/questionari/{utente.Questionari.Count - 1}", questionario);
 		Visita.Questionario = questionario;
 		popupNavigation.PopAllAsync();
-		statisticheViewModels.Initialize();
+		statisticheViewModel.Initialize();
 		App.Current.MainPage.DisplayAlert("Compilazione inviata", "Hai compilato con successo il questionario. Grazie per il tuo prezioso contributo!", "Ok");
 
 	}
