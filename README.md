@@ -1,6 +1,7 @@
 # MuseoOmero
 ### Applicazione multipiattaforma di tipo gestionale realizzata come progetto di tirocinio.
-### Oggetto di studio: [Museo Tattile Statale Omero](https://www.museoomero.it/).
+### Tesi di laurea: [MAUI_Thesis.pdf](https://github.com/user-attachments/files/21597195/MAUI_Thesis.pdf).
+#### Oggetto di studio: [Museo Tattile Statale Omero](https://www.museoomero.it/).
 
 ## Mobile (Android + iOS)
 
